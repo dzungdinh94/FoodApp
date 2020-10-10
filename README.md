@@ -14,10 +14,10 @@ Currently includes:
 
 ## Quick Start
 
-The Ignite Bowser boilerplate project's structure will look similar to this:
+The FoodApp project's structure will look similar to this:
 
 ```
-ignite-project
+FoodApp-project
 ├── app
 │   ├── components
 │   ├── i18n
@@ -50,16 +50,16 @@ ignite-project
 │   ├── gradlew.bat
 │   ├── keystores
 │   └── settings.gradle
-├── ignite
-│   ├── ignite.json
+├── FoodApp
+│   ├── FoodApp.json
 │   └── plugins
 ├── index.js
 ├── ios
-│   ├── IgniteProject
-│   ├── IgniteProject-tvOS
-│   ├── IgniteProject-tvOSTests
-│   ├── IgniteProject.xcodeproj
-│   └── IgniteProjectTests
+│   ├── FoodAppProject
+│   ├── FoodAppProject-tvOS
+│   ├── FoodAppProject-tvOSTests
+│   ├── FoodAppProject.xcodeproj
+│   └── FoodAppProjectTests
 ├── .env
 └── package.json
 
@@ -67,7 +67,7 @@ ignite-project
 
 ### ./app directory
 
-Included in an Ignite boilerplate project is the `app` directory. This is a directory you would normally have to create when using vanilla React Native.
+Included in an FoodApp boilerplate project is the `app` directory. This is a directory you would normally have to create when using vanilla React Native.
 
 The inside of the src directory looks similar to the following:
 
@@ -110,9 +110,9 @@ This is a great place to put miscellaneous helpers and utilities. Things like da
 
 **app.tsx** This is the entry point to your app. This is where you will find the main App component which renders the rest of the application. This is also where you will specify whether you want to run the app in storybook mode.
 
-### ./ignite directory
+### ./FoodApp directory
 
-The `ignite` directory stores all things Ignite, including CLI and boilerplate items. Here you will find generators, plugins and examples to help you get started with React Native.
+The `FoodApp` directory stores all things FoodApp, including CLI and boilerplate items. Here you will find generators, plugins and examples to help you get started with React Native.
 
 ### ./storybook directory
 
