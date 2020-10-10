@@ -21,7 +21,7 @@ const trackOffStyle: ViewStyle[] = [
 ]
 const trackOnStyle: ViewStyle[] = [
   {
-    backgroundColor: "#b1008e",
+    backgroundColor: "#b10e",
     borderColor: "#686868",
   },
   {
@@ -31,7 +31,7 @@ const trackOnStyle: ViewStyle[] = [
 ]
 const thumbOffStyle: ViewStyle[] = [
   {
-    backgroundColor: "#b1008e",
+    backgroundColor: "#b10e",
     borderColor: "#686868",
   },
   {

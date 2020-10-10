@@ -28,6 +28,7 @@ import { RootStore, RootStoreProvider, setupRootStore } from "./models"
 // stack navigation, use `createNativeStackNavigator` in place of `createStackNavigator`:
 // https://github.com/kmagiera/react-native-screens#using-native-stack-navigator
 import { enableScreens } from "react-native-screens"
+import { RootContainer } from "./root-container"
 enableScreens()
 
 export const NAVIGATION_PERSISTENCE_KEY = "NAVIGATION_STATE"
@@ -41,10 +42,10 @@ function App() {
 
   setRootNavigation(navigationRef)
   useBackButtonHandler(navigationRef, canExit)
-  const { initialNavigationState, onNavigationStateChange } = useNavigationPersistence(
-    storage,
-    NAVIGATION_PERSISTENCE_KEY,
-  )
+  // const { initialNavigationState, onNavigationStateChange } = useNavigationPersistence(
+  //   storage,
+  //   NAVIGATION_PERSISTENCE_KEY,
+  // )
 
   // Kick off initial async loading actions, like loading fonts and RootStore
   useEffect(() => {
@@ -63,11 +64,7 @@ function App() {
   return (
     <RootStoreProvider value={rootStore}>
       <SafeAreaProvider initialSafeAreaInsets={initialWindowSafeAreaInsets}>
-        <RootNavigator
-          ref={navigationRef}
-          initialState={initialNavigationState}
-          onStateChange={onNavigationStateChange}
-        />
+        <RootContainer />
       </SafeAreaProvider>
     </RootStoreProvider>
   )

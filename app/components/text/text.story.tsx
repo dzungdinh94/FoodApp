@@ -29,7 +29,7 @@ storiesOf("Text", module)
             line height
           </Text>
           <Text style={{ paddingTop: 10 }}>The quick brown fox jumped over the slow lazy dog.</Text>
-          <Text>$123,456,789.00</Text>
+          <Text>$3,456,789.00</Text>
         </View>
       </UseCase>
       <UseCase text="bold" usage="Used for bolded body text.">

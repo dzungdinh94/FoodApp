@@ -8,7 +8,7 @@ declare let module
 
 const buttonStyleArray: ViewStyle[] = [{ paddingVertical: 100 }, { borderRadius: 0 }]
 
-const buttonTextStyleArray: TextStyle[] = [{ fontSize: 20 }, { color: "#a511dc" }]
+const buttonTextStyleArray: TextStyle[] = [{ fontSize: 20 }, { color: "#a5dc" }]
 
 storiesOf("Button", module)
   .addDecorator((fn) => <StoryScreen>{fn()}</StoryScreen>)
