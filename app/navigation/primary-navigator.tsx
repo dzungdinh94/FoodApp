@@ -97,6 +97,7 @@ export function AppNavigator() {
         headerShown: false,
         gestureEnabled: true,
       }}
+      initialRouteName={screens.SearchScreen}
     >
       <Stack.Screen name={screens.HomeBottomTab} component={HomeBottomTab} />
       <Stack.Screen name={screens.Browse01Screen} component={Browse01Screen} />
