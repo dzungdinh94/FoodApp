@@ -5,6 +5,7 @@ import { Screen, Text } from "../../components"
 // import { useNavigation } from "@react-navigation/native"
 // import { useStores } from "../../models"
 import { color } from "../../theme"
+import { Checkbox } from "react-native-paper"
 
 const ROOT: ViewStyle = {
   backgroundColor: color.palette.black,
@@ -22,6 +23,8 @@ export const OnboardingScreen = observer(function OnboardingScreen() {
   return (
     <Screen style={ROOT} preset="scroll">
       <Text preset="header" text="OnboardingScreen" />
+      <Text text="Tìm cửa hàng gần nhất" />
+
     </Screen>
   )
 })
