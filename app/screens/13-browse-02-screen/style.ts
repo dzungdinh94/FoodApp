@@ -1,0 +1,103 @@
+import {StyleSheet} from 'react-native'
+export default StyleSheet.create({
+  bullet:{
+      color:'black'
+  },
+  body:{
+    marginTop:50,
+    marginLeft: 10
+  },
+  item:{
+      fontWeight:'bold',
+      fontSize:17,
+      marginLeft:10
+  },
+  textHead:{
+      display:'flex',
+      flexDirection:'row'
+  },
+  textRight:{
+      marginLeft:240,
+      marginTop:1,
+      color:'gray'
+  },
+  bulletitem:{
+      width:122,
+      height:122,
+      borderRadius:10
+  },
+  item2:{
+      marginTop:20
+  },
+  scrollrow:{
+      marginTop:10
+  },
+  Image:{
+      height:122,
+      width:122,
+      borderRadius: 10,
+      margin:5
+  },
+  title:{
+      marginLeft:10
+  },
+  textgray:{
+      color:'gray'
+  },
+  textblack:{
+      fontSize:15
+  },
+  controlbar:{
+      width:343,
+      height:44,
+      backgroundColor:'#efeff4',
+      borderWidth:1,
+      borderRadius:10,
+      borderColor:'#cccccc',
+      marginLeft: 25,
+      display:'flex',
+      flexDirection:'row',
+      justifyContent:'space-around'
+  },
+  controlitem:{
+      color:'gray',
+      marginTop:10,
+      fontSize:15,
+      fontWeight:'600'
+  },
+  buy:{
+      display:'flex',
+      flexDirection:'row',
+      marginTop:10,
+      
+  },
+  buyitem:{
+      width:80,
+      height:80,
+      borderRadius:10
+  },
+  listitem:{
+      marginTop:20,
+      marginLeft:10
+  },
+  titlebuy:{
+    display:'flex', flexDirection:'column', margin:10, marginTop:10
+  },
+  buttonbuy:{
+    borderWidth:1,
+    width: 100,
+    textAlign:'center',
+    borderRadius:10,
+    borderColor:'rgb(147,194,47)',
+    color:'rgb(147,194,47)'
+},
+textbullet:{
+    color:'white',
+    fontWeight:'bold',
+    fontSize:17
+},
+textwhite:{
+    color:'white',
+    fontSize:12
+}
+})
