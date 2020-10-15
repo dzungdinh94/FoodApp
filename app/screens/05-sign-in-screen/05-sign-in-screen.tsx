@@ -11,6 +11,7 @@ import styles from "./styles"
 import { View } from "react-native"
 import { TextInput } from "react-native-gesture-handler"
 import { TouchableOpacity } from "react-native"
+import AvatarInput from "../../components/AvatarInput"
 
 const ROOT: ViewStyle = {
   backgroundColor: color.palette.white,
@@ -18,29 +19,6 @@ const ROOT: ViewStyle = {
   justifyContent: "space-between",
   paddingHorizontal: 32,
 }
-// const AuthInput = ({ title, isPassword }) => {
-//   const [inputValue, setInputValue] = React.useState("")
-//   const [IsFocusInput, SetIsFocusInPut] = React.useState(false)
-//   return (
-//     <View style={{ paddingBottom: 16 }}>
-//       <Text style={{ fontSize: 17, color: "rgb(140,140,140)" }}>{title}</Text>
-//       <TextInput
-//         value={inputValue}
-//         onChangeText={(change) => setInputValue(change)}
-//         style={{
-//           color: "black",
-//           fontSize: 17,
-//           borderBottomWidth: 1,
-//           paddingVertical: 5,
-//           borderColor: IsFocusInput || inputValue !== "" ? "rgb(147,194,47)" : "rgb(239,239,239)",
-//         }}
-//         onFocus={() => SetIsFocusInPut(true)}
-//         onEndEditing={() => SetIsFocusInPut(false)}
-//         secureTextEntry={isPassword}
-//       />
-//     </View>
-//   )
-// }
 
 export const SignInScreen = observer(function SignInScreen() {
   // Pull in one of our MST stores

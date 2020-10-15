@@ -14,7 +14,6 @@ import {
   Browse02Screen,
   Browse03Screen,
   CheckoutScreen,
-  SetLanguageScreen,
   SearchScreen,
   SettingScreen,
   Categories01Screen,
@@ -63,11 +62,11 @@ export function HomeBottomTab() {
         tabBarIcon: ({ focused }) => {
           let iconName
           if (route.name === screens.Browse02Screen) {
-            iconName = focused ? "home" : "home-outline"
+            iconName = focused ? "search" : "search-outline"
           } else if (route.name === screens.OrdersScreen) {
             iconName = focused ? "notifications" : "notifications-outline"
           } else if (route.name === screens.FavoritesScreen) {
-            iconName = focused ? "ios-people-circle" : "ios-people-circle-outline"
+            iconName = focused ? "heart" : "heart-outline"
           } else if (route.name === screens.NotificationsScreen) {
             iconName = focused ? "ios-people-circle" : "ios-people-circle-outline"
           } else {
@@ -105,7 +104,6 @@ export function AppNavigator() {
       <Stack.Screen name={screens.PaymentScreen} component={PaymentScreen} />
       <Stack.Screen name={screens.ProductDetailScreen} component={ProductDetailScreen} />
       <Stack.Screen name={screens.SearchScreen} component={SearchScreen} />
-      <Stack.Screen name={screens.SetLanguageScreen} component={SetLanguageScreen} />
       <Stack.Screen name={screens.SettingScreen} component={SettingScreen} />
       <Stack.Screen name={screens.ShoppingCartScreen} component={ShoppingCartScreen} />
       <Stack.Screen name={screens.SuccessScreen} component={SuccessScreen} />

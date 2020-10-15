@@ -1,6 +1,6 @@
 import React from "react"
 import { observer } from "mobx-react-lite"
-import { ViewStyle, TextStyle } from "react-native"
+import { ViewStyle, TextStyle, View } from "react-native"
 import { Screen, Text } from "../../components"
 // import { useNavigation } from "@react-navigation/native"
 // import { useStores } from "../../models"
@@ -23,7 +23,7 @@ export const AuthInput = ({ title, isPassword }) => {
   // Pull in navigation via hook
   // const navigation = useNavigation()
   return (
-    <Screen style={ROOT} preset="scroll">
+    <View style={ROOT}>
       <Text style={TITLE}>{title}</Text>
       <TextInput
         value={inputValue}
@@ -39,6 +39,6 @@ export const AuthInput = ({ title, isPassword }) => {
         onEndEditing={() => SetIsFocusInPut(false)}
         secureTextEntry={isPassword}
       />
-    </Screen>
+    </View>
   )
 }
