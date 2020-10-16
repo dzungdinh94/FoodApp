@@ -58,7 +58,7 @@ const Stack = createNativeStackNavigator()
 export function HomeBottomTab() {
   return (
     <Tab.Navigator
-      initialRouteName={screens.Browse02Screen}
+      initialRouteName={screens.OrdersScreen} //kxd202016 Browse02Screen -> OrdersScreen
       screenOptions={({ route }) => ({
         tabBarIcon: ({ focused }) => {
           let iconName
@@ -97,7 +97,7 @@ export function AppNavigator() {
         headerShown: false,
         gestureEnabled: true,
       }}
-      initialRouteName={screens.ShoppingCartScreen}
+      initialRouteName={screens.HomeBottomTab}  //kxd202016 added to autoload OrdersScreen
     >
       <Stack.Screen name={screens.HomeBottomTab} component={HomeBottomTab} />
       <Stack.Screen name={screens.Browse01Screen} component={Browse01Screen} />
