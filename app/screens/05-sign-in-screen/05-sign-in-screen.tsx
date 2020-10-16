@@ -39,7 +39,6 @@ export const SignInScreen = observer(function SignInScreen() {
   return (
     <Screen style={ROOT} preset="scroll">
       <View>
-        <Text preset="header" text="05SignInScreen" />
         {/* Welcome Title */}
         <Text style={styles.header}>Chào mừng trở lại</Text>
         {/* Guide Text */}

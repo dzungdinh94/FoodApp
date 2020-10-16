@@ -1,15 +1,16 @@
-import React, {useState} from 'react';
-import {View, Text, TouchableOpacity} from 'react-native';
-import {Icon} from 'react-native-elements';
+import React, { useState } from "react"
+import { View, Text, TouchableOpacity } from "react-native"
+import { Icon } from "react-native-elements"
 
 //Styles Import
-import {color} from '../../theme'
+import { color } from "../../theme"
 //Main Function
-const ItemCounter = () => {
-  const [count, setCount] = useState(0);
+const ItemCounter = ({ onClickAdd, onClickRemove, startValue }) => {
+  let startValueTemp = startValue ? startValue : 0
+  const [count, setCount] = useState(startValueTemp)
   //MAIN RENDER
   return (
-    <View style={{height: 40, alignItems: 'center', justifyContent: 'center'}}>
+    <View style={{ height: 40, alignItems: "center", justifyContent: "center" }}>
       {count === 0 ? (
         <TouchableOpacity
           style={{
@@ -19,13 +20,21 @@ const ItemCounter = () => {
             paddingVertical: 2,
             borderRadius: 20,
           }}
-          onPress={() => setCount(1)}>
-          <Text style={{color: color.palette.main, fontSize: 13}}>Thêm vào giỏ</Text>
+          onPress={() => {
+            setCount(1)
+            onClickAdd()
+          }}
+        >
+          <Text style={{ color: color.palette.main, fontSize: 13 }}>Thêm vào giỏ</Text>
         </TouchableOpacity>
       ) : (
-        <View style={{flexDirection: 'row', alignItems: 'center'}}>
+        <View style={{ flexDirection: "row", alignItems: "center" }}>
           <TouchableOpacity
-            onPress={() => setCount(count - 1 < 0 ? 0 : count - 1)}>
+            onPress={() => {
+              setCount(count - 1 < 0 ? 0 : count - 1)
+              onClickRemove()
+            }}
+          >
             <Icon
               reverse={true}
               name="minus"
@@ -36,13 +45,17 @@ const ItemCounter = () => {
               containerStyle={{
                 borderColor: color.palette.lighterGrey,
                 borderWidth: 1,
-                justifyContent: 'center',
-                alignItems: 'center',
+                justifyContent: "center",
+                alignItems: "center",
               }}
             />
           </TouchableOpacity>
           <Text>{count}</Text>
-          <TouchableOpacity onPress={() => setCount(count + 1)}>
+          <TouchableOpacity
+            onPress={() => {
+              setCount(count + 1), onClickAdd()
+            }}
+          >
             <Icon
               reverse={true}
               name="plus"
@@ -55,7 +68,7 @@ const ItemCounter = () => {
         </View>
       )}
     </View>
-  );
-};
+  )
+}
 
-export default ItemCounter;
+export default ItemCounter
