@@ -6,7 +6,6 @@ export default StyleSheet.create({
         fontSize:17,
     },  
     container:{
-
         backgroundColor: 'rgb(239,239,244)',
         width:'70%',
     },
