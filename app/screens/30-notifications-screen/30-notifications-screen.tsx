@@ -11,7 +11,7 @@ import {Icon} from 'react-native-vector-icons'
 
 
 const ROOT: ViewStyle = {
-  backgroundColor: color.palette.white,
+  backgroundColor: color.palette.darkWhite,
   flex: 1,
 }
 

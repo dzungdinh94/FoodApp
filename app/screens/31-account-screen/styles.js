@@ -1,8 +1,10 @@
 import {StyleSheet} from 'react-native'
+// import spacing from '../../theme/spacing.ts'
 export default StyleSheet.create({
     flexRow: {
         display: 'flex',
-        flexDirection: 'row'
+        flexDirection: 'row',
+
     },
     flexColumn: {
         display: 'flex',

@@ -3,13 +3,15 @@ import { observer } from "mobx-react-lite"
 import { ViewStyle } from "react-native"
 import { Screen, Text } from "../../components"
 import {View} from 'react-native'
+import { useNavigation } from '@react-navigation/native';
+
 // import { useNavigation } from "@react-navigation/native"
 // import { useStores } from "../../models"
 import Address from './address'
 import Name from './name'
 import Payment from './payment'
 import { color } from "../../theme"
-import Icon from 'react-native-vector-icons'
+import {Icon} from 'react-native-vector-icons'
 import styles from './styles'
 const ROOT: ViewStyle = {
   backgroundColor: color.palette.white,
@@ -21,14 +23,17 @@ export const AccountScreen = observer(function AccountScreen() {
   // const { someStore, anotherStore } = useStores()
   // OR
   // const rootStore = useStores()
-
+  const navigation = useNavigation()
+const toSetting = () => {
+  navigation.navigate('SettingScreen')
+}
   // Pull in navigation via hook
   // const navigation = useNavigation()
   return (
     <Screen style={ROOT} preset="scroll"  style={styles.screen} >
       <View>
-      {/* <Icon name='gear' type="FontAwesome" color="black" /> */}
-
+      <Icon name='gear' type="FontAwesome5" color="black" />
+<Text style={{color:'black'}} onPress={toSetting}>Setting</Text>
       <Text preset="header" text="AccountScreen" />
       <Name name='Mai Phương Thúy' email='thuy6888@gmail.com' point='53' reppoint='37' creditpoint='500K' />
       </View>
