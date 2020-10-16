@@ -1,6 +1,8 @@
 import React from 'react'
 import {View,Text,Image} from 'react-native'
 import styles from './styles'
+
+
 const eachnoti = (props) => {
     return (
         <View style={[styles.notiContainer,styles.flexRow]}>

@@ -5,10 +5,9 @@ import { View,Screen, Text } from "../../components"
 // import { useNavigation } from "@react-navigation/native"
 // import { useStores } from "../../models"
 import { color } from "../../theme"
+import {Icon} from 'react-native-elements'
 import EachNoti from './each-noti'
 import styles from './styles'
-import {Icon} from 'react-native-vector-icons'
-
 
 const ROOT: ViewStyle = {
   backgroundColor: color.palette.darkWhite,
@@ -26,7 +25,8 @@ export const NotificationsScreen = observer(function NotificationsScreen() {
   return (
     <Screen style={ROOT} preset="scroll">
       <View style={styles.search}>
-        <Icon name="search" color='black' size="20"/>
+        <Icon name="ei-search" type='evilicon' color='black'/>
+        
       </View>
       <Text style={styles.title}>Thông báo</Text>
       <EachNoti notiText="Đơn#: 999001 đã xử lý xong tại kho" time="34 phút trước"/>

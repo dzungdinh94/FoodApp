@@ -11,7 +11,7 @@ import Address from './address'
 import Name from './name'
 import Payment from './payment'
 import { color } from "../../theme"
-import {Icon} from 'react-native-vector-icons'
+import {Icon} from 'react-native-elements'
 import styles from './styles'
 const ROOT: ViewStyle = {
   backgroundColor: color.palette.white,
@@ -23,18 +23,12 @@ export const AccountScreen = observer(function AccountScreen() {
   // const { someStore, anotherStore } = useStores()
   // OR
   // const rootStore = useStores()
-  const navigation = useNavigation()
-const toSetting = () => {
-  navigation.navigate('SettingScreen')
-}
+
   // Pull in navigation via hook
   // const navigation = useNavigation()
   return (
     <Screen style={ROOT} preset="scroll"  style={styles.screen} >
-      <View>
-      <Icon name='gear' type="FontAwesome5" color="black" />
-<Text style={{color:'black'}} onPress={toSetting}>Setting</Text>
-      <Text preset="header" text="AccountScreen" />
+      <View style={styles.nameBg}>
       <Name name='Mai Phương Thúy' email='thuy6888@gmail.com' point='53' reppoint='37' creditpoint='500K' />
       </View>
 

@@ -7,7 +7,7 @@ import { Screen, Text } from "../../components"
 import { color } from "../../theme"
 import styles from './styles'
 import { useNavigation } from '@react-navigation/native';
-
+import {Icon} from 'react-native-elements'
 import Account from './account'
 import OtherSetting1 from './other-setting1'
 import OtherSetting2 from './other-setting2'
@@ -17,9 +17,10 @@ const ROOT: ViewStyle = {
 }
 
 export const SettingScreen = observer(function SettingScreen() {
-  const BackButton = () => {
-    navigation.goBack(null);
-    return true
+  const navigation = useNavigation()
+  const goBack =()=>{
+    navigation.navigate('AccountScreen')
+    
   }
   // Pull in one of our MST stores
   // const { someStore, anotherStore } = useStores()
@@ -30,7 +31,10 @@ export const SettingScreen = observer(function SettingScreen() {
   // const navigation = useNavigation()
   return (
     <Screen style={ROOT} preset="scroll" style={styles.container}>
-      <Text style={styles.title} onPress={BackButton}>Back</Text>
+      <View style={[styles.back,styles.justifySpaceBetween,styles.flexRow]}>
+
+      <Icon name='arrow-left' type='font-awesome-5' color='black' onPress={goBack}/>
+      </View>
       <Text style={styles.title}>Thiết lập</Text>
       <View>
         <Text style={styles.subtitle}>Tài khoản</Text>

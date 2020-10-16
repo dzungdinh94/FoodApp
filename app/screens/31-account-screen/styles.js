@@ -1,4 +1,5 @@
 import {StyleSheet} from 'react-native'
+import {color, spacing} from '../../theme'
 // import spacing from '../../theme/spacing.ts'
 export default StyleSheet.create({
     flexRow: {
@@ -12,13 +13,14 @@ export default StyleSheet.create({
     },
     add: {
         fontSize: 22,
-        color: 'rgb(147,194,47)'
+        color: color.palette.textGreen,
+        marginBottom: spacing[5]
     },
     borderRight: {
-        paddingTop: 5,
-        paddingLeft: 10,
-        paddingRight: 30,
-        paddingBottom: 5,
+        paddingTop: spacing[1],
+        paddingLeft: spacing[2],
+        paddingRight: spacing[6],
+        paddingBottom: spacing[1],
         borderRightWidth: 1,
         borderRightColor: 'rgb(216,216,216)'
     },
@@ -28,7 +30,7 @@ export default StyleSheet.create({
         fontSize: 22,
     },
     pointContainer: {
-        marginTop: 15,
+        marginTop: spacing[4],
     },
     title: {
         fontWeight: "bold",
@@ -47,44 +49,44 @@ export default StyleSheet.create({
         color: 'rgb(138,138,143)'
     },
     nameBg: {
-        backgroundColor: 'rgb(249,249,249)'
+        backgroundColor:  color.palette.darkWhite
     },
     namePic: {
         width: 86,
         height: 86,
         borderRadius: 50,
         borderWidth: 1,
-        marginRight: 10
+        marginRight: spacing[2]
     },
     cardPic: {
         width: 40,
         height: 40,
         borderRadius: 5,
-        marginRight: 10
+        marginRight: spacing[2]
     },
     
     screen: {
-        marginLeft: 16
+        marginLeft: spacing[4]
     },
     addressContainer: {
         borderBottomColor: 'rgb(138,138,143)',
         borderBottomWidth: .5,
-        paddingTop: 3,
-        paddingBottom: 12,
-        marginBottom: 12,
+        paddingTop: spacing[1],
+        paddingBottom: spacing[3],
+        marginBottom: spacing[3],
     },
     nameContainer: {
-        paddingVertical: 10
+        paddingVertical: spacing[3]
     },
     payment: {
-        borderBottomColor: 'rgb(239,239,244)',
+        borderBottomColor:  color.palette.borderGrey,
         borderBottomWidth: 1,
-        paddingVertical: 10
+        paddingVertical: spacing[3],
     },
 
     place: {
         color: 'rgb(102,102,102)',
-        marginBottom: 5
+        marginBottom: spacing[1],
     },
     floatRight: {
         alignSelf: 'flex-end',
@@ -93,9 +95,14 @@ export default StyleSheet.create({
         borderColor: 'rgb(147,194,47)',
         borderWidth: 10,
     },
+    justifySpaceBetween: {
+        justifyContent: 'space-between',
+        marginHorizontal: spacing[3],
+        marginVertical: spacing[2]
+    },
     cardName: {
         fontSize: 19,
         fontWeight: '600',
-        marginTop: -5
+        marginTop: -spacing[1]
     }
 })

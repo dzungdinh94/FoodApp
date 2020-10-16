@@ -21,6 +21,9 @@ export default StyleSheet.create({
         fontSize: 13,
         color: color.palette.arrowGrey,
     },
+    back:{
+        marginVertical: spacing[3]
+    },
     text: {
         fontSize: 20,
         letterSpacing: .5,

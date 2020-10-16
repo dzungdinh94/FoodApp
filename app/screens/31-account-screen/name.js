@@ -1,9 +1,21 @@
 import React from "react"
 import { View, Text, Image } from "react-native"
 import styles from "./styles"
+import { useNavigation } from '@react-navigation/native';
+
+import {Icon} from 'react-native-elements'
 const name = (props) => {
+  const navigation = useNavigation()
+
+  const toSetting = () => {
+    navigation.navigate('SettingScreen')
+  }
   return (
     <View style={[styles.nameContainer,styles.nameBg]}>
+      <View style={[styles.flexRow,styles.justifySpaceBetween]}>
+      <Icon name='gear' type="font-awesome" color="black" onPress={toSetting} />
+    <Icon name='dots-three-horizontal' type='entypo' color='black'/>
+      </View>
       
       <View style={styles.flexRow}>
        <Image source={require('../../image/1920x1080-gray-solid-color-background.jpg')} style={styles.namePic} />

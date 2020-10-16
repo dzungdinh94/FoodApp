@@ -29,6 +29,16 @@ fontWeight: 'bold'
         marginTop: spacing[3]
         
     },
+    icon:{
+        backgroundColor: 'red',
+        width: 22,
+        height: 22,
+        left: 135,
+        top:0,
+        marginTop: 5, 
+        borderRadius: 50,
+        
+    },
     leftCategory: {
         borderRightColor: color.palette.greyText,
         borderRightWidth: .5

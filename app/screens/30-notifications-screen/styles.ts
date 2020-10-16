@@ -1,4 +1,5 @@
 import {StyleSheet} from 'react-native'
+import {color,spacing} from '../../theme'
 export default StyleSheet.create({
     flexRow: {
         display: 'flex',
@@ -11,8 +12,8 @@ export default StyleSheet.create({
     title:{
         fontSize: 40,
         fontWeight: 'bold',
-        marginTop: 16,
-        marginBottom: 30,
+        marginTop: spacing[4],
+        marginBottom: spacing[6],
         color: "black"
     },
     picWrap: {
@@ -25,7 +26,8 @@ export default StyleSheet.create({
         height: 80,
     },
     search:{
-        flexDirection: 'row-reverse'
+        display:'flex',
+        flexDirection: 'row-reverse',
     },
     notiText: {
         
@@ -33,7 +35,7 @@ export default StyleSheet.create({
         borderBottomWidth: .5,
     },
     text: {
-        paddingTop: 10,
+        paddingTop: spacing[2],
         letterSpacing: 1,
         lineHeight: 20,
         fontSize: 18,

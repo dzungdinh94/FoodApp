@@ -1,11 +1,12 @@
 import React from "react"
 import { observer } from "mobx-react-lite"
-import { ViewStyle, View, ScrollView} from "react-native"
+import { ViewStyle, View, ScrollView, ImageBackground} from "react-native"
 import {Screen, Text } from "../../components"
 // import { useNavigation } from "@react-navigation/native"
 // import { useStores } from "../../models"
 import { color } from "../../theme"
 import Item from './item'
+import {Icon} from 'react-native-elements'
 import styles from './styles'
 const ROOT: ViewStyle = {
   backgroundColor: color.palette.white,
@@ -26,6 +27,7 @@ export const FavoritesScreen = observer(function FavoritesScreen() {
 
       <View >
         <View style={styles.headerContainer}>
+        <Icon name="search" type='evilicon' color='black'/>
         
         <Text style={[styles.text,styles.findText]}>Chỉnh sửa</Text>
         <Text style={[styles.text,styles.title]}>Danh sách yêu thích</Text>
@@ -37,9 +39,9 @@ export const FavoritesScreen = observer(function FavoritesScreen() {
         </View>
         <View style={[styles.flexItem,styles.flexRow]}>
           <Item itemname="Bông cải xanh" itemprice='20K'/>
-          <Item itemname="Bông cải xanh" itemprice='20K'/>
-          <Item itemname="Bông cải xanh" itemprice='20K'/>
-          <Item itemname="Bông cải xanh" itemprice='20K'/>
+          <Item itemname="Đu đủ" itemprice='20K'/>
+          <Item itemname="Chuối" itemprice='20K'/>
+          <Item itemname="Cà rốt" itemprice='20K'/>
           <Item itemname="Bông cải xanh" itemprice='20K'/>
           <Item itemname="Bông cải xanh" itemprice='20K'/>
           <Item itemname="Bông cải xanh" itemprice='20K'/>
