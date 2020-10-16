@@ -1,7 +1,7 @@
 import React from "react"
 import { observer } from "mobx-react-lite"
-import { ViewStyle, StyleSheet } from "react-native"
-import { Button, FormRow, Screen, Text, TextField } from "../../components"
+import { ViewStyle, StyleSheet, } from "react-native"
+import { Button, FormRow, Screen,Text, TextField } from "../../components"
 import { useNavigation } from "@react-navigation/native"
 import { useStores } from "../../models"
 import { color } from "../../theme"
@@ -10,10 +10,10 @@ import { AuthContext } from "../../navigation"
 import { Checkbox } from "react-native-paper"
 
 const ROOT: ViewStyle = {
-  backgroundColor: "#FFFFFF",
+  backgroundColor: "#ffffff",
   flex: 1,
   paddingLeft: 32,
-  paddingRight: 12,
+  paddingRight: 32,
 }
 
 const styles = StyleSheet.create({
@@ -25,26 +25,29 @@ const styles = StyleSheet.create({
   DangNhapDeTiepTuc: {
     fontSize: 17,
     color: "#666666",
-    marginTop: 32,
-
-  },
-  User: {
-    fontSize: 17,
-    color: "#8A8A8F",
-    marginTop : 20,
-  },
-  PWD: {
-    fontSize: 17,
-    color: "#8A8A8F",
-    marginTop : 20,
+    marginTop: 52,
+    marginBottom: 32
   },
   GoReg: {
-    marginTop: 30,
-    paddingLeft: 10,
+    marginTop: 56,
     color: "#000000",
-    marginLeft: 40,
+    fontSize: 20,
+    textAlign: "center"
   },
-
+  ButtonSign: {
+    backgroundColor : "#93C22F",
+    height: 50,
+  },
+  Form: {
+    marginVertical: 16,
+    borderBottomColor: "#93C22F",
+    borderBottomWidth: 1
+  },
+  QuenMatKhau: {
+    fontSize: 20,
+    color: "#000000",
+    marginVertical: 24,
+  }
 })
 
 export const SignInScreen = observer(function SignInScreen() {
@@ -65,15 +68,12 @@ export const SignInScreen = observer(function SignInScreen() {
   }
   return (
     <Screen style={ROOT} preset="scroll">
-      <Text preset="header" text="05SignInScreen" />
       <Text style={styles.ChaoMungTroLai} text="Chào mừng trở lại " />
       <Text style={styles.DangNhapDeTiepTuc} text="Đăng nhập để tiếp tục " />
-      <Text style={styles.User} text="Tên đăng nhập  " />
-      <TextField placeholder="Tên đăng nhập"/>
-      <Text style={styles.PWD} text="Mật khẩu   " />
-      <TextField placeholder="Mật khẩu"/>
-      <Text style={styles.PWD} text="Quên mật khẩu ?  " />
-      <Button text="login" onPress={gotoApp} />
+      <TextField style={styles.Form} placeholder="Tên đăng nhập" label="Tên đăng nhập"/>
+      <TextField style={styles.Form} placeholder="Mật khẩu" label="Mật khẩu"/>
+      <Text style={styles.QuenMatKhau} text="Quên mật khẩu ?  " />
+      <Button textStyle={{fontSize:17}} style={styles.ButtonSign} text="Đăng nhập" onPress={gotoApp} />
       <Text style={styles.GoReg} text="Chưa có tài khoản? Hãy đăng kí  " />
     </Screen>
   )

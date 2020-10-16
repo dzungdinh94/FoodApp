@@ -1,5 +1,5 @@
 import React from "react"
-import { View, TextInput, TextStyle, ViewStyle } from "react-native"
+import { View, TextInput, TextStyle, ViewStyle, StyleSheet } from "react-native"
 import { color, spacing, typography } from "../../theme"
 import { translate } from "../../i18n"
 import { Text } from "../text/text"
@@ -8,7 +8,8 @@ import { mergeAll, flatten } from "ramda"
 
 // the base styling for the container
 const CONTAINER: ViewStyle = {
-  paddingVertical: spacing[3],
+  marginVertical: 0,
+  paddingVertical: 0,
 }
 
 // the base styling for the TextInput
@@ -27,8 +28,13 @@ const PRESETS: { [name: string]: ViewStyle } = {
 
 const enhance = (style, styleOverride) => {
   return mergeAll(flatten([style, styleOverride]))
-}
-
+} 
+const styles = StyleSheet.create({
+  text: {
+    fontSize: 17,
+    color: "#8A8A8F",
+  }
+})
 /**
  * A component which has a label and an input together.
  */
@@ -53,7 +59,7 @@ export function TextField(props: TextFieldProps) {
 
   return (
     <View style={containerStyle}>
-      <Text preset="fieldLabel" tx={labelTx} text={label} />
+      <Text style={styles.text} tx={labelTx} text={label} />
       <TextInput
         placeholder={actualPlaceholder}
         placeholderTextColor={color.palette.lighterGrey}
