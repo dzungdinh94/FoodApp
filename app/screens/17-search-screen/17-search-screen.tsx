@@ -8,14 +8,20 @@ import { color } from "../../theme"
 import styles from "./styles"
 import InputForm from "../../components/inputFrom"
 import { Icon } from 'react-native-elements'
+import {food1} from './data'
+import {dataFood} from './data'
+import HoverText from './styles'
+
 const ROOT: ViewStyle = {
   backgroundColor: color.palette.white,
   flex: 1,
 }
+
 // const styles = StyleSheet.create({
   
 // })
 export const SearchScreen = observer(function SearchScreen() {
+
   const [inputSearch,setInputSearch]=React.useState('')
   const getInputSearch=(text)=>{
     setInputSearch(text)
@@ -23,30 +29,8 @@ export const SearchScreen = observer(function SearchScreen() {
 React.useEffect(() => {
   console.log(inputSearch)
 },[inputSearch])
-const dataFood=[
-  {id : 1 , title : "Trái cây"},
-  {id : 2 , title : "Rau"},
-  {id : 3 , title : "Bánh Kẹo"},
-  {id : 4 , title : "Thịt"},
-  {id : 5 , title : "Sữa"},
-  {id : 6, title:"Đồ uống" }
-  ]
-const food1=[
-  {id:1,
-  name: "Rau",
-  title:"Mù tạt xanh",
-  price:"10k",
-  image:require('../../../assets/17_img/3dca2741043f945a6ed80f482fc7070f.jpg')
-  },
-  {id:2,
-    name: "Trái cây",
-    title:"táo hữu cơ",
-    price:"20k",
-    image:require('../../../assets/17_img/tao-juliet-huu-co.jpg')
-    },
-]
   const ItemFood = ({ title  }) => (
-    <TouchableOpacity >
+    <TouchableOpacity>
       <View style={styles.border}>
         <Text style={styles.TextBorder}>{title}</Text>
         </View>
@@ -57,7 +41,7 @@ const food1=[
   );
   const ItemFood1 = ({ title,name,price,image}) => (
    <View style={styles.row}>
-      <View >
+      <View style={styles.btn}>
         <Text style={styles.nameFood}>{name}</Text>
         <Text style={styles.titleFood}>{title}</Text>  
         <Text style={styles.priceFood}>{price}</Text>  
@@ -79,14 +63,13 @@ const renderItemFood1 = ({ item }) => (
   // const rootStore = useStores()
 
   // Pull in navigation via hook
-  const navigation = useNavigation();
+  // const navigation = useNavigation();
 
   const deleteSearch=()=>{
-    // alert("hello")
-    // setInputSearch("")
   }
-
+  
   return (
+    
     <Screen style={ROOT} preset="scroll">
       {/* <Text preset="header" text="SearchScreen" /> */}
       <View style={styles.container}>
@@ -103,15 +86,15 @@ const renderItemFood1 = ({ item }) => (
         </TouchableOpacity>
       </View>
       <View style={styles.btncontainer2}>
-        <FlatList 
-        horizontal={true}
-        contentContainerStyle={{
+          <FlatList 
+          horizontal={true}
+          contentContainerStyle={{
             flexDirection: 'row',
-        }}
-        data={dataFood} 
-        renderItem={renderItemFood}
-        keyExtractor={item => item.id}
-        />     
+          }}
+          data={dataFood} 
+          renderItem={renderItemFood}
+          keyExtractor={item => item.id}
+          />     
       </View>
       <View style={styles.btncontainer3}>
         <View style={styles.row1}/>

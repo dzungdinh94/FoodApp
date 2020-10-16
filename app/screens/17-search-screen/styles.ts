@@ -79,6 +79,9 @@ export default StyleSheet.create({
         width:64,
         height:64,
         borderRadius:8,
-        marginLeft:220,
+        marginRight:16,
+      },
+      btn:{
+        flex: 1,
       }
 });
