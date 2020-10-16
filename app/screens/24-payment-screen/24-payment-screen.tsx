@@ -39,7 +39,7 @@ export const PaymentScreen = observer(function PaymentScreen() {
       {/* Navigation Bar */}
       <View style={styles.navigationContainer}>
         <TouchableOpacity onPress={() => navigation.goBack()}>
-          <Icon name="navigate-before" type="material" size={40} />
+          <Icon name="navigate-before" type="material" size={40} style={{ left: -spacing[3] }} />
         </TouchableOpacity>
         <Text style={{ color: color.palette.gray140, fontSize: 17 }}>Add New</Text>
       </View>

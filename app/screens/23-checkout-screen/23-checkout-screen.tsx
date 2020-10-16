@@ -19,21 +19,27 @@ const ROOT: ViewStyle = {
   flex: 1,
 }
 
-export const CheckoutScreen = observer(function CheckoutScreen() {
+export const CheckoutScreen = ({ route, navigation }) => {
   // Pull in one of our MST stores
   // const { someStore, anotherStore } = useStores()
   // OR
   // const rootStore = useStores()
-
+  let { cartData, isRentDelivery, coupon, totalMoney } = route.params
+  const [checkOutData, setCheckOutData] = React.useState({
+    cartData,
+    isRentDelivery,
+    coupon,
+    totalMoney,
+  })
   // Pull in navigation via hook
-  const navigation = useNavigation()
+  // const navigation = useNavigation()
   return (
     <Screen style={ROOT} preset="scroll">
       {/* Navigation */}
       {/* Navigation Bar */}
       <View style={styles.navigationContainer}>
         <TouchableOpacity onPress={() => navigation.goBack()}>
-          <Icon name="navigate-before" type="material" size={40} />
+          <Icon name="navigate-before" type="material" size={40} style={{ left: -spacing[3] }} />
         </TouchableOpacity>
         <Text style={{ color: color.palette.gray140, fontSize: 17 }}></Text>
       </View>
@@ -71,32 +77,30 @@ export const CheckoutScreen = observer(function CheckoutScreen() {
       <View style={styles.cartListContainer}>
         <Text style={styles.infoTitle}>Giỏ hàng</Text>
         <Text style={styles.infoHighlightDetails}>Hôm nay</Text>
-        <View style={styles.infoRowDetailsContainer}>
-          <Text style={styles.infoMoreDetails}>Mù tạt xanh X 1</Text>
-          <Text style={styles.infoMoreDetails}>15K</Text>
-        </View>
-        <View style={styles.infoRowDetailsContainer}>
-          <Text style={styles.infoMoreDetails}>Cà rốt Organic x 1</Text>
-          <Text style={styles.infoMoreDetails}>20K</Text>
-        </View>
-        <View style={styles.infoRowDetailsContainer}>
-          <Text style={styles.infoMoreDetails}>Táo Organic x 1</Text>
-          <Text style={styles.infoMoreDetails}>25K</Text>
-        </View>
+        {checkOutData.cartData.map((item, index) => (
+          <View key={index} style={styles.infoRowDetailsContainer}>
+            <Text style={styles.infoMoreDetails}>
+              {item.name} X {item.quantity}
+            </Text>
+            <Text style={styles.infoMoreDetails}>{item.quantity * item.price} K</Text>
+          </View>
+        ))}
         <View style={styles.infoRowDetailsContainer}>
           <Text style={styles.infoMoreDetails}>Phí ship</Text>
-          <Text style={styles.infoMoreDetails}>10K</Text>
+          <Text style={styles.infoMoreDetails}>{isRentDelivery ? "10K" : "0K"}</Text>
         </View>
         <View style={styles.infoTotalRowContainer}>
           <Text style={styles.infoMoreDetails}>Tổng</Text>
-          <Text style={styles.infoTotalMoney}>60K</Text>
+          <Text style={styles.infoTotalMoney}>{checkOutData.totalMoney} K</Text>
         </View>
       </View>
       {/* Coupon */}
       <View style={styles.CouponContainer}>
         <Text style={styles.CouponTitle}>Mã giảm giá</Text>
         <View style={styles.CouponDetailsContainer}>
-          <Text style={styles.CounponDetails}>không có</Text>
+          <Text style={styles.CounponDetails}>
+            {checkOutData.coupon === "" ? "không có" : checkOutData.coupon}
+          </Text>
         </View>
       </View>
       {/* Accecpt Button */}
@@ -108,4 +112,4 @@ export const CheckoutScreen = observer(function CheckoutScreen() {
       />
     </Screen>
   )
-})
+}

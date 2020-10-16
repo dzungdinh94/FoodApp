@@ -33,7 +33,7 @@ import {
 import screens from "./screens"
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs"
 import { Icon } from "react-native-elements"
-import { color } from "../theme"
+import { color, spacing } from "../theme"
 
 /**
  * This type allows TypeScript to know what routes are defined in this navigator
@@ -57,26 +57,35 @@ const Stack = createNativeStackNavigator()
 export function HomeBottomTab() {
   return (
     <Tab.Navigator
-      initialRouteName={screens.Browse02Screen}
+      initialRouteName={screens.FavoritesScreen}
       screenOptions={({ route }) => ({
         tabBarIcon: ({ focused }) => {
           let iconName
+
           if (route.name === screens.Browse02Screen) {
             iconName = focused ? "search" : "search-outline"
           } else if (route.name === screens.OrdersScreen) {
-            iconName = focused ? "notifications" : "notifications-outline"
+            iconName = focused ? "list" : "list-outline"
           } else if (route.name === screens.FavoritesScreen) {
             iconName = focused ? "heart" : "heart-outline"
           } else if (route.name === screens.NotificationsScreen) {
-            iconName = focused ? "ios-people-circle" : "ios-people-circle-outline"
+            iconName = focused ? "notifications" : "notifications-outline"
           } else {
             iconName = focused ? "person" : "person-outline"
           }
-          return <Icon name={iconName} size={25} type="ionicon" color={color.text} />
+          return (
+            <Icon
+              name={iconName}
+              size={25}
+              type="ionicon"
+              color={focused ? color.main : color.palette.gray140}
+              style={{ marginBottom: spacing[1] }}
+            />
+          )
         },
       })}
-      barStyle={{ backgroundColor: color.main }}
-      activeColor={color.text}
+      barStyle={{ backgroundColor: color.palette.white }}
+      activeColor={color.palette.main}
     >
       <Tab.Screen name={screens.Browse02Screen} component={Browse02Screen} />
       <Tab.Screen name={screens.OrdersScreen} component={OrdersScreen} />

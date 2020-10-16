@@ -4,7 +4,7 @@ import { Icon } from "react-native-elements"
 
 //Styles Import
 import { color } from "../../theme"
-const FavoriteToogle = () => {
+const FavoriteToogle = ({ size }) => {
   const [like, setLike] = useState(true)
   return (
     <TouchableOpacity onPress={() => (like ? setLike(false) : setLike(true))}>
@@ -14,7 +14,7 @@ const FavoriteToogle = () => {
         type="fontisto"
         color={like ? color.palette.pink : "white"}
         reverseColor={like ? "white" : color.palette.lightGrey}
-        size={10}
+        size={size ? size : 10}
       />
     </TouchableOpacity>
   )

@@ -196,7 +196,7 @@ const styles = StyleSheet.create({
   },
   CounponDetails: { fontSize: 15, color: color.palette.white },
 
-  //SUCCESS SC20,fonEN
+  //SUCCESS 
   thanksTitle: {
     fontSize: 20,
     fontWeight: "bold",

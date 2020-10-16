@@ -157,6 +157,7 @@ export const ShoppingCartScreen = observer(function ShoppingCartScreen() {
   const [cartData, setCartData] = React.useState(StartCartData)
   const [totalMoney, setTotalMoney] = React.useState(0)
   const [isRentDelivery, setIsRentDelivery] = React.useState(true)
+  const [coupon, setCoupon] = React.useState("")
   const ReCountTotalMoney = (data: { quantity: number; price: number }[], deliveryCost: number) => {
     let sum = 0
     data.map((value: { quantity: number; price: number }) => (sum += value.quantity * value.price))
@@ -243,6 +244,8 @@ export const ShoppingCartScreen = observer(function ShoppingCartScreen() {
         <TextInput
           style={{ marginLeft: spacing[4], paddingLeft: spacing[4] }}
           placeholder="Nhập mã nếu có"
+          value={coupon}
+          onChangeText={(value) => setCoupon(value)}
         />
       </View>
 
@@ -308,7 +311,14 @@ export const ShoppingCartScreen = observer(function ShoppingCartScreen() {
 
       <Button
         text="Chấp nhận mua hàng"
-        onPress={() => navigation.navigate(screens.CheckoutScreen)}
+        onPress={() =>
+          navigation.navigate(screens.CheckoutScreen, {
+            cartData,
+            isRentDelivery,
+            coupon,
+            totalMoney,
+          })
+        }
         style={styles.button}
         textStyle={styles.buttonContent}
       />
