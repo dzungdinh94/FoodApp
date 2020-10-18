@@ -73,7 +73,7 @@ const ROOT: ViewStyle = {
   marginTop: 80,
 }
 
-export const VerificationCodeScreen = observer(function VerificationCodeScreen() {
+export const VerificationCodeScreen = observer(function VerificationCodeScreen({ navigation }) {
   // Pull in one of our MST stores
   // const { someStore, anotherStore } = useStores()
   // OR
@@ -94,7 +94,9 @@ export const VerificationCodeScreen = observer(function VerificationCodeScreen()
       <View style={styles.codeVerifyWrapper}>
         <TextInput style={styles.codeVerify}></TextInput>
       </View>
-      <Button text="Xác thực" style={styles.button} textStyle={styles.buttonText}></Button>
+      <Button text="Xác thực" style={styles.button} textStyle={styles.buttonText} onPress={() => {
+        navigation.navigate('SetLanguageScreen')
+      }}></Button>
       <View style={styles.lastTextContentWrapper}>
         <Text style={styles.lastTextContent}>Gửi lại mã xác thực</Text>
         <Text style={styles.lastTextContent}>1:20 phút còn lại</Text>
