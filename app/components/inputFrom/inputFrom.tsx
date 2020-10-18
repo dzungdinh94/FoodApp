@@ -5,7 +5,6 @@ import styles from './styles'
  const inputForm = (props)=>{
      return (
          <View style={styles.container}> 
-
             <TextInput style = {styles.inputContainer} onChangeText={props.onChange} 
             underlineColorAndroid = "transparent"
                placeholder = {props.title}

@@ -83,5 +83,23 @@ export default StyleSheet.create({
       },
       btn:{
         flex: 1,
+      },
+      btnNormal: {
+        borderColor: 'rgb(239,239,244)',
+        borderWidth: 1,
+        borderRadius: 10,
+        height: 35,
+        width: 75,
+        marginTop:18,
+        marginLeft:10,
+      },
+      btnPress: {
+        borderColor: 'rgb(239,239,244)',
+        borderWidth: 1,
+        borderRadius: 10,
+        height: 35,
+        width: 75,
+        marginTop:18,
+        marginLeft:10,
       }
 });

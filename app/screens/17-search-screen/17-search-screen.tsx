@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react"
 import { observer } from "mobx-react-lite"
-import { ViewStyle ,View,TouchableOpacity, FlatList,Image } from "react-native"
+import { ViewStyle ,View,TouchableOpacity, FlatList,Image,TouchableHighlight } from "react-native"
 import { Screen, Text} from "../../components"
 import { useNavigation } from "@react-navigation/native"
 // import { useStores } from "../../models"
@@ -10,7 +10,6 @@ import InputForm from "../../components/inputFrom"
 import { Icon } from 'react-native-elements'
 import {food1} from './data'
 import {dataFood} from './data'
-import HoverText from './styles'
 
 const ROOT: ViewStyle = {
   backgroundColor: color.palette.white,
@@ -21,7 +20,15 @@ const ROOT: ViewStyle = {
   
 // })
 export const SearchScreen = observer(function SearchScreen() {
-
+  const [ isPress, setIsPress ] = React.useState(false);
+  const touchProps = {
+    activeOpacity: 1,
+    underlayColor: 'rgb(147,194,47)',                           
+    style: isPress ? styles.btnPress : styles.btnNormal, 
+    onHideUnderlay: () => setIsPress(false),
+    onShowUnderlay: () => setIsPress(true),
+    onPress: () => console.log('HELLO'),               
+  };
   const [inputSearch,setInputSearch]=React.useState('')
   const getInputSearch=(text)=>{
     setInputSearch(text)
@@ -30,11 +37,9 @@ React.useEffect(() => {
   console.log(inputSearch)
 },[inputSearch])
   const ItemFood = ({ title  }) => (
-    <TouchableOpacity>
-      <View style={styles.border}>
-        <Text style={styles.TextBorder}>{title}</Text>
-        </View>
-    </TouchableOpacity>     
+    <TouchableHighlight {...touchProps}>
+       <Text style={styles.TextBorder}>{title}</Text>
+    </TouchableHighlight>     
   );
   const renderItemFood = ({ item }) => (
       <ItemFood title={item.title}/>
