@@ -7,6 +7,7 @@ import { hasParent } from "mobx-state-tree"
  * You'll likely spend most of your time in this file.
  */
 import React from "react"
+import { Button } from "react-native"
 import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs"
 import { createNativeStackNavigator } from "react-native-screens/native-stack"
 import {
@@ -58,7 +59,7 @@ const Stack = createNativeStackNavigator()
 export function HomeBottomTab() {
   return (
     <Tab.Navigator
-      initialRouteName={screens.OrdersScreen} //kxd202016 Browse02Screen -> OrdersScreen
+      initialRouteName={screens.Browse02Screen} //kxd202016 Browse02Screen -> OrdersScreen
       screenOptions={({ route }) => ({
         tabBarIcon: ({ focused }) => {
           let iconName
@@ -97,7 +98,7 @@ export function AppNavigator() {
         headerShown: false,
         gestureEnabled: true,
       }}
-      initialRouteName={screens.HomeBottomTab}  //kxd202016 added to autoload OrdersScreen
+      initialRouteName={screens.OrdersPickupsScreen}  //kxd202016 added to autoload OrdersScreen
     >
       <Stack.Screen name={screens.HomeBottomTab} component={HomeBottomTab} />
       <Stack.Screen name={screens.Browse01Screen} component={Browse01Screen} />
@@ -114,7 +115,16 @@ export function AppNavigator() {
       <Stack.Screen name={screens.Categories02Screen} component={Categories02Screen} />
       <Stack.Screen name={screens.FilterScreen} component={FilterScreen} />
       <Stack.Screen name={screens.OrdersDeliveryScreen} component={OrdersDeliveryScreen} />
-      <Stack.Screen name={screens.OrdersPickupsScreen} component={OrdersPickupsScreen} />
+      <Stack.Screen name={screens.OrdersPickupsScreen} component={OrdersPickupsScreen} options={{
+
+        headerRight: () => (
+          <Button
+            onPress={() => alert('This is a button!')}
+            title="Info"
+            color="#00cc00"
+          />
+        ),
+      }} />
     </Stack.Navigator>
   )
 }
