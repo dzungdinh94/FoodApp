@@ -1,0 +1,62 @@
+import { color } from "../../theme"
+import { spacing } from "../../theme"
+import {StyleSheet} from 'react-native'
+export default StyleSheet.create({
+   background:{
+       backgroundColor:color.palette.white,
+       width:163,
+       height:163,
+       borderWidth:1.5,
+       borderColor:color.palette.border,
+       borderRadius:10,
+   },
+   header:{
+       color:color.palette.black,
+       fontWeight:'bold',
+       fontSize:30,
+       left:24
+   },
+   Image:{
+    marginRight:'auto',
+    marginLeft:'auto',
+    marginTop:32
+},
+container:{
+    display:'flex',
+    flexDirection:'row',
+    justifyContent:'space-evenly',
+    top:12
+},
+cover:{
+    width:163,
+    height:163, 
+    backgroundColor:color.palette.white,
+    borderRadius:10,
+    margin:12,
+    borderColor:'rgb(239,239,244)',
+    borderWidth:1.5
+},
+price:{
+    top:12,
+    color:color.palette.textgray,
+    fontSize:13,
+    textAlign:'center'
+},
+name:{
+    top:12,
+    color:color.palette.black,
+    fontWeight:'bold',
+    textAlign:'center'
+},
+buttonbuy:{
+    borderWidth:1,
+    width: 100,
+    textAlign:'center',
+    borderRadius:10,
+    borderColor:color.palette.buttonbuy,
+    color:color.palette.buttonbuy,
+    top:24,
+    marginLeft:'auto',
+    marginRight:'auto'
+},
+})

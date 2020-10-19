@@ -1,45 +1,43 @@
-import React, { useState } from 'react'
-import { observer } from "mobx-react-lite"
-import { ViewStyle, View, TouchableOpacity,Image} from "react-native"
+import React from 'react'
+import { View, TouchableOpacity,Image} from "react-native"
 import { Icon } from 'react-native-elements'
-import { Screen, Text } from ".."
-import { color } from "../../theme"
+import { Text } from ".."
 import styles from './style'
 import LinearGradient from 'react-native-linear-gradient'
+import {useNavigation} from '@react-navigation/native'
 
-const ROOT: ViewStyle = {
-  backgroundColor: color.palette.black,
-  flex: 1,
-}
 
-export const Cover = () => {
-
+const Cover = () => {
+  const navigation = useNavigation()
+  const searchPage = () =>{
+       navigation.navigate('Browse03Screen')
+  }
   return (
-    <Screen style={ROOT} preset="scroll">
-         <View>
-            <View style={styles.container}>
+    
+         <View> 
             <View style={styles.headerBackground}>
-            <Image source={require('../../image/header.png')}style={styles.image}/>
+            <Image source={require('../../image/logo.png')}style={styles.image}/>
             <View style={styles.iconstyle}>
-            <Icon name='search' type='feather'/>
-            <Icon name='shopping-cart' type='feather'/>
+            <Icon onPress={searchPage} name='search' type='feather' color='white'/>
+            <Icon name='shopping-cart' type='feather' color='white'/>
             </View>
             </View>
             <LinearGradient 
              start={{x: 0, y:1}} end={{x: 0, y: 0}} 
              colors={['#000000', '#595959', '#d9d9d9']} 
-             >
+             >  
+                <View style={styles.container}>
+                <Text style={styles.danhmuc} text="Trái cây & Rau"/>
+                <Text style={styles.description}text="Được sản xuất từ các trang trại theo quy trình an toàn"/>
+                <TouchableOpacity>
+                   <Text style={styles.buynow} text="Mua ngay"/>
+                </TouchableOpacity>                  
+                </View>
+
                 <Image source={require('../../image/header.png')} style={styles.header}/>
             </LinearGradient>
-            </View>
-            <View style={styles.description}>
-                 <BulletItem bullet='Trái cây & Rau'/>
-                 <TextField  title='Được sản xuất từ các trang trại theo quy trình an toàn'/>
-            <TouchableOpacity>
-                 <Text style={styles.buynow}>Mua ngay</Text>  
-            </TouchableOpacity> 
-            </View>
         </View>
-    </Screen>
+   
   )
 }
+export default Cover

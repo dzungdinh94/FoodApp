@@ -1,12 +1,11 @@
 import React from "react"
-import { View, ViewStyle, TextStyle } from "react-native"
+import { View, ViewStyle, TextStyle, Image } from "react-native"
 import { HeaderProps } from "./header.props"
 import { Button } from "../button/button"
 import { Text } from "../text/text"
 import { Icon } from "../icon/icon"
 import { spacing } from "../../theme"
 import { translate } from "../../i18n/"
-import {BulletItem} from "../bullet-item/bullet-item"
 // static styles
 const ROOT: ViewStyle = {
   flexDirection: "row",
@@ -56,7 +55,7 @@ export function Header(props: HeaderProps) {
       ) : (
         <View style={RIGHT} />
       )}      
-      
+
     </View>
   )
 }

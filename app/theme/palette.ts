@@ -8,4 +8,11 @@ export const palette = {
   lighterGrey: "#CDD4DA",
   angry: "#dd3333",
   main: "rgb(147,194,47)",
+  search:"#EFEFF4",
+  background:'rgb(249,249,249)',
+  buttonbuy:'rgb(147,194,47)',
+  border:'rgb(239,239,244)',
+  textgray:'#8a8a8f',
+  bordergray:'#cccccc',
+  controlbar:'#efeff4'
 }

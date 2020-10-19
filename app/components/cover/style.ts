@@ -19,15 +19,20 @@ export default StyleSheet.create({
     iconstyle:{
         display:'flex',
         flexDirection:'row',
-        marginLeft:220,
-        marginTop:5
+        left:230,
+        top:5
     },
     container:{
         position:'absolute',
-        width:'100%'
+        top:230,
+        left:15
     },
     description:{
-        marginHorizontal:10
+        fontSize:23,
+        fontWeight:'bold'
+    },
+    danhmuc:{
+        fontSize:18
     },
     buynow:{
         fontSize:20,

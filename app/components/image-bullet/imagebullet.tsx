@@ -5,14 +5,12 @@ import { Screen, Text } from ".."
 import { color } from "../../theme"
 import LinearGradient from 'react-native-linear-gradient'
 import styles from './style'
-const ROOT: ViewStyle = {
-  backgroundColor: color.palette.black,
-  flex: 1,
-}
 
-export const imageBullet = observer(function ImageBullet() {
+
+
+const imageBullet = () => {
   return (
-    <Screen style={ROOT} preset="scroll">
+    
      <View>
           <LinearGradient 
              start={{x: 0, y:1}} end={{x: 0, y: 0}} 
@@ -21,6 +19,7 @@ export const imageBullet = observer(function ImageBullet() {
                 <Image source={require('../../image/header.png')} style={styles.imageBullet}/>
             </LinearGradient>
         </View>
-    </Screen>
+  
   )
-})
+}
+export default imageBullet

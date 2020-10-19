@@ -1,7 +1,8 @@
+import {color} from '../../theme'
 import {StyleSheet} from 'react-native'
 export default StyleSheet.create({
   bullet:{
-      color:'black'
+      color:color.palette.black
   },
   body:{
     marginTop:50,
@@ -10,7 +11,8 @@ export default StyleSheet.create({
   item:{
       fontWeight:'bold',
       fontSize:17,
-      marginLeft:10
+      marginLeft:10,
+      color:color.palette.black
   },
   textHead:{
       display:'flex',
@@ -19,7 +21,7 @@ export default StyleSheet.create({
   textRight:{
       marginLeft:240,
       marginTop:1,
-      color:'gray'
+      color:color.palette.textgray
   },
   bulletitem:{
       width:122,
@@ -45,22 +47,23 @@ export default StyleSheet.create({
       color:'gray'
   },
   textblack:{
-      fontSize:15
+      fontSize:15,
+      color:'black'
   },
   controlbar:{
       width:343,
       height:44,
-      backgroundColor:'#efeff4',
+      backgroundColor:color.palette.controlbar,
       borderWidth:1,
       borderRadius:10,
-      borderColor:'#cccccc',
+      borderColor:color.palette.bordergray,
       marginLeft: 25,
       display:'flex',
       flexDirection:'row',
       justifyContent:'space-around'
   },
   controlitem:{
-      color:'gray',
+      color:color.palette.textgray,
       marginTop:10,
       fontSize:15,
       fontWeight:'600'
@@ -68,8 +71,8 @@ export default StyleSheet.create({
   buy:{
       display:'flex',
       flexDirection:'row',
+      alignItems:"flex-start",
       marginTop:10,
-      
   },
   buyitem:{
       width:80,
@@ -81,23 +84,25 @@ export default StyleSheet.create({
       marginLeft:10
   },
   titlebuy:{
-    display:'flex', flexDirection:'column', margin:10, marginTop:10
+    display:'flex', flexDirection:'column', margin:10, marginTop:10,width:175
   },
-  buttonbuy:{
-    borderWidth:1,
-    width: 100,
-    textAlign:'center',
-    borderRadius:10,
-    borderColor:'rgb(147,194,47)',
-    color:'rgb(147,194,47)'
-},
 textbullet:{
-    color:'white',
+    color:color.palette.white,
     fontWeight:'bold',
     fontSize:17
 },
 textwhite:{
-    color:'white',
+    color:color.palette.white,
     fontSize:12
-}
+},
+buttonbuy:{
+    borderWidth:1,
+    width: 100,
+    textAlign:'center',
+    borderRadius:10,
+    borderColor:color.palette.buttonbuy,
+    color:color.palette.buttonbuy,
+    marginTop:40,
+},
+
 })
