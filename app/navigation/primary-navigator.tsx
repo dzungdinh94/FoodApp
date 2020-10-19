@@ -98,7 +98,7 @@ export function AppNavigator() {
         headerShown: false,
         gestureEnabled: true,
       }}
-      initialRouteName={screens.OrdersPickupsScreen}  //kxd202016 added to autoload OrdersScreen
+      initialRouteName={screens.OrdersDeliveryScreen}  //kxd202016 added to autoload OrdersScreen
     >
       <Stack.Screen name={screens.HomeBottomTab} component={HomeBottomTab} />
       <Stack.Screen name={screens.Browse01Screen} component={Browse01Screen} />
