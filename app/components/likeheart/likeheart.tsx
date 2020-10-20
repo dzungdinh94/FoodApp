@@ -4,7 +4,7 @@ import { Icon } from 'react-native-elements'
 const LikeHeart = ()=>{
     const [changecolor,oldcolor] = React.useState(false)
     const changeColor = () => {
-        oldcolor(true)
+        oldcolor(changecolor?false:true)
     }
 
   return (
