@@ -25,16 +25,15 @@ export const NotificationsScreen = observer(function NotificationsScreen() {
   return (
     <Screen style={ROOT} preset="scroll">
       <View style={styles.search}>
-        <Icon name="ei-search" type='evilicon' color='black'/>
+        <Icon name="ei-search" type='evilicon'/>
         
       </View>
       <Text style={styles.title}>Thông báo</Text>
-      <EachNoti notiText="Đơn#: 999001 đã xử lý xong tại kho" time="34 phút trước"/>
-      <EachNoti notiText="Bạn đã nhận hàng Đơn#: 998001 tại cửa hàng" time="2 tiếng trước"/>
-      <EachNoti notiText="Đừng bỏ lỡ: táo đang giảm giá 30% và hết hạn vào 17h hôm nay" time="4 tiếng trước"/>
-      <EachNoti notiText="Đừng bỏ lỡ: táo đang giảm giá 30% và hết hạn vào 17h hôm nay" time="4 tiếng trước"/>
-      <EachNoti notiText="Đừng bỏ lỡ: táo đang giảm giá 30% và hết hạn vào 17h hôm nay" time="4 tiếng trước"/>
-
+      <EachNoti notitext="Đơn#: 999001 đã xử lý xong tại kho" time="34 phút trước"/>
+      <EachNoti notitext="Bạn đã nhận hàng Đơn#: 998001 tại cửa hàng" time="2 tiếng trước"/>
+      <EachNoti notitext="Đừng bỏ lỡ: táo đang giảm giá 30% và hết hạn vào 17h hôm nay" time="4 tiếng trước"/>
+      <EachNoti notitext="Đừng bỏ lỡ: táo đang giảm giá 30% và hết hạn vào 17h hôm nay" time="4 tiếng trước"/>
+      <EachNoti notitext="Đừng bỏ lỡ: táo đang giảm giá 30% và hết hạn vào 17h hôm nay" time="4 tiếng trước"/>
     </Screen>
   )
 })

@@ -24,8 +24,11 @@ export default StyleSheet.create({
     back:{
         marginVertical: spacing[3]
     },
+    center:{
+        alignItems: 'center'
+    },
     text: {
-        fontSize: 20,
+        fontSize: 17,
         letterSpacing: .5,
     },
     container: {
@@ -34,7 +37,8 @@ export default StyleSheet.create({
     subtitle: {
         color: 'black',
         fontWeight: 'bold',
-        marginVertical: spacing[4]
+        marginVertical: spacing[4],
+        fontSize: 17,
     },
     title:{
         color: 'black',

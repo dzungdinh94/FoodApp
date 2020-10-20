@@ -4,9 +4,13 @@ import styles from './styles'
 
 const othersetting2 = (props) => {
     return (
-        <View style={[styles.flewRow,styles.justifySpaceBetween,styles.textContainer]}>
+        <View>
+
+        <View style={[styles.justifySpaceBetween,styles.flexRow,styles.center,styles.textContainer]}>
             <Text  style={styles.text}>{props.settingtext}</Text>
     <Text style={styles.arrow}>{props.settingattr}</Text>
+        </View>
+        
         </View>
     )
 }

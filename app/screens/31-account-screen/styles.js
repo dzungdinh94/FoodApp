@@ -12,7 +12,7 @@ export default StyleSheet.create({
         flexDirection: 'column',
     },
     add: {
-        fontSize: 22,
+        fontSize: 17,
         color: color.palette.textGreen,
         marginBottom: spacing[5]
     },
@@ -27,9 +27,10 @@ export default StyleSheet.create({
     point: {
         fontWeight: 'bold',
         color: 'black',
-        fontSize: 22,
+        fontSize: 17,
+        height: 22
     },
-    pointContainer: {
+    totalpointContainer: {
         marginTop: spacing[4],
     },
     title: {
@@ -40,23 +41,54 @@ export default StyleSheet.create({
         letterSpacing: .5
     },
     name: {
-        fontSize: 28,
+        fontSize: 24,
         fontWeight: 'bold',
-        color: 'black'
+        color: 'black',
+        marginTop: 17,
+        marginBottom: 0
+    },
+    pointContainer:{
+        paddingRight: 40,
+        
+    },
+    receiptContainer: {
+        paddingLeft: spacing[4],
+        paddingRight: 45
+    },
+    creditContainer: {
+        paddingLeft: spacing[4],
+        borderRightWidth: 0
+    },
+    nameSmall:{
+        marginLeft: spacing[4],
+        flex: 3.5,
+    },
+    header: {
+        // height: 44,
+        paddingBottom: 13
+    },
+    header2: {
+        marginTop: 8,
+    },
+    email : {
+        color: color.palette.greyText,
+        fontSize: 15,
+        marginTop: 5,
+
     },
     subtext:{
-        fontSize: 16,
+        fontSize: 13,
         color: 'rgb(138,138,143)'
     },
     nameBg: {
-        backgroundColor:  color.palette.darkWhite
+        backgroundColor:  color.palette.borderGrey,
     },
     namePic: {
-        width: 86,
+        flex: 1,
         height: 86,
         borderRadius: 50,
         borderWidth: 1,
-        marginRight: spacing[2]
+        
     },
     cardPic: {
         width: 40,
@@ -65,7 +97,7 @@ export default StyleSheet.create({
         marginRight: spacing[2]
     },
     
-    screen: {
+    magLeft: {
         marginLeft: spacing[4]
     },
     addressContainer: {
@@ -74,19 +106,29 @@ export default StyleSheet.create({
         paddingTop: spacing[1],
         paddingBottom: spacing[3],
         marginBottom: spacing[3],
+        
+        alignItems: 'center'
     },
     nameContainer: {
-        paddingVertical: spacing[3]
+        paddingVertical: spacing[3],
     },
     payment: {
         borderBottomColor:  color.palette.borderGrey,
         borderBottomWidth: 1,
         paddingVertical: spacing[3],
+        alignItems: 'center'
     },
 
     place: {
         color: 'rgb(102,102,102)',
+        fontSize: 13,
         marginBottom: spacing[1],
+    },
+    padRight:{
+        paddingRight: spacing[4]
+    },
+    address:{
+        fontSize: 14
     },
     floatRight: {
         alignSelf: 'flex-end',
@@ -97,8 +139,12 @@ export default StyleSheet.create({
     },
     justifySpaceBetween: {
         justifyContent: 'space-between',
-        marginHorizontal: spacing[3],
-        marginVertical: spacing[2]
+        
+    },
+    arrowIcon:{
+        fontSize: 13, color: 'rgb(200,199,204)',
+        paddingRight: spacing[4],
+
     },
     cardName: {
         fontSize: 19,

@@ -33,7 +33,7 @@ export const SettingScreen = observer(function SettingScreen() {
     <Screen style={ROOT} preset="scroll" style={styles.container}>
       <View style={[styles.back,styles.justifySpaceBetween,styles.flexRow]}>
 
-      <Icon name='arrow-left' type='font-awesome-5' color='black' onPress={goBack}/>
+      <Icon name='chevron-back-outline' type='ionicon' iconStyle={{fontSize: 30 ,marginLeft:-5, fontWeight: 'bold'}} color='black' onPress={goBack}/>
       </View>
       <Text style={styles.title}>Thiết lập</Text>
       <View>
@@ -49,9 +49,10 @@ export const SettingScreen = observer(function SettingScreen() {
         <OtherSetting1 settingswitch='Nhận thư thông báo'/>
         <OtherSetting1 settingswitch='Nhận cuộc gọi'/>
         <OtherSetting1 settingswitch='Nhận tin nhắn'/>
-        <OtherSetting2 settingtext="Tiền tệ" settingattr='đ-VND >' />
-        <OtherSetting2 settingtext="Ngôn ngữ" settingattr='Tiếng Việt >' />
-        <OtherSetting2 settingtext="Liên kết" settingattr='Facebook-Google >' />
+          
+        <OtherSetting2 settingtext="Tiền tệ" settingattr='đ-VND' />
+        <OtherSetting2 settingtext="Ngôn ngữ" settingattr='Tiếng Việt' />
+        <OtherSetting2 settingtext="Liên kết" settingattr='Facebook-Google' />
       </View>
     </Screen>
   )
