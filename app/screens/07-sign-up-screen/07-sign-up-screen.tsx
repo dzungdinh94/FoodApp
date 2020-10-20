@@ -4,18 +4,18 @@ import { ViewStyle } from "react-native"
 import { Button, Screen, Text, AuthInput } from "../../components"
 import { useNavigation } from "@react-navigation/native"
 // import { useStores } from "../../models"
-import { color } from "../../theme"
+import { color, spacing } from "../../theme"
 import { View } from "react-native"
-import { TextInput, TouchableOpacity } from "react-native-gesture-handler"
+import { ScrollView, TextInput, TouchableOpacity } from "react-native-gesture-handler"
 import screens from "../../navigation/screens"
 import styles from "./styles"
 import AvatarInput from "../../components/AvatarInput"
 
 const ROOT: ViewStyle = {
   backgroundColor: color.palette.white,
-  flex: 1,
+  paddingHorizontal: spacing[6],
   justifyContent: "space-between",
-  paddingHorizontal: 32,
+  minHeight: 734,
 }
 
 export const SignUpScreen = observer(function SignUpScreen() {
@@ -28,7 +28,7 @@ export const SignUpScreen = observer(function SignUpScreen() {
   // Pull in navigation via hook
   // const navigation = useNavigation()
   return (
-    <Screen style={ROOT} preset="scroll">
+    <ScrollView contentContainerStyle={ROOT}>
       <View>
         {/* Welcome Title */}
         <Text style={styles.header}>Xin chào!</Text>
@@ -37,7 +37,7 @@ export const SignUpScreen = observer(function SignUpScreen() {
           <AvatarInput width={86} height={86} type="null"></AvatarInput>
         </View>
         {/* Guide Text */}
-        <Text style={styles.guideText} text="Đăng nhập để tiếp tục" />
+        <Text style={styles.guideText} text="Đăng ký để tham gia" />
         {/* Input Username */}
         <AuthInput title="Nhập Tên" isPassword={false} />
         {/* Input Email */}
@@ -64,6 +64,6 @@ export const SignUpScreen = observer(function SignUpScreen() {
           <Text style={styles.bold}> Đăng nhập</Text>
         </TouchableOpacity>
       </View>
-    </Screen>
+    </ScrollView>
   )
 })

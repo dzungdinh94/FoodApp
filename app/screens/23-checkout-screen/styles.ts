@@ -8,7 +8,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-between",
     width: "100%",
-    paddingHorizontal: spacing[4],
+    paddingHorizontal: spacing[2],
     paddingTop: spacing[2],
   },
   contentContainer: {},
@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
   },
   // Coupon Input
   //
-  //
+
   button: {
     alignSelf: "stretch",
     height: 50,
@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     borderRadius: spacing[2],
-    marginVertical: spacing[4],
+    marginBottom: spacing[4],
     marginHorizontal: spacing[4],
   },
   buttonContent: { fontSize: 17 },
@@ -138,15 +138,19 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
     marginHorizontal: spacing[4],
-    paddingVertical: spacing[3],
+    paddingVertical: spacing[4],
     borderBottomWidth: 1,
     borderBottomColor: color.palette.gray240,
   },
-  infoTitle: { fontSize: 13, marginBottom: spacing[1], color: color.palette.gray100 },
+  infoTitle: {
+    fontSize: 13,
+    marginBottom: spacing[2],
+    color: color.palette.gray100,
+  },
   infoHighlightDetails: { fontSize: 17, fontWeight: "bold" },
-  infoMoreDetails: { fontSize: 13 },
+  infoMoreDetails: { fontSize: 13, marginBottom: spacing[1] },
 
-  cartListContainer: { paddingHorizontal: spacing[4] },
+  cartListContainer: { paddingHorizontal: spacing[4], paddingVertical: spacing[4] },
   infoRowDetailsContainer: {
     flexDirection: "row",
     alignItems: "center",

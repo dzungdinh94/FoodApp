@@ -4,11 +4,11 @@ import { ViewStyle, TextStyle, View } from "react-native"
 import { Screen, Text } from "../../components"
 // import { useNavigation } from "@react-navigation/native"
 // import { useStores } from "../../models"
-import { color } from "../../theme"
+import { color, spacing } from "../../theme"
 import { TextInput } from "react-native-gesture-handler"
 
 const ROOT: ViewStyle = {
-  paddingBottom: 16,
+  paddingBottom: spacing[5],
 }
 const TITLE: TextStyle = { fontSize: 17, color: "rgb(140,140,140)" }
 
@@ -32,7 +32,7 @@ export const AuthInput = ({ title, isPassword }) => {
           color: "black",
           fontSize: 17,
           borderBottomWidth: 1,
-          paddingVertical: 5,
+          paddingVertical: spacing[2],
           borderColor: IsFocusInput || inputValue !== "" ? "rgb(147,194,47)" : "rgb(239,239,239)",
         }}
         onFocus={() => SetIsFocusInPut(true)}

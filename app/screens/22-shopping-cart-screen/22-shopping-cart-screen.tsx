@@ -50,7 +50,7 @@ const CartItem = ({ itemData, handleClickButton }) => {
         width: "100%",
         flexDirection: "row",
         alignItems: "center",
-        paddingVertical: spacing[3],
+        paddingVertical: spacing[4],
         borderBottomWidth: 0.7,
         borderColor: color.palette.lighterGrey,
       }}
@@ -60,14 +60,14 @@ const CartItem = ({ itemData, handleClickButton }) => {
         {/* Image */}
         <View
           style={{
-            width: 80,
-            height: 80,
+            width: 64,
+            height: 64,
             backgroundColor: "rgb(200,200,200)",
             borderRadius: 8,
             marginRight: 10,
           }}
         >
-          <SimpleImage width={80} height={80} />
+          <SimpleImage width={64} height={64} />
         </View>
       </TouchableOpacity>
       {/*Part2: Counter */}
@@ -77,13 +77,13 @@ const CartItem = ({ itemData, handleClickButton }) => {
           flexDirection: "row",
           flexGrow: 1,
           paddingRight: spacing[4],
-          height: "100%",
+          height: 64,
           alignItems: "center",
         }}
       >
         {/* Details */}
-        <View>
-          <Text style={{ color: color.palette.lightGrey, fontSize: 13, lineHeight: 18 }}>
+        <View style={{ height: 64, justifyContent: "space-between" }}>
+          <Text style={{ color: color.palette.main, fontSize: 13, lineHeight: 18 }}>
             {itemData.type}
           </Text>
           <Text
@@ -91,7 +91,6 @@ const CartItem = ({ itemData, handleClickButton }) => {
               color: "black",
               fontSize: 15,
               lineHeight: 20,
-              fontWeight: "bold",
             }}
           >
             {itemData.name}
@@ -101,7 +100,7 @@ const CartItem = ({ itemData, handleClickButton }) => {
           </Text>
         </View>
         {/* Counter Indicator */}
-        <View style={{ alignItems: "flex-end" }}>
+        <View style={{ height: 64, alignItems: "flex-end", justifyContent: "space-between" }}>
           <Text style={{ color: color.palette.black, fontWeight: "bold" }}>
             {quantity * itemData.price} K
           </Text>
@@ -132,7 +131,7 @@ const RadioInputCart = ({ title, selected, onClick }) => {
         style={[
           styles.circle,
           {
-            borderColor: selected ? color.palette.main : color.palette.black,
+            borderColor: selected ? color.palette.main : color.palette.gray200,
             backgroundColor: selected ? color.palette.main : color.palette.white,
           },
         ]}
@@ -209,7 +208,7 @@ export const ShoppingCartScreen = observer(function ShoppingCartScreen() {
       {/* Navigation Bar */}
       <View style={styles.navigationContainer}>
         <TouchableOpacity onPress={() => navigation.goBack()}>
-          <Icon name="close" type="material" size={32} />
+          <Icon name="close" type="material" size={20} />
         </TouchableOpacity>
         <Text style={{ color: color.palette.gray140, fontSize: 17, paddingRight: spacing[4] }}>
           Edit
@@ -233,6 +232,7 @@ export const ShoppingCartScreen = observer(function ShoppingCartScreen() {
         style={{
           flexDirection: "row",
           alignItems: "center",
+          justifyContent: "space-between",
           backgroundColor: color.palette.gray250,
           borderRadius: spacing[3],
           paddingLeft: spacing[4],
@@ -242,7 +242,7 @@ export const ShoppingCartScreen = observer(function ShoppingCartScreen() {
       >
         <Text>Mã khuyến mại</Text>
         <TextInput
-          style={{ marginLeft: spacing[4], paddingLeft: spacing[4] }}
+          style={{ marginLeft: spacing[9], paddingLeft: spacing[4], marginRight: spacing[4] }}
           placeholder="Nhập mã nếu có"
           value={coupon}
           onChangeText={(value) => setCoupon(value)}
@@ -266,9 +266,9 @@ export const ShoppingCartScreen = observer(function ShoppingCartScreen() {
             selected={!isRentDelivery}
             onClick={ClickSelfDelivery}
           />
+          {/* Spacing:16 */}
+          <View style={{ width: 16 }}></View>
           <RadioInputCart title="Thuê ship" selected={isRentDelivery} onClick={ClickRentDelivery} />
-          {/* <Text>Tự vận chuyển</Text>
-          <Text>Thuê ship</Text> */}
         </View>
         {/* Deliver Price */}
         <View
@@ -276,6 +276,7 @@ export const ShoppingCartScreen = observer(function ShoppingCartScreen() {
             flexDirection: "row",
             justifyContent: "space-between",
             marginTop: spacing[7],
+            marginBottom: spacing[2],
           }}
         >
           <Text>Phí ship</Text>
@@ -284,7 +285,13 @@ export const ShoppingCartScreen = observer(function ShoppingCartScreen() {
       </View>
       {/* Total Money */}
       <View
-        style={{ paddingRight: spacing[4], flexDirection: "row", justifyContent: "space-between" }}
+        style={{
+          paddingRight: spacing[4],
+          flexDirection: "row",
+          justifyContent: "space-between",
+          marginTop: spacing[2],
+          marginBottom: spacing[2],
+        }}
       >
         <View
           style={{

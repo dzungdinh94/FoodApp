@@ -7,12 +7,13 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
+    marginVertical: spacing[4],
   },
   contentContainer: {},
   headerText: {
     fontWeight: "bold",
     fontSize: 34,
-    marginBottom: spacing[2],
+    marginBottom: spacing[1],
     color: color.palette.black,
   },
   // Coupon Input
@@ -26,6 +27,7 @@ const styles = StyleSheet.create({
     borderRadius: spacing[2],
     marginVertical: spacing[4],
     marginRight: spacing[4],
+    marginBottom: spacing[6],
   },
   buttonContent: { fontSize: 17 },
   //RadioInputCart
@@ -35,9 +37,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
     borderWidth: 1,
     borderRadius: spacing[2],
-    paddingVertical: spacing[2],
-    paddingHorizontal: spacing[3],
-    width: "45%",
+    paddingVertical: spacing[4],
+    paddingHorizontal: spacing[4],
+    flex: 1,
     borderColor: color.palette.gray200,
   },
   circle: {
@@ -51,8 +53,8 @@ const styles = StyleSheet.create({
   },
   radioValueTextSelected: {
     fontSize: 15,
-    color: "black",
-    fontWeight: "bold",
+    color: "rgb(100,100,100)",
+    fontWeight: "normal",
   },
   radioValueTextUnSelected: {
     fontSize: 15,

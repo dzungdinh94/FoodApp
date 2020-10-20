@@ -16,7 +16,6 @@ import RadioInput from "../../components/RadioInput"
 
 const ROOT: ViewStyle = {
   backgroundColor: color.palette.white,
-  flex: 1,
 }
 
 export const CheckoutScreen = ({ route, navigation }) => {
@@ -52,7 +51,7 @@ export const CheckoutScreen = ({ route, navigation }) => {
           <Text style={styles.infoHighlightDetails}>Thứ năm, 12/12/2020</Text>
           <Text style={styles.infoMoreDetails}>10:00 sáng</Text>
         </View>
-        <Icon name="navigate-next" type="material" size={40} color={color.palette.gray200} />
+        <Icon name="navigate-next" type="material" size={28} color={color.palette.gray200} />
       </View>
       {/* Recived Location */}
       <View style={styles.infoContainer}>
@@ -63,7 +62,7 @@ export const CheckoutScreen = ({ route, navigation }) => {
             Số 35 ngõ Quỳnh, phố Bạch Mai, Hai Bà Trưng, Hà Nội …
           </Text>
         </View>
-        <Icon name="navigate-next" type="material" size={40} color={color.palette.gray200} />
+        <Icon name="navigate-next" type="material" size={28} color={color.palette.gray200} />
       </View>
       {/* Payment method */}
       <View style={styles.infoContainer}>
@@ -71,7 +70,7 @@ export const CheckoutScreen = ({ route, navigation }) => {
           <Text style={styles.infoTitle}>Phương thức thanh toán</Text>
           <Text style={styles.infoMoreDetails}>Apple Pay</Text>
         </View>
-        <Icon name="navigate-next" type="material" size={40} color={color.palette.gray200} />
+        <Icon name="navigate-next" type="material" size={28} color={color.palette.gray200} />
       </View>
       {/* Cart List */}
       <View style={styles.cartListContainer}>
