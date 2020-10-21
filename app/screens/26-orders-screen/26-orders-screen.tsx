@@ -11,7 +11,8 @@ import styles from "./styles"
 
 import Dot from "../../components/dot"
 import OrderItem from "../../components/order-item"
-import {order} from './data'
+import { order } from './data'
+import { useEffect } from "react"
 
 
 const ROOT: ViewStyle = {
@@ -32,6 +33,21 @@ export const OrdersScreen = observer(function OrdersScreen() {
     <OrderItem status={item.status} orderNumber={item.orderNumber} createdAt={item.createdAt} deliveryMethod={item.deliveryMethod} products={item.products} />
   );
 
+  useEffect(() => {
+    // Should not ever set state during rendering, so do this in useEffect instead.
+    setMydata(order);
+  }, []);
+
+  // let myData = [...order]
+  const [myData,setMydata]=React.useState([])
+
+  const [arrayHolder,setarrayHolder]=React.useState([])
+  const filterProcess = () => {
+    console.log(myData)
+    setarrayHolder(myData.filter((item) => item.status == 'dangxuly'))
+    console.log(myData);
+  }
+
   return (
     <Screen style={ROOT} preset="scroll">
 
@@ -39,16 +55,12 @@ export const OrdersScreen = observer(function OrdersScreen() {
 
       <View style={styles.container}>
         <View style={styles.container1}>
-          <TouchableOpacity style={{
-            flexDirection: "row-reverse",
-            // height: 100,
-            // padding: 20
-          }}>
+          <TouchableOpacity style={{ flexDirection: "row-reverse", }}>
             <Icon name="search" type="AntDesign" style={styles.icon} />
           </TouchableOpacity>
           <Text preset="header" text="Đơn hàng của tôi" style={styles.orders} />
           <View style={{ flexDirection: "row", height: 44 }}>
-            <TouchableOpacity style={{ flex: 1, flexDirection: "row", borderRightWidth: 1, borderRightColor: "rgb(239,239,244)", justifyContent: "center", alignItems: "center", padding: 12 }}>
+            <TouchableOpacity onPress={filterProcess} style={{ flex: 1, flexDirection: "row", borderRightWidth: 1, borderRightColor: "rgb(239,239,244)", justifyContent: "center", alignItems: "center", padding: 12 }}>
               <Dot type="dangxuly" />
               <Text style={{ color: "rgb(102,102,102)" }} text="Đang xử lý"  ></Text>
             </TouchableOpacity>
@@ -65,7 +77,7 @@ export const OrdersScreen = observer(function OrdersScreen() {
 
         {/* FLAT LIST */}
         <FlatList
-          data={order}
+          data={arrayHolder}
           renderItem={renderItemOrder}
           keyExtractor={item => item.id.toString()}
         />

@@ -59,7 +59,7 @@ const Stack = createNativeStackNavigator()
 export function HomeBottomTab() {
   return (
     <Tab.Navigator
-      initialRouteName={screens.FavoritesScreen} //kxd202016 Browse02Screen -> OrdersScreen
+      initialRouteName={screens.OrdersScreen} //kxd202016 Browse02Screen -> OrdersScreen
       screenOptions={({ route }) => ({
         tabBarIcon: ({ focused }) => {
           let iconName

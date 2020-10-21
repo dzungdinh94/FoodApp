@@ -69,11 +69,6 @@ export const FavoritesScreen = observer(function FavoritesScreen() {
 
             
 
-            <FlatList
-              data={favorites}
-              renderItem={renderItemFavorites}
-              keyExtractor={item => item.id.toString()}
-            />
 
           </View>
         </View>

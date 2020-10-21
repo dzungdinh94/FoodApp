@@ -23,6 +23,31 @@ export default StyleSheet.create({
         height: 38,
         borderRadius: 8,
         marginLeft: 4,
+    },
+    orderNumber: { 
+        color: 'black',
+        fontSize: 17,
+        lineHeight: 22,
+        textAlign: "left",
+        marginBottom: 8,
+        fontFamily: "SegoeUI",
+        fontWeight: "normal",
+    },
+    createdAt: {
+        color: "rgb(102,102,102)",
+        fontSize: 13,
+        lineHeight: 16,
+        textAlign: "left",
+        fontFamily: "SegoeUI",
+        fontWeight: "normal",
+    },
+    deliveryMethod: {
+        color: "rgb(138,138,143)",
+        fontSize: 13,
+        lineHeight: 18,
+        textAlign: "left",
+        fontFamily: "SegoeUI",
+        fontWeight: "normal",
     }
 })
 

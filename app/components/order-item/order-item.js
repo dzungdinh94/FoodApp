@@ -20,9 +20,9 @@ const orderItem = (props) => {
         <Dot type={props.status} />
         <View style={styles.borderB}>
           <TouchableOpacity>
-            <Text style={{ color: "black" }} text={"Đơn#: " + props.orderNumber} />
-            <Text style={{ color: "rgb(102,102,102)" }} text={props.createdAt} />
-            <Text style={{ color: "rgb(102,102,102)" }} text={props.deliveryMethod} />
+            <Text style={styles.orderNumber} text={"Đơn#: " + props.orderNumber} />
+            <Text style={styles.createdAt} text={props.createdAt} />
+            <Text style={styles.deliveryMethod} text={props.deliveryMethod} />
           </TouchableOpacity>
           <View style={{ flex: 1 }}></View>
 
