@@ -6,9 +6,9 @@ import styles from './styles';
 
 const dot = (props) => {
 
-  if (props.type === 'dangxuly') {
+  if (props.type === 1) {
     style = styles.dangxuly
-  } else if (props.type === 'huy') {
+  } else if (props.type === 2) {
     style = styles.huy
   } else {
     style = styles.hoanthanh

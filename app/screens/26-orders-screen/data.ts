@@ -3,7 +3,7 @@ export const order = [
         id: 1,
         orderNumber: 999001,
         createdAt: "25 April 2018 - 3:27 PM",
-        status: "dangxuly",
+        status: 1,
         deliveryMethod: "Ship",
         products: [
             {
@@ -21,7 +21,7 @@ export const order = [
         id: 2,
         orderNumber: 998001,
         createdAt: "22 April 2018 - 3:27 PM",
-        status: "hoanthanh",
+        status: 3,
         deliveryMethod: "Tự vận chuyển",
         products: [
             {
@@ -54,7 +54,7 @@ export const order = [
         id: 3,
         orderNumber: 996001,
         createdAt: "20 April 2018 - 3:27 PM",
-        status: "huy",
+        status: 2,
         deliveryMethod: "Tự vận chuyển",
         products: [
             {
@@ -68,7 +68,7 @@ export const order = [
         id: 4,
         orderNumber: 979001,
         createdAt: "19 April 2018 - 3:27 PM",
-        status: "dangxuly",
+        status: 1,
         deliveryMethod: "Ship",
         products: [
             {
@@ -86,7 +86,7 @@ export const order = [
         id: 5,
         orderNumber: 972001,
         createdAt: "17 April 2018 - 3:27 PM",
-        status: "hoanthanh",
+        status: 3,
         deliveryMethod: "Tự vận chuyển",
         products: [
             {
@@ -107,7 +107,7 @@ export const order = [
         id: 6,
         orderNumber: 965001,
         createdAt: "16 April 2018 - 3:27 PM",
-        status: "huy",
+        status: 2,
         deliveryMethod: "Ship",
         products: [
             {
@@ -125,7 +125,7 @@ export const order = [
         id: 7,
         orderNumber: 953001,
         createdAt: "9 April 2018 - 3:27 PM",
-        status: "hoanthanh",
+        status: 3,
         deliveryMethod: "Ship",
         products: [
             {

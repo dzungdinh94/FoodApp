@@ -12,7 +12,7 @@ import styles from "./styles"
 import Dot from "../../components/dot"
 import OrderItem from "../../components/order-item"
 import { order } from './data'
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 
 
 const ROOT: ViewStyle = {
@@ -36,16 +36,45 @@ export const OrdersScreen = observer(function OrdersScreen() {
   useEffect(() => {
     // Should not ever set state during rendering, so do this in useEffect instead.
     setMydata(order);
-  }, []);
+
+  });
 
   // let myData = [...order]
-  const [myData,setMydata]=React.useState([])
+  const [myData, setMydata] = React.useState([])
+  const [arrayHolder, setArrayHolder] = React.useState(order)
+  const [filterStatus, setFilterStatus] = React.useState(0)
+  const [filterStatusx, setFilterStatusx] = React.useState('')
 
-  const [arrayHolder,setarrayHolder]=React.useState([])
-  const filterProcess = () => {
-    console.log(myData)
-    setarrayHolder(myData.filter((item) => item.status == 'dangxuly'))
-    console.log(myData);
+  // const filterProcess = () => {
+  //   if (filterStatus !== 1) {
+  //     setArrayHolder(myData.filter((item) => item.status == 'dangxuly'))
+  //     setFilterStatus(1)
+  //   } else setArrayHolder(myData)
+  // }
+  // const filterWaiting = () => {
+  //   if (filterStatus !== 2) {
+  //     setArrayHolder(myData.filter((item) => item.status == 'huy'))
+  //     setFilterStatus(2)
+  //   } else setArrayHolder(myData)
+
+  // }
+  // const filterCompleted = () => {
+  //   if (filterStatus !== 3) {
+  //     setArrayHolder(myData.filter((item) => item.status == 'hoanthanh'))
+  //     setFilterStatus(3)
+  //   } else setArrayHolder(myData)
+
+  // }
+
+  const filter = (status) => {
+    if (filterStatus !== status) {
+      setArrayHolder(myData.filter((item) => item.status == status))
+      setFilterStatus(status)
+    } else {
+      setArrayHolder(myData)
+      setFilterStatus(4)
+    }
+    console.log(filterStatus)
   }
 
   return (
@@ -60,16 +89,16 @@ export const OrdersScreen = observer(function OrdersScreen() {
           </TouchableOpacity>
           <Text preset="header" text="Đơn hàng của tôi" style={styles.orders} />
           <View style={{ flexDirection: "row", height: 44 }}>
-            <TouchableOpacity onPress={filterProcess} style={{ flex: 1, flexDirection: "row", borderRightWidth: 1, borderRightColor: "rgb(239,239,244)", justifyContent: "center", alignItems: "center", padding: 12 }}>
-              <Dot type="dangxuly" />
+            <TouchableOpacity onPress={() => filter(1)} style={{ flex: 1, flexDirection: "row", borderRightWidth: 1, borderRightColor: "rgb(239,239,244)", justifyContent: "center", alignItems: "center", padding: 12 }}>
+              <Dot type= {1} />
               <Text style={{ color: "rgb(102,102,102)" }} text="Đang xử lý"  ></Text>
             </TouchableOpacity>
-            <TouchableOpacity style={{ flex: 1, flexDirection: "row", borderRightWidth: 1, borderRightColor: "rgb(239,239,244)", justifyContent: "center", alignItems: "center", padding: 12 }}>
-              <Dot type="huy" />
+            <TouchableOpacity onPress={() => filter(2)} style={{ flex: 1, flexDirection: "row", borderRightWidth: 1, borderRightColor: "rgb(239,239,244)", justifyContent: "center", alignItems: "center", padding: 12 }}>
+              <Dot type={2} />
               <Text style={{ color: "rgb(102,102,102)" }} text="Hủy"  ></Text>
             </TouchableOpacity>
-            <TouchableOpacity style={{ flex: 1, flexDirection: "row", justifyContent: "center", alignItems: "center", padding: 12 }}>
-              <Dot type="hoanthanh" />
+            <TouchableOpacity onPress={() => filter(3)} style={{ flex: 1, flexDirection: "row", justifyContent: "center", alignItems: "center", padding: 12 }}>
+              <Dot type={3} />
               <Text style={{ color: "rgb(102,102,102)" }} text="Hoàn thành"  ></Text>
             </TouchableOpacity>
           </View>
