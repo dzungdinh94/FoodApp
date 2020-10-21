@@ -36,6 +36,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs"
 import { Icon } from "react-native-elements"
 import { color } from "../theme"
 
+
 /**
  * This type allows TypeScript to know what routes are defined in this navigator
  * as well as what properties (if any) they might take when navigating to them.

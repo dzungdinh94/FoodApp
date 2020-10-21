@@ -17,6 +17,9 @@ const styles = StyleSheet.create({
   checkboxWrapper: {
     display: "flex",
     flexDirection: "row",
+    marginBottom: 18,
+    marginHorizontal: 0,
+    width: "100%",
   },
   avatar: {
     width: 60,
@@ -25,7 +28,7 @@ const styles = StyleSheet.create({
     backgroundColor: "black",
   },
   avatarWrapper: {
-    paddingTop: 64,
+    paddingTop: 32,
   },
   firstText: {
     fontFamily: "SegoeUI-Bold",
@@ -35,10 +38,21 @@ const styles = StyleSheet.create({
     marginTop: 16,
     marginBottom: 32,
   },
-  checkboxText: {
-    fontSize: 15,
+  checkboxTextNormal: {
+    fontSize: 17,
     fontFamily: "SegoeUI-Regular",
     color: "rgb(102,102,102)",
+    fontWeight: "normal",
+    marginLeft: 8,
+    marginRight: 20,
+  },
+  checkboxTextPress: {
+    fontSize: 17,
+    fontFamily: "SegoeUI-Regular",
+    color: "rgb(102,102,102)",
+    fontWeight: "bold",
+    marginLeft: 8,
+    marginRight: 20,
   },
   button: {
     width: "100%",
@@ -49,9 +63,15 @@ const styles = StyleSheet.create({
   buttonWrapper: {
     marginTop: 32,
   },
+  secondTextWrapper: {
+    marginBottom: 32,
+  },
+  secondTextContent: {
+    fontFamily: "SegoeUI-Regular",
+    fontSize: 17,
+    color: "rgb(102,102,102)",
+  },
 })
-
-
 
 export const SetLanguageScreen = observer(function SetLanguageScreen({ navigation }) {
   // Pull in one of our MST stores
@@ -72,26 +92,43 @@ export const SetLanguageScreen = observer(function SetLanguageScreen({ navigatio
       <View style={styles.firstTextWrapper}>
         <Text style={styles.firstText}>Hi Thuý!</Text>
       </View>
-      <Text>Please select your preferred language to facilitate communication</Text>
+      <View style={styles.secondTextWrapper}>
+        <Text style={styles.secondTextContent}>
+          Please select your preferred language to facilitate communication
+        </Text>
+      </View>
       <View style={styles.checkboxWrapper}>
         <CheckBox
+          containerStyle={{
+            marginLeft: 0,
+            paddingHorizontal: 0,
+            paddingVertical: 0,
+            borderColor: color.palette.white,
+            backgroundColor: color.palette.white,
+          }}
           title="English"
           checked={language == "English" ? true : false}
           size={20}
-          textStyle={styles.checkboxText}
+          textStyle={language == "English" ? styles.checkboxTextPress : styles.checkboxTextNormal}
           checkedIcon="check-circle"
           uncheckedIcon="circle"
           checkedColor="#93c22f"
-          onIconIconPress={() => {
+          onIconPress={() => {
             setLanguage("English")
           }}
-          //containerStyle={{marginHorizontal:10}}
         />
         <CheckBox
+          containerStyle={{
+            marginLeft: 0,
+            paddingHorizontal: 0,
+            paddingVertical: 0,
+            borderColor: color.palette.white,
+            backgroundColor: color.palette.white,
+          }}
           title="Chinese"
           checked={language == "Chinese" ? true : false}
           size={20}
-          textStyle={styles.checkboxText}
+          textStyle={language == "Chinese" ? styles.checkboxTextPress : styles.checkboxTextNormal}
           checkedIcon="check-circle"
           uncheckedIcon="circle"
           checkedColor="#93c22f"
@@ -102,10 +139,19 @@ export const SetLanguageScreen = observer(function SetLanguageScreen({ navigatio
       </View>
       <View style={styles.checkboxWrapper}>
         <CheckBox
+          containerStyle={{
+            marginLeft: 0,
+            paddingHorizontal: 0,
+            paddingVertical: 0,
+            borderColor: color.palette.white,
+            backgroundColor: color.palette.white,
+          }}
           title="Portuguese"
           checked={language == "Portuguese" ? true : false}
           size={20}
-          textStyle={styles.checkboxText}
+          textStyle={
+            language == "Portuguese" ? styles.checkboxTextPress : styles.checkboxTextNormal
+          }
           checkedIcon="check-circle"
           uncheckedIcon="circle"
           checkedColor="#93c22f"
@@ -114,10 +160,17 @@ export const SetLanguageScreen = observer(function SetLanguageScreen({ navigatio
           }}
         />
         <CheckBox
+          containerStyle={{
+            marginLeft: 0,
+            paddingHorizontal: 0,
+            paddingVertical: 0,
+            borderColor: color.palette.white,
+            backgroundColor: color.palette.white,
+          }}
           title="Spanish"
           checked={language == "Spanish" ? true : false}
           size={20}
-          textStyle={styles.checkboxText}
+          textStyle={language == "Spanish" ? styles.checkboxTextPress : styles.checkboxTextNormal}
           checkedIcon="check-circle"
           uncheckedIcon="circle"
           checkedColor="#93c22f"
@@ -128,10 +181,17 @@ export const SetLanguageScreen = observer(function SetLanguageScreen({ navigatio
       </View>
       <View style={styles.checkboxWrapper}>
         <CheckBox
+          containerStyle={{
+            marginLeft: 0,
+            paddingHorizontal: 0,
+            paddingVertical: 0,
+            borderColor: color.palette.white,
+            backgroundColor: color.palette.white,
+          }}
           title="Hindi"
           checked={language == "Hindi" ? true : false}
           size={20}
-          textStyle={styles.checkboxText}
+          textStyle={language == "Hindi" ? styles.checkboxTextPress : styles.checkboxTextNormal}
           checkedIcon="check-circle"
           uncheckedIcon="circle"
           checkedColor="#93c22f"
@@ -140,10 +200,17 @@ export const SetLanguageScreen = observer(function SetLanguageScreen({ navigatio
           }}
         />
         <CheckBox
+          containerStyle={{
+            marginLeft: 0,
+            paddingHorizontal: 0,
+            paddingVertical: 0,
+            borderColor: color.palette.white,
+            backgroundColor: color.palette.white,
+          }}
           title="Arabic"
           checked={language == "Arabic" ? true : false}
           size={20}
-          textStyle={styles.checkboxText}
+          textStyle={language == "Arabic" ? styles.checkboxTextPress : styles.checkboxTextNormal}
           checkedIcon="check-circle"
           uncheckedIcon="circle"
           checkedColor="#93c22f"
@@ -152,10 +219,17 @@ export const SetLanguageScreen = observer(function SetLanguageScreen({ navigatio
           }}
         />
         <CheckBox
+          containerStyle={{
+            marginLeft: 0,
+            paddingHorizontal: 0,
+            paddingVertical: 0,
+            borderColor: color.palette.white,
+            backgroundColor: color.palette.white,
+          }}
           title="Russian"
           checked={language == "Russian" ? true : false}
           size={20}
-          textStyle={styles.checkboxText}
+          textStyle={language == "Russian" ? styles.checkboxTextPress : styles.checkboxTextNormal}
           checkedIcon="check-circle"
           uncheckedIcon="circle"
           checkedColor="#93c22f"
@@ -166,10 +240,17 @@ export const SetLanguageScreen = observer(function SetLanguageScreen({ navigatio
       </View>
       <View style={styles.checkboxWrapper}>
         <CheckBox
+          containerStyle={{
+            marginLeft: 0,
+            paddingHorizontal: 0,
+            paddingVertical: 0,
+            borderColor: color.palette.white,
+            backgroundColor: color.palette.white,
+          }}
           title="Bulgarian"
           checked={language == "Bulgarian" ? true : false}
           size={20}
-          textStyle={styles.checkboxText}
+          textStyle={language == "Bulgarian" ? styles.checkboxTextPress : styles.checkboxTextNormal}
           checkedIcon="check-circle"
           uncheckedIcon="circle"
           checkedColor="#93c22f"
@@ -178,10 +259,19 @@ export const SetLanguageScreen = observer(function SetLanguageScreen({ navigatio
           }}
         />
         <CheckBox
+          containerStyle={{
+            marginLeft: 0,
+            paddingHorizontal: 0,
+            paddingVertical: 0,
+            borderColor: color.palette.white,
+            backgroundColor: color.palette.white,
+          }}
           title="Lithuanian"
           checked={language == "Lithuanian" ? true : false}
           size={20}
-          textStyle={styles.checkboxText}
+          textStyle={
+            language == "Lithuanian" ? styles.checkboxTextPress : styles.checkboxTextNormal
+          }
           checkedIcon="check-circle"
           uncheckedIcon="circle"
           checkedColor="#93c22f"
@@ -195,7 +285,9 @@ export const SetLanguageScreen = observer(function SetLanguageScreen({ navigatio
           text="Select"
           style={styles.button}
           textStyle={{ fontFamily: "SegoeUI-Semibold", fontSize: 17 }}
-          onPress={() => {navigation.navigate('Browse01Screen')}}
+          onPress={() => {
+            navigation.navigate("Browse01Screen")
+          }}
         ></Button>
       </View>
     </Screen>

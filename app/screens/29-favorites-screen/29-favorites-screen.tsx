@@ -21,7 +21,7 @@ export const FavoritesScreen = observer(function FavoritesScreen() {
   // const navigation = useNavigation()
   return (
     <Screen style={ROOT} preset="scroll">
-      <Text preset="header" text="FaforitesScreen" />
+      <Text preset="header" text="FavoritesScreen" />
     </Screen>
   )
 })
