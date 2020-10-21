@@ -3,18 +3,20 @@ import {StyleSheet} from 'react-native'
 export default StyleSheet.create({
     box:{
         backgroundColor:color.palette.search,
-        width:343,
         height:36,
         borderRadius:10,
-        marginLeft:'auto',
-        marginRight:'auto',
-        top:10
+        marginHorizontal:0,
+        fontSize:15,
+        borderBottomWidth:0
     },
     icon:{
-        width:20,
-        height:20,
+        backgroundColor:color.palette.search,
         position:'absolute',
-        top:17,
-        left:40
+        top:10,
+        left:25,
+        width:37,
+        height:36,
+        borderRadius:10,
+        textAlignVertical:'center'
     }
 })

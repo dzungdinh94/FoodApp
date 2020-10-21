@@ -8,6 +8,6 @@ export default StyleSheet.create({
     },
     linearGradient:{
         borderRadius:10,
-        margin: 5
+        marginLeft:16
     }
 })

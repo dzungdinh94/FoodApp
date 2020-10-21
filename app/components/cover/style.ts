@@ -1,42 +1,45 @@
-import {StyleSheet} from 'react-native'
+import {StyleSheet, Dimensions} from 'react-native'
 export default StyleSheet.create({
     header:{
-        width:'100%',
-        height:400,
-        opacity:0.1
+        width:Dimensions.get('window').width,
+        height:360,
+        opacity:0.1,
+        flex:1
     },
     headerBackground:{
-        display:'flex',
         flexDirection:'row',
-        backgroundColor:'#d9d9d9'
+        backgroundColor:'#d9d9d9',
+        flex:1,
+        height:44,
     },
     image:{
-        width:100,
-        height:20,
-        marginLeft:10,
+        width:131,
+        height:30,
+        marginLeft:16,
         marginTop:15
     },
     iconstyle:{
-        display:'flex',
         flexDirection:'row',
-        left:230,
-        top:5
+        marginTop:15,
+        marginLeft:182
     },
     container:{
         position:'absolute',
-        top:230,
-        left:15
+        top:166,
+        left:16
     },
     description:{
-        fontSize:23,
-        fontWeight:'bold'
+        fontSize:27,
+        fontWeight:'bold',
+        top:8
     },
     danhmuc:{
-        fontSize:18
+        fontSize:17
     },
     buynow:{
-        fontSize:20,
+        fontSize:24,
         marginTop:20,
-        color:'#93c22f'
+        color:'#93c22f',
+        top:19
     },
 })

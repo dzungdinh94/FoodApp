@@ -9,7 +9,7 @@ const LikeHeart = ()=>{
 
   return (
     
-    <View style={{width:30,height:30,position:'absolute',top:12, right:20}}>
+    <View style={{position:'absolute',right:1}}>
     <TouchableOpacity onPress={changeColor}>
       <Icon reverse name='heart' type='fontisto' 
         color={(changecolor) ?'rgb(252,31,74)':'white'} 

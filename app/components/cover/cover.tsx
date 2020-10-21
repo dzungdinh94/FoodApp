@@ -18,8 +18,8 @@ const Cover = () => {
             <View style={styles.headerBackground}>
             <Image source={require('../../image/logo.png')}style={styles.image}/>
             <View style={styles.iconstyle}>
-            <Icon onPress={searchPage} name='search' type='feather' color='white'/>
-            <Icon name='shopping-cart' type='feather' color='white'/>
+            <Icon onPress={searchPage} name='search' type='feather' color='white' />
+            <Icon name='shopping-cart' type='feather' color='white' marginLeft={16}/>
             </View>
             </View>
             <LinearGradient 
@@ -28,7 +28,7 @@ const Cover = () => {
              >  
                 <View style={styles.container}>
                 <Text style={styles.danhmuc} text="Trái cây & Rau"/>
-                <Text style={styles.description}text="Được sản xuất từ các trang trại theo quy trình an toàn"/>
+                <Text style={styles.description} text="Được sản xuất từ các trang trại theo quy trình an toàn"/>
                 <TouchableOpacity>
                    <Text style={styles.buynow} text="Mua ngay"/>
                 </TouchableOpacity>                  

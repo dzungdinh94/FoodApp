@@ -14,5 +14,6 @@ export const palette = {
   border:'rgb(239,239,244)',
   textgray:'#8a8a8f',
   bordergray:'#cccccc',
-  controlbar:'#efeff4'
+  controlbar:'#efeff4',
+  icon:'rgb(138,138,143)'
 }

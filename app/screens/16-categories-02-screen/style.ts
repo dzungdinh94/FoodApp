@@ -1,6 +1,5 @@
 import { color } from "../../theme"
-import { spacing } from "../../theme"
-import {StyleSheet} from 'react-native'
+import {StyleSheet, Dimensions} from 'react-native'
 export default StyleSheet.create({
    background:{
        backgroundColor:color.palette.white,
@@ -13,28 +12,36 @@ export default StyleSheet.create({
    header:{
        color:color.palette.black,
        fontWeight:'bold',
-       fontSize:30,
-       left:24
+       fontSize:34,
+       marginHorizontal:16
    },
    Image:{
     marginRight:'auto',
     marginLeft:'auto',
     marginTop:32
 },
+// container:{
+//     flex:1,
+//     flexDirection:'row',
+//     top:24,
+//     marginHorizontal:16
+// },
 container:{
-    display:'flex',
+    flex:1,
+    flexWrap:'wrap',
     flexDirection:'row',
-    justifyContent:'space-evenly',
-    top:12
+    marginTop:24,
+    
 },
 cover:{
-    width:163,
+    width:Dimensions.get('window').width -230,
     height:163, 
     backgroundColor:color.palette.white,
     borderRadius:10,
-    margin:12,
     borderColor:'rgb(239,239,244)',
-    borderWidth:1.5
+    borderWidth:1.5,
+    marginLeft:16,
+    marginBottom: 16
 },
 price:{
     top:12,
@@ -47,16 +54,5 @@ name:{
     color:color.palette.black,
     fontWeight:'bold',
     textAlign:'center'
-},
-buttonbuy:{
-    borderWidth:1,
-    width: 100,
-    textAlign:'center',
-    borderRadius:10,
-    borderColor:color.palette.buttonbuy,
-    color:color.palette.buttonbuy,
-    top:24,
-    marginLeft:'auto',
-    marginRight:'auto'
-},
+}
 })

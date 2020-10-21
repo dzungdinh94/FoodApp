@@ -1,6 +1,6 @@
 import React from "react"
 import { observer } from "mobx-react-lite"
-import { ScrollView,ViewStyle, View, Image,Dimensions, TouchableOpacity, FlatList} from "react-native"
+import { ScrollView, ViewStyle, View, Image, Dimensions, TouchableOpacity, FlatList } from "react-native"
 import { Screen, Text } from "../../components"
 import { color } from "../../theme"
 import { Icon } from 'react-native-elements'
@@ -9,14 +9,14 @@ import SearchBox from '../../components/search-box'
 import LikeHeart from '../../components/likeheart'
 import { Header } from '../../components'
 import { useNavigation } from "@react-navigation/native"
-import { TabView, SceneMap, TabBar} from 'react-native-tab-view';"react-native-underline-tabbar"
-import {Traicay, Rau } from '../data/data'
+import { TabView, SceneMap, TabBar } from 'react-native-tab-view'; "react-native-underline-tabbar"
+import { Traicay, Rau } from '../data/data'
 const ROOT: ViewStyle = {
   backgroundColor: color.palette.background,
   flex: 1,
 }
 const FirstRoute = () => (
-  <FlatList 
+  <FlatList
     data={Traicay}
     renderItem={renderMyItem}
     numColumns={2}
@@ -29,19 +29,20 @@ const renderMyItem = ({ item, index }) => {
       <View>
         <View style={styles.cover}>
           <Image source={item.image} style={styles.Image} />
+          <LikeHeart />
           <Text style={styles.name}>{item.name}</Text>
           <Text style={styles.price}>{item.price}</Text>
           <TouchableOpacity>
-            <Text style={styles.buttonbuy}>Thêm vào giỏ</Text>
+            <Text style={styles.buttonbuy} text="Thêm vào giỏ" />
           </TouchableOpacity>
         </View>
-        <LikeHeart />
+        
       </View>
     </View>
   )
 }
 const SecondRoute = () => (
-  <FlatList 
+  <FlatList
     data={Rau}
     renderItem={renderRaucu}
     numColumns={2}
@@ -50,17 +51,17 @@ const SecondRoute = () => (
 const renderRaucu = ({ item, index }) => {
   return (
     <View style={styles.container}>
-      <View>
-        <View style={styles.cover}>
-          <Image source={item.image} style={styles.Image} />
-          <Text style={styles.name}>{item.name}</Text>
-          <Text style={styles.price}>{item.price}</Text>
-          <TouchableOpacity>
-            <Text style={styles.buttonbuy}>Thêm vào giỏ</Text>
-          </TouchableOpacity>
-        </View>
+
+      <View style={styles.cover}>
+        <Image source={item.image} style={styles.Image} />
         <LikeHeart />
+        <Text style={styles.name}>{item.name}</Text>
+        <Text style={styles.price}>{item.price}</Text>
+        <TouchableOpacity>
+          <Text style={styles.buttonbuy}>Thêm vào giỏ</Text>
+        </TouchableOpacity>
       </View>
+      
     </View>
   )
 }
@@ -97,10 +98,11 @@ export const Browse03Screen = observer(function Browse03Screen() {
       {...props}
       style={{
         backgroundColor: color.palette.background,
-        color: color.palette.black
+        color: color.palette.black,
+        marginTop: 6
       }}
-      labelStyle={{ color: color.palette.black, fontSize: 12, textTransform:'capitalize'}}
-      indicatorStyle={{backgroundColor:color.palette.buttonbuy}}
+      labelStyle={{ color: color.palette.black, fontSize: 13, textTransform: 'capitalize' }}
+      indicatorStyle={{ backgroundColor: color.palette.buttonbuy, width: 49, marginLeft: 16 }}
     />
   );
   return (
@@ -110,18 +112,18 @@ export const Browse03Screen = observer(function Browse03Screen() {
       <View style={styles.headerBackground}>
         <Image source={require('../../image/logo.png')} style={styles.image} />
         <View style={styles.iconstyle}>
-          <Icon name='search' type='feather' />
+          <Icon name='search' type='feather' marginRight={15} />
           <Icon name='shopping-cart' type='feather' />
         </View>
       </View>
       <SearchBox />
-      <TabView style={styles.tabview}
+      <TabView
         navigationState={{ index, routes }}
         renderScene={renderScene}
         onIndexChange={setIndex}
         initialLayout={initialLayout}
         renderTabBar={renderTabBar}
-        
+
       />
     </Screen>
   )

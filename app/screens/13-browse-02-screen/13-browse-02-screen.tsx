@@ -17,13 +17,14 @@ const ROOT: ViewStyle = {
 
 export const Browse02Screen = observer(function Browse02Screen() {
   const navigation = useNavigation()
+  
   const renderSpecialList = ({ item, index }) => {
     return (
-      <View style={{ display: 'flex', flexDirection: 'column' }}>
-        <View>
+      <View>
+          
           <Image source={require('../../image/header.png')} style={style.Image} />
-          <LikeHeart />
-        </View>
+          <LikeHeart/>
+       
         <View style={style.title}>
           <Text style={style.textgray} text={item.title} />
           <Text style={style.textblack} text={item.item} />
@@ -54,82 +55,82 @@ export const Browse02Screen = observer(function Browse02Screen() {
     <Screen style={ROOT} preset="scroll">
       <ScrollView>
         <Cover />
-        <View style={style.body}>
-          <View>
-            <View style={style.textHead}>
-              <Text style={style.item}>Danh mục</Text>
-              <TouchableOpacity style={{ display: 'flex', flexDirection: 'row' }}>
-                <Text style={style.textRight} onPress={() => { navigation.navigate('Categories02Screen') }}>Tất cả</Text>
 
-                <Icon name='navigate-next' type='MaterialIcons' color='gray' />
-              </TouchableOpacity>
+        <View>
+          <View style={style.textHead}>
+            <Text style={style.item}>Danh mục</Text>
+            <TouchableOpacity style={{ display: 'flex', flexDirection: 'row' }}>
+              <Text style={style.textRight} onPress={() => { navigation.navigate('Categories02Screen') }}>Tất cả</Text>
 
-            </View>
-            <ScrollView horizontal={true}>
-              <View>
-                <ImageBullet />
-                <View style={{ position: 'absolute', top: 130, left: 15 }}>
-                  <Text style={style.textbullet} text="Trái cây" />
-                  <Text style={style.textwhite} text="Giá từ 5.000đ" />
-                </View>
-              </View>
-              <View>
-                <ImageBullet />
-                <View style={{ position: 'absolute', top: 130, left: 15 }}>
-                  <Text style={style.textbullet} text="Rau" />
-                  <Text style={style.textwhite} text="Giá từ 3.000đ" />
-                </View>
-              </View>
-              <View>
-                <ImageBullet />
-                <View style={{ position: 'absolute', top: 130, left: 15 }}>
-                  <Text style={style.textbullet} text="Bánh" />
-                  <Text style={style.textwhite} text="Giá từ 5.000đ" />
-                </View>
-              </View>
-            </ScrollView>
+              <Icon name='navigate-next' type='MaterialIcons' color='gray' />
+            </TouchableOpacity>
+
           </View>
-          <View style={style.item2}>
-            <View style={style.textHead}>
-              <Text style={style.item}>Đặc biệt</Text>
-              <TouchableOpacity style={{ display: 'flex', flexDirection: 'row' }}>
-                <Text style={{ marginLeft: 255, color: 'gray' }}>Tất cả</Text>
-                <Icon name='navigate-next' type='MaterialIcons' color='gray' />
-              </TouchableOpacity>
-
-            </View>
-            <FlatList
-              horizontal={true}
-              data={SpecialList}
-              renderItem={renderSpecialList}
-            />
-          </View>
-          {/* last item 2 */}
-
-          <View style={style.item2}>
-            <View style={style.controlbar}>
-              <TouchableOpacity style={{ display: 'flex', flexDirection: 'row' }}>
-                <Text style={style.controlitem}>Bán chạy</Text>
-                <Icon name='down' type='antdesign' color='gray' size={10} marginLeft={20} marginTop={15} />
-              </TouchableOpacity>
-              <TouchableOpacity style={{ display: 'flex', flexDirection: 'row' }}>
-                <Icon name='sort' type='font-awesome' color='gray' size={12} marginRight={10} marginTop={15} />
-                <Text style={style.controlitem}>Sắp xếp</Text>
-              </TouchableOpacity>
-              <TouchableOpacity style={{ display: 'flex', flexDirection: 'row' }}>
-                <Text style={style.controlitem}>Lọc</Text>
-                <Icon name='filter' type='fontisto' color='gray' size={10} marginLeft={20} marginTop={15} />
-              </TouchableOpacity>
+          <ScrollView horizontal={true}>
+            <View>
+              <ImageBullet />
+              <View style={style.bullettext}>
+                <Text style={style.textbullet} text="Trái cây" />
+                <Text style={style.textwhite} text="Giá từ 5.000đ" />
+              </View>
             </View>
             <View>
+              <ImageBullet />
+              <View style={style.bullettext}>
+                <Text style={style.textbullet} text="Rau" />
+                <Text style={style.textwhite} text="Giá từ 3.000đ" />
+              </View>
             </View>
-            <FlatList
-              data={ListItem}
-              renderItem={renderListItem}
-            />
-          </View>
-          {/* last item 2.2 */}
+            <View>
+              <ImageBullet />
+              <View style={style.bullettext}>
+                <Text style={style.textbullet} text="Bánh" />
+                <Text style={style.textwhite} text="Giá từ 5.000đ" />
+              </View>
+            </View>
+          </ScrollView>
         </View>
+        <View>
+          <View style={style.textHead}>
+            <Text style={style.item}>Đặc biệt</Text>
+            <TouchableOpacity style={{ display: 'flex', flexDirection: 'row' }}>
+              <Text style={{ color: 'gray' }}>Tất cả</Text>
+              <Icon name='navigate-next' type='MaterialIcons' color='gray' />
+            </TouchableOpacity>
+
+          </View>
+          <FlatList
+            horizontal={true}
+            data={SpecialList}
+            renderItem={renderSpecialList}
+          />
+        </View>
+        {/* last item 2 */}
+
+        <View>
+          <View style={style.controlbar}>
+            <TouchableOpacity style={{ display: 'flex', flexDirection: 'row' }}>
+              <Text style={style.controlitem}>Bán chạy</Text>
+              <Icon name='down' type='antdesign' color='gray' size={10} marginLeft={20} marginTop={15} />
+            </TouchableOpacity>
+            <TouchableOpacity style={{ display: 'flex', flexDirection: 'row' }}>
+              <Icon name='sort' type='font-awesome' color='gray' size={12} marginRight={10} marginTop={15} />
+              <Text style={style.controlitem}>Sắp xếp</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={{ display: 'flex', flexDirection: 'row' }}>
+              <Text style={style.controlitem}>Lọc</Text>
+              <Icon name='filter' type='fontisto' color='gray' size={10} marginLeft={20} marginTop={15} />
+            </TouchableOpacity>
+          </View>
+          <View>
+          </View>
+          <FlatList
+            data={ListItem}
+            renderItem={renderListItem}
+          />
+        </View>
+        {/* last item 2.2 */}
+
       </ScrollView>
     </Screen>
   )

@@ -4,33 +4,28 @@ export default StyleSheet.create({
   bullet:{
       color:color.palette.black
   },
-  body:{
-    marginTop:50,
-    marginLeft: 10
-  },
   item:{
       fontWeight:'bold',
       fontSize:17,
-      marginLeft:10,
-      color:color.palette.black
+      color:color.palette.black,
   },
   textHead:{
-      display:'flex',
-      flexDirection:'row'
+      flex:1,
+      flexDirection:'row',  marginTop:27,
+      marginBottom:11,
+      marginHorizontal:16,
+      justifyContent:'space-between'
   },
   textRight:{
-      marginLeft:240,
       marginTop:1,
-      color:color.palette.textgray
+      color:color.palette.textgray,
   },
   bulletitem:{
       width:122,
       height:122,
       borderRadius:10
   },
-  item2:{
-      marginTop:20
-  },
+
   scrollrow:{
       marginTop:10
   },
@@ -38,10 +33,11 @@ export default StyleSheet.create({
       height:122,
       width:122,
       borderRadius: 10,
-      margin:5
+      marginLeft:16,
   },
   title:{
-      marginLeft:10
+      marginLeft:16,
+      marginTop:8
   },
   textgray:{
       color:'gray'
@@ -51,16 +47,16 @@ export default StyleSheet.create({
       color:'black'
   },
   controlbar:{
-      width:343,
+      flex:1,
       height:44,
       backgroundColor:color.palette.controlbar,
       borderWidth:1,
       borderRadius:10,
       borderColor:color.palette.bordergray,
-      marginLeft: 25,
-      display:'flex',
       flexDirection:'row',
-      justifyContent:'space-around'
+      justifyContent:'space-around',
+      marginHorizontal:16,
+      marginTop:16
   },
   controlitem:{
       color:color.palette.textgray,
@@ -69,10 +65,8 @@ export default StyleSheet.create({
       fontWeight:'600'
   },
   buy:{
-      display:'flex',
+      flex:1,
       flexDirection:'row',
-      alignItems:"flex-start",
-      marginTop:10,
   },
   buyitem:{
       width:80,
@@ -80,11 +74,15 @@ export default StyleSheet.create({
       borderRadius:10
   },
   listitem:{
-      marginTop:20,
-      marginLeft:10
+      marginTop:16,
+      marginHorizontal:16,
+      flex:1
   },
   titlebuy:{
-    display:'flex', flexDirection:'column', margin:10, marginTop:10,width:175
+    flexDirection:'column', 
+    marginLeft:16, 
+    marginTop:10,
+    width:100
   },
 textbullet:{
     color:color.palette.white,
@@ -97,12 +95,17 @@ textwhite:{
 },
 buttonbuy:{
     borderWidth:1,
-    width: 100,
+    height:24,
     textAlign:'center',
     borderRadius:10,
     borderColor:color.palette.buttonbuy,
     color:color.palette.buttonbuy,
-    marginTop:40,
+    marginTop:36,
+    fontSize:13,
+    marginLeft:98,
 },
-
+bullettext:{
+    position: 'absolute', top: 135,
+    marginLeft:32
+}
 })
