@@ -13,7 +13,8 @@ export default StyleSheet.create({
         paddingTop: 16,
         borderBottomWidth: 1,
         borderBottomColor: "rgb(239,239,244)",
-        marginBottom: 8
+        marginBottom: 8,
+        paddingLeft: 16,
     },
     container2: {
         paddingLeft: 16,
@@ -44,7 +45,6 @@ export default StyleSheet.create({
         marginBottom: 8,
         fontFamily: "SegoeUI",
         fontWeight: "bold",
-
 
     },
 

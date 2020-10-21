@@ -6,7 +6,7 @@ import { Screen, Text } from "../../components"
 // import { useStores } from "../../models"
 import { color } from "../../theme"
 
-import { Icon } from 'react-native-elements'
+import { Icon, SearchBar } from 'react-native-elements'
 import styles from "./styles"
 
 import Dot from "../../components/dot"
@@ -77,6 +77,15 @@ export const OrdersScreen = observer(function OrdersScreen() {
     console.log(filterStatus)
   }
 
+  const search = (text) => {
+    setArrayHolder(myData.filter((item) => item.orderNumber == text))
+    console.log(text)
+  }
+
+  const dismiss = () => {
+
+  }
+
   return (
     <Screen style={ROOT} preset="scroll">
 
@@ -87,10 +96,27 @@ export const OrdersScreen = observer(function OrdersScreen() {
           <TouchableOpacity style={{ flexDirection: "row-reverse", }}>
             <Icon name="search" type="AntDesign" style={styles.icon} />
           </TouchableOpacity>
+          <View style={{ flexDirection: "row" , justifyContent: "center", alignItems: "center"}}>
+            <SearchBar
+              placeholder="Tìm kiếm"
+              // lightTheme
+              round
+              showCancel={true}
+              onChangeText={text => search(text)}
+              onClear={dismiss}
+              autoCorrect={false}
+              cancelButtonTitle="Cancel"
+              containerStyle={{ backgroundColor: "white", borderTopColor: "white", borderBottomColor: "white", flex:1, paddingLeft:0}}
+              inputContainerStyle={{ backgroundColor: "rgb(239,239,244)" }}
+
+            />
+            <TouchableOpacity><Text text="Hủy" style={{ color: "rgb(102,102,102)", paddingLeft: 33, paddingRight: 16, fontFamily:"SegoeUI", fontSize:17, fontWeight:"normal" }} /></TouchableOpacity>
+          </View>
+
           <Text preset="header" text="Đơn hàng của tôi" style={styles.orders} />
           <View style={{ flexDirection: "row", height: 44 }}>
             <TouchableOpacity onPress={() => filter(1)} style={{ flex: 1, flexDirection: "row", borderRightWidth: 1, borderRightColor: "rgb(239,239,244)", justifyContent: "center", alignItems: "center", padding: 12 }}>
-              <Dot type= {1} />
+              <Dot type={1} />
               <Text style={{ color: "rgb(102,102,102)" }} text="Đang xử lý"  ></Text>
             </TouchableOpacity>
             <TouchableOpacity onPress={() => filter(2)} style={{ flex: 1, flexDirection: "row", borderRightWidth: 1, borderRightColor: "rgb(239,239,244)", justifyContent: "center", alignItems: "center", padding: 12 }}>
