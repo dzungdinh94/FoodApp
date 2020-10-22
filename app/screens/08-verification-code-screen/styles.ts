@@ -1,5 +1,5 @@
 import { StyleSheet } from "react-native"
-import { color } from "../../theme"
+import { color, spacing } from "../../theme"
 
 const styles = StyleSheet.create({
   container: {
@@ -10,9 +10,8 @@ const styles = StyleSheet.create({
   },
   header: {
     fontSize: 40,
-    width: 330,
-    paddingVertical: 40,
-    paddingTop: 60,
+    width: 250,
+    paddingTop: spacing[9],
     fontWeight: "bold",
     color: color.palette.black,
   },
@@ -32,14 +31,16 @@ const styles = StyleSheet.create({
     top: 64,
     right: 0,
   },
-  guideText: { fontSize: 17, color: "rgb(102,102,102)", paddingBottom: 36 },
+  guideText: { fontSize: 17, color: "rgb(102,102,102)", marginTop: spacing[2] },
+  inputsContainer: {
+    marginTop: spacing[7],
+  },
   button: {
-    height: 50,
+    paddingVertical: 14,
     backgroundColor: "rgb(147,194,47)",
     alignItems: "center",
     justifyContent: "center",
     borderRadius: 10,
-    marginTop: 16,
   },
   normalText: { fontSize: 17, color: "rgb(102,102,102)", lineHeight: 20 },
   bold: { fontSize: 17, fontWeight: "bold", lineHeight: 20, color: color.palette.black },
@@ -59,7 +60,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-between",
     flexDirection: "row",
-    paddingTop: 32,
+    paddingTop: spacing[4],
   },
 })
 

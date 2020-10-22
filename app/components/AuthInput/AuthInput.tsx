@@ -32,7 +32,8 @@ export const AuthInput = ({ title, isPassword }) => {
           color: "black",
           fontSize: 17,
           borderBottomWidth: 1,
-          paddingVertical: spacing[2],
+          paddingBottom: spacing[2],
+          paddingTop: spacing[1],
           borderColor: IsFocusInput || inputValue !== "" ? "rgb(147,194,47)" : "rgb(239,239,239)",
         }}
         onFocus={() => SetIsFocusInPut(true)}

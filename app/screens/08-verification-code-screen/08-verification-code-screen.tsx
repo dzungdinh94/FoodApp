@@ -32,7 +32,9 @@ export const VerificationCodeScreen = observer(function VerificationCodeScreen()
           <Text style={styles.guideText} text="Chúng tôi sẽ gửi mã xác thực tới số mobile" />
 
           {/* Verification Code Input */}
-          <AuthInput title="Nhập mã xác thực" isPassword={false} />
+          <View style={styles.inputsContainer}>
+            <AuthInput title="Nhập mã xác thực" isPassword={false} />
+          </View>
 
           {/* Verification Button */}
           <Button

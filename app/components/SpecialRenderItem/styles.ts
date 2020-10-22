@@ -1,5 +1,5 @@
 import { StyleSheet } from "react-native"
-import { color } from "../../theme"
+import { color, spacing } from "../../theme"
 
 const styles = StyleSheet.create({
   imageContainer: {
@@ -7,11 +7,11 @@ const styles = StyleSheet.create({
     height: 122,
     borderRadius: 8,
     backgroundColor: color.palette.lighterGrey,
-    marginRight: 15,
-    marginBottom: 10,
+    marginRight: spacing[4],
+    marginBottom: spacing[2],
   },
-  favoriteToggleContainer: { left: 84 },
-  text: { color: color.palette.lightGrey, fontSize: 13, lineHeight: 18 },
+  favoriteToggleContainer: { left: 84, zIndex: 1 },
+  text: { color: color.palette.lightGrey, fontSize: 13, lineHeight: 18, marginTop: spacing[1] },
   highlightText: { color: "black", fontSize: 15, fontWeight: "bold" },
 })
 

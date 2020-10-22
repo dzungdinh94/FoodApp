@@ -5,7 +5,7 @@ const styles = StyleSheet.create({
   //Navigation Bar
   navigationContainer: {
     flexDirection: "row",
-    alignItems: "center",
+    alignItems: "flex-end",
     justifyContent: "space-between",
     marginVertical: spacing[4],
   },

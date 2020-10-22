@@ -208,7 +208,7 @@ export const ShoppingCartScreen = observer(function ShoppingCartScreen() {
       {/* Navigation Bar */}
       <View style={styles.navigationContainer}>
         <TouchableOpacity onPress={() => navigation.goBack()}>
-          <Icon name="close" type="material" size={20} />
+          <Icon name="close" type="material" size={24} />
         </TouchableOpacity>
         <Text style={{ color: color.palette.gray140, fontSize: 17, paddingRight: spacing[4] }}>
           Edit
@@ -275,8 +275,7 @@ export const ShoppingCartScreen = observer(function ShoppingCartScreen() {
           style={{
             flexDirection: "row",
             justifyContent: "space-between",
-            marginTop: spacing[7],
-            marginBottom: spacing[2],
+            marginTop: 52,
           }}
         >
           <Text>Phí ship</Text>

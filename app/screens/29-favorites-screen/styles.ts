@@ -10,7 +10,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     width: "100%",
     paddingHorizontal: spacing[4],
-    paddingTop: spacing[2],
+    marginTop: spacing[3],
   },
   previousButton: { left: -spacing[3] },
   contentContainer: {},
@@ -20,9 +20,10 @@ const styles = StyleSheet.create({
     alignSelf: "flex-start",
     marginLeft: spacing[4],
     fontWeight: "bold",
-    fontSize: 28,
-    marginVertical: spacing[3],
+    fontSize: 34,
+    marginTop: spacing[3],
     color: color.palette.black,
+    textAlignVertical: "center",
   },
 
   //Button
@@ -48,6 +49,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderTopWidth: 0,
     zIndex: 10,
+    marginTop: spacing[2],
   },
   //Sort Button
   sortButtonContainer: {
@@ -87,7 +89,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-between",
     paddingHorizontal: spacing[4],
-    paddingVertical: spacing[2],
+    paddingBottom: spacing[4],
+    flex: 1,
   },
 })
 

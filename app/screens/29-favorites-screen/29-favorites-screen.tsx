@@ -36,7 +36,7 @@ export const FavoritesScreen = observer(function FavoritesScreen() {
           <Text style={styles.navigationText}>Chỉnh sửa</Text>
         </TouchableOpacity>
         <TouchableOpacity>
-          <Icon name="search" type="feather" color={color.palette.black} />
+          <Icon name="search" type="ionicon" color={color.palette.black} size={19} />
         </TouchableOpacity>
       </View>
       {/* Header */}
@@ -45,12 +45,12 @@ export const FavoritesScreen = observer(function FavoritesScreen() {
       <View style={styles.SortControlPanelContainer}>
         {/* Sort Button */}
         <View style={styles.sortButtonContainer}>
-          <Icon name="sort" type="font-awesome" size={20} color={color.palette.lightGrey} />
+          <Icon name="sort" type="font-awesome" size={20} color={color.palette.gray100} />
           <Text style={styles.sortButtonText}>Sắp xếp</Text>
         </View>
         {/* Filter Button */}
         <View style={styles.filterButtonContainer}>
-          <Icon name="filter" type="font-awesome-5" size={14} color={color.palette.lightGrey} />
+          <Icon name="filter" type="font-awesome-5" size={14} color={color.palette.gray100} />
           <Text style={styles.filterButtonText}>Lọc</Text>
         </View>
       </View>

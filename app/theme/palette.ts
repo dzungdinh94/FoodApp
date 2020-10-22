@@ -13,7 +13,7 @@ export const palette = {
   gray140: "rgb(140,140,140)",
   gray200: "rgb(200,200,200)",
   gray230: "rgb(230,230,230)",
-  gray240: "rgb(240,240,240)",
+  gray240: "rgb(239,239,244)",
   gray250: "rgb(250,250,250)",
   purple: "rgb(103,32,134)",
 }

@@ -16,7 +16,6 @@ import RadioInput from "../../components/RadioInput"
 
 const ROOT: ViewStyle = {
   backgroundColor: color.palette.gray250,
-  flex: 1,
 }
 
 export const OrdersPickupsScreen = observer(function OrdersPickupsScreen() {
@@ -32,7 +31,7 @@ export const OrdersPickupsScreen = observer(function OrdersPickupsScreen() {
       {/* Navigation Bar*/}
       <View style={styles.navigationContainer}>
         <TouchableOpacity onPress={() => navigation.goBack()}>
-          <Icon name="navigate-before" type="material" size={40} style={{ left: -spacing[3] }} />
+          <Icon name="navigate-before" type="material" size={45} style={{ left: -spacing[3] }} />
         </TouchableOpacity>
         <TouchableOpacity>
           <Icon name="dots-horizontal" type="material-community" size={35} />
@@ -78,7 +77,7 @@ export const OrdersPickupsScreen = observer(function OrdersPickupsScreen() {
               <Text style={styles.infoHighlightDetails}>Vị trí kho hàng</Text>
               <Text style={styles.infoMoreDetails}>227 Thanh Xuân Trung</Text>
             </View>
-            <Icon name="navigate-next" type="material" size={40} color={color.palette.gray200} />
+            <Icon name="navigate-next" type="material" size={30} color={color.palette.gray200} />
           </View>
         </View>
         {/* #2:Estimated */}

@@ -26,7 +26,7 @@ const SpecialRenderItem = () => {
       <View>
         <Text style={styles.text}>Rau</Text>
         <Text style={styles.highlightText}>Mù tạt xanh</Text>
-        <Text style={styles.text}>Giá từ 5.000đ</Text>
+        <Text style={styles.text}>5.000đ</Text>
       </View>
     </View>
   )

@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
     alignSelf: "flex-start",
     marginLeft: spacing[4],
     fontWeight: "bold",
-    fontSize: 28,
+    fontSize: 34,
     marginVertical: spacing[3],
     color: color.palette.black,
   },
@@ -54,7 +54,7 @@ const styles = StyleSheet.create({
   DetailContainer: {
     flexDirection: "row",
     alignItems: "center",
-    paddingHorizontal: spacing[3],
+    paddingHorizontal: spacing[4],
   },
   DetailIcon: {
     backgroundColor: color.palette.gray250,

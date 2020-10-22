@@ -9,7 +9,6 @@ const styles = StyleSheet.create({
     backgroundColor: color.palette.gray250,
     borderColor: color.palette.gray230,
     borderWidth: 1,
-    marginTop: spacing[4],
     zIndex: 10,
   },
   searchCP_SelectedContainer: {

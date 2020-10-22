@@ -3,40 +3,36 @@ import { color, spacing } from "../../theme"
 
 const styles = StyleSheet.create({
   container: {
-    justifyContent: "space-between",
-    height: "100%",
     paddingHorizontal: spacing[6],
-    backgroundColor: "white",
   },
-  header: {
-    fontSize: 40,
-    width: 330,
-    paddingVertical: spacing[9],
-    fontWeight: "bold",
-    color: color.palette.black,
-  },
-  registerLinkStyle: {
-    alignItems: "center",
-    justifyContent: "center",
+  //Navigation Bar
+  navigationContainer: {
     flexDirection: "row",
-    paddingBottom: spacing[8],
+    alignItems: "center",
+    justifyContent: "space-between",
   },
-  avatarInputContainer: {
-    width: 86,
-    height: 86,
-    borderRadius: 86,
-    backgroundColor: "rgb(200,200,200)",
-    position: "absolute",
-    top: 86,
-    right: 0,
+  backIconContainer: { left: -spacing[2] },
+  navigationText: {
+    fontSize: 17,
   },
-  guideText: { fontSize: 17, color: "rgb(102,102,102)", paddingBottom: spacing[8] },
+  inputContainer: {
+    marginTop: spacing[4],
+  },
+
+  guideText: {
+    fontSize: 17,
+    color: color.palette.black,
+    paddingTop: spacing[7],
+    paddingHorizontal: spacing[4],
+    textAlign: "center",
+  },
   button: {
     paddingVertical: 14,
     backgroundColor: "rgb(147,194,47)",
     alignItems: "center",
     justifyContent: "center",
     borderRadius: 10,
+    marginTop: spacing[2],
   },
   normal: { fontSize: 17, color: "rgb(102,102,102)", lineHeight: 20 },
   bold: { fontSize: 17, fontWeight: "bold", lineHeight: 20, color: color.palette.black },

@@ -64,7 +64,7 @@ const CustomPicker = () => {
         <Icon
           name="angle-down"
           type="font-awesome-5"
-          size={20}
+          size={15}
           color={color.palette.lightGrey}
           onPress={() => (openList ? setOpenList(false) : setOpenList(true))}
         />

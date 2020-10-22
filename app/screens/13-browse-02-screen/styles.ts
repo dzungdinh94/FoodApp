@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
   },
   badgetCartText: { color: color.palette.white, fontSize: 11 },
   //Carousel
-  carouselContentContainer: { top: 260, left: 16 },
+  carouselContentContainer: { position: "absolute", bottom: 24, left: 16 },
   carouselBadgeContainer: {
     width: 35,
     height: 20,
@@ -34,14 +34,14 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   carouselBadgeContent: { color: color.palette.white },
-  carouselContentTypeOfFood: { color: color.palette.white, fontSize: 17, marginTop: 5 },
+  carouselContentTypeOfFood: { color: color.palette.white, fontSize: 17, marginTop: spacing[2] },
   carouselContentTitle: {
     color: color.palette.white,
     fontSize: 26,
     fontWeight: "bold",
-    marginTop: 5,
+    marginTop: spacing[2],
   },
-  carouselContentBuyNow: { color: color.palette.main, fontSize: 20, marginTop: 10 },
+  carouselContentBuyNow: { color: color.palette.main, fontSize: 20, marginTop: spacing[4] },
   //Search Control Panel
   searchControlPanelContainer: {
     flexDirection: "row",

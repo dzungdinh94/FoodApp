@@ -4,7 +4,7 @@ import { FlatList, View, ViewStyle } from "react-native"
 import { Button, Screen, Text } from "../../components"
 import { useNavigation } from "@react-navigation/native"
 // import { useStores } from "../../models"
-import { color } from "../../theme"
+import { color, spacing } from "../../theme"
 import AvatarInput from "../../components/AvatarInput"
 import RadioInput from "../../components/RadioInput"
 import screens from "../../navigation/screens"
@@ -38,7 +38,7 @@ export const SetLanguageScreen = observer(function SetLanguageScreen() {
     setLanguageDataState(tempData)
   }
   return (
-    <Screen style={ROOT} preset="scroll">
+    <Screen style={ROOT} preset="fixed">
       <View style={styles.container}>
         {/* MAIN VIEW */}
         <View>
@@ -47,18 +47,18 @@ export const SetLanguageScreen = observer(function SetLanguageScreen() {
             <AvatarInput width={60} height={60} type="none" />
           </View>
           {/* Welcome Title */}
-          <Text style={styles.header}>Xin chào Hoàn!</Text>
+          <Text style={styles.header}>Xin chào!</Text>
           {/* Guide Text */}
           <Text style={styles.guideText} text="Lựa chọn loại ngôn ngữ mà bạn muốn sử dụng" />
           {/* Input Language */}
           <FlatList
-            style={{ marginBottom: 20 }}
+            style={{ marginTop: spacing[7] }}
             data={languageDataState}
             renderItem={(value) => {
               const { item } = value
               const { title, selected } = item
               return (
-                <View style={{ width: "50%", marginBottom: 16 }}>
+                <View style={{ marginRight: spacing[4], marginBottom: spacing[4] }}>
                   <RadioInput title={title} selected={selected} onClick={HandleChoose} />
                 </View>
               )

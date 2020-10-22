@@ -14,7 +14,6 @@ const ItemCounter = ({ onClickAdd, onClickRemove, startValue }) => {
       style={{
         alignItems: "center",
         justifyContent: "center",
-        left: spacing[2],
       }}
     >
       {count === 0 ? (

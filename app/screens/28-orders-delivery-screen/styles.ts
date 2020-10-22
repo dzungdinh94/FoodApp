@@ -9,7 +9,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-between",
     width: "100%",
-    paddingHorizontal: spacing[4],
+    paddingLeft: spacing[2],
+    paddingRight: spacing[4],
     paddingTop: spacing[2],
   },
   previousButton: { left: -spacing[3] },
@@ -37,32 +38,29 @@ const styles = StyleSheet.create({
   buttonContent: { fontSize: 17 },
   //END GLOBAL STYLES
 
-  //OrderDelivery  Custom
+  //OrderPick Up Custom
   //Icon
-  IconContainer: {
-    marginBottom: spacing[4],
-  },
+  IconContainer: { marginTop: spacing[4] },
   //Status
   StatusContainer: {
-    marginVertical: spacing[4],
+    marginTop: spacing[7],
   },
   StatusTitle: {
     fontSize: 24,
     fontWeight: "bold",
     color: color.palette.black,
-    paddingHorizontal: spacing[8],
     textAlign: "center",
   },
   StatusContent: {
     fontSize: 17,
     color: color.palette.gray100,
-    paddingHorizontal: spacing[8],
+    paddingHorizontal: 60,
     textAlign: "center",
-    paddingVertical: spacing[1],
+    paddingTop: spacing[2],
   },
   //Order
   OrderContainer: {
-    marginVertical: spacing[4],
+    marginTop: spacing[7],
   },
   OrderTitle: {
     fontSize: 17,
@@ -76,18 +74,21 @@ const styles = StyleSheet.create({
     color: color.palette.gray100,
     paddingHorizontal: spacing[8],
     textAlign: "center",
-    paddingVertical: spacing[1],
+    paddingTop: spacing[1],
   },
 
   //Info
   ListDetailsContainer: {
     backgroundColor: color.palette.white,
     marginHorizontal: spacing[4],
+    marginTop: spacing[8],
+    borderRadius: spacing[2],
+    borderColor: color.palette.gray240,
   },
   DetailContainer: {
     flexDirection: "row",
     alignItems: "center",
-    paddingHorizontal: spacing[3],
+    paddingLeft: spacing[3],
   },
   DetailIcon: {
     backgroundColor: color.palette.gray250,
@@ -99,14 +100,15 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     justifyContent: "space-between",
     alignItems: "center",
-    marginLeft: spacing[3],
+    marginLeft: spacing[4],
+    marginRight: spacing[2],
     paddingVertical: spacing[4],
     borderBottomWidth: 1,
     borderBottomColor: color.palette.gray240,
   },
   infoTitle: { fontSize: 13, marginBottom: spacing[1], color: color.palette.gray100 },
-  infoHighlightDetails: { fontSize: 17, fontWeight: "bold" },
-  infoMoreDetails: { fontSize: 13, color: color.palette.gray140 },
+  infoHighlightDetails: { fontSize: 15, fontWeight: "bold", marginBottom: spacing[1] },
+  infoMoreDetails: { fontSize: 12, color: color.palette.gray140 },
   infoHighLightMoreDetails: { fontSize: 13, fontWeight: "bold" },
 })
 

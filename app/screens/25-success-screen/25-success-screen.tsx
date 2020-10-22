@@ -16,9 +16,7 @@ import RadioInput from "../../components/RadioInput"
 
 const ROOT: ViewStyle = {
   backgroundColor: color.palette.white,
-  flex: 1,
   alignItems: "center",
-  justifyContent: "space-around",
 }
 
 export const SuccessScreen = observer(function SuccessScreen() {
@@ -34,13 +32,11 @@ export const SuccessScreen = observer(function SuccessScreen() {
       {/* Header */}
       <Text style={styles.headerText}>Thành Công!</Text>
       {/* Animation Image */}
-      <View
-        style={{ width: 128, height: 128, borderRadius: 128, backgroundColor: color.palette.main }}
-      >
+      <View style={styles.animationImageContainer}>
         <SimpleImage width={128} height={128} />
       </View>
       {/* Thanks content */}
-      <View>
+      <View style={styles.thanksContentContainer}>
         <Text style={styles.thanksTitle}>Cảm ơn bạn đã mua hàng</Text>
         <Text style={styles.thanksContent}>
           Đơn hàng của bạn đã được ghi nhận và đang trong quá trình xử lý

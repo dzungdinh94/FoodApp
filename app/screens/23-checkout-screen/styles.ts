@@ -17,7 +17,7 @@ const styles = StyleSheet.create({
     marginLeft: spacing[4],
     fontWeight: "bold",
     fontSize: 28,
-    marginVertical: spacing[3],
+    marginVertical: spacing[2],
     color: color.palette.black,
   },
   // Coupon Input
@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     borderRadius: spacing[2],
-    marginBottom: spacing[4],
+    marginVertical: spacing[4],
     marginHorizontal: spacing[4],
   },
   buttonContent: { fontSize: 17 },
@@ -150,7 +150,7 @@ const styles = StyleSheet.create({
   infoHighlightDetails: { fontSize: 17, fontWeight: "bold" },
   infoMoreDetails: { fontSize: 13, marginBottom: spacing[1] },
 
-  cartListContainer: { paddingHorizontal: spacing[4], paddingVertical: spacing[4] },
+  cartListContainer: { paddingHorizontal: spacing[4], marginTop: spacing[4] },
   infoRowDetailsContainer: {
     flexDirection: "row",
     alignItems: "center",
@@ -169,11 +169,11 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    paddingVertical: spacing[3],
+    paddingVertical: 15,
     paddingHorizontal: spacing[4],
-    borderRadius: spacing[4],
+    borderRadius: spacing[2],
     marginHorizontal: spacing[4],
-    marginVertical: spacing[3],
+    marginTop: spacing[6],
   },
   CouponTitle: { fontSize: 15 },
   CouponDetailsContainer: {

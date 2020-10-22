@@ -38,84 +38,102 @@ export const NotificationsScreen = observer(function NotificationsScreen() {
       {/* Header */}
       <Text style={styles.headerText}>Thông báo</Text>
       {/* List Notification */}
-      {/* Notification Item*/}
-      <View style={styles.DetailContainer}>
-        <View style={{ flexDirection: "row", alignItems: "center" }}>
-          {/* Image */}
-          <View style={styles.ImageContainer}>
-            <SimpleImage width={80} height={80} />
+      <ScrollView>
+        {/* Notification Item*/}
+        <View style={styles.DetailContainer}>
+          <View style={{ flexDirection: "row", alignItems: "center" }}>
+            {/* Image */}
+            <View style={styles.ImageContainer}>
+              <SimpleImage width={80} height={80} />
+            </View>
+          </View>
+          <View style={styles.NotificationContainer}>
+            <Text style={styles.NotificationDetails}>
+              Đơn<Text style={styles.NotificationHighlightDetails}> #:999001</Text> đã xử lý xong
+              tại kho
+            </Text>
+            <Text style={styles.NotificationTimeLeft}>34 phút trước</Text>
           </View>
         </View>
-        <View style={styles.NotificationContainer}>
-          <Text style={styles.NotificationDetails}>
-            Đơn<Text style={styles.NotificationHighlightDetails}> #:999001</Text> đã xử lý xong tại
-            kho
-          </Text>
-          <Text style={styles.NotificationTimeLeft}>34 phút trước</Text>
-        </View>
-      </View>
-      {/* Notification Item*/}
-      <View style={styles.DetailContainer}>
-        <View style={{ flexDirection: "row", alignItems: "center" }}>
-          {/* Image */}
-          <View style={styles.ImageContainer}>
-            <SimpleImage width={80} height={80} />
+        {/* Notification Item*/}
+        <View style={styles.DetailContainer}>
+          <View style={{ flexDirection: "row", alignItems: "center" }}>
+            {/* Image */}
+            <View style={styles.ImageContainer}>
+              <SimpleImage width={80} height={80} />
+            </View>
+          </View>
+          <View style={styles.NotificationContainer}>
+            <Text style={styles.NotificationDetails}>
+              Đơn<Text style={styles.NotificationHighlightDetails}> #:999001</Text> đã xử lý xong
+              tại kho
+            </Text>
+            <Text style={styles.NotificationTimeLeft}>34 phút trước</Text>
           </View>
         </View>
-        <View style={styles.NotificationContainer}>
-          <Text style={styles.NotificationDetails}>
-            Đơn<Text style={styles.NotificationHighlightDetails}> #:999001</Text> đã xử lý xong tại
-            kho
-          </Text>
-          <Text style={styles.NotificationTimeLeft}>34 phút trước</Text>
-        </View>
-      </View>
-      {/* Notification Item*/}
-      <View style={styles.DetailContainer}>
-        <View style={{ flexDirection: "row", alignItems: "center" }}>
-          {/* Image */}
-          <View style={styles.ImageContainer}>
-            <SimpleImage width={80} height={80} />
+        {/* Notification Item*/}
+        <View style={styles.DetailContainer}>
+          <View style={{ flexDirection: "row", alignItems: "center" }}>
+            {/* Image */}
+            <View style={styles.ImageContainer}>
+              <SimpleImage width={80} height={80} />
+            </View>
+          </View>
+          <View style={styles.NotificationContainer}>
+            <Text style={styles.NotificationDetails}>
+              Bạn đã nhận hàng Đơn
+              <Text style={styles.NotificationHighlightDetails}> #: 998001</Text>
+              tại cửa hàng
+            </Text>
+            <Text style={styles.NotificationTimeLeft}>2 tiếng trước</Text>
           </View>
         </View>
-        <View style={styles.NotificationContainer}>
-          <Text style={styles.NotificationDetails}>
-            Bạn đã nhận hàng Đơn<Text style={styles.NotificationHighlightDetails}> #: 998001</Text>
-            tại cửa hàng
-          </Text>
-          <Text style={styles.NotificationTimeLeft}>2 tiếng trước</Text>
-        </View>
-      </View>
-      {/* Notification Item*/}
-      <View style={styles.DetailContainer}>
-        <View style={{ flexDirection: "row", alignItems: "center" }}>
-          {/* Image */}
-          <View style={styles.ImageContainer}>
-            <SimpleImage width={80} height={80} />
+        {/* Notification Item*/}
+        <View style={styles.DetailContainer}>
+          <View style={{ flexDirection: "row", alignItems: "center" }}>
+            {/* Image */}
+            <View style={styles.ImageContainer}>
+              <SimpleImage width={80} height={80} />
+            </View>
+          </View>
+          <View style={styles.NotificationContainer}>
+            <Text style={styles.NotificationDetails}>
+              Đừng bỏ lỡ: táo đang giảm giá 30% và hết hạn vào 17h hôm nay
+            </Text>
+            <Text style={styles.NotificationTimeLeft}>4 tiếng trước</Text>
           </View>
         </View>
-        <View style={styles.NotificationContainer}>
-          <Text style={styles.NotificationDetails}>
-            Đừng bỏ lỡ: táo đang giảm giá 30% và hết hạn vào 17h hôm nay
-          </Text>
-          <Text style={styles.NotificationTimeLeft}>4 tiếng trước</Text>
-        </View>
-      </View>
-      {/* Notification Item*/}
-      <View style={styles.DetailContainer}>
-        <View style={{ flexDirection: "row", alignItems: "center" }}>
-          {/* Image */}
-          <View style={styles.ImageContainer}>
-            <SimpleImage width={80} height={80} />
+        {/* Notification Item*/}
+        <View style={styles.DetailContainer}>
+          <View style={{ flexDirection: "row", alignItems: "center" }}>
+            {/* Image */}
+            <View style={styles.ImageContainer}>
+              <SimpleImage width={80} height={80} />
+            </View>
+          </View>
+          <View style={styles.NotificationContainer}>
+            <Text style={styles.NotificationDetails}>
+              Đừng bỏ lỡ: cà chua đang giảm giá 30% và hết hạn vào 17h hôm nay
+            </Text>
+            <Text style={styles.NotificationTimeLeft}>4 tiếng trước</Text>
           </View>
         </View>
-        <View style={styles.NotificationContainer}>
-          <Text style={styles.NotificationDetails}>
-            Đừng bỏ lỡ: cà chua đang giảm giá 30% và hết hạn vào 17h hôm nay
-          </Text>
-          <Text style={styles.NotificationTimeLeft}>4 tiếng trước</Text>
+        {/* Notification Item*/}
+        <View style={styles.DetailContainer}>
+          <View style={{ flexDirection: "row", alignItems: "center" }}>
+            {/* Image */}
+            <View style={styles.ImageContainer}>
+              <SimpleImage width={80} height={80} />
+            </View>
+          </View>
+          <View style={styles.NotificationContainer}>
+            <Text style={styles.NotificationDetails}>
+              Đừng bỏ lỡ: cà chua đang giảm giá 30% và hết hạn vào 17h hôm nay
+            </Text>
+            <Text style={styles.NotificationTimeLeft}>4 tiếng trước</Text>
+          </View>
         </View>
-      </View>
+      </ScrollView>
     </Screen>
   )
 })

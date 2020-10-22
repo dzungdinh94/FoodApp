@@ -4,19 +4,48 @@ import { View, ViewStyle } from "react-native"
 import { Button, Screen, Text } from "../../components"
 import { useNavigation } from "@react-navigation/native"
 // import { useStores } from "../../models"
-import { color, spacing, distance } from "../../theme"
+import { color, spacing } from "../../theme"
 import { Icon } from "react-native-elements"
-import SimpleImage from "../../components/simpleImage/simple-image"
-import { ScrollView, TextInput, TouchableOpacity } from "react-native-gesture-handler"
+import { ScrollView, TouchableOpacity } from "react-native-gesture-handler"
 import screens from "../../navigation/screens"
 import styles from "./styles"
-import ItemCounter from "../../components/ItemCounter/ItemCounter"
 import FlipCard from "react-native-flip-card"
-import RadioInput from "../../components/RadioInput"
 
 const ROOT: ViewStyle = {
   backgroundColor: color.palette.white,
   alignItems: "center",
+}
+
+const RadioInput = ({ title, selected, onClick }) => {
+  return (
+    <View style={styles.radioContainer}>
+      <TouchableOpacity
+        style={[
+          styles.radioCircle,
+          {
+            borderColor: selected ? color.palette.main : color.palette.black,
+            backgroundColor: selected ? color.palette.main : color.palette.white,
+          },
+        ]}
+        onPress={() => {
+          onClick(title)
+        }}
+      >
+        {selected ? (
+          <Icon name="check" type="font-awesome" color={color.palette.white} size={12} />
+        ) : null}
+      </TouchableOpacity>
+      <Text
+        style={{
+          fontSize: 17,
+          color: "rgb(100,100,100)",
+          fontWeight: "normal",
+        }}
+      >
+        {title}
+      </Text>
+    </View>
+  )
 }
 
 const cardList = ["Visa", "Mastercard", "Paypal", "ApplePay", "American Express"]
@@ -39,7 +68,7 @@ export const PaymentScreen = observer(function PaymentScreen() {
       {/* Navigation Bar */}
       <View style={styles.navigationContainer}>
         <TouchableOpacity onPress={() => navigation.goBack()}>
-          <Icon name="navigate-before" type="material" size={40} style={{ left: -spacing[3] }} />
+          <Icon name="navigate-before" type="material" size={45} style={{ left: -spacing[3] }} />
         </TouchableOpacity>
         <Text style={{ color: color.palette.gray140, fontSize: 17 }}>Add New</Text>
       </View>
@@ -71,200 +100,51 @@ export const PaymentScreen = observer(function PaymentScreen() {
           ),
         )}
       </ScrollView>
-      <View
-        style={{
-          width: "100%",
-          paddingVertical: 16,
-          alignItems: "center",
-          backgroundColor: color.palette.gray240,
-        }}
-      >
+      <View style={styles.cardImageContainer}>
         <FlipCard
-          style={{ backgroundColor: color.palette.gray240 }}
           friction={6}
           flipHorizontal={true}
           flipVertical={false}
           flip={false}
           clickable={true}
-          onFlipEnd={(isFlipEnd) => {
-            console.log("isFlipEnd", isFlipEnd)
-          }}
         >
           {/* Face Side */}
-          <View
-            style={{
-              backgroundColor: color.palette.black,
-              height: (distance.windowWidth - 32) * 0.6,
-              width: distance.windowWidth - 32,
-              borderRadius: spacing[4],
-              borderWidth: 1,
-              overflow: "hidden",
-            }}
-          >
+          <View style={styles.faceSideContainer}>
             {/* VISA TEXT */}
-            <Text
-              style={{
-                color: color.palette.gray140,
-                fontSize: 32,
-                fontWeight: "bold",
-                fontStyle: "italic",
-                position: "absolute",
-                top: "12%",
-                right: "8%",
-              }}
-            >
-              {cardType}
-            </Text>
+            <Text style={styles.faceSideBrandText}>{cardType}</Text>
             {/* RECTANGLE */}
-            <View
-              style={{
-                width: 44,
-                height: 36,
-                position: "absolute",
-                top: "12%",
-                left: "8%",
-                backgroundColor: color.palette.gray140,
-                borderRadius: spacing[2],
-              }}
-            />
+            <View style={styles.faceSideRectangleShape} />
             {/*BIG VISA TEXT */}
-            <Text
-              style={{
-                color: color.palette.gray100,
-                fontSize: 160,
-                lineHeight: 160,
-                letterSpacing: 5,
-                fontWeight: "bold",
-                fontStyle: "italic",
-                position: "absolute",
-                bottom: -40,
-                left: 0,
-                opacity: 0.2,
-                width: 2000,
-              }}
-            >
-              {cardType}
-            </Text>
+            <Text style={styles.faceSideBackgroundText}>{cardType}</Text>
             {/*CARD HOLDER DETAILS */}
-            <View
-              style={{
-                marginHorizontal: "8%",
-                top: "40%",
-                height: "40%",
-                justifyContent: "space-between",
-              }}
-            >
-              <View style={{ justifyContent: "space-between", flexDirection: "row" }}>
+            <View style={styles.faceSideDetailContainer}>
+              <View style={styles.faceSideDetailContentWrapper}>
                 {cardNumber.map((value, index) => (
-                  <Text
-                    key={index}
-                    style={{
-                      fontSize: 20,
-                      color: color.palette.gray140,
-                      textTransform: "uppercase",
-                    }}
-                  >
+                  <Text key={index} style={styles.faceSideCardNumberText}>
                     {value}
                   </Text>
                 ))}
               </View>
-              <View style={{ justifyContent: "space-between", flexDirection: "row" }}>
+              <View style={styles.faceSideDetailContentWrapper}>
                 <View>
-                  <Text
-                    style={{
-                      fontSize: 9,
-                      color: color.palette.gray140,
-                      textTransform: "uppercase",
-                    }}
-                  >
-                    CARD HOLDER
-                  </Text>
-                  <Text
-                    style={{
-                      fontSize: 13,
-                      color: color.palette.white,
-                      textTransform: "capitalize",
-                    }}
-                  >
-                    {cardHolder}
-                  </Text>
+                  <Text style={styles.faceSideTitleText}>CARD HOLDER</Text>
+                  <Text style={styles.faceSideContentText}>{cardHolder}</Text>
                 </View>
                 <View>
-                  <Text
-                    style={{
-                      fontSize: 9,
-                      color: color.palette.gray140,
-                      textTransform: "uppercase",
-                    }}
-                  >
-                    CARD EXPRESS
-                  </Text>
-                  <Text
-                    style={{
-                      fontSize: 13,
-                      color: color.palette.white,
-                      textTransform: "capitalize",
-                    }}
-                  >
-                    {cardExpires}
-                  </Text>
+                  <Text style={styles.faceSideTitleText}>CARD EXPRESS</Text>
+                  <Text style={styles.faceSideContentText}>{cardExpires}</Text>
                 </View>
               </View>
             </View>
           </View>
           {/* Back Side */}
-          <View
-            style={{
-              backgroundColor: color.palette.black,
-              height: (distance.windowWidth - 32) * 0.6,
-              width: distance.windowWidth - 32,
-              borderRadius: spacing[4],
-              borderWidth: 1,
-            }}
-          >
-            <View
-              style={{
-                position: "absolute",
-                backgroundColor: color.palette.white,
-                borderWidth: 4,
-                borderColor: color.palette.white,
-                height: "20%",
-                top: "20%",
-                width: "100%",
-              }}
-            ></View>
-            <Text
-              style={{
-                color: color.palette.black,
-                top: "24%",
-                left: "80%",
-                fontSize: 18,
-                fontStyle: "italic",
-              }}
-            >
-              {cardCVC}
-            </Text>
-            <Text
-              style={{
-                color: color.palette.white,
-                fontSize: 9,
-                fontStyle: "italic",
-                top: "-7%",
-                left: "10%",
-              }}
-            >
+          <View style={styles.backSideContainer}>
+            <View style={styles.backSideWhiteSpace}></View>
+            <Text style={styles.backSideCVCText}>{cardCVC}</Text>
+            <Text style={styles.backSideTopContent}>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. In vitae sagittis sem
             </Text>
-            <Text
-              style={{
-                color: color.palette.white,
-                fontSize: 9,
-                fontStyle: "italic",
-                top: "26%",
-                left: "10%",
-                width: "80%",
-              }}
-            >
+            <Text style={styles.backSideBottomContent1}>
               {"  "}Lorem ipsum dolor sit amet, consectetur adipiscing elit. In vitae sagittis sem.
               Aenean nec sapien nec diam consequat porttitor et ac leo. Donec malesuada ante a
               feugiat ornare. Sed id tincidunt quam, consequat hendrerit est. Donec faucibus
@@ -272,16 +152,7 @@ export const PaymentScreen = observer(function PaymentScreen() {
               fringilla eros.
             </Text>
 
-            <Text
-              style={{
-                color: color.palette.white,
-                fontSize: 9,
-                fontStyle: "italic",
-                top: "26%",
-                left: "10%",
-                width: "80%",
-              }}
-            >
+            <Text style={styles.backSideBottomContent2}>
               {"  "}Lorem ipsum dolor sit amet, consectetur adipiscing elit. In vitae sagittis sem.
               Aenean nec sapien nec diam consequat porttitor et ac leo. Donec malesuada ante a
               feugiat ornare. Sed id tincidunt quam, consequat hendrerit est. Donec faucibus
@@ -292,24 +163,26 @@ export const PaymentScreen = observer(function PaymentScreen() {
         </FlipCard>
       </View>
       {/* Card Details */}
-      <View style={styles.cardDetailContainer}>
-        <Text style={styles.cardDetailTitle}>Card Number</Text>
-        <Text style={styles.cardDetailContent}>
-          {cardNumber[0]} {cardNumber[1]} {cardNumber[2]} {cardNumber[3]}
-        </Text>
-      </View>
-      <View style={styles.cardDetailContainer}>
-        <Text style={styles.cardDetailTitle}>Card Holder</Text>
-        <Text style={styles.cardDetailContent}> {cardHolder}</Text>
-      </View>
-      <View style={styles.cardDetailContainerNoBorder}>
-        <View style={styles.cardDetailContainer2}>
-          <Text style={styles.cardDetailTitle}>Expires</Text>
-          <Text style={styles.cardDetailContent}> {cardExpires}</Text>
+      <View style={styles.cardDetailsMainContainer}>
+        <View style={styles.cardDetailContainer}>
+          <Text style={styles.cardDetailTitle}>Card Number</Text>
+          <Text style={styles.cardDetailContent}>
+            {cardNumber[0]} {cardNumber[1]} {cardNumber[2]} {cardNumber[3]}
+          </Text>
         </View>
-        <View style={styles.cardDetailContainer2}>
-          <Text style={styles.cardDetailTitle}>CVC</Text>
-          <Text style={styles.cardDetailContent}>847</Text>
+        <View style={styles.cardDetailContainer}>
+          <Text style={styles.cardDetailTitle}>Card Holder</Text>
+          <Text style={styles.cardDetailContent}> {cardHolder}</Text>
+        </View>
+        <View style={styles.cardDetailContainerNoBorder}>
+          <View style={styles.cardDetailContainer2}>
+            <Text style={styles.cardDetailTitle}>Expires</Text>
+            <Text style={styles.cardDetailContent}> {cardExpires}</Text>
+          </View>
+          <View style={styles.cardDetailContainer2}>
+            <Text style={styles.cardDetailTitle}>CVC</Text>
+            <Text style={styles.cardDetailContent}>847</Text>
+          </View>
         </View>
       </View>
       {/* Save credit infomation */}
