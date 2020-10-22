@@ -21,7 +21,7 @@ export default StyleSheet.create({
         // paddingTop:16,
 
         paddingVertical: 8,
-        
+
     },
     borderB: {
         borderBottomWidth: 1,
@@ -45,18 +45,16 @@ export default StyleSheet.create({
         marginBottom: 8,
         fontFamily: "SegoeUI",
         fontWeight: "bold",
-
     },
-
-
 
     image: {
         flexDirection: "row"
     },
     btnImage: {
-        width: 38,
-        height: 38,
         borderRadius: 8,
+        height: 38,
         marginLeft: 4,
+        width: 38,
     }
-});
+    // eslint-disable-next-line eol-last
+})

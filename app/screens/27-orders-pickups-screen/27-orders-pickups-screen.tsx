@@ -26,8 +26,6 @@ export const OrdersPickupsScreen = observer(function OrdersPickupsScreen() {
   return (
     <Screen style={ROOT} preset="scroll">
 
-
-
       <View style={styles.container}>
         <View style={{ alignItems: 'center', }}>
           <Image style={{ marginTop: 8, height: 64, tintColor: 'rgb(147,194,47)', resizeMode: 'contain' }} source={images.shoppingBagIcon} />
@@ -36,12 +34,11 @@ export const OrdersPickupsScreen = observer(function OrdersPickupsScreen() {
           <Text style={{ fontSize: 17, lineHeight: 22, fontFamily: 'SegoeUI', fontWeight: '600', color: 'black', paddingTop: 40, }} text="Đơn#: 998001" />
           <Text style={{ fontSize: 15, lineHeight: 20, fontFamily: 'SegoeUI', fontWeight: 'normal', color: 'rgb(102,102,102)', paddingTop: 8, paddingHorizontal: 59, textAlign: 'center', paddingBottom: 24, }} text="25/12/2020 - 3:27 chiều" />
 
-
         </View>
 
         <View style={{ padding: 16, borderRadius: 8, backgroundColor: "white", borderColor: "rgb(239,239,244)", borderWidth: 1, }}>
           <View style={{ flexDirection: "row" }}>
-            <View style={{ backgroundColor: "rgb(249,249,249)", height: 40, width: 40, marginRight: 16,  justifyContent:"center", }}>
+            <View style={{ backgroundColor: "rgb(249,249,249)", height: 40, width: 40, marginRight: 16, justifyContent: "center", }}>
               <Icon name="map-marker-alt" type="font-awesome-5" color='rgb(147,194,47)' />
             </View>
             <View>
@@ -52,7 +49,7 @@ export const OrdersPickupsScreen = observer(function OrdersPickupsScreen() {
           </View>
 
           <View style={{ flexDirection: "row", paddingVertical: 16, }}>
-            <View style={{ backgroundColor: "rgb(249,249,249)", height: 40, width: 40, marginRight: 16, justifyContent:"center", }}>
+            <View style={{ backgroundColor: "rgb(249,249,249)", height: 40, width: 40, marginRight: 16, justifyContent: "center", }}>
               <Icon name="stopwatch" type="entypo" color='rgb(147,194,47)' />
             </View>
             <View>
@@ -63,7 +60,7 @@ export const OrdersPickupsScreen = observer(function OrdersPickupsScreen() {
           </View>
 
           <View style={{ flexDirection: "row" }}>
-            <View style={{ backgroundColor: "rgb(249,249,249)", height: 40, width: 40, marginRight: 16,  justifyContent:"center", }}>
+            <View style={{ backgroundColor: "rgb(249,249,249)", height: 40, width: 40, marginRight: 16, justifyContent: "center", }}>
               <Icon name="phone" type="font-awesome" color='rgb(147,194,47)' />
             </View>
             <View>
@@ -72,8 +69,6 @@ export const OrdersPickupsScreen = observer(function OrdersPickupsScreen() {
 
             </View>
           </View>
-
-
 
         </View>
         <TouchableOpacity style={{ borderRadius: 8, backgroundColor: "rgb(147,194,47)", height: 50, marginTop: 16, alignItems: "center", justifyContent: 'center' }}>

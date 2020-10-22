@@ -34,7 +34,6 @@ export const OrdersDeliveryScreen = observer(function OrdersDeliveryScreen() {
           <Text style={{ fontSize: 17, lineHeight: 22, fontFamily: 'SegoeUI', fontWeight: '600', color: 'black', paddingTop: 40, }} text="Đơn#: 998001" />
           <Text style={{ fontSize: 15, lineHeight: 20, fontFamily: 'SegoeUI', fontWeight: 'normal', color: 'rgb(102,102,102)', paddingTop: 8, paddingHorizontal: 59, textAlign: 'center', paddingBottom: 24, }} text="25/12/2020 - 3:27 chiều" />
 
-
         </View>
 
         <View style={{ padding: 16, borderRadius: 8, backgroundColor: "white", borderColor: "rgb(239,239,244)", borderWidth: 1, }}>
@@ -70,8 +69,6 @@ export const OrdersDeliveryScreen = observer(function OrdersDeliveryScreen() {
 
             </View>
           </View>
-
-
 
         </View>
         <TouchableOpacity style={{ borderRadius: 8, backgroundColor: "rgb(147,194,47)", height: 50, marginTop: 16, alignItems: "center", justifyContent: 'center' }}>

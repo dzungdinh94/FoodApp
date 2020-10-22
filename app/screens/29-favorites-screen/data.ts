@@ -5,5 +5,4 @@ export const favorites = [
         price: "20K",
         uri: require("../../../assets/images/image1.jpg")        
     },
-    
 ]
