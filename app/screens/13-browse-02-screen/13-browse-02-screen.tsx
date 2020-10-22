@@ -38,6 +38,7 @@ export const Browse02Screen = observer(function Browse02Screen() {
       <View style={style.listitem}>
         <View style={style.buy}>
           <Image source={require('../../image/header.png')} style={style.buyitem} />
+          <View style={{flex:1, flexDirection:'row', justifyContent:'space-between'}}>
           <View style={style.titlebuy}>
             <Text style={style.textgray} text={item.title} />
             <Text style={style.textblack} text={item.item} />
@@ -45,7 +46,9 @@ export const Browse02Screen = observer(function Browse02Screen() {
           </View>
           <TouchableOpacity>
             <Text style={style.buttonbuy} text="Thêm vào giỏ" />
-          </TouchableOpacity>
+          </TouchableOpacity>            
+          </View>
+
         </View>
       </View>
 
@@ -59,7 +62,7 @@ export const Browse02Screen = observer(function Browse02Screen() {
         <View>
           <View style={style.textHead}>
             <Text style={style.item}>Danh mục</Text>
-            <TouchableOpacity style={{ display: 'flex', flexDirection: 'row' }}>
+            <TouchableOpacity style={{flexDirection: 'row',justifyContent:'flex-end' }}>
               <Text style={style.textRight} onPress={() => { navigation.navigate('Categories02Screen') }}>Tất cả</Text>
 
               <Icon name='navigate-next' type='MaterialIcons' color='gray' />

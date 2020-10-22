@@ -1,7 +1,6 @@
 import {StyleSheet, Dimensions} from 'react-native'
 export default StyleSheet.create({
     header:{
-        width:Dimensions.get('window').width,
         height:360,
         opacity:0.1,
         flex:1
@@ -13,7 +12,7 @@ export default StyleSheet.create({
         height:44,
     },
     image:{
-        width:131,
+        width:100,
         height:30,
         marginLeft:16,
         marginTop:15
@@ -21,7 +20,9 @@ export default StyleSheet.create({
     iconstyle:{
         flexDirection:'row',
         marginTop:15,
-        marginLeft:182
+        flexGrow:1,
+        justifyContent:'flex-end',
+        marginHorizontal:16
     },
     container:{
         position:'absolute',

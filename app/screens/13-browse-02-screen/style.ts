@@ -82,7 +82,7 @@ export default StyleSheet.create({
     flexDirection:'column', 
     marginLeft:16, 
     marginTop:10,
-    width:100
+  
   },
 textbullet:{
     color:color.palette.white,
@@ -102,7 +102,6 @@ buttonbuy:{
     color:color.palette.buttonbuy,
     marginTop:36,
     fontSize:13,
-    marginLeft:98,
 },
 bullettext:{
     position: 'absolute', top: 135,

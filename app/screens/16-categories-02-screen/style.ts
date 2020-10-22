@@ -28,13 +28,12 @@ export default StyleSheet.create({
 // },
 container:{
     flex:1,
-    flexWrap:'wrap',
     flexDirection:'row',
     marginTop:24,
     
 },
 cover:{
-    width:Dimensions.get('window').width -230,
+    width:Dimensions.get('window').width-230,
     height:163, 
     backgroundColor:color.palette.white,
     borderRadius:10,

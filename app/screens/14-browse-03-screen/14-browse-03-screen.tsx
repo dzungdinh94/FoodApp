@@ -102,7 +102,7 @@ export const Browse03Screen = observer(function Browse03Screen() {
         marginTop: 6
       }}
       labelStyle={{ color: color.palette.black, fontSize: 13, textTransform: 'capitalize' }}
-      indicatorStyle={{ backgroundColor: color.palette.buttonbuy, width: 49, marginLeft: 16 }}
+      indicatorStyle={{ backgroundColor: color.palette.buttonbuy}}
     />
   );
   return (
