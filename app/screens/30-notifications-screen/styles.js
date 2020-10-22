@@ -1,5 +1,5 @@
 import {StyleSheet} from 'react-native'
-import {color,spacing} from '../../theme'
+import {spacing} from '../../theme'
 export default StyleSheet.create({
     flexRow: {
         display: 'flex',
@@ -8,6 +8,10 @@ export default StyleSheet.create({
     flexColumn: {
         display: 'flex',
         flexDirection: 'column',
+    },
+    justifySpaceBetween: {
+        justifyContent: 'space-between',
+        
     },
     title:{
         fontSize: 40,

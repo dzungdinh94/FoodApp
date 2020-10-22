@@ -2,7 +2,7 @@ import React from 'react'
 import {View,Text,Image} from 'react-native'
 import styles from './styles'
 
-const eachnoti = (props) => {
+const each = (props) => {
     return (
         <View style={[styles.notiContainer,styles.flexRow]}>
             <Image source={require('../../image/1920x1080-gray-solid-color-background.jpg')} style={[styles.picWrap,styles.notiPic]} />
@@ -14,4 +14,4 @@ const eachnoti = (props) => {
     )
 }
 
-export default eachnoti
+export default each

@@ -23,7 +23,8 @@ fontWeight: 'bold'
         marginTop: spacing[5]
     },
     category: {
-        paddingHorizontal: spacing[8],
+        paddingRight: spacing[8],
+        paddingLeft: spacing[1],
         paddingVertical: spacing[3],
         color: color.palette.greyText,
         marginTop: spacing[3]
@@ -41,7 +42,35 @@ fontWeight: 'bold'
     },
     leftCategory: {
         borderRightColor: color.palette.greyText,
-        borderRightWidth: .5
+        borderRightWidth: .5,
+        
+    },
+    justifySpaceBetween: {
+        justifyContent: 'space-between',
+        
+    },
+    center:{
+        alignItems:'center',
+        
+    },
+    typeContainer: {
+        flex: 1,
+        justifyContent:'center',
+    },
+    iconTop:{
+        color:"rgb(138,138,143)",
+        fontSize: 15,
+        height: 15,
+        flex: 1,
+        marginTop: 10,
+        
+    },
+    iconTopLeft: {
+        paddingLeft: 35
+    },
+    header: {
+        borderBottomWidth: 1,
+        borderBottomColor: color.palette.greyText,
     },
     flexItem:{
         flexWrap: 'wrap',

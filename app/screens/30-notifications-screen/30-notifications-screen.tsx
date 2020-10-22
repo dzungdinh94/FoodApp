@@ -5,14 +5,14 @@ import { View,Screen, Text } from "../../components"
 // import { useNavigation } from "@react-navigation/native"
 // import { useStores } from "../../models"
 import { color } from "../../theme"
-import {Icon} from 'react-native-elements'
-import EachNoti from './each-noti'
 import styles from './styles'
-
+import {Icon} from 'react-native-elements'
+import {Each} from './eachnoti'
 const ROOT: ViewStyle = {
-  backgroundColor: color.palette.darkWhite,
+  backgroundColor: color.palette.black,
   flex: 1,
 }
+
 
 export const NotificationsScreen = observer(function NotificationsScreen() {
   // Pull in one of our MST stores
@@ -29,11 +29,15 @@ export const NotificationsScreen = observer(function NotificationsScreen() {
         
       </View>
       <Text style={styles.title}>Thông báo</Text>
-      <EachNoti notitext="Đơn#: 999001 đã xử lý xong tại kho" time="34 phút trước"/>
-      <EachNoti notitext="Bạn đã nhận hàng Đơn#: 998001 tại cửa hàng" time="2 tiếng trước"/>
-      <EachNoti notitext="Đừng bỏ lỡ: táo đang giảm giá 30% và hết hạn vào 17h hôm nay" time="4 tiếng trước"/>
-      <EachNoti notitext="Đừng bỏ lỡ: táo đang giảm giá 30% và hết hạn vào 17h hôm nay" time="4 tiếng trước"/>
-      <EachNoti notitext="Đừng bỏ lỡ: táo đang giảm giá 30% và hết hạn vào 17h hôm nay" time="4 tiếng trước"/>
+      <Each notitext="Đơn#: 999001 đã xử lý xong tại kho" time="34 phút trước"/>
+      <Each notitext="Bạn đã nhận hàng Đơn#: 998001 tại cửa hàng" time="2 tiếng trước"/>
+      <Each notitext="Đừng bỏ lỡ: táo đang giảm giá 30% và hết hạn vào 17h hôm nay" time="4 tiếng trước"/>
+      <Each notitext="Đừng bỏ lỡ: táo đang giảm giá 30% và hết hạn vào 17h hôm nay" time="4 tiếng trước"/>
+      <Each notitext="Đừng bỏ lỡ: táo đang giảm giá 30% và hết hạn vào 17h hôm nay" time="4 tiếng trước"/>
     </Screen>
   )
 })
+
+
+
+
