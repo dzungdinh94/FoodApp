@@ -13,8 +13,7 @@ export default StyleSheet.create({
       flex:1,
       flexDirection:'row',  marginTop:27,
       marginBottom:11,
-      marginHorizontal:16,
-      justifyContent:'space-between'
+      marginLeft:16
   },
   textRight:{
       marginTop:1,
@@ -106,5 +105,11 @@ buttonbuy:{
 bullettext:{
     position: 'absolute', top: 135,
     marginLeft:32
+},
+titleHead:{
+    flexDirection: 'row',
+    justifyContent:'flex-end',
+    flex:1, alignItems:'flex-end',
+    marginEnd:8 
 }
 })
