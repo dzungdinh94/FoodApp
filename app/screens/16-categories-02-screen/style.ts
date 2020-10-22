@@ -13,34 +13,29 @@ export default StyleSheet.create({
        color:color.palette.black,
        fontWeight:'bold',
        fontSize:34,
-       marginHorizontal:16
+       marginHorizontal:16,
+       marginBottom:16
    },
    Image:{
     marginRight:'auto',
     marginLeft:'auto',
     marginTop:32
 },
-// container:{
-//     flex:1,
-//     flexDirection:'row',
-//     top:24,
-//     marginHorizontal:16
-// },
 container:{
     flex:1,
     flexDirection:'row',
-    marginTop:24,
-    
+    marginHorizontal:8
 },
 cover:{
-    width:Dimensions.get('window').width-230,
-    height:163, 
-    backgroundColor:color.palette.white,
-    borderRadius:10,
-    borderColor:'rgb(239,239,244)',
-    borderWidth:1.5,
-    marginLeft:16,
-    marginBottom: 16
+    height:163,
+    backgroundColor: color.palette.white,
+    borderRadius: 10,
+    borderColor: 'rgb(239,239,244)',
+    borderWidth: 1,
+    flex:1,
+    justifyContent:'center',
+    alignItems:'center',
+    margin:8
 },
 price:{
     top:12,

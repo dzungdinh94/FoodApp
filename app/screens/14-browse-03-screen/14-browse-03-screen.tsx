@@ -1,9 +1,9 @@
 import React from "react"
 import { observer } from "mobx-react-lite"
-import { ScrollView, ViewStyle, View, Image, Dimensions, TouchableOpacity, FlatList } from "react-native"
+import { ViewStyle, View, Image, Dimensions, TouchableOpacity, FlatList } from "react-native"
 import { Screen, Text } from "../../components"
 import { color } from "../../theme"
-import { Icon } from 'react-native-elements'
+import { Icon, Input } from 'react-native-elements'
 import styles from './style'
 import SearchBox from '../../components/search-box'
 import LikeHeart from '../../components/likeheart'
@@ -26,18 +26,19 @@ const FirstRoute = () => (
 const renderMyItem = ({ item, index }) => {
   return (
     <View style={styles.container}>
-      <View>
-        <View style={styles.cover}>
-          <Image source={item.image} style={styles.Image} />
-          <LikeHeart />
+      <View style={styles.cover}>
+        <View style={{ marginTop: 153 }}>
+
           <Text style={styles.name}>{item.name}</Text>
           <Text style={styles.price}>{item.price}</Text>
           <TouchableOpacity>
-            <Text style={styles.buttonbuy} text="Thêm vào giỏ" />
+            <Text style={styles.buttonbuy}>Thêm vào giỏ</Text>
           </TouchableOpacity>
         </View>
-        
+
       </View>
+
+      <Image source={item.image} style={styles.Image} /><LikeHeart />
     </View>
   )
 }
@@ -50,19 +51,24 @@ const SecondRoute = () => (
 );
 const renderRaucu = ({ item, index }) => {
   return (
-    <View style={styles.container}>
-
+ 
+      <View style={styles.container}>
       <View style={styles.cover}>
-        <Image source={item.image} style={styles.Image} />
-        <LikeHeart />
-        <Text style={styles.name}>{item.name}</Text>
-        <Text style={styles.price}>{item.price}</Text>
-        <TouchableOpacity>
-          <Text style={styles.buttonbuy}>Thêm vào giỏ</Text>
-        </TouchableOpacity>
+        <View style={{ marginTop: 153 }}>
+
+          <Text style={styles.name}>{item.name}</Text>
+          <Text style={styles.price}>{item.price}</Text>
+          <TouchableOpacity>
+            <Text style={styles.buttonbuy}>Thêm vào giỏ</Text>
+          </TouchableOpacity>
+        </View>
+
       </View>
-      
+
+      <Image source={item.image} style={styles.Image} /><LikeHeart />
     </View>
+   
+   
   )
 }
 const ThirdRoute = () => (
@@ -99,10 +105,16 @@ export const Browse03Screen = observer(function Browse03Screen() {
       style={{
         backgroundColor: color.palette.background,
         color: color.palette.black,
-        marginTop: 6
+        marginTop: 16,
+        marginBottom:8
       }}
-      labelStyle={{ color: color.palette.black, fontSize: 13, textTransform: 'capitalize' }}
-      indicatorStyle={{ backgroundColor: color.palette.buttonbuy}}
+      labelStyle={{
+        color: color.palette.black,
+        fontSize: 13,
+        textTransform: 'capitalize'
+      }}
+
+      indicatorStyle={{ backgroundColor: color.palette.buttonbuy }}
     />
   );
   return (
@@ -112,9 +124,10 @@ export const Browse03Screen = observer(function Browse03Screen() {
       <View style={styles.headerBackground}>
         <Image source={require('../../image/logo.png')} style={styles.image} />
         <View style={styles.iconstyle}>
-          <Icon name='search' type='feather' marginRight={15} />
-          <Icon name='shopping-cart' type='feather' />
+          <Icon name='search' type='feather' />
+          <Icon name='shopping-cart' type='feather' marginLeft={16} />
         </View>
+
       </View>
       <SearchBox />
       <TabView

@@ -3,7 +3,8 @@ export default StyleSheet.create({
     header:{
         height:360,
         opacity:0.1,
-        flex:1
+        flex:1,
+        width:'100%'
     },
     headerBackground:{
         flexDirection:'row',

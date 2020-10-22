@@ -34,57 +34,56 @@ export const Categories02Screen = observer(function Categories02Screen() {
             <Text style={style.price}>926 mặt hàng</Text>
           </View>
 
-        {/* </View>
+       </View>
 
-        <View style={style.container}> */}
-          <View>
+        <View style={style.container}> 
+         
             <View style={style.cover}>
               <Image source={require('../../image/banhkeo.png')} style={style.Image} />
               <Text style={style.name}>Bánh kẹo</Text>
               <Text style={style.price}>4385 mặt hàng</Text>
             </View>
-          </View>
-          <View>
+         
+          
             <View style={style.cover}>
               <Image source={require('../../image/thit.png')} style={style.Image} />
               <Text style={style.name}>Thịt</Text>
               <Text style={style.price}>268 mặt hàng</Text>
             </View>
-          </View>
-        {/* </View>
+          
+        </View>
 
-        <View style={style.container}> */}
-          <View>
+        <View style={style.container}>
+         
             <View style={style.cover}>
               <Image source={require('../../image/sua.png')} style={style.Image} />
               <Text style={style.name}>Sữa</Text>
               <Text style={style.price}>926 mặt hàng</Text>
             </View>
-          </View>
-          <View>
+          
+         
             <View style={style.cover}>
               <Image source={require('../../image/douong.png')} style={style.Image} />
               <Text style={style.name}>Đồ uống</Text>
               <Text style={style.price}>725 mặt hàng</Text>
             </View>
-          </View>
-        {/* </View>
+          
+        </View>
 
-        <View style={style.container}> */}
-          <View>
+        <View style={style.container}> 
+         
             <View style={style.cover}>
               <Image source={require('../../image/cscn.png')} style={style.Image} />
               <Text style={style.name}>Chăm sóc cá nhân</Text>
               <Text style={style.price}>9237 mặt hàng</Text>
             </View>
-          </View>
-          <View>
+          
+          
             <View style={style.cover}>
               <Image source={require('../../image/rau.png')} style={style.Image} />
               <Text style={style.name}>Gia dụng</Text>
               <Text style={style.price}>583 mặt hàng</Text>
             </View>
-          </View>
         </View>
       </ScrollView>
     </Screen>

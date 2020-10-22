@@ -5,58 +5,65 @@ export default StyleSheet.create({
         flexDirection: 'row'
     },
     image:{
-        width:131,
+        width:100,
         height:30,
-        marginLeft:16,
-       
+        marginLeft:16, 
     },
     iconstyle:{
         flexDirection:'row',
-        marginLeft:182
+        flexGrow:1,
+        justifyContent:'flex-end',
+        marginHorizontal:16
     },
     Image: {
         height: 163,
-        width: Dimensions.get('window').width - 232,
+        width:'100%',
+        position:'absolute',
         borderRadius: 10,
-    },
-    container: {
-        flexDirection:'row',
+        flexGrow:1,
+        justifyContent:'center',
+        alignItems:'center'
     },
     cover: {
-        height: 263,
+        height:263,
         backgroundColor: color.palette.white,
         borderRadius: 10,
         borderColor: 'rgb(239,239,244)',
         borderWidth: 1,
-        marginTop:16,
-        marginLeft:16
+        flex:1,
+        justifyContent:'center',
+        alignItems:'center',
     },
     price: {
-        top: 12,
+        marginBottom:8,
+        marginTop:4,
         color: color.palette.black,
         fontWeight: 'bold',
         textAlign: 'center'
     },
     name: {
-        top: 12,
         color: color.palette.black,
         fontWeight: 'bold',
         textAlign: 'center'
     },
     buttonbuy: {
-        borderWidth: 1,
+        borderWidth:1,
         width:92,
         height:24,
         textAlign: 'center',
         borderRadius: 10,
         borderColor: color.palette.buttonbuy,
         color: color.palette.buttonbuy,
-        top: 24,
         marginLeft: 'auto',
         marginRight: 'auto',
         fontSize:13
     },
-    scene: {
-        flex: 1,
+    sence:{
+        flex:1
     },
+    container:{
+        flex:1,
+        marginVertical:8,
+        marginHorizontal:16
+    }
 })
