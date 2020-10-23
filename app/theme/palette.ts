@@ -14,4 +14,5 @@ export const palette = {
   borderGrey: 'rgb(239,239,244)',
   arrowGrey: 'rgb(200,199,204)',
   textGreen: 'rgb(147,194,47)',
+  subtext: 'rgb(138,138,143)',
 }

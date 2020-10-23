@@ -19,10 +19,29 @@ export default StyleSheet.create({
     },
     arrow: {
         fontSize: 13,
-        color: color.palette.arrowGrey,
+        color: color.palette.subtext,
+        marginLeft: 'auto'
     },
     back:{
         marginVertical: spacing[3]
+    },
+    icon:{
+        color: 'rgb(147,194,47)',
+
+    },
+    arrowIcon:{
+        color: color.palette.arrowGrey,
+        fontSize: 16,
+        marginLeft: spacing[2]
+    },
+    iconContainer:{
+        backgroundColor: 'rgb(239,239,244)',
+        borderRadius: 5,
+        justifyContent:'center',
+        alignItems:'center',
+        padding: spacing[2],
+        marginRight: spacing[4],
+        
     },
     center:{
         alignItems: 'center'

@@ -38,10 +38,10 @@ export const SettingScreen = observer(function SettingScreen() {
       <Text style={styles.title}>Thiết lập</Text>
       <View>
         <Text style={styles.subtitle}>Tài khoản</Text>
-        <Account accattr="Đổi mật khẩu"/>
-        <Account accattr="Thông báo"/>
-        <Account accattr="Điều khoản"/>
-        <Account accattr="Đăng xuất"/>
+        <Account accattr="Đổi mật khẩu" name='lock' type=''/>
+        <Account accattr="Thông báo" name='bell' type='font-awesome' />
+        <Account accattr="Điều khoản" name='hand-right' type='ionicon'/>
+        <Account accattr="Đăng xuất" name='log-out' type='entypo' />
       </View>
 
       <View>

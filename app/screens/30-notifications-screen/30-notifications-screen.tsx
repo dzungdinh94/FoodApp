@@ -1,15 +1,15 @@
 import React from "react"
 import { observer } from "mobx-react-lite"
-import { ViewStyle } from "react-native"
-import { View,Screen, Text } from "../../components"
+import { ViewStyle,View } from "react-native"
+import { Screen, Text } from "../../components"
 // import { useNavigation } from "@react-navigation/native"
 // import { useStores } from "../../models"
 import { color } from "../../theme"
-import styles from './styles'
+import Each from  './eachnoti.js'
 import {Icon} from 'react-native-elements'
-import {Each} from './eachnoti'
+import styles from './styles'
 const ROOT: ViewStyle = {
-  backgroundColor: color.palette.black,
+  backgroundColor: color.palette.darkWhite,
   flex: 1,
 }
 
@@ -23,13 +23,14 @@ export const NotificationsScreen = observer(function NotificationsScreen() {
   // Pull in navigation via hook
   // const navigation = useNavigation()
   return (
-    <Screen style={ROOT} preset="scroll">
-      <View style={styles.search}>
-        <Icon name="ei-search" type='evilicon'/>
+    <Screen style={ROOT} preset="scroll" style={styles.container}>
+      <View style={[styles.search]}>
+      <Icon name="search" type="evilicon" color="black" iconStyle={{marginTop: 12,fontWeight: 'bold'}} />
+
         
       </View>
       <Text style={styles.title}>Thông báo</Text>
-      <Each notitext="Đơn#: 999001 đã xử lý xong tại kho" time="34 phút trước"/>
+      <Each notitext="Đơn#: 999001 đã xử lý xong tại" time="34 phút trước"/>
       <Each notitext="Bạn đã nhận hàng Đơn#: 998001 tại cửa hàng" time="2 tiếng trước"/>
       <Each notitext="Đừng bỏ lỡ: táo đang giảm giá 30% và hết hạn vào 17h hôm nay" time="4 tiếng trước"/>
       <Each notitext="Đừng bỏ lỡ: táo đang giảm giá 30% và hết hạn vào 17h hôm nay" time="4 tiếng trước"/>

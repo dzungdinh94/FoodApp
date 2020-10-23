@@ -1,12 +1,12 @@
 import React from "react"
 import { observer } from "mobx-react-lite"
-import { ViewStyle, View, ScrollView, ImageBackground } from "react-native"
+import { ViewStyle, View, ScrollView} from "react-native"
 import { Screen, Text } from "../../components"
 // import { useNavigation } from "@react-navigation/native"
 // import { useStores } from "../../models"
 import { color } from "../../theme"
 import Item from "./item"
-import { Icon } from "react-native-elements"
+import {Icon} from "react-native-elements"
 import styles from "./styles"
 const ROOT: ViewStyle = {
   backgroundColor: color.palette.white,
