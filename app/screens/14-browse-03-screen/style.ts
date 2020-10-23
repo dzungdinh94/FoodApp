@@ -64,6 +64,6 @@ export default StyleSheet.create({
     container:{
         flex:1,
         marginVertical:8,
-        marginHorizontal:16
+        marginLeft:16
     }
 })

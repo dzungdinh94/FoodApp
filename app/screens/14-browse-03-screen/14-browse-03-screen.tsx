@@ -2,7 +2,7 @@ import React from "react"
 import { observer } from "mobx-react-lite"
 import { ViewStyle, View, Image, Dimensions, TouchableOpacity, FlatList } from "react-native"
 import { Screen, Text } from "../../components"
-import { color } from "../../theme"
+import { color, spacing } from "../../theme"
 import { Icon, Input } from 'react-native-elements'
 import styles from './style'
 import SearchBox from '../../components/search-box'
@@ -25,7 +25,7 @@ const FirstRoute = () => (
 
 const renderMyItem = ({ item, index }) => {
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, index % 2 == 1 && { marginRight: spacing[4] }]}>
       <View style={styles.cover}>
         <View style={{ marginTop: 153 }}>
 
@@ -51,8 +51,8 @@ const SecondRoute = () => (
 );
 const renderRaucu = ({ item, index }) => {
   return (
- 
-      <View style={styles.container}>
+
+    <View style={[styles.container, index % 2 == 1 && { marginRight: spacing[4] }]}>
       <View style={styles.cover}>
         <View style={{ marginTop: 153 }}>
 
@@ -67,8 +67,8 @@ const renderRaucu = ({ item, index }) => {
 
       <Image source={item.image} style={styles.Image} /><LikeHeart />
     </View>
-   
-   
+
+
   )
 }
 const ThirdRoute = () => (
@@ -106,7 +106,7 @@ export const Browse03Screen = observer(function Browse03Screen() {
         backgroundColor: color.palette.background,
         color: color.palette.black,
         marginTop: 16,
-        marginBottom:8
+        marginBottom:16
       }}
       labelStyle={{
         color: color.palette.black,
@@ -129,7 +129,10 @@ export const Browse03Screen = observer(function Browse03Screen() {
         </View>
 
       </View>
-      <SearchBox />
+      <TouchableOpacity onPress={() => { navigation.navigate('SearchScreen') }}>
+        <SearchBox />
+      </TouchableOpacity>
+
       <TabView
         navigationState={{ index, routes }}
         renderScene={renderScene}

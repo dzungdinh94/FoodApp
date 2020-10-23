@@ -12,16 +12,9 @@ const ROOT: ViewStyle = {
 }
 
 export const SearchScreen = observer(function SearchScreen() {
-  // Pull in one of our MST stores
-  // const { someStore, anotherStore } = useStores()
-  // OR
-  // const rootStore = useStores()
-
-  // Pull in navigation via hook
-  // const navigation = useNavigation()
   return (
     <Screen style={ROOT} preset="scroll">
-      <Text preset="header" text="SearchScreen" />
+      <Text preset="header" text="heee" />
     </Screen>
   )
 })
