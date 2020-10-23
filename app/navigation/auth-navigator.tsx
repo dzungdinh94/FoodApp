@@ -7,6 +7,7 @@ import {
   VerificationCodeScreen,
   OnboardingScreen,
   SetLanguageScreen,
+  SplashScreen,
 } from "../screens"
 import screens from "./screens"
 const Stack = createNativeStackNavigator()
@@ -20,6 +21,7 @@ export function AuthStack() {
       }}
       initialRouteName={screens.OnboardingScreen}
     >
+      <Stack.Screen name={screens.SplashScreen} component={SplashScreen} />
       <Stack.Screen name={screens.SignInScreen} component={SignInScreen} />
       <Stack.Screen name={screens.SignUpScreen} component={SignUpScreen} />
       <Stack.Screen name={screens.ForgotPasswordScreen} component={ForgotPasswordScreen} />

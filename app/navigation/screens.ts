@@ -1,4 +1,5 @@
 export default {
+  SplashScreen: "SplashScreen",
   SignUpScreen: "SignUpScreen",
   SignInScreen: "SignInScreen",
   ForgotPasswordScreen: "ForgotPasswordScreen",

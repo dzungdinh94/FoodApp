@@ -12,6 +12,8 @@ import OnBoardingCarousel from "../../components/OnBoardingCarousel"
 import styles from "./styles"
 import { TouchableOpacity } from "react-native-gesture-handler"
 import screens from "../../navigation/screens"
+import { images } from "../../../assets/images"
+import { Image } from "react-native"
 
 export const OnboardingScreen = observer(function OnboardingScreen() {
   // Pull in one of our MST stores
@@ -30,9 +32,10 @@ export const OnboardingScreen = observer(function OnboardingScreen() {
       </View>
       {/* Background */}
       <LinearGradient
-        colors={["rgba(100,100,100,0.3)", "rgba(50,50,50,0.5)", "rgba(0,0,0,0.95)"]}
+        colors={["rgba(100,100,100,0.3)", "rgba(50,50,50,0.5)", "rgba(0,0,0,0.90)"]}
         style={styles.background}
       />
+      <Image source={images.splashBackground} style={styles.imageBackground} />
       {/* Logo */}
       <View style={styles.logoContainer}>
         <Logo width={246} height={128} />

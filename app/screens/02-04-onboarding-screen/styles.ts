@@ -1,5 +1,5 @@
 import { StyleSheet, Dimensions } from "react-native"
-import { color, paddingValue, spacing } from "../../theme"
+import { color, distance, paddingValue, spacing } from "../../theme"
 const { width: windowWidth, height: windowHeight } = Dimensions.get("window")
 const styles = StyleSheet.create({
   container: {
@@ -13,7 +13,14 @@ const styles = StyleSheet.create({
     position: "absolute",
     zIndex: 0,
   },
-  logoContainer: { height: 128, marginTop: 60, zIndex: -1 },
+  logoContainer: { height: 128, marginTop: 60, zIndex: -2 },
+  imageBackground: {
+    position: "absolute",
+    width: distance.windowWidth,
+    height: "100%",
+    opacity: 0.3,
+    zIndex: -1,
+  },
   navigationBar: {
     alignSelf: "stretch",
     marginTop: spacing[3],
