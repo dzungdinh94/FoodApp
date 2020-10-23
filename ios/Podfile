@@ -10,7 +10,11 @@ target 'FoodApp' do
 
   pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
 
+<<<<<<< HEAD
   pod 'BVLinearGradient', :path => '../node_modules/react-native-linear-gradient'
+=======
+  pod 'RNSVG', :path => '../node_modules/react-native-svg'
+>>>>>>> fc2ca256570621f95ac295f18d8532be995e2585
 
   target 'FoodAppTests' do
     inherit! :complete
