@@ -35,7 +35,7 @@ export default StyleSheet.create({
  
   notiText: {
     borderBottomColor: "rgb(239 ,239 ,244)",
-    borderBottomWidth: 0.5,
+    borderBottomWidth: 1,
   },
   text: {
     paddingTop: spacing[2],
@@ -48,14 +48,22 @@ export default StyleSheet.create({
   subtext: {
     fontSize: 13,
     color: "rgb(138,138,143)",
+    marginBottom: spacing[4]
+  },
+  flexWrap: {
+    flexWrap: 'wrap',
   },
   notiContainer: {
     marginBottom: spacing[4],
+  
   },
   container:{
       marginHorizontal: spacing[4],
   },
   notiText: {
-    marginLeft: spacing[4],
-  },
+    marginHorizontal: spacing[4],
+    marginTop: 10,
+    borderBottomWidth: .6,
+    width: '100%',
+  } 
 })

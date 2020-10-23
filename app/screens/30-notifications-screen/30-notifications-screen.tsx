@@ -30,8 +30,8 @@ export const NotificationsScreen = observer(function NotificationsScreen() {
         
       </View>
       <Text style={styles.title}>Thông báo</Text>
-      <Each notitext="Đơn#: 999001 đã xử lý xong tại" time="34 phút trước"/>
-      <Each notitext="Bạn đã nhận hàng Đơn#: 998001 tại cửa hàng" time="2 tiếng trước"/>
+      <Each where=" đã xử lý xong tại kho" ordernum="#: 999001" notitext="Đơn" time="34 phút trước"/>
+      <Each where=' tại cửa hàng' ordernum='#: 998001' notitext="Bạn đã nhận hàng Đơn" time="2 tiếng trước"/>
       <Each notitext="Đừng bỏ lỡ: táo đang giảm giá 30% và hết hạn vào 17h hôm nay" time="4 tiếng trước"/>
       <Each notitext="Đừng bỏ lỡ: táo đang giảm giá 30% và hết hạn vào 17h hôm nay" time="4 tiếng trước"/>
       <Each notitext="Đừng bỏ lỡ: táo đang giảm giá 30% và hết hạn vào 17h hôm nay" time="4 tiếng trước"/>

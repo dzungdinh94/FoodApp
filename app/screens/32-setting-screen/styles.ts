@@ -27,19 +27,20 @@ export default StyleSheet.create({
     },
     icon:{
         color: 'rgb(147,194,47)',
+        fontSize: 16,
 
     },
     arrowIcon:{
         color: color.palette.arrowGrey,
         fontSize: 16,
-        marginLeft: spacing[2]
+        marginLeft: spacing[2],
     },
     iconContainer:{
         backgroundColor: 'rgb(239,239,244)',
         borderRadius: 5,
         justifyContent:'center',
         alignItems:'center',
-        padding: spacing[2],
+        padding: 7,
         marginRight: spacing[4],
         
     },
@@ -61,7 +62,7 @@ export default StyleSheet.create({
     },
     title:{
         color: 'black',
-        fontSize: 38,
+        fontSize: 34,
         fontWeight: 'bold'
     },
     textContainer: {
