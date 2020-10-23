@@ -16,7 +16,7 @@ const CONTAINER: ViewStyle = {
 const INPUT: TextStyle = {
   fontFamily: typography.primary,
   color: color.text,
-  minHeight: 44,
+  minHeight: 40,
   fontSize: 18,
   backgroundColor: color.palette.white,
 }

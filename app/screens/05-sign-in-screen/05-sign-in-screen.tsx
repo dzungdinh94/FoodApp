@@ -14,6 +14,7 @@ const ROOT: ViewStyle = {
   flex: 1,
   paddingLeft: 32,
   paddingRight: 32,
+  minHeight: 734,
 }
 
 const styles = StyleSheet.create({
@@ -25,28 +26,30 @@ const styles = StyleSheet.create({
   DangNhapDeTiepTuc: {
     fontSize: 17,
     color: "#666666",
-    marginTop: 52,
-    marginBottom: 32
+    marginTop: 64,
+    marginBottom: 16
   },
   GoReg: {
-    marginTop: 56,
+    marginTop: 150,
     color: "#000000",
-    fontSize: 20,
+    fontSize: 17,
     textAlign: "center"
   },
   ButtonSign: {
     backgroundColor : "#93C22F",
     height: 50,
+    marginTop: 24,
+    borderRadius:8
   },
   Form: {
-    marginVertical: 16,
     borderBottomColor: "#93C22F",
-    borderBottomWidth: 1
+    borderBottomWidth: 1,
+    marginTop:24
   },
   QuenMatKhau: {
-    fontSize: 20,
+    fontSize: 17,
     color: "#000000",
-    marginVertical: 24,
+    marginTop:24
   }
 })
 
@@ -72,9 +75,18 @@ export const SignInScreen = observer(function SignInScreen() {
       <Text style={styles.DangNhapDeTiepTuc} text="Đăng nhập để tiếp tục " />
       <TextField style={styles.Form} placeholder="Tên đăng nhập" label="Tên đăng nhập"/>
       <TextField style={styles.Form} placeholder="Mật khẩu" label="Mật khẩu"/>
-      <Text style={styles.QuenMatKhau} text="Quên mật khẩu ?  " />
+      <Text style={styles.QuenMatKhau}
+        onPress={() => navigation.navigate("ForgotPasswordScreen")}>
+        Quên Mật Khẩu ?  
+      </Text>  
       <Button textStyle={{fontSize:17}} style={styles.ButtonSign} text="Đăng nhập" onPress={gotoApp} />
-      <Text style={styles.GoReg} text="Chưa có tài khoản? Hãy đăng kí  " />
+      <Text style={styles.GoReg} >
+        Chưa có tài khoản ?
+        <Text style={{fontSize: 17, color: '#666666', fontWeight:'bold'}}
+              onPress={() => navigation.navigate("SignUpScreen")}>
+              Đăng kí 
+            </Text>
+      </Text>
     </Screen>
   )
 })

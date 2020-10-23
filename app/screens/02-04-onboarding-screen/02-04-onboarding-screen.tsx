@@ -19,7 +19,6 @@ const ROOT: ViewStyle = {
   flex: 1,
   // flexDirection: 'row',
   minHeight: 734,
-  minWidth: 375
 }
 
 const styles = StyleSheet.create({

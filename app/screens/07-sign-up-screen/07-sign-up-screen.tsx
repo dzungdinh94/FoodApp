@@ -2,39 +2,42 @@ import React from "react"
 import { observer } from "mobx-react-lite"
 import { ViewStyle, StyleSheet } from "react-native"
 import { Screen, Text, TextField , Button, Header} from "../../components"
-// import { useNavigation } from "@react-navigation/native"
+import { useNavigation } from "@react-navigation/native"
 // import { useStores } from "../../models"
 import { color } from "../../theme"
+import { Navigation } from "swiper"
 
 const ROOT: ViewStyle = {
   backgroundColor: "#ffffff",
   flex: 1,
   paddingLeft: 32,
   paddingRight: 32,
+  minHeight: 734,
 }
 const styles = StyleSheet.create({
   XinChao: {
     fontSize: 40,
     color: "#000000",
-    marginTop: 56,
+    marginTop: 64,
     fontWeight: "bold",
   },
   DangKiDeThamGia: {
     fontSize: 17,
     color: "#666666",
-    marginTop: 40,
+    marginTop: 59,
     marginBottom: 16,
   },
   GoSign: {
     color: "#000000",
     fontSize: 16,
     textAlign: "center",
-    marginTop: 32
+    marginTop: 80,
+    fontWeight: "200"
   },
   ButtonReg: {
     backgroundColor : "#93C22F",
-    height: 50,
-    marginTop: 32,
+    marginTop: 38,
+    height: 50
   },
   Form: {
     borderBottomColor: "#93C22F",
@@ -50,7 +53,7 @@ export const SignUpScreen = observer(function SignUpScreen() {
   // const rootStore = useStores()
 
   // Pull in navigation via hook
-  // const navigation = useNavigation()
+  const navigation = useNavigation()
   return (
     <Screen style={ROOT} preset="scroll">
       <Text style={styles.XinChao} text="Xin chào! " />
@@ -59,7 +62,13 @@ export const SignUpScreen = observer(function SignUpScreen() {
       <TextField style={styles.Form} placeholder="Tên đăng nhập" label = "Tên đăng nhập"/>
       <TextField style={styles.Form} placeholder="Mật khẩu" label = "Mật khẩu"/>
       <Button textStyle={{fontSize:17}} style={styles.ButtonReg} text="Đăng kí" />
-      <Text style={styles.GoSign} text="Đã có tài khoản? Hãy đăng nhập" />
+      <Text style={styles.GoSign}>
+        Đã có tài khoản?
+        <Text style={{fontSize: 16, color: '#666666', fontWeight:'bold'}}
+              onPress={() => navigation.navigate("SignInScreen")}>
+              Đăng nhập
+            </Text>
+      </Text>
     </Screen>
   )
 })
