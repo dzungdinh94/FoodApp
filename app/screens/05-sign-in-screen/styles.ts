@@ -15,6 +15,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     flexDirection: "row",
     paddingBottom: spacing[7],
+    marginTop: 162,
   },
   guideText: { fontSize: 17, color: "rgb(102,102,102)", paddingBottom: spacing[7] },
   button: {

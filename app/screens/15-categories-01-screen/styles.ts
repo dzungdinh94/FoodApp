@@ -7,6 +7,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
+    paddingRight: spacing[3],
   },
   contentContainer: { paddingLeft: spacing[4], flex: 1 },
   headerText: {

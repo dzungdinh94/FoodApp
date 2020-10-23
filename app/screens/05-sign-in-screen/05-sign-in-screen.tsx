@@ -15,8 +15,6 @@ import AvatarInput from "../../components/AvatarInput"
 
 const ROOT: ViewStyle = {
   backgroundColor: color.palette.white,
-  flex: 1,
-  justifyContent: "space-between",
   paddingHorizontal: 32,
 }
 

@@ -21,7 +21,7 @@ const ROOT: ViewStyle = {
 }
 
 export const ProductDetailScreen = observer(function ProductDetailScreen() {
-  const tags = ["Khuyến mại", "Bán chạy"]
+  const tags = ["Khuyến mại"]
   const type = "Rau"
   const name = "Bông cải xanh"
   const oldPrice = 30
@@ -66,6 +66,16 @@ export const ProductDetailScreen = observer(function ProductDetailScreen() {
           <Text style={styles.detailnowPriceText}>{nowPrice}K</Text>
         </View>
         {/* Choice Selected */}
+        <View style={styles.groupOptionsContainer}>
+          <View style={styles.optionContainer}>
+            <Text style={styles.optionValue}>500 gr</Text>
+            <Icon name="chevron-small-down" color={color.palette.gray100} type="entypo" size={20} />
+          </View>
+          <View style={[styles.optionContainer, { marginRight: 0 }]}>
+            <Text style={styles.optionValue}>cao cấp</Text>
+            <Icon name="chevron-small-down" color={color.palette.gray100} type="entypo" size={20} />
+          </View>
+        </View>
       </View>
       {/* Descriptions */}
       <View style={styles.DescriptionsConTainer}>
@@ -80,19 +90,36 @@ export const ProductDetailScreen = observer(function ProductDetailScreen() {
       {/* Related Product */}
       <View style={styles.RelatedProductConTainer}>
         <Text style={styles.title}>Sản phẩm liên quan</Text>
-        <ScrollView horizontal style={{ paddingLeft: spacing[4] }}>
-          <FavoriteRenderItem
-            onPressItem={() => navigation.navigate(screens.ProductDetailScreen)}
-          />
-          <FavoriteRenderItem
-            onPressItem={() => navigation.navigate(screens.ProductDetailScreen)}
-          />
-          <FavoriteRenderItem
-            onPressItem={() => navigation.navigate(screens.ProductDetailScreen)}
-          />
-          <FavoriteRenderItem
-            onPressItem={() => navigation.navigate(screens.ProductDetailScreen)}
-          />
+        <ScrollView
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          style={{ paddingLeft: spacing[4], top: -spacing[4] }}
+        >
+          <View style={{ marginRight: spacing[4] }}>
+            <FavoriteRenderItem
+              onPressItem={() => navigation.navigate(screens.ProductDetailScreen)}
+            />
+          </View>
+          <View style={{ marginRight: spacing[4] }}>
+            <FavoriteRenderItem
+              onPressItem={() => navigation.navigate(screens.ProductDetailScreen)}
+            />
+          </View>
+          <View style={{ marginRight: spacing[4] }}>
+            <FavoriteRenderItem
+              onPressItem={() => navigation.navigate(screens.ProductDetailScreen)}
+            />
+          </View>
+          <View style={{ marginRight: spacing[4] }}>
+            <FavoriteRenderItem
+              onPressItem={() => navigation.navigate(screens.ProductDetailScreen)}
+            />
+          </View>
+          <View style={{ marginRight: spacing[4] }}>
+            <FavoriteRenderItem
+              onPressItem={() => navigation.navigate(screens.ProductDetailScreen)}
+            />
+          </View>
         </ScrollView>
       </View>
 

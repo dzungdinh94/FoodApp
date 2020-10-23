@@ -4,7 +4,7 @@ import { View, ViewStyle } from "react-native"
 import { Screen, Text } from "../../components"
 import { useNavigation } from "@react-navigation/native"
 // import { useStores } from "../../models"
-import { color } from "../../theme"
+import { color, spacing } from "../../theme"
 import { Icon } from "react-native-elements"
 import SimpleImage from "../../components/simpleImage/simple-image"
 import { ScrollView, TouchableOpacity } from "react-native-gesture-handler"
@@ -79,7 +79,13 @@ const RenderItem3 = ({ title, total }) => {
             {total} mặt hàng
           </Text>
         </View>
-        <Icon name="navigate-next" type="material" size={26} color={color.palette.gray200} />
+        <Icon
+          name="navigate-next"
+          type="material"
+          size={26}
+          color={color.palette.gray200}
+          style={{ paddingRight: spacing[2] }}
+        />
       </View>
     </View>
   )
@@ -98,7 +104,7 @@ export const Categories01Screen = observer(function Categories01Screen() {
       {/* Navigation Bar */}
       <View style={styles.navigationContainer}>
         <TouchableOpacity onPress={() => navigation.goBack()}>
-          <Icon name="navigate-before" type="material" size={45} />
+          <Icon name="navigate-before" type="material" size={45} style={{ left: -spacing[2] }} />
         </TouchableOpacity>
         <Icon name="dots-horizontal" type="material-community" size={35} />
       </View>

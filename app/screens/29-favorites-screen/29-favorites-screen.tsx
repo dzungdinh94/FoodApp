@@ -1,18 +1,14 @@
 import React from "react"
 import { observer } from "mobx-react-lite"
 import { View, ViewStyle } from "react-native"
-import { Button, Screen, Text } from "../../components"
+import { Text } from "../../components"
 import { useNavigation } from "@react-navigation/native"
 // import { useStores } from "../../models"
-import { color, spacing, distance } from "../../theme"
+import { color } from "../../theme"
 import { Icon } from "react-native-elements"
-import SimpleImage from "../../components/simpleImage/simple-image"
-import { ScrollView, TextInput, TouchableOpacity } from "react-native-gesture-handler"
+import { ScrollView, TouchableOpacity } from "react-native-gesture-handler"
 import screens from "../../navigation/screens"
 import styles from "./styles"
-import ItemCounter from "../../components/ItemCounter/ItemCounter"
-import FlipCard from "react-native-flip-card"
-import RadioInput from "../../components/RadioInput"
 import FavoriteRenderItem from "../../components/FavoriteRenderItem/FavoriteRenderItem"
 
 const ROOT: ViewStyle = {
@@ -45,13 +41,20 @@ export const FavoritesScreen = observer(function FavoritesScreen() {
       <View style={styles.SortControlPanelContainer}>
         {/* Sort Button */}
         <View style={styles.sortButtonContainer}>
-          <Icon name="sort" type="font-awesome" size={20} color={color.palette.gray100} />
-          <Text style={styles.sortButtonText}>Sắp xếp</Text>
+          <TouchableOpacity style={styles.sortButton}>
+            <Icon name="sort" type="font-awesome" size={20} color={color.palette.gray100} />
+            <Text style={styles.sortButtonText}>Sắp xếp</Text>
+          </TouchableOpacity>
         </View>
         {/* Filter Button */}
-        <View style={styles.filterButtonContainer}>
-          <Icon name="filter" type="font-awesome-5" size={14} color={color.palette.gray100} />
-          <Text style={styles.filterButtonText}>Lọc</Text>
+        <View style={styles.sortButtonContainer}>
+          <TouchableOpacity
+            style={styles.filterButton}
+            onPress={() => navigation.navigate(screens.FilterScreen)}
+          >
+            <Icon name="filter" type="font-awesome-5" size={14} color={color.palette.gray100} />
+            <Text style={styles.filterButtonText}>Lọc</Text>
+          </TouchableOpacity>
         </View>
       </View>
       {/* Favorite List */}

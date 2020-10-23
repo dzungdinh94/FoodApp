@@ -53,14 +53,16 @@ const styles = StyleSheet.create({
   },
   //Sort Button
   sortButtonContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
+    display: "flex",
+
     borderColor: color.palette.gray230,
     borderRightWidth: 1,
-    flex: 3,
+    alignSelf: "stretch",
+    flex: 1,
     paddingVertical: spacing[3],
   },
+  sortButton: { flexDirection: "row", alignItems: "center", justifyContent: "center" },
+
   sortButtonText: {
     color: color.palette.lightGrey,
     fontSize: 15,
@@ -69,12 +71,15 @@ const styles = StyleSheet.create({
   },
   //Filter Button
   filterButtonContainer: {
+    display: "flex",
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
-    flex: 3,
+    flex: 1,
+    alignSelf: "stretch",
     paddingVertical: spacing[3],
   },
+  filterButton: { flexDirection: "row", alignItems: "center", justifyContent: "center" },
   filterButtonText: {
     color: color.palette.lightGrey,
     fontSize: 15,

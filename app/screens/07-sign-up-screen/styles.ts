@@ -19,7 +19,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     flexDirection: "row",
-    paddingBottom: spacing[8],
+    marginTop: 120,
+    paddingBottom: spacing[7],
   },
   avatarInputContainer: {
     width: 86,

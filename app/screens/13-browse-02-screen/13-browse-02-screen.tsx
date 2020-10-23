@@ -193,7 +193,9 @@ export const Browse02Screen = observer(function Browse02Screen() {
         {/* Header */}
         <View style={styles.headerContainer}>
           {/* Logo */}
-          <Logo width={131} height={71} />
+          <View style={{ zIndex: -1 }}>
+            <Logo width={131} height={71} />
+          </View>
           {/* Group Icon */}
           <View style={styles.groupIconContainer}>
             <Icon

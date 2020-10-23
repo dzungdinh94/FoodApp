@@ -12,21 +12,19 @@ import { spacing } from "../../theme"
 import { TouchableOpacity } from "react-native-gesture-handler"
 
 const DetailsScreenCarousel = ({}) => {
-  const fixWidthImage = 343
   const fixHeightImage = 396
-  const marginIcon = fixWidthImage - 48
 
   return (
-    <TouchableOpacity style={{ marginTop: spacing[4], alignSelf: "center" }}>
-      {/* Images */}
-      <View style={[styles.imageContainer, { width: fixWidthImage, height: fixHeightImage }]}>
-        <SimpleImage width={fixWidthImage} height={fixHeightImage} />
-        {/* FavortiteToggle */}
-        <View style={{ left: marginIcon }}>
-          <FavoriteToogle size={15} />
-        </View>
+    <View>
+      <TouchableOpacity>
+        {/* Images */}
+        <View style={[styles.imageContainer, { height: fixHeightImage }]}></View>
+      </TouchableOpacity>
+      {/* FavortiteToggle */}
+      <View style={{ position: "absolute", right: spacing[2], top: spacing[2] }}>
+        <FavoriteToogle size={15} />
       </View>
-    </TouchableOpacity>
+    </View>
   )
 }
 

@@ -39,3 +39,6 @@
  * 8 = massive - an uncomfortable amount of whitespace
  */
 export const spacing = [0, 4, 8, 12, 16, 24, 32, 40, 48, 64]
+export const paddingValue = {
+  button: 14,
+}

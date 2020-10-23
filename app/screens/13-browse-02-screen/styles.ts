@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
-  carouselBadgeContent: { color: color.palette.white },
+  carouselBadgeContent: { color: color.palette.white, fontSize: 13 },
   carouselContentTypeOfFood: { color: color.palette.white, fontSize: 17, marginTop: spacing[2] },
   carouselContentTitle: {
     color: color.palette.white,

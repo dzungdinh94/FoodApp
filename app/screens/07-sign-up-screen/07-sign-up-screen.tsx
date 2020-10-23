@@ -15,7 +15,6 @@ const ROOT: ViewStyle = {
   backgroundColor: color.palette.white,
   paddingHorizontal: spacing[6],
   justifyContent: "space-between",
-  minHeight: 734,
 }
 
 export const SignUpScreen = observer(function SignUpScreen() {
