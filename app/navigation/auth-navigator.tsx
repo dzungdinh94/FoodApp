@@ -17,7 +17,7 @@ export function AuthStack() {
         headerShown: false,
         gestureEnabled: true,
       }}
-      initialRouteName={screens.VerificationCodeScreen}
+      initialRouteName={screens.OnboardingScreen}
     >
       <Stack.Screen name={screens.SignInScreen} component={SignInScreen} />
       <Stack.Screen name={screens.SignUpScreen} component={SignUpScreen} />

@@ -44,6 +44,9 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     marginTop: 24,
   },
+  inputStyle:{
+    color: "#000000"
+  }
 })
 
 export const SignUpScreen = observer(function SignUpScreen() {
@@ -58,9 +61,9 @@ export const SignUpScreen = observer(function SignUpScreen() {
     <Screen style={ROOT} preset="scroll">
       <Text style={styles.XinChao} text="Xin chào! " />
       <Text style={styles.DangKiDeThamGia} text="Đăng kí để tham gia " />
-      <TextField style={styles.Form} placeholder="Email" label = "Email"/>
-      <TextField style={styles.Form} placeholder="Tên đăng nhập" label = "Tên đăng nhập"/>
-      <TextField style={styles.Form} placeholder="Mật khẩu" label = "Mật khẩu"/>
+      <TextField inputStyle={styles.inputStyle} style={styles.Form} placeholder="Email" label = "Email"/>
+      <TextField inputStyle={styles.inputStyle} style={styles.Form} placeholder="Tên đăng nhập" label = "Tên đăng nhập"/>
+      <TextField inputStyle={styles.inputStyle} style={styles.Form} placeholder="Mật khẩu" label = "Mật khẩu"/>
       <Button textStyle={{fontSize:17}} style={styles.ButtonReg} text="Đăng kí" />
       <Text style={styles.GoSign}>
         Đã có tài khoản?

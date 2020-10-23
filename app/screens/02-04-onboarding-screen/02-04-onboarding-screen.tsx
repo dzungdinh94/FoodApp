@@ -62,7 +62,7 @@ const styles = StyleSheet.create({
     marginLeft: 32,
     marginTop: 40,
     marginRight: 32,
-  }
+  },
 })
 export const OnboardingScreen = observer(function OnboardingScreen() {
   // Pull in one of our MST stores

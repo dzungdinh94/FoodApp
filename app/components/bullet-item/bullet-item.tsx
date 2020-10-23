@@ -26,7 +26,6 @@ const BULLET_TEXT: TextStyle = {
   fontSize: 15,
   lineHeight: 22,
 }
-
 export interface BulletItemProps {
   text: string
 }
@@ -36,6 +35,7 @@ export function BulletItem(props: BulletItemProps) {
     <View style={BULLET_ITEM}>
       <Icon icon="bullet" containerStyle={BULLET_CONTAINER} style={BULLET} />
       <Text style={BULLET_TEXT} text={props.text} />
+      
     </View>
   )
 }

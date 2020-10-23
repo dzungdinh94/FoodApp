@@ -50,6 +50,9 @@ const styles = StyleSheet.create({
     fontSize: 17,
     color: "#000000",
     marginTop:24
+  },
+  inputStyle:{
+    color: "#000000"
   }
 })
 
@@ -73,8 +76,8 @@ export const SignInScreen = observer(function SignInScreen() {
     <Screen style={ROOT} preset="scroll">
       <Text style={styles.ChaoMungTroLai} text="Chào mừng trở lại " />
       <Text style={styles.DangNhapDeTiepTuc} text="Đăng nhập để tiếp tục " />
-      <TextField style={styles.Form} placeholder="Tên đăng nhập" label="Tên đăng nhập"/>
-      <TextField style={styles.Form} placeholder="Mật khẩu" label="Mật khẩu"/>
+      <TextField inputStyle={styles.inputStyle} style={styles.Form} placeholder="Tên đăng nhập" label="Tên đăng nhập"/>
+      <TextField inputStyle={styles.inputStyle} style={styles.Form} placeholder="Mật khẩu" label="Mật khẩu"/>
       <Text style={styles.QuenMatKhau}
         onPress={() => navigation.navigate("ForgotPasswordScreen")}>
         Quên Mật Khẩu ?  
