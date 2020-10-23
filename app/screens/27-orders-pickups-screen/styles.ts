@@ -2,37 +2,30 @@ import {StyleSheet} from 'react-native';
 import { color } from '../../theme';
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        alignItems: 'center',
-        backgroundColor: 'rgb(249, 249, 249)'
+
+    hearder: {
+        marginLeft: 9,
+        flexDirection: 'row',
+        height: 23,
+        marginTop: 11,
+        marginRight: 16,
+        justifyContent: 'space-between',
+
     },
-    top: {
-        flex: 0.7,
-        alignItems: 'center',
-        paddingLeft: 59,
-        paddingRight: 59
-    },
+
     bag: {
-        marginTop: 8,
-        flex: 1,
+        marginTop:20,
         justifyContent: 'center',
         alignItems: 'center',
     },
-    choNhanHang: {
-        justifyContent: 'center',
-        flex: 1,
-    },
-    don: {
-        justifyContent: 'center',
-        flex: 1
-    },
+
     textNhanHang: {
         fontFamily: 'SegoeUI-Bold',
         fontSize: 24,
         textAlign: 'center',
         lineHeight: 28,
-        fontWeight: 'bold'
+        fontWeight: 'bold',
+        marginTop:40
     },
     textWait: {
         fontFamily: 'SegoeUI-Regular',
@@ -40,7 +33,8 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         lineHeight: 22,
         color: `rgb(102, 102, 102)`,
-        marginTop: 8
+        marginTop: 8,
+        marginHorizontal:59
     },
 
     textMaDon: {
@@ -48,24 +42,22 @@ const styles = StyleSheet.create({
         fontSize: 17,
         textAlign: 'center',
         lineHeight: 22,
-        fontWeight: 'bold'
+        fontWeight: 'bold',
+        marginTop:40,
     },
     textTime: {
+        marginTop:4,
         fontFamily: 'SegoeUI-Regular',
         fontSize: 15,
         textAlign: 'center',
         lineHeight: 20,
         color: `rgb(102, 102, 102)`,
     },
-    dow: {
-        flex: 1,
 
-        paddingLeft: 16,
-        paddingRight: 16
-    },
     thongTin: {
+        marginTop:40,
+        marginHorizontal:16,
         backgroundColor: 'white',
-        width: 343,
         height: 219,
         paddingLeft: 16,
         borderRadius: 8,
@@ -89,7 +81,7 @@ const styles = StyleSheet.create({
     thongTinNhanHang: {
         flex: 1,
         borderBottomColor: '#DAD9DD',
-        borderBottomWidth: 1
+        borderBottomWidth: 1,
     },
     textTittle:{
         fontFamily: 'SegoeUI-Semibold',
@@ -99,6 +91,7 @@ const styles = StyleSheet.create({
         fontWeight: 'bold'
     },
     textSup:{
+        marginTop:4,
         fontFamily: 'SegoeUI-Regular',
         fontSize: 12,
         textAlign: 'left',
@@ -107,11 +100,13 @@ const styles = StyleSheet.create({
     },
     touchable:{
         marginTop:16,
+        marginHorizontal:16,
         justifyContent: 'center',
         alignItems:'center',
         height:50,
         borderRadius:8,
-        backgroundColor: 'rgb(147,194,47)'
+        backgroundColor: 'rgb(147,194,47)',
+        marginBottom:87,
     },
     textTouchable:{
         fontFamily: 'SegoeUI-Semibold',

@@ -1,6 +1,6 @@
 import React from "react"
 import { observer } from "mobx-react-lite"
-import { ViewStyle, View, ScrollView, TouchableOpacity } from "react-native"
+import { ViewStyle, View, ScrollView, TouchableOpacity, TextInput } from "react-native"
 import { Screen, Text } from "../../components"
 // import { useNavigation } from "@react-navigation/native"
 // import { useStores } from "../../models"
@@ -8,19 +8,36 @@ import { color, spacing } from "../../theme"
 import styles from './styles'
 import { Icon } from 'react-native-elements';
 
+
 const ROOT: ViewStyle = {
   backgroundColor: color.palette.white,
-  flex: 1,
+
 }
+
+const cardBackground = [{
+  visa: 'Visa'
+}, {
+  visa: 'Mastercard'
+}, {
+  visa: 'Paypal'
+}, {
+  visa: 'ApplePay'
+}, {
+  visa: 'American Express'
+},
+]
+
+
 
 export const PaymentScreen = observer(function PaymentScreen() {
   // Pull in one of our MST stores
-  // const { someStore, anotherStore } = useStores()
+  // const { SuccessScreen } = useStores()
   // OR
   // const rootStore = useStores()
 
   // Pull in navigation via hook
   // const navigation = useNavigation()
+
   return (
     <Screen style={ROOT} preset="scroll">
 
@@ -33,53 +50,85 @@ export const PaymentScreen = observer(function PaymentScreen() {
         <Text style={styles.textHearder}>Add New</Text>
       </View>
 
-      <View style={styles.tittle}>
-        <Text style={styles.textThanhToan}>Thanh toán</Text>
-      </View>
+
+      <Text style={styles.textThanhToan}>Thanh toán</Text>
+
 
       <View style={styles.listCard}>
         <ScrollView
           horizontal={true}
           showsHorizontalScrollIndicator={false}
         >
-          <View style={[styles.textListCard, { backgroundColor: 'rgb(147,194,47)' }]}>
+          <TouchableOpacity style={[styles.textListCard, { backgroundColor: 'rgb(147,194,47)' }]}>
             <Text style={[styles.textCard, { color: 'white' }]}>Visa</Text>
-          </View>
-          <View style={styles.textListCard}>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.textListCard}>
             <Text style={styles.textCard}>Mastercard</Text>
-          </View>
-          <View style={styles.textListCard}>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.textListCard}>
             <Text style={styles.textCard}>Paypal</Text>
-          </View>
-          <View style={styles.textListCard}>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.textListCard}>
             <Text style={styles.textCard}>ApplePay</Text>
-          </View>
-          <View style={styles.textListCard}>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.textListCard}>
             <Text style={styles.textCard}>American Express</Text>
-          </View>
+          </TouchableOpacity>
         </ScrollView>
       </View>
 
       <View style={styles.inforCard}>
-          <ScrollView
-            horizontal={true}
-            pagingEnabled={true}
-            style={{ paddingVertical: 16 }}
-          >
-            <View style={styles.card}>
+        <ScrollView
+          showsHorizontalScrollIndicator={false}
+          horizontal={true}
+          pagingEnabled={true}
+        >
+          <View style={styles.card}>
+            <View style={styles.outHologram}>
               <View style={styles.hologram}>
-
               </View>
-
+              <Text style={{ color: 'white' }}>VISA</Text>
             </View>
+            <Text style={styles.cardNummer}>8364       9375       0930       7302</Text>
 
-            <View style={styles.card}>
-
-            </View><View style={styles.card}>
-
+            <View style={styles.holderAndExpires}>
+              <View >
+                <Text style={styles.textCardHolder}>Card Holder</Text>
+                <Text style={styles.textCardInput}>Fedricson Moors</Text>
+              </View>
+              <View>
+                <Text style={styles.textCardHolder}>Expires</Text>
+                <Text style={styles.textCardInput}>22 / 20</Text>
+              </View>
             </View>
-          </ScrollView>
+          </View>
+
+          <View style={styles.card}>
+            <View style={styles.outHologram}>
+              <View style={styles.hologram}>
+              </View>
+              <Text style={{ color: 'white' }}>VISA</Text>
+            </View>
+            <Text style={styles.cardNummer}>8364       9375       0930       7302</Text>
+
+            <View style={styles.holderAndExpires}>
+              <View >
+                <Text style={styles.textCardHolder}>Card Holder</Text>
+                <Text style={styles.textCardInput}>Fedricson Moors</Text>
+              </View>
+              <View>
+                <Text style={styles.textCardHolder}>Expires</Text>
+                <Text style={styles.textCardInput}>22 / 20</Text>
+              </View>
+            </View>
+          </View>
+        </ScrollView>
+        <View style={styles.outOval} >
+          <View style={[styles.oval, { backgroundColor: color.palette.main }]}></View>
+          <View style={[styles.oval, { backgroundColor: color.palette.lightGrey }]}></View>
+          <View style={[styles.oval, { backgroundColor: color.palette.lightGrey }]}></View>
         </View>
+      </View>
 
       <View style={styles.inputInfor}>
         <Text style={styles.textTittleInfor}>Card Number</Text>
@@ -100,7 +149,7 @@ export const PaymentScreen = observer(function PaymentScreen() {
         </View>
       </View>
 
-      <View style={{ flexDirection: 'row', marginLeft: spacing[3], alignItems: 'center' }}>
+      <View style={{ flexDirection: 'row', marginLeft: spacing[4], alignItems: 'center' }}>
         <Icon
           name="checkcircle"
           type="antdesign"
@@ -109,7 +158,8 @@ export const PaymentScreen = observer(function PaymentScreen() {
         />
         <Text style={[styles.textInputInfor, { fontSize: 15, lineHeight: 20, marginLeft: spacing[2] }]}>Save credit information</Text>
       </View>
-      <TouchableOpacity style={styles.button} >
+      <TouchableOpacity style={styles.button}
+      >
         <Text style={styles.textButton}>Hoàn tất</Text>
       </TouchableOpacity>
 
