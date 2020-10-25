@@ -12,7 +12,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         height: 41,
         width: 202,
-
+        marginTop:85
     },
     text: {
         fontSize: 36,
@@ -29,6 +29,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         width: 128,
         height: 128,
+        marginTop: 56,
     },
     camon: {
         flex: 1,
@@ -36,7 +37,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         width: 258,
         height: 102,
-
+        marginTop: 56,
     },
     camon1: {
         fontSize: 20,
@@ -58,6 +59,7 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
+        marginTop: 56,
     },
     touchable1: {
         width: 343,

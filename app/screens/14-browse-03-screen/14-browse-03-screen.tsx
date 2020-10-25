@@ -134,7 +134,7 @@ export const Browse03Screen = observer(function Browse03Screen() {
         <Image source={require('../../image/logo.png')} style={styles.image} />
         <View style={styles.iconstyle}>
           <Icon name='search' type='feather' />
-          <Icon name='shopping-cart' type='feather' marginLeft={16} />
+          <Icon name='shopping-cart' type='feather' marginLeft={16} onPress={()=>{navigation.navigate('ShoppingCartScreen')}}/>
         </View>
 
       </View>

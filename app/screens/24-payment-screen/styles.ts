@@ -5,7 +5,7 @@ import { color, spacing } from '../../theme';
 const styles = StyleSheet.create({
 
     hearder: {
-
+        marginLeft: 9,
         flexDirection: 'row',
         height: 23,
         marginTop: 11,
@@ -16,21 +16,17 @@ const styles = StyleSheet.create({
     textHearder: {
         fontFamily: 'SegoeUI-Regular',
         fontSize: 17,
-        color: 'rgb(102, 102, 102)'
+        color: color.palette.lighterGrey
     },
-    tittle: {
-        height: 41,
-        marginLeft: 16,
-        marginTop: 15,
-        justifyContent: 'center',
-    },
-
     textThanhToan: {
+        marginLeft: spacing[4],
+        marginTop: 15,
         fontFamily: 'AbhayaLibre-Bold',
         fontSize: 34,
         lineHeight: 41,
     },
     listCard: {
+        marginLeft: spacing[4],
         flexDirection: 'row',
         height: 54,
         justifyContent: 'center',
@@ -38,33 +34,37 @@ const styles = StyleSheet.create({
     },
     textListCard: {
         justifyContent: 'center',
-        marginLeft: 8,
+        marginRight: spacing[3],
         height: 29,
         borderRadius: 14.5,
         backgroundColor: 'rgb(239,239,244)',
     },
     textCard: {
-        paddingLeft: 10,
-        paddingRight: 10,
+        paddingHorizontal: 10,
         fontSize: 13,
         fontFamily: 'SegoeUI-Regular',
         lineHeight: 18,
         color: 'rgb(102,102,102)'
     },
     inforCard: {
-        flexDirection: 'row',
+        flexDirection: 'column',
+        alignItems: 'center',
         height: 261,
         backgroundColor: 'rgb(249, 249, 249)',
         marginBottom: 24,
+        paddingBottom: spacing[4],
     },
     card: {
+
+        margin: 16,
         padding: 24,
-        margin: spacing[2],
         height: 206,
-        width: 343,
         borderRadius: 8,
         backgroundColor: 'black',
-
+    },
+    outHologram: {
+        flexDirection: 'row',
+        justifyContent: 'space-between'
     },
     hologram: {
         width: 44,
@@ -72,16 +72,50 @@ const styles = StyleSheet.create({
         borderRadius: 8,
         backgroundColor: 'rgb(59,59,59)'
     },
+    cardNummer: {
+        marginTop: 31,
+        color: color.palette.lightGrey,
+        fontFamily: 'SegoeUI-Semibold',
+        fontSize: 20,
+        lineHeight: 24,
+        textAlign: "center"
+    },
+    holderAndExpires: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        marginTop: 25,
+    },
+    textCardHolder: {
+        fontSize: 9,
+        fontFamily: 'SegoeUI-Regular',
+        color: color.palette.lightGrey
+    },
+    textCardInput: {
+        fontSize: 13,
+        fontFamily: 'SegoeUI-Regular',
+        color: color.palette.white,
+        lineHeight: 18,
+    },
+    outOval: {
+        flexDirection: 'row'
+    },
+    oval: {
+        marginHorizontal: 4,
+        width: 7,
+        height: 7,
+        borderRadius: 9999,
+    },
     inputInfor: {
         flexDirection: 'row',
         justifyContent: 'space-between',
-        alignItems: 'flex-start',
+        alignItems: 'center',
         marginLeft: 16,
         marginRight: 16,
         marginBottom: 11,
         borderBottomColor: 'rgb(239, 239, 244)',
         borderBottomWidth: 1,
         paddingBottom: 11,
+
     },
     textTittleInfor: {
         fontSize: 17,
@@ -89,7 +123,14 @@ const styles = StyleSheet.create({
         lineHeight: 22,
         color: color.palette.black,
     },
+    input: {
+        backgroundColor: 'green',
+        marginLeft: 30,
+        padding: 0,
+        flex: 1,
+    },
     textInputInfor: {
+        textAlign: 'right',
         fontFamily: 'SegoeUI-Regular',
         fontSize: 17,
         lineHeight: 22,
@@ -102,7 +143,8 @@ const styles = StyleSheet.create({
         height: 50,
         borderRadius: 8,
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        marginBottom: 16,
     },
     textButton: {
         fontSize: 17,

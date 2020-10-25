@@ -11,7 +11,7 @@ import styles from './styles'
 
 const ROOT: ViewStyle = {
   backgroundColor: color.palette.white,
-  flex: 1,
+
 }
 
 export const SuccessScreen = observer(function SuccessScreen() {
@@ -36,7 +36,6 @@ export const SuccessScreen = observer(function SuccessScreen() {
                 <Text style={styles.camon2}>Đơn hàng của bạn đã được ghi nhận và đang trong quá trình xử lý</Text>
             </View>
             <View style={styles.button}>
-
                 <TouchableOpacity style={styles.touchable1}>
                     <Text style={styles.texttouch1}>Theo dõi đơn hàng</Text>
                 </TouchableOpacity>

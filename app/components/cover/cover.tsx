@@ -18,8 +18,8 @@ const Cover = () => {
             <View style={styles.headerBackground}>
             <Image source={require('../../image/logo.png')}style={styles.image}/>
             <View style={styles.iconstyle}>
-            <Icon onPress={searchPage} name='search' type='feather' color='white' />
-            <Icon name='shopping-cart' type='feather' color='white' marginLeft={16}/>
+            <Icon onPress={searchPage} name='search' type='feather' color='white'/>
+            <Icon name='shopping-cart' type='feather' color='white' onPress={()=>{navigation.navigate('ShoppingCartScreen')}}/>
             </View>
             </View>
             <LinearGradient 

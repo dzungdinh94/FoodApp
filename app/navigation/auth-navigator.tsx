@@ -25,8 +25,9 @@ export function AuthStack() {
       }}
       initialRouteName={screens.OnboardingScreen}
       // initialRouteName={screens.FavoritesScreen}
+      // initialRouteName={screens.OrdersScreen}
     >
-      <Stack.Screen name={screens.FavoritesScreen} component={FavoritesScreen} />
+      <Stack.Screen name={screens.OrdersScreen} component={OrdersScreen} />
       <Stack.Screen name={screens.SignInScreen} component={SignInScreen} />
       <Stack.Screen name={screens.SignUpScreen} component={SignUpScreen} />
       <Stack.Screen name={screens.ForgotPasswordScreen} component={ForgotPasswordScreen} />

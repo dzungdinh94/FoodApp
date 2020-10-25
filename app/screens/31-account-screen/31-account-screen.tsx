@@ -4,7 +4,7 @@ import { ViewStyle } from "react-native"
 import { Screen, Text } from "../../components"
 import {View} from 'react-native'
 
-// import { useNavigation } from "@react-navigation/native"
+import { useNavigation } from "@react-navigation/native"
 // import { useStores } from "../../models"
 import Address from './address'
 import Name from './name'
@@ -12,6 +12,7 @@ import Payment from './payment'
 import { color } from "../../theme"
 import {Icon} from 'react-native-elements'
 import styles from './styles'
+import { TouchableOpacity } from "react-native-gesture-handler"
 const ROOT: ViewStyle = {
   backgroundColor: color.palette.white,
   flex: 1,
@@ -24,7 +25,7 @@ export const AccountScreen = observer(function AccountScreen() {
   // const rootStore = useStores()
 
   // Pull in navigation via hook
-  // const navigation = useNavigation()
+  const navigation = useNavigation()
   return (
     <Screen style={ROOT} preset="scroll"  style={styles.screen} >
       <View style={styles.nameBg}>
@@ -43,8 +44,12 @@ export const AccountScreen = observer(function AccountScreen() {
 </View>
 <View style={styles.magLeft}>
   <Text style={styles.title}>Phương thức thanh toán</Text>
+  <TouchableOpacity onPress={()=>{navigation.navigate('PaymentScreen')}}>
     <Payment cardtype='Main card' cardnumber="9432 **** **** ****"/>
-    <Payment cardtype='Oscar' cardnumber="**** 6857"/>
+  </TouchableOpacity>  
+    <Payment cardtype='Oscar' cardnumber="**** 6857"/>    
+
+
     <View style={[{marginTop: 8},styles.flexRow,styles.justifySpaceBetween,styles.padRight]}>
 
     <Text style={styles.add}>Thêm phương thức</Text>

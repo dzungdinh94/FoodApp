@@ -19,8 +19,38 @@ import Item from "./item"
 const ROOT: ViewStyle = {
   backgroundColor: color.palette.white,
   flex: 1,
-  
+
 }
+
+let DATA = [{
+  name: 'Bông cải xanh',
+  price: '20k'
+},
+{
+  name: 'Đu đủ',
+  price: '20k'
+},
+{
+  name: 'Chuối',
+  price: '20k'
+},
+{
+  name: 'Cà rốt organic',
+  price: '20k'
+},
+{
+  name: 'Bông cải xanh',
+  price: '20k'
+},
+{
+  name: 'Bông cải xanh',
+  price: '20k'
+},
+{
+  name: 'Bông cải xanh',
+  price: '20k'
+},]
+
 
 export const FavoritesScreen = observer(function FavoritesScreen() {
   // Pull in one of our MST stores
@@ -30,6 +60,11 @@ export const FavoritesScreen = observer(function FavoritesScreen() {
 
   // Pull in navigation via hook
   // const navigation = useNavigation()
+
+
+
+
+
   return (
     <Screen style={ROOT} preset="scroll">
       <ScrollView>
