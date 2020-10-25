@@ -13,3 +13,4 @@ const othersetting1 = (props) => {
 }
 
 export default othersetting1
+//done

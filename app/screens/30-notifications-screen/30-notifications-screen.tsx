@@ -38,7 +38,4 @@ export const NotificationsScreen = observer(function NotificationsScreen() {
     </Screen>
   )
 })
-
-
-
-
+//done
