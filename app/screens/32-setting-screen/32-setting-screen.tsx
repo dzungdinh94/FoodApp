@@ -33,7 +33,7 @@ export const SettingScreen = observer(function SettingScreen() {
     <Screen style={ROOT} preset="scroll" style={styles.container}>
       <View style={[styles.back,styles.justifySpaceBetween,styles.flexRow]}>
 
-      <Icon name='chevron-back-outline' type='ionicon' iconStyle={{fontSize: 30 ,marginLeft:-10, fontWeight: 'bold'}} color='black' onPress={goBack}/>
+      <Icon name='chevron-back-outline' type='ionicon' iconStyle={{fontSize: 30 ,marginLeft:-1, fontWeight: 'bold'}} color='black' onPress={goBack}/>
       </View>
       <Text style={styles.title}>Thiết lập</Text>
       <View>

@@ -23,6 +23,7 @@ export function Text(props: TextProps) {
   return (
     <ReactNativeText {...rest} style={style}>
       {content}
+      
     </ReactNativeText>
   )
 }
