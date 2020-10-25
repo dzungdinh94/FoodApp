@@ -140,9 +140,9 @@ export const OrdersScreen = observer(function OrdersScreen() {
             data={listData}
             renderItem={({ item, index }) => {
               let list = () => {
-                return item.image.map(element => {
+                return item.image.map((element,index) => {
                   return (
-                    <View style={styles.listAnh}>
+                    <View key={item.maDon+index} style={styles.listAnh}>
                       <Image
                         style={styles.image}
                         source={element}
@@ -152,7 +152,7 @@ export const OrdersScreen = observer(function OrdersScreen() {
                 })
               }
               return (
-                <View style={{ height: 80, flexDirection: "row" }}>
+                <View key={index} style={{ height: 80, flexDirection: "row" }}>
                   <View style={styles.listDot}>
                     <View style={[styles.dot, {
                       backgroundColor: item.trangThai === trangthai.dangxuly ? trangthaiColor.dangxuly

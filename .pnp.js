@@ -86,6 +86,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["react", "npm:16.13.1"],
             ["react-devtools-core", "npm:4.8.2"],
             ["react-native", "virtual:aa76b99a483891ee388adc1ac89859adacf6fef06bdf97688cf973121fa751aec95564bcfeb1d795d3321f828c0d8b2a0b8c003371bd54fd1b88b5d2e7da6c65#npm:0.63.2"],
+            ["react-native-card-flip", "virtual:aa76b99a483891ee388adc1ac89859adacf6fef06bdf97688cf973121fa751aec95564bcfeb1d795d3321f828c0d8b2a0b8c003371bd54fd1b88b5d2e7da6c65#npm:1.0.7"],
             ["react-native-elements", "virtual:aa76b99a483891ee388adc1ac89859adacf6fef06bdf97688cf973121fa751aec95564bcfeb1d795d3321f828c0d8b2a0b8c003371bd54fd1b88b5d2e7da6c65#npm:2.3.2"],
             ["react-native-gesture-handler", "npm:1.8.0"],
             ["react-native-keychain", "npm:6.1.1"],
@@ -7961,6 +7962,13 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]
       ]],
       ["core-js", [
+        ["npm:1.2.7", {
+          "packageLocation": "./.yarn/cache/core-js-npm-1.2.7-88c984873f-845cd9fe57.zip/node_modules/core-js/",
+          "packageDependencies": [
+            ["core-js", "npm:1.2.7"]
+          ],
+          "linkType": "HARD",
+        }],
         ["npm:2.6.11", {
           "packageLocation": "./.yarn/unplugged/core-js-npm-2.6.11-15178ded27/node_modules/core-js/",
           "packageDependencies": [
@@ -10084,6 +10092,20 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]
       ]],
       ["fbjs", [
+        ["npm:0.8.17", {
+          "packageLocation": "./.yarn/cache/fbjs-npm-0.8.17-9a02cb2222-fa37e4dfa8.zip/node_modules/fbjs/",
+          "packageDependencies": [
+            ["fbjs", "npm:0.8.17"],
+            ["core-js", "npm:1.2.7"],
+            ["isomorphic-fetch", "npm:2.2.1"],
+            ["loose-envify", "npm:1.4.0"],
+            ["object-assign", "npm:4.1.1"],
+            ["promise", "npm:7.3.1"],
+            ["setimmediate", "npm:1.0.5"],
+            ["ua-parser-js", "npm:0.7.22"]
+          ],
+          "linkType": "HARD",
+        }],
         ["npm:1.0.0", {
           "packageLocation": "./.yarn/cache/fbjs-npm-1.0.0-4f480c1eca-8fbb6828cf.zip/node_modules/fbjs/",
           "packageDependencies": [
@@ -10432,6 +10454,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["react", "npm:16.13.1"],
             ["react-devtools-core", "npm:4.8.2"],
             ["react-native", "virtual:aa76b99a483891ee388adc1ac89859adacf6fef06bdf97688cf973121fa751aec95564bcfeb1d795d3321f828c0d8b2a0b8c003371bd54fd1b88b5d2e7da6c65#npm:0.63.2"],
+            ["react-native-card-flip", "virtual:aa76b99a483891ee388adc1ac89859adacf6fef06bdf97688cf973121fa751aec95564bcfeb1d795d3321f828c0d8b2a0b8c003371bd54fd1b88b5d2e7da6c65#npm:1.0.7"],
             ["react-native-elements", "virtual:aa76b99a483891ee388adc1ac89859adacf6fef06bdf97688cf973121fa751aec95564bcfeb1d795d3321f828c0d8b2a0b8c003371bd54fd1b88b5d2e7da6c65#npm:2.3.2"],
             ["react-native-gesture-handler", "npm:1.8.0"],
             ["react-native-keychain", "npm:6.1.1"],
@@ -16607,6 +16630,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]
       ]],
       ["prop-types", [
+        ["npm:15.5.10", {
+          "packageLocation": "./.yarn/cache/prop-types-npm-15.5.10-a9dbe008fa-27f618e708.zip/node_modules/prop-types/",
+          "packageDependencies": [
+            ["prop-types", "npm:15.5.10"],
+            ["fbjs", "npm:0.8.17"],
+            ["loose-envify", "npm:1.4.0"]
+          ],
+          "linkType": "HARD",
+        }],
         ["npm:15.7.2", {
           "packageLocation": "./.yarn/cache/prop-types-npm-15.7.2-d7a04f2274-a440dd406c.zip/node_modules/prop-types/",
           "packageDependencies": [
@@ -17159,6 +17191,27 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           ],
           "packagePeers": [
             "@types/react",
+            "react"
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
+      ["react-native-card-flip", [
+        ["virtual:aa76b99a483891ee388adc1ac89859adacf6fef06bdf97688cf973121fa751aec95564bcfeb1d795d3321f828c0d8b2a0b8c003371bd54fd1b88b5d2e7da6c65#npm:1.0.7", {
+          "packageLocation": "./.yarn/$$virtual/react-native-card-flip-virtual-f2899a2ac2/0/cache/react-native-card-flip-npm-1.0.7-64320a3ab5-a352617a25.zip/node_modules/react-native-card-flip/",
+          "packageDependencies": [
+            ["react-native-card-flip", "virtual:aa76b99a483891ee388adc1ac89859adacf6fef06bdf97688cf973121fa751aec95564bcfeb1d795d3321f828c0d8b2a0b8c003371bd54fd1b88b5d2e7da6c65#npm:1.0.7"],
+            ["@types/react", "npm:16.9.23"],
+            ["@types/react-native", "npm:0.63.25"],
+            ["prop-types", "npm:15.5.10"],
+            ["react", "npm:16.13.1"],
+            ["react-lifecycles-compat", "npm:3.0.4"],
+            ["react-native", "virtual:aa76b99a483891ee388adc1ac89859adacf6fef06bdf97688cf973121fa751aec95564bcfeb1d795d3321f828c0d8b2a0b8c003371bd54fd1b88b5d2e7da6c65#npm:0.63.2"]
+          ],
+          "packagePeers": [
+            "@types/react-native",
+            "@types/react",
+            "react-native",
             "react"
           ],
           "linkType": "HARD",
