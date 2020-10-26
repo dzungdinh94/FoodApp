@@ -22,6 +22,5 @@ export const palette = {
   textgray:'#8a8a8f',
   bordergray:'#cccccc',
   controlbar:'#efeff4',
-  icon:'rgb(138,138,143)'
   
 }

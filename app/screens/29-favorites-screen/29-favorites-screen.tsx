@@ -1,16 +1,25 @@
 import React from "react"
 import { observer } from "mobx-react-lite"
-import { ViewStyle, View, ScrollView} from "react-native"
+import { ViewStyle, View, FlatList, ScrollView} from "react-native"
 import { Screen, Text } from "../../components"
 // import { useNavigation } from "@react-navigation/native"
 // import { useStores } from "../../models"
-import { color } from "../../theme"
+import { color, spacing } from "../../theme"
+import styles from './styles'
+import { Icon } from 'react-native-elements';
+
+
+
+// import { useNavigation } from "@react-navigation/native"
+// import { useStores } from "../../models"
+
 import Item from "./item"
-import {Icon} from "react-native-elements"
-import styles from "./styles"
+
+
 const ROOT: ViewStyle = {
   backgroundColor: color.palette.white,
   flex: 1,
+  
 }
 
 export const FavoritesScreen = observer(function FavoritesScreen() {

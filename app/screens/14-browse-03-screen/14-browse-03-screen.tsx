@@ -11,6 +11,7 @@ import { Header } from '../../components'
 import { useNavigation } from "@react-navigation/native"
 import { TabView, SceneMap, TabBar } from 'react-native-tab-view'; "react-native-underline-tabbar"
 import { Traicay, Rau } from '../data/data'
+
 const ROOT: ViewStyle = {
   backgroundColor: color.palette.background,
   flex: 1,
@@ -102,19 +103,27 @@ export const Browse03Screen = observer(function Browse03Screen() {
   const renderTabBar = props => (
     <TabBar
       {...props}
+      
       style={{
         backgroundColor: color.palette.background,
         color: color.palette.black,
-        marginTop: 16,
-        marginBottom:16
+        marginTop: 8,
+        marginBottom:12,
+        shadowOffset: { height: 0, width: 0 }, 
+        shadowColor: 'transparent',
+        shadowOpacity: 0,
+        elevation:0,
+        borderBottomWidth:0.2,
+        borderBottomColor:color.palette.search 
       }}
+      
       labelStyle={{
         color: color.palette.black,
         fontSize: 13,
-        textTransform: 'capitalize'
+        textTransform: 'capitalize',
       }}
-
-      indicatorStyle={{ backgroundColor: color.palette.buttonbuy }}
+      
+      indicatorStyle={{ backgroundColor: color.palette.buttonbuy}}
     />
   );
   return (
@@ -132,14 +141,12 @@ export const Browse03Screen = observer(function Browse03Screen() {
       <TouchableOpacity onPress={() => { navigation.navigate('SearchScreen') }}>
         <SearchBox />
       </TouchableOpacity>
-
       <TabView
         navigationState={{ index, routes }}
         renderScene={renderScene}
         onIndexChange={setIndex}
         initialLayout={initialLayout}
         renderTabBar={renderTabBar}
-
       />
     </Screen>
   )
