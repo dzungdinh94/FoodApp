@@ -1,20 +1,15 @@
 import React from "react"
 import { observer } from "mobx-react-lite"
-import { ViewStyle, View, FlatList, ScrollView} from "react-native"
-import { Screen, Text } from "../../components"
-// import { useNavigation } from "@react-navigation/native"
+import { View, ViewStyle } from "react-native"
+import { Text } from "../../components"
+import { useNavigation } from "@react-navigation/native"
 // import { useStores } from "../../models"
-import { color, spacing } from "../../theme"
-import styles from './styles'
-import { Icon } from 'react-native-elements';
-
-
-
-// import { useNavigation } from "@react-navigation/native"
-// import { useStores } from "../../models"
-
-import Item from "./item"
-
+import { color } from "../../theme"
+import { Icon } from "react-native-elements"
+import { ScrollView, TouchableOpacity } from "react-native-gesture-handler"
+import screens from "../../navigation/screens"
+import styles from "./styles"
+import FavoriteRenderItem from "../../components/FavoriteRenderItem/FavoriteRenderItem"
 
 const ROOT: ViewStyle = {
   backgroundColor: color.palette.white,
@@ -59,49 +54,53 @@ export const FavoritesScreen = observer(function FavoritesScreen() {
   // const rootStore = useStores()
 
   // Pull in navigation via hook
-  // const navigation = useNavigation()
-
-
-
-
-
+  const navigation = useNavigation()
   return (
-    <Screen style={ROOT} preset="scroll">
-      <ScrollView>
-        <View style={styles.header}>
-          <View style={styles.headerContainer}>
-            <View style={[styles.flexRow, styles.justifySpaceBetween, styles.center]}>
-              <Text style={[styles.text, styles.findText]}>Chỉnh sửa</Text>
-              <Icon name="search" type="evilicon" color="black" />
-            </View>
-            <Text style={[styles.text, styles.title]}>Danh sách yêu thích</Text>
-
-            <View style={[styles.flexRow]}>
-              <View style={[styles.flexRow, styles.center,styles.typeContainer]}>
-                <Icon name="arrow-down" type="octicon" iconStyle={[styles.iconTop,styles.iconTopLeft]} />
-                <Icon name="arrow-up" type="octicon" iconStyle={styles.iconTop} />
-                <Text style={[styles.text, styles.category, styles.leftCategory]}>Sắp xếp</Text>
-              </View>
-              <View style={[styles.flexRow, styles.center,styles.typeContainer]}>
-                <Icon name="filter" type="font-awesome-5" iconStyle={[styles.iconTopLeft,styles.iconTop]} />
-                <Text style={[styles.text, styles.category]}>Lọc</Text>
-              </View>
-            </View>
-          </View>
-          <View style={[styles.flexItem, styles.flexRow]}>
-            <Item itemname="Bông cải xanh" itemprice="20K" />
-            <Item itemname="Đu đủ" itemprice="20K" />
-            <Item itemname="Chuối" itemprice="20K" />
-            <Item itemname="Cà rốt" itemprice="20K" />
-            <Item itemname="Bông cải xanh" itemprice="20K" />
-            <Item itemname="Bông cải xanh" itemprice="20K" />
-            <Item itemname="Bông cải xanh" itemprice="20K" />
-            <Item itemname="Bông cải xanh" itemprice="20K" />
-            <Item itemname="Bông cải xanh" itemprice="20K" />
-          </View>
+    <ScrollView style={ROOT}>
+      {/* Navigation Bar*/}
+      <View style={styles.navigationContainer}>
+        <TouchableOpacity>
+          <Text style={styles.navigationText}>Chỉnh sửa</Text>
+        </TouchableOpacity>
+        <TouchableOpacity>
+          <Icon name="search" type="ionicon" color={color.palette.black} size={19} />
+        </TouchableOpacity>
+      </View>
+      {/* Header */}
+      <Text style={styles.headerText}>Danh sách yêu thích</Text>
+      {/* Sort Control Panel */}
+      <View style={styles.SortControlPanelContainer}>
+        {/* Sort Button */}
+        <View style={styles.sortButtonContainer}>
+          <TouchableOpacity style={styles.sortButton}>
+            <Icon name="sort" type="font-awesome" size={20} color={color.palette.gray100} />
+            <Text style={styles.sortButtonText}>Sắp xếp</Text>
+          </TouchableOpacity>
         </View>
-      </ScrollView>
-    </Screen>
+        {/* Filter Button */}
+        <View style={styles.sortButtonContainer}>
+          <TouchableOpacity
+            style={styles.filterButton}
+            onPress={() => navigation.navigate(screens.FilterScreen)}
+          >
+            <Icon name="filter" type="font-awesome-5" size={14} color={color.palette.gray100} />
+            <Text style={styles.filterButtonText}>Lọc</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
+      {/* Favorite List */}
+      <View style={styles.favoriteListContainer}>
+        <FavoriteRenderItem onPressItem={() => navigation.navigate(screens.ProductDetailScreen)} />
+        <FavoriteRenderItem onPressItem={() => navigation.navigate(screens.ProductDetailScreen)} />
+        <FavoriteRenderItem onPressItem={() => navigation.navigate(screens.ProductDetailScreen)} />
+        <FavoriteRenderItem onPressItem={() => navigation.navigate(screens.ProductDetailScreen)} />
+        <FavoriteRenderItem onPressItem={() => navigation.navigate(screens.ProductDetailScreen)} />
+        <FavoriteRenderItem onPressItem={() => navigation.navigate(screens.ProductDetailScreen)} />
+        <FavoriteRenderItem onPressItem={() => navigation.navigate(screens.ProductDetailScreen)} />
+        <FavoriteRenderItem onPressItem={() => navigation.navigate(screens.ProductDetailScreen)} />
+        <FavoriteRenderItem onPressItem={() => navigation.navigate(screens.ProductDetailScreen)} />
+      </View>
+    </ScrollView>
   )
 })
 //done

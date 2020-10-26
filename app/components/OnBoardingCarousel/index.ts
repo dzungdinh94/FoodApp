@@ -1,2 +1,2 @@
-import OnBoardingCarousel from './OnBoardingCarousel';
-export default OnBoardingCarousel;
+import OnBoardingCarousel from "./OnBoardingCarousel"
+export default OnBoardingCarousel

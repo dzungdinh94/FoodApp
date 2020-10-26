@@ -1,103 +1,102 @@
-import {StyleSheet} from 'react-native'
-import {color, spacing} from '../../theme'
-export default StyleSheet.create({
-    flexRow: {
-        display: 'flex',
-        flexDirection: 'row'
-    },
-    flexColumn: {
-        display: 'flex',
-        flexDirection: 'column',
-    },
-    findText: {
-fontSize: 22,
-color: color.palette.greyText,
-    },
-    title: {
-fontSize: 38,
-fontWeight: 'bold'
-    },
-    headerContainer:{
-        marginHorizontal: spacing[5],
-        marginBottom: spacing[3],
-        marginTop: spacing[5]
-    },
-    category: {
-        paddingRight: spacing[8],
-        paddingLeft: spacing[1],
-        paddingVertical: spacing[3],
-        color: color.palette.greyText,
-        marginTop: spacing[3]
-        
-    },
-    icon:{
-        backgroundColor: 'red',
-        width: 22,
-        height: 22,
-        left: 135,
-        top:0,
-        marginTop: 5, 
-        borderRadius: 50,
-        
-    },
-    leftCategory: {
-        borderRightColor: color.palette.greyText,
-        borderRightWidth: .5,
-        
-    },
-    justifySpaceBetween: {
-        justifyContent: 'space-between',
-        
-    },
-    center:{
-        alignItems:'center',
-        
-    },
-    typeContainer: {
-        flex: 1,
-        justifyContent:'center',
-    },
-    iconTop:{
-        color:"rgb(138,138,143)",
-        fontSize: 15,
-        height: 15,
-        flex: 1,
-        marginTop: 10,
-        
-    },
-    iconTopLeft: {
-        paddingLeft: 35
-    },
-    header: {
-        borderBottomWidth: 1,
-        borderBottomColor: color.palette.greyText,
-    },
-    flexItem:{
-        flexWrap: 'wrap',
-        marginHorizontal: spacing[3],
-    },
-    text:{
-        color: 'black',
+import { StyleSheet } from "react-native"
+import { color, spacing } from "../../theme"
 
-    },
-    eachItem: {
-        borderRadius: 10,
-        borderWidth: 1,
-        borderColor: color.palette.lighterGrey,
-        marginHorizontal: spacing[3],
-        marginBottom: spacing[3]
-    },
-   
-    itemName: {
-        paddingHorizontal: spacing[5],
-        paddingTop: spacing[2],
-        paddingBottom: spacing[1],
-        fontSize: 16
-    },
-    itemPrice :{
-        paddingHorizontal: spacing[5],
-        paddingBottom: spacing[3],
-        color: color.palette.greyText,
-        fontSize: 16,
-    },
+const styles = StyleSheet.create({
+  //GLOBAL STYLES
+  //Navigation Bar
+  navigationContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    width: "100%",
+    paddingHorizontal: spacing[4],
+    marginTop: spacing[3],
+  },
+  previousButton: { left: -spacing[3] },
+  contentContainer: {},
+  navigationText: { fontSize: 17, color: color.palette.gray100 },
+  //Header
+  headerText: {
+    alignSelf: "flex-start",
+    marginLeft: spacing[4],
+    fontWeight: "bold",
+    fontSize: 34,
+    marginTop: spacing[3],
+    color: color.palette.black,
+    textAlignVertical: "center",
+  },
+
+  //Button
+  button: {
+    alignSelf: "stretch",
+    height: 50,
+    backgroundColor: "rgb(147,194,47)",
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: spacing[2],
+    marginVertical: spacing[4],
+    marginHorizontal: spacing[4],
+  },
+  buttonContent: { fontSize: 17 },
+  //END GLOBAL STYLES
+
+  //CUSTOM
+  //Sort Control Panel
+  SortControlPanelContainer: {
+    flexDirection: "row",
+    backgroundColor: color.palette.white,
+    borderColor: color.palette.gray230,
+    borderWidth: 1,
+    borderTopWidth: 0,
+    zIndex: 10,
+    marginTop: spacing[2],
+  },
+  //Sort Button
+  sortButtonContainer: {
+    display: "flex",
+
+    borderColor: color.palette.gray230,
+    borderRightWidth: 1,
+    alignSelf: "stretch",
+    flex: 1,
+    paddingVertical: spacing[3],
+  },
+  sortButton: { flexDirection: "row", alignItems: "center", justifyContent: "center" },
+
+  sortButtonText: {
+    color: color.palette.lightGrey,
+    fontSize: 15,
+    lineHeight: 20,
+    marginLeft: spacing[2],
+  },
+  //Filter Button
+  filterButtonContainer: {
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    flex: 1,
+    alignSelf: "stretch",
+    paddingVertical: spacing[3],
+  },
+  filterButton: { flexDirection: "row", alignItems: "center", justifyContent: "center" },
+  filterButtonText: {
+    color: color.palette.lightGrey,
+    fontSize: 15,
+    lineHeight: 20,
+    marginLeft: spacing[2],
+  },
+  //Favorite List
+  favoriteListContainer: {
+    backgroundColor: color.palette.gray250,
+    flexDirection: "row",
+    flexWrap: "wrap",
+    alignItems: "center",
+    justifyContent: "space-between",
+    paddingHorizontal: spacing[4],
+    paddingBottom: spacing[4],
+    flex: 1,
+  },
 })
+
+export default styles

@@ -6,12 +6,8 @@ import {
   ForgotPasswordScreen,
   VerificationCodeScreen,
   OnboardingScreen,
-  SuccessScreen,
-  OrdersScreen,
-  OrdersPickupsScreen,
-  OrdersDeliveryScreen,
-  PaymentScreen,
-  FavoritesScreen
+  SetLanguageScreen,
+  SplashScreen,
 } from "../screens"
 import screens from "./screens"
 const Stack = createNativeStackNavigator()
@@ -24,15 +20,14 @@ export function AuthStack() {
         gestureEnabled: true,
       }}
       initialRouteName={screens.OnboardingScreen}
-      // initialRouteName={screens.FavoritesScreen}
-      // initialRouteName={screens.OrdersScreen}
     >
-      <Stack.Screen name={screens.OrdersScreen} component={OrdersScreen} />
+      <Stack.Screen name={screens.SplashScreen} component={SplashScreen} />
       <Stack.Screen name={screens.SignInScreen} component={SignInScreen} />
       <Stack.Screen name={screens.SignUpScreen} component={SignUpScreen} />
       <Stack.Screen name={screens.ForgotPasswordScreen} component={ForgotPasswordScreen} />
       <Stack.Screen name={screens.VerificationCodeScreen} component={VerificationCodeScreen} />
       <Stack.Screen name={screens.OnboardingScreen} component={OnboardingScreen} />
+      <Stack.Screen name={screens.SetLanguageScreen} component={SetLanguageScreen} />
     </Stack.Navigator>
   )
 }
