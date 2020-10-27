@@ -1,115 +1,235 @@
-import { StyleSheet } from 'react-native';
-
-import { color, spacing } from '../../theme';
+import { StyleSheet } from "react-native"
+import { color, spacing, distance } from "../../theme"
 
 const styles = StyleSheet.create({
+  //Navigation Bar
+  navigationContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    width: "100%",
+    paddingHorizontal: spacing[4],
+    paddingTop: spacing[2],
+  },
+  contentContainer: {},
+  headerText: {
+    alignSelf: "flex-start",
+    marginLeft: spacing[4],
+    fontWeight: "bold",
+    fontSize: 34,
+    color: color.palette.black,
+  },
 
-    hearder: {
+  //List of Card
+  listCardContainer: {
+    alignSelf: "flex-start",
+    paddingHorizontal: spacing[4],
+    paddingRight: spacing[6],
+    paddingVertical: spacing[3],
+    marginTop: spacing[2],
+  },
 
-        flexDirection: 'row',
-        height: 23,
-        marginTop: 11,
-        marginRight: 16,
-        justifyContent: 'space-between',
-        alignItems: 'center'
-    },
-    textHearder: {
-        fontFamily: 'SegoeUI-Regular',
-        fontSize: 17,
-        color: 'rgb(102, 102, 102)'
-    },
-    tittle: {
-        height: 41,
-        marginLeft: 16,
-        marginTop: 15,
-        justifyContent: 'center',
-    },
+  hightlightCardTypeContainer: {
+    paddingVertical: spacing[1],
+    paddingHorizontal: spacing[2],
+    backgroundColor: color.palette.main,
+    borderRadius: spacing[3],
+    marginRight: spacing[2],
+  },
+  hightlightCardTypeName: { fontWeight: "bold", fontSize: 13, color: color.palette.white },
+  cardTypeContainer: {
+    paddingVertical: spacing[1],
+    paddingHorizontal: spacing[2],
+    backgroundColor: color.palette.gray240,
+    borderRadius: spacing[3],
+    marginRight: spacing[2],
+  },
+  cardTypeName: { fontSize: 13 },
+  //Card Image
+  cardImageContainer: {
+    width: "100%",
+    paddingVertical: 16,
+    alignItems: "center",
+    backgroundColor: color.palette.gray240,
+  },
+  faceSideContainer: {
+    backgroundColor: color.palette.black,
+    height: (distance.windowWidth - 32) * 0.6,
+    width: distance.windowWidth - 32,
+    borderRadius: spacing[4],
+    borderWidth: 1,
+    overflow: "hidden",
+  },
+  faceSideBrandText: {
+    color: color.palette.gray140,
+    textTransform: "uppercase",
+    fontSize: 32,
+    fontWeight: "bold",
+    fontStyle: "italic",
+    position: "absolute",
+    top: "12%",
+    right: "8%",
+  },
+  faceSideRectangleShape: {
+    width: 44,
+    height: 36,
+    position: "absolute",
+    top: "12%",
+    left: "8%",
+    backgroundColor: color.palette.gray140,
+    borderRadius: spacing[2],
+  },
+  faceSideBackgroundText: {
+    color: color.palette.gray100,
+    fontSize: 160,
+    lineHeight: 160,
+    letterSpacing: 5,
+    fontWeight: "bold",
+    fontStyle: "italic",
+    position: "absolute",
+    bottom: -40,
+    left: 0,
+    opacity: 0.2,
+    width: 2000,
+    textTransform: "uppercase",
+  },
+  faceSideDetailContainer: {
+    marginHorizontal: "8%",
+    top: "45%",
+    height: "40%",
+    justifyContent: "space-between",
+  },
+  faceSideDetailContentWrapper: { justifyContent: "space-between", flexDirection: "row" },
+  faceSideCardNumberText: {
+    fontSize: 20,
+    color: color.palette.gray140,
+    textTransform: "uppercase",
+  },
+  faceSideTitleText: {
+    fontSize: 9,
+    color: color.palette.gray140,
+    textTransform: "uppercase",
+  },
+  faceSideContentText: {
+    fontSize: 13,
+    color: color.palette.white,
+    textTransform: "capitalize",
+  },
 
-    textThanhToan: {
-        fontFamily: 'AbhayaLibre-Bold',
-        fontSize: 34,
-        lineHeight: 41,
-    },
-    listCard: {
-        flexDirection: 'row',
-        height: 54,
-        justifyContent: 'center',
-        alignItems: 'center'
-    },
-    textListCard: {
-        justifyContent: 'center',
-        marginLeft: 8,
-        height: 29,
-        borderRadius: 14.5,
-        backgroundColor: 'rgb(239,239,244)',
-    },
-    textCard: {
-        paddingLeft: 10,
-        paddingRight: 10,
-        fontSize: 13,
-        fontFamily: 'SegoeUI-Regular',
-        lineHeight: 18,
-        color: 'rgb(102,102,102)'
-    },
-    inforCard: {
-        flexDirection: 'row',
-        height: 261,
-        backgroundColor: 'rgb(249, 249, 249)',
-        marginBottom: 24,
-    },
-    card: {
-        padding: 24,
-        margin: spacing[2],
-        height: 206,
-        width: 343,
-        borderRadius: 8,
-        backgroundColor: 'black',
+  backSideContainer: {
+    backgroundColor: color.palette.black,
+    height: (distance.windowWidth - 32) * 0.6,
+    width: distance.windowWidth - 32,
+    borderRadius: spacing[4],
+    borderWidth: 1,
+  },
+  backSideWhiteSpace: {
+    position: "absolute",
+    backgroundColor: color.palette.white,
+    borderWidth: 4,
+    borderColor: color.palette.white,
+    height: "20%",
+    top: "20%",
+    width: "100%",
+  },
+  backSideCVCText: {
+    color: color.palette.black,
+    top: "24%",
+    left: "80%",
+    fontSize: 18,
+    fontStyle: "italic",
+  },
+  backSideTopContent: {
+    color: color.palette.white,
+    fontSize: 9,
+    fontStyle: "italic",
+    top: "-7%",
+    left: "10%",
+  },
+  backSideBottomContent1: {
+    color: color.palette.white,
+    fontSize: 9,
+    fontStyle: "italic",
+    top: "26%",
+    left: "10%",
+    width: "80%",
+  },
+  backSideBottomContent2: {
+    color: color.palette.white,
+    fontSize: 9,
+    fontStyle: "italic",
+    top: "26%",
+    left: "10%",
+    width: "80%",
+  },
 
-    },
-    hologram: {
-        width: 44,
-        height: 36,
-        borderRadius: 8,
-        backgroundColor: 'rgb(59,59,59)'
-    },
-    inputInfor: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'flex-start',
-        marginLeft: 16,
-        marginRight: 16,
-        marginBottom: 11,
-        borderBottomColor: 'rgb(239, 239, 244)',
-        borderBottomWidth: 1,
-        paddingBottom: 11,
-    },
-    textTittleInfor: {
-        fontSize: 17,
-        fontFamily: 'SegoeUI-Regular',
-        lineHeight: 22,
-        color: color.palette.black,
-    },
-    textInputInfor: {
-        fontFamily: 'SegoeUI-Regular',
-        fontSize: 17,
-        lineHeight: 22,
-        color: color.palette.lighterGrey,
-    },
-    button: {
-        marginHorizontal: spacing[3],
-        marginTop: 78,
-        backgroundColor: color.palette.main,
-        height: 50,
-        borderRadius: 8,
-        justifyContent: 'center',
-        alignItems: 'center'
-    },
-    textButton: {
-        fontSize: 17,
-        lineHeight: 22,
-        fontFamily: 'SegoeUI-Semibold',
-        color: color.palette.white
-    },
-});
+  //Card Details
+  cardDetailsMainContainer: { marginTop: spacing[3], alignSelf: "stretch" },
+  cardDetailContainer: {
+    justifyContent: "space-between",
+    flexDirection: "row",
+    alignSelf: "stretch",
+    marginHorizontal: spacing[4],
+    borderBottomWidth: 1,
+    borderColor: color.palette.gray240,
+  },
+  cardDetailContainerNoBorder: {
+    justifyContent: "space-between",
+    flexDirection: "row",
+    alignSelf: "stretch",
+    marginHorizontal: spacing[4],
+  },
 
-export default styles;
+  cardDetailContainer2: {
+    justifyContent: "space-between",
+    flexDirection: "row",
+    width: "44%",
+    borderBottomWidth: 1,
+    borderColor: color.palette.gray240,
+  },
+  cardDetailTitle: {
+    fontSize: 17,
+    color: color.palette.black,
+    paddingVertical: spacing[3],
+  },
+  cardDetailContent: {
+    fontSize: 17,
+    color: color.palette.gray140,
+    paddingVertical: spacing[3],
+  },
+
+  //Save info
+  saveInfoContainer: {
+    alignSelf: "flex-start",
+    marginLeft: spacing[4],
+    marginTop: spacing[3],
+  },
+
+  //Button
+  button: {
+    alignSelf: "stretch",
+    height: 50,
+    backgroundColor: "rgb(147,194,47)",
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: spacing[2],
+    marginTop: 78,
+    marginBottom: spacing[4],
+    marginHorizontal: spacing[4],
+  },
+  buttonContent: { fontSize: 17 },
+  //COMPONENTS: RADIO BUTTON
+
+  radioContainer: { flexDirection: "row", alignItems: "center" },
+  radioCircle: {
+    width: 19,
+    height: 19,
+    borderRadius: 19,
+    borderWidth: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    marginRight: 5,
+  },
+})
+
+export default styles

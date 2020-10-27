@@ -5,13 +5,10 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
     },
-    donhang: {
+
+    textDonhang: {
         marginTop: 16,
         marginLeft: 16,
-        width: 275,
-        height: 41,
-    },
-    textDonhang: {
         fontFamily: 'SegoeUI-Bold',
         fontSize: 34,
         textAlign: 'left',

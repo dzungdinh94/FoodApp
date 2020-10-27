@@ -7,7 +7,7 @@ export default StyleSheet.create({
     image:{
         width:100,
         height:30,
-        marginLeft:16, 
+        marginLeft:16
     },
     iconstyle:{
         flexDirection:'row',
