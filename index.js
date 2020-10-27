@@ -10,6 +10,8 @@
 import App from "./app/app.tsx"
 import { AppRegistry } from "react-native"
 
+import AnimatedSuccess from './app/screens/25-success-screen/AnimatedSuccess'
+
 /**
  * This needs to match what's found in your app_delegate.m and MainActivity.java.
  */
