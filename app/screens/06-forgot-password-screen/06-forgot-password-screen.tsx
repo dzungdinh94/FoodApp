@@ -1,13 +1,18 @@
 import React from "react"
 import { observer } from "mobx-react-lite"
 import { ViewStyle } from "react-native"
-import { Screen, Text } from "../../components"
-// import { useNavigation } from "@react-navigation/native"
+import { Button, Screen, Text, AuthInput } from "../../components"
+import { useNavigation } from "@react-navigation/native"
 // import { useStores } from "../../models"
-import { color } from "../../theme"
+import { color, spacing } from "../../theme"
+import { View } from "react-native"
+import { ScrollView, TextInput, TouchableOpacity } from "react-native-gesture-handler"
+import styles from "./styles"
+import { Icon } from "react-native-elements"
+import screens from "../../navigation/screens"
 
 const ROOT: ViewStyle = {
-  backgroundColor: color.palette.black,
+  backgroundColor: color.palette.white,
   flex: 1,
 }
 
@@ -18,10 +23,39 @@ export const ForgotPasswordScreen = observer(function ForgotPasswordScreen() {
   // const rootStore = useStores()
 
   // Pull in navigation via hook
-  // const navigation = useNavigation()
+  const navigation = useNavigation()
   return (
     <Screen style={ROOT} preset="scroll">
-      <Text preset="header" text="ForgotPasswordScreen" />
+      {/* Navigation Bar */}
+
+      <View style={styles.navigationContainer}>
+        <TouchableOpacity style={styles.backIconContainer} onPress={() => navigation.goBack()}>
+          <Icon name="navigate-before" type="material" size={45} />
+        </TouchableOpacity>
+        <Text style={styles.navigationText}>Khôi phục mật khẩu</Text>
+        <View>
+          <Icon name="navigate-before" type="material" size={45} color={color.palette.white} />
+        </View>
+      </View>
+      {/* Main Screen */}
+      <View style={styles.container}>
+        {/* Guide Text */}
+        <Text
+          style={styles.guideText}
+          text="Hãy nhập email của bạn và chúng tôi sẽ gửi vào email của bạn hướng dẫn cách khôi phục"
+        />
+        {/* Input */}
+        <View style={styles.inputContainer}>
+          <AuthInput title="Email" isPassword={false} />
+        </View>
+        {/* Button */}
+        <Button
+          text="Đăng kí"
+          onPress={() => navigation.navigate(screens.VerificationCodeScreen)}
+          style={styles.button}
+          textStyle={styles.buttonContent}
+        />
+      </View>
     </Screen>
   )
 })

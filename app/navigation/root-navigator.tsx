@@ -9,7 +9,7 @@ import { NavigationContainer, NavigationContainerRef } from "@react-navigation/n
 
 import { createNativeStackNavigator } from "react-native-screens/native-stack"
 import { load as loadToken } from "../utils/storage"
-import { LoadingScreen } from "../screens"
+import { SplashScreen } from "../screens"
 import screens from "./screens"
 import { AppNavigator } from "./primary-navigator"
 import { AuthStack } from "./auth-navigator"
@@ -89,8 +89,8 @@ export const RootNavigator = React.forwardRef<
       return (
         <Stack.Navigator>
           <Stack.Screen
-            name={screens.Loading}
-            component={LoadingScreen}
+            name={screens.SplashScreen}
+            component={SplashScreen}
             options={{
               headerShown: false,
             }}

@@ -38,9 +38,7 @@
  * 7 = huge    - ?
  * 8 = massive - an uncomfortable amount of whitespace
  */
-import React from "react"
-
-import { Dimensions } from "react-native"
-const Width = Dimensions.get('window').width/375;
-const Height = Dimensions.get('window').height/812;
-export const spacing = [Width, Height, 8, 12, 16, 24, 32, 48, 64]
+export const spacing = [0, 4, 8, 12, 16, 24, 32, 40, 48, 64]
+export const paddingValue = {
+  button: 14,
+}

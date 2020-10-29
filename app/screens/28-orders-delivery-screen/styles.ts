@@ -1,119 +1,115 @@
-import {StyleSheet} from 'react-native';
-import { color } from '../../theme';
+import { StyleSheet } from "react-native"
+import { color, spacing } from "../../theme"
 
 const styles = StyleSheet.create({
-    hearder: {
-        marginLeft: 9,
-        flexDirection: 'row',
-        height: 23,
-        marginTop: 11,
-        marginRight: 16,
-        justifyContent: 'space-between',
+  //GLOBAL STYLES
+  //Navigation Bar
+  navigationContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    width: "100%",
+    paddingLeft: spacing[2],
+    paddingRight: spacing[4],
+    paddingTop: spacing[2],
+  },
+  previousButton: { left: -spacing[3] },
+  contentContainer: {},
+  headerText: {
+    alignSelf: "flex-start",
+    marginLeft: spacing[4],
+    fontWeight: "bold",
+    fontSize: 28,
+    marginVertical: spacing[3],
+    color: color.palette.black,
+  },
 
-    },
+  //Button
+  button: {
+    alignSelf: "stretch",
+    height: 50,
+    backgroundColor: "rgb(147,194,47)",
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: spacing[2],
+    marginVertical: spacing[4],
+    marginHorizontal: spacing[4],
+  },
+  buttonContent: { fontSize: 17 },
+  //END GLOBAL STYLES
 
-    bag: {
-        marginTop:20,
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
+  //OrderPick Up Custom
+  //Icon
+  IconContainer: { marginTop: spacing[4] },
+  //Status
+  StatusContainer: {
+    marginTop: spacing[7],
+  },
+  StatusTitle: {
+    fontSize: 24,
+    fontWeight: "bold",
+    color: color.palette.black,
+    textAlign: "center",
+  },
+  StatusContent: {
+    fontSize: 17,
+    color: color.palette.gray100,
+    paddingHorizontal: 60,
+    textAlign: "center",
+    paddingTop: spacing[2],
+  },
+  //Order
+  OrderContainer: {
+    marginTop: spacing[7],
+  },
+  OrderTitle: {
+    fontSize: 17,
+    fontWeight: "bold",
+    color: color.palette.black,
+    paddingHorizontal: spacing[8],
+    textAlign: "center",
+  },
+  OrderContent: {
+    fontSize: 15,
+    color: color.palette.gray100,
+    paddingHorizontal: spacing[8],
+    textAlign: "center",
+    paddingTop: spacing[1],
+  },
 
-    textNhanHang: {
-        fontFamily: 'SegoeUI-Bold',
-        fontSize: 24,
-        textAlign: 'center',
-        lineHeight: 28,
-        fontWeight: 'bold',
-        marginTop:40
-    },
-    textWait: {
-        fontFamily: 'SegoeUI-Regular',
-        fontSize: 17,
-        textAlign: 'center',
-        lineHeight: 22,
-        color: `rgb(102, 102, 102)`,
-        marginTop: 8,
-        marginHorizontal:59
-    },
+  //Info
+  ListDetailsContainer: {
+    backgroundColor: color.palette.white,
+    marginHorizontal: spacing[4],
+    marginTop: spacing[8],
+    borderRadius: spacing[2],
+    borderColor: color.palette.gray240,
+  },
+  DetailContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    paddingLeft: spacing[3],
+  },
+  DetailIcon: {
+    backgroundColor: color.palette.gray250,
+    padding: spacing[3],
+    borderRadius: spacing[2],
+  },
+  infoContainer: {
+    flexDirection: "row",
+    flexGrow: 1,
+    justifyContent: "space-between",
+    alignItems: "center",
+    marginLeft: spacing[4],
+    marginRight: spacing[2],
+    paddingVertical: spacing[4],
+    borderBottomWidth: 1,
+    borderBottomColor: color.palette.gray240,
+  },
+  infoTitle: { fontSize: 13, marginBottom: spacing[1], color: color.palette.gray100 },
+  infoHighlightDetails: { fontSize: 15, fontWeight: "bold", marginBottom: spacing[1] },
+  infoMoreDetails: { fontSize: 12, color: color.palette.gray140 },
+  infoHighLightMoreDetails: { fontSize: 13, fontWeight: "bold" },
+})
 
-    textMaDon: {
-        fontFamily: 'SegoeUI-Semibold',
-        fontSize: 17,
-        textAlign: 'center',
-        lineHeight: 22,
-        fontWeight: 'bold',
-        marginTop:40,
-    },
-    textTime: {
-        marginTop:4,
-        fontFamily: 'SegoeUI-Regular',
-        fontSize: 15,
-        textAlign: 'center',
-        lineHeight: 20,
-        color: `rgb(102, 102, 102)`,
-    },
-
-    thongTin: {
-        marginTop:40,
-        marginHorizontal:16,
-        backgroundColor: 'white',
-        height: 219,
-        paddingLeft: 16,
-        borderRadius: 8,
-        borderColor: '#DAD9DD',
-        borderWidth: 1
-    },
-    listThongTin: {
-        flex: 1,
-        flexDirection: 'row',
-        paddingTop: 16
-    },
-    icon: {
-        justifyContent: 'center',
-        alignItems: 'center',
-        width: 40,
-        height: 40,
-        borderRadius: 8,
-        backgroundColor: 'rgb(249,249,249)',
-        marginRight: 16
-    },
-    thongTinNhanHang: {
-        flex: 1,
-        borderBottomColor: '#DAD9DD',
-        borderBottomWidth: 1,
-    },
-    textTittle:{
-        fontFamily: 'SegoeUI-Semibold',
-        fontSize: 15,
-        textAlign: 'left',
-        lineHeight: 20,
-        fontWeight: 'bold'
-    },
-    textSup:{
-        marginTop:4,
-        fontFamily: 'SegoeUI-Regular',
-        fontSize: 12,
-        textAlign: 'left',
-        lineHeight: 16,
-        color: 'rgb(138, 138, 143)'
-    },
-    touchable:{
-        marginTop:16,
-        marginHorizontal:16,
-        justifyContent: 'center',
-        alignItems:'center',
-        height:50,
-        borderRadius:8,
-        backgroundColor: 'rgb(147,194,47)',
-        marginBottom:87,
-    },
-    textTouchable:{
-        fontFamily: 'SegoeUI-Semibold',
-        fontSize: 17,
-        textAlign: 'center',
-        lineHeight: 22,
-        color: 'white'
-    }
-});
-
-export default styles;
+export default styles

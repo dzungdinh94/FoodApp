@@ -140,9 +140,9 @@ export const OrdersScreen = observer(function OrdersScreen() {
             data={listData}
             renderItem={({ item, index }) => {
               let list = () => {
-                return item.image.map((element,index) => {
+                return item.image.map(element => {
                   return (
-                    <View key={item.maDon+index} style={styles.listAnh}>
+                    <View style={styles.listAnh}>
                       <Image
                         style={styles.image}
                         source={element}

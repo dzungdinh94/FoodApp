@@ -2,12 +2,12 @@ import React from "react"
 import { observer } from "mobx-react-lite"
 import { ViewStyle, View, ScrollView, TouchableOpacity, TextInput } from "react-native"
 import { Screen, Text } from "../../components"
-// import { useNavigation } from "@react-navigation/native"
+import { useNavigation } from "@react-navigation/native"
 // import { useStores } from "../../models"
 import { color, spacing } from "../../theme"
 import styles from './styles'
 import { Icon } from 'react-native-elements';
-
+import screens from "../../navigation/screens"
 
 const ROOT: ViewStyle = {
   backgroundColor: color.palette.white,
@@ -34,10 +34,9 @@ export const PaymentScreen = observer(function PaymentScreen() {
   // const { SuccessScreen } = useStores()
   // OR
   // const rootStore = useStores()
-
   // Pull in navigation via hook
   // const navigation = useNavigation()
-
+  const navigation = useNavigation()
   return (
     <Screen style={ROOT} preset="scroll">
 
@@ -159,6 +158,7 @@ export const PaymentScreen = observer(function PaymentScreen() {
         <Text style={[styles.textInputInfor, { fontSize: 15, lineHeight: 20, marginLeft: spacing[2] }]}>Save credit information</Text>
       </View>
       <TouchableOpacity style={styles.button}
+      onPress={() => navigation.navigate(screens.SuccessScreen)}
       >
         <Text style={styles.textButton}>Hoàn tất</Text>
       </TouchableOpacity>
