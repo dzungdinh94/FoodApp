@@ -15,6 +15,49 @@ import screens from "../../navigation/screens"
 import { images } from "../../../assets/images"
 import { Image } from "react-native"
 
+// const styles = StyleSheet.create({
+//   FormButton: {
+//     flexDirection: 'row',
+//     marginTop: 94,
+    
+//   },
+//   ButtonSignUp: {
+//     backgroundColor: "#93C22F",
+//     flex: 1,
+//     height: 50,
+//     borderColor: "#93C22F",
+//     borderWidth: 1,
+//     borderRadius: 8,
+//     marginLeft: 32,
+//     marginRight: 16,
+//   },
+//   ButtonSignIn: {
+//     backgroundColor: "transparent",
+//     flex: 1,
+//     height: 50,
+//     borderColor: "#FFFFFF",
+//     borderWidth: 1,
+//     borderRadius: 8,
+//     marginRight: 32
+//   },
+//   TextStyle: {
+//     fontSize: 17,
+//     color: "#FFFFFF"
+//   },
+//   linearGradient: {
+//     flex: 1,
+//   },
+//   Img: {
+//     position: "relative",
+//     marginLeft: 60,
+//     marginTop: 92,
+//   },
+//   Formtext: {
+//     marginLeft: 32,
+//     marginTop: 40,
+//     marginRight: 32,
+//   },
+// })
 export const OnboardingScreen = observer(function OnboardingScreen() {
   // Pull in one of our MST stores
   // const { someStore, anotherStore } = useStores()

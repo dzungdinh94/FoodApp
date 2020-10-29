@@ -14,8 +14,45 @@ import screens from "../../navigation/screens"
 const ROOT: ViewStyle = {
   backgroundColor: color.palette.white,
   flex: 1,
+  // paddingLeft: 32,
+  // paddingRight: 32,
+  minHeight: 734,
 }
-
+// const styles = StyleSheet.create({
+//   Warning:{
+//     color: "#000000",
+//     fontSize: 17,
+//     marginTop: 40,
+//     marginRight: 16,
+//     marginLeft: 16,
+//     textAlign: "center",
+//     lineHeight: 22,
+//     letterSpacing: 0,
+//   },
+//   View: {
+//     flex: 1,
+//     paddingLeft: 32,
+//     paddingRight: 32,
+//   },
+//   Form: {
+//     borderBottomColor: "#EFEFF4",
+//     borderBottomWidth: 1.5,
+//     marginTop:18,
+//   },
+//   ButtonConfirm: {
+//     backgroundColor : "#93C22F",
+//     marginTop: 38,
+//     height: 50,
+//     borderRadius: 8,
+//   },
+//   textStyle: {
+//     color: "#000000",
+//     fontSize: 17
+//   },
+//   inputStyle:{
+//     color: "#000000"
+//   }
+// })
 export const ForgotPasswordScreen = observer(function ForgotPasswordScreen() {
   // Pull in one of our MST stores
   // const { someStore, anotherStore } = useStores()

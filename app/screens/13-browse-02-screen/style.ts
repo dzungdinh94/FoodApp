@@ -1,0 +1,115 @@
+import {color} from '../../theme'
+import {StyleSheet} from 'react-native'
+export default StyleSheet.create({
+  bullet:{
+      color:color.palette.black
+  },
+  item:{
+      fontWeight:'bold',
+      fontSize:17,
+      color:color.palette.black,
+  },
+  textHead:{
+      flex:1,
+      flexDirection:'row',  marginTop:27,
+      marginBottom:11,
+      marginLeft:16
+  },
+  textRight:{
+      marginTop:1,
+      color:color.palette.textgray,
+  },
+  bulletitem:{
+      width:122,
+      height:122,
+      borderRadius:10
+  },
+
+  scrollrow:{
+      marginTop:10
+  },
+  Image:{
+      height:122,
+      width:122,
+      borderRadius: 10,
+      marginLeft:16,
+  },
+  title:{
+      marginLeft:16,
+      marginTop:8
+  },
+  textgray:{
+      color:'gray'
+  },
+  textblack:{
+      fontSize:15,
+      color:'black'
+  },
+  controlbar:{
+      flex:1,
+      height:44,
+      backgroundColor:color.palette.controlbar,
+      borderWidth:1,
+      borderRadius:10,
+      borderColor:color.palette.bordergray,
+      flexDirection:'row',
+      justifyContent:'space-around',
+      marginHorizontal:16,
+      marginTop:16
+  },
+  controlitem:{
+      color:color.palette.textgray,
+      marginTop:10,
+      fontSize:15,
+      fontWeight:'600'
+  },
+  buy:{
+      flex:1,
+      flexDirection:'row',
+  },
+  buyitem:{
+      width:80,
+      height:80,
+      borderRadius:10
+  },
+  listitem:{
+      marginTop:16,
+      marginHorizontal:16,
+      flex:1
+  },
+  titlebuy:{
+    flexDirection:'column', 
+    marginLeft:16, 
+    marginTop:10,
+  
+  },
+textbullet:{
+    color:color.palette.white,
+    fontWeight:'bold',
+    fontSize:17
+},
+textwhite:{
+    color:color.palette.white,
+    fontSize:12
+},
+buttonbuy:{
+    borderWidth:1,
+    height:24,
+    textAlign:'center',
+    borderRadius:10,
+    borderColor:color.palette.buttonbuy,
+    color:color.palette.buttonbuy,
+    marginTop:36,
+    fontSize:13,
+},
+bullettext:{
+    position: 'absolute', top: 135,
+    marginLeft:32
+},
+titleHead:{
+    flexDirection: 'row',
+    justifyContent:'flex-end',
+    flex:1, alignItems:'flex-end',
+    marginEnd:8 
+}
+})

@@ -1,7 +1,7 @@
 import React from "react"
 import { observer } from "mobx-react-lite"
 import { ViewStyle } from "react-native"
-import { Button, Screen, Text, AuthInput } from "../../components"
+import { Button, Screen, Text,AuthInput} from "../../components"
 import { useNavigation } from "@react-navigation/native"
 import { useStores } from "../../models"
 import { color } from "../../theme"
@@ -17,6 +17,45 @@ const ROOT: ViewStyle = {
   backgroundColor: color.palette.white,
   paddingHorizontal: 32,
 }
+
+// const styles = StyleSheet.create({
+//   ChaoMungTroLai: {
+//     fontSize: 40,
+//     color: "#000000",
+//     marginTop: 56,
+//   },
+//   DangNhapDeTiepTuc: {
+//     fontSize: 17,
+//     color: "#666666",
+//     marginTop: 64,
+//     marginBottom: 16
+//   },
+//   GoReg: {
+//     marginTop: 150,
+//     color: "#000000",
+//     fontSize: 17,
+//     textAlign: "center"
+//   },
+//   ButtonSign: {
+//     backgroundColor : "#93C22F",
+//     height: 50,
+//     marginTop: 24,
+//     borderRadius:8
+//   },
+//   Form: {
+//     borderBottomColor: "#93C22F",
+//     borderBottomWidth: 1,
+//     marginTop:24
+//   },
+//   QuenMatKhau: {
+//     fontSize: 17,
+//     color: "#000000",
+//     marginTop:24
+//   },
+//   inputStyle:{
+//     color: "#000000"
+//   }
+// })
 
 export const SignInScreen = observer(function SignInScreen() {
   // Pull in one of our MST stores

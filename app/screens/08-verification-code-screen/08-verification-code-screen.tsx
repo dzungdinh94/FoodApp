@@ -11,7 +11,47 @@ import screens from "../../navigation/screens"
 const ROOT: ViewStyle = {
   backgroundColor: color.palette.white,
   flex: 1,
+  paddingLeft: 32,
+  paddingRight: 32,
+  minHeight: 734,
 }
+// const styles = StyleSheet.create({
+//   XacThuc: {
+//     fontSize: 40,
+//     color: "#000000",
+//     marginTop: 56,
+//     fontWeight: "bold",
+//     textAlign:"left",
+//     marginRight: 100
+//   },
+//   Warning: {
+//     fontSize: 17,
+//     color: "#666666",
+//     marginTop: 6,
+//     paddingRight: 50
+//   },
+//   Confirm: {
+//     borderBottomColor: "#EFEFF4",
+//     borderBottomWidth: 1.5,
+//     marginTop:40
+//   },
+//   ButtonConfirm: {
+//     backgroundColor : "#93C22F",
+//     height: 50,
+//     marginTop: 24,
+//     borderRadius:8
+//   },
+//   Text: {
+//     fontSize: 17,
+//     color: "#666666",
+//   },
+//   ConfirmAgain:{
+//     flex: 1,
+//     marginTop : 24,
+//     justifyContent:"space-between",
+//     flexDirection: "row",
+//   }
+// })
 
 export const VerificationCodeScreen = observer(function VerificationCodeScreen() {
   // Pull in one of our MST stores

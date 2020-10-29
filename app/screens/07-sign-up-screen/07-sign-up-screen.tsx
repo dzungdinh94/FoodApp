@@ -16,16 +16,49 @@ const ROOT: ViewStyle = {
   paddingHorizontal: spacing[6],
   justifyContent: "space-between",
 }
+// const styles = StyleSheet.create({
+//   XinChao: {
+//     fontSize: 40,
+//     color: "#000000",
+//     marginTop: 64,
+//     fontWeight: "bold",
+//   },
+//   DangKiDeThamGia: {
+//     fontSize: 17,
+//     color: "#666666",
+//     marginTop: 59,
+//     marginBottom: 16,
+//   },
+//   GoSign: {
+//     color: "#000000",
+//     fontSize: 16,
+//     textAlign: "center",
+//     marginTop: 80,
+//     fontWeight: "200"
+//   },
+//   ButtonReg: {
+//     backgroundColor : "#93C22F",
+//     marginTop: 38,
+//     height: 50
+//   },
+//   Form: {
+//     borderBottomColor: "#93C22F",
+//     borderBottomWidth: 1,
+//     marginTop: 24,
+//   },
+//   inputStyle:{
+//     color: "#000000"
+//   }
+// })
 
 export const SignUpScreen = observer(function SignUpScreen() {
-  const navigation = useNavigation()
   // Pull in one of our MST stores
   // const { someStore, anotherStore } = useStores()
   // OR
   // const rootStore = useStores()
 
   // Pull in navigation via hook
-  // const navigation = useNavigation()
+  const navigation = useNavigation()
   return (
     <ScrollView contentContainerStyle={ROOT}>
       <View>

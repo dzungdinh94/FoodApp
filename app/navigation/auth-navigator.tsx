@@ -6,12 +6,6 @@ import {
   ForgotPasswordScreen,
   VerificationCodeScreen,
   OnboardingScreen,
-  // SuccessScreen,
-  // OrdersScreen,
-  // OrdersPickupsScreen,
-  // OrdersDeliveryScreen,
-  // PaymentScreen,
-  // FavoritesScreen
   SetLanguageScreen,
   SplashScreen,
 } from "../screens"

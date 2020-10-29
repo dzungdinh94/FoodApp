@@ -1,33 +1,54 @@
 import React from "react"
 import { observer } from "mobx-react-lite"
-import { ViewStyle, View, ScrollView, TouchableOpacity, TextInput } from "react-native"
-import { Screen, Text } from "../../components"
+import { View, ViewStyle } from "react-native"
+import { Button, Screen, Text } from "../../components"
 import { useNavigation } from "@react-navigation/native"
 // import { useStores } from "../../models"
 import { color, spacing } from "../../theme"
-import styles from './styles'
-import { Icon } from 'react-native-elements';
+import { Icon } from "react-native-elements"
+import { ScrollView, TouchableOpacity } from "react-native-gesture-handler"
 import screens from "../../navigation/screens"
+import styles from "./styles"
+import FlipCard from "react-native-flip-card"
 
 const ROOT: ViewStyle = {
   backgroundColor: color.palette.white,
-
+  alignItems: "center",
 }
 
-const cardBackground = [{
-  visa: 'Visa'
-}, {
-  visa: 'Mastercard'
-}, {
-  visa: 'Paypal'
-}, {
-  visa: 'ApplePay'
-}, {
-  visa: 'American Express'
-},
-]
+const RadioInput = ({ title, selected, onClick }) => {
+  return (
+    <View style={styles.radioContainer}>
+      <TouchableOpacity
+        style={[
+          styles.radioCircle,
+          {
+            borderColor: selected ? color.palette.main : color.palette.black,
+            backgroundColor: selected ? color.palette.main : color.palette.white,
+          },
+        ]}
+        onPress={() => {
+          onClick(title)
+        }}
+      >
+        {selected ? (
+          <Icon name="check" type="font-awesome" color={color.palette.white} size={12} />
+        ) : null}
+      </TouchableOpacity>
+      <Text
+        style={{
+          fontSize: 17,
+          color: "rgb(100,100,100)",
+          fontWeight: "normal",
+        }}
+      >
+        {title}
+      </Text>
+    </View>
+  )
+}
 
-
+const cardList = ["Visa", "Mastercard", "Paypal", "ApplePay", "American Express"]
 
 export const PaymentScreen = observer(function PaymentScreen() {
   // Pull in one of our MST stores
@@ -35,134 +56,145 @@ export const PaymentScreen = observer(function PaymentScreen() {
   // OR
   // const rootStore = useStores()
   // Pull in navigation via hook
-  // const navigation = useNavigation()
   const navigation = useNavigation()
   return (
     <Screen style={ROOT} preset="scroll">
-
-      <View style={styles.hearder}>
-        <Icon
-          name="navigate-before"
-          type="materialIcons"
-          size={25}
-        />
-        <Text style={styles.textHearder}>Add New</Text>
+      {/* Navigation Bar */}
+      <View style={styles.navigationContainer}>
+        <TouchableOpacity onPress={() => navigation.goBack()}>
+          <Icon name="navigate-before" type="material" size={45} style={{ left: -spacing[3] }} />
+        </TouchableOpacity>
+        <Text style={{ color: color.palette.gray140, fontSize: 17 }}>Add New</Text>
       </View>
-
-
-      <Text style={styles.textThanhToan}>Thanh toán</Text>
-
-
-      <View style={styles.listCard}>
-        <ScrollView
-          horizontal={true}
-          showsHorizontalScrollIndicator={false}
-        >
-          <TouchableOpacity style={[styles.textListCard, { backgroundColor: 'rgb(147,194,47)' }]}>
-            <Text style={[styles.textCard, { color: 'white' }]}>Visa</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.textListCard}>
-            <Text style={styles.textCard}>Mastercard</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.textListCard}>
-            <Text style={styles.textCard}>Paypal</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.textListCard}>
-            <Text style={styles.textCard}>ApplePay</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.textListCard}>
-            <Text style={styles.textCard}>American Express</Text>
-          </TouchableOpacity>
-        </ScrollView>
-      </View>
-
-      <View style={styles.inforCard}>
-        <ScrollView
-          showsHorizontalScrollIndicator={false}
-          horizontal={true}
-          pagingEnabled={true}
-        >
-          <View style={styles.card}>
-            <View style={styles.outHologram}>
-              <View style={styles.hologram}>
-              </View>
-              <Text style={{ color: 'white' }}>VISA</Text>
-            </View>
-            <Text style={styles.cardNummer}>8364       9375       0930       7302</Text>
-
-            <View style={styles.holderAndExpires}>
-              <View >
-                <Text style={styles.textCardHolder}>Card Holder</Text>
-                <Text style={styles.textCardInput}>Fedricson Moors</Text>
-              </View>
-              <View>
-                <Text style={styles.textCardHolder}>Expires</Text>
-                <Text style={styles.textCardInput}>22 / 20</Text>
-              </View>
-            </View>
-          </View>
-
-          <View style={styles.card}>
-            <View style={styles.outHologram}>
-              <View style={styles.hologram}>
-              </View>
-              <Text style={{ color: 'white' }}>VISA</Text>
-            </View>
-            <Text style={styles.cardNummer}>8364       9375       0930       7302</Text>
-
-            <View style={styles.holderAndExpires}>
-              <View >
-                <Text style={styles.textCardHolder}>Card Holder</Text>
-                <Text style={styles.textCardInput}>Fedricson Moors</Text>
-              </View>
-              <View>
-                <Text style={styles.textCardHolder}>Expires</Text>
-                <Text style={styles.textCardInput}>22 / 20</Text>
-              </View>
-            </View>
-          </View>
-        </ScrollView>
-        <View style={styles.outOval} >
-          <View style={[styles.oval, { backgroundColor: color.palette.main }]}></View>
-          <View style={[styles.oval, { backgroundColor: color.palette.lightGrey }]}></View>
-          <View style={[styles.oval, { backgroundColor: color.palette.lightGrey }]}></View>
-        </View>
-      </View>
-
-      <View style={styles.inputInfor}>
-        <Text style={styles.textTittleInfor}>Card Number</Text>
-        <Text style={styles.textInputInfor}>8364 9375 0930 7302</Text>
-      </View>
-      <View style={styles.inputInfor}>
-        <Text style={styles.textTittleInfor}>Card Holder</Text>
-        <Text style={styles.textInputInfor}>Fedricson Moors</Text>
-      </View>
-      <View style={styles.inputInfor}>
-        <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between' }}>
-          <Text style={styles.textTittleInfor}>Expires</Text>
-          <Text style={styles.textInputInfor}>22 / 20</Text>
-        </View>
-        <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between', marginLeft: spacing[3] }}>
-          <Text style={styles.textTittleInfor}>CVC</Text>
-          <Text style={styles.textInputInfor}>847</Text>
-        </View>
-      </View>
-
-      <View style={{ flexDirection: 'row', marginLeft: spacing[4], alignItems: 'center' }}>
-        <Icon
-          name="checkcircle"
-          type="antdesign"
-          color={color.palette.main}
-          size={20}
-        />
-        <Text style={[styles.textInputInfor, { fontSize: 15, lineHeight: 20, marginLeft: spacing[2] }]}>Save credit information</Text>
-      </View>
-      <TouchableOpacity style={styles.button}
-      onPress={() => navigation.navigate(screens.SuccessScreen)}
+      {/* Header */}
+      <Text style={styles.headerText}>Thanh toán</Text>
+      {/* List of Card */}
+      <ScrollView
+        horizontal
+        style={styles.listCardContainer}
+        showsHorizontalScrollIndicator={false}
       >
-        <Text style={styles.textButton}>Hoàn tất</Text>
-      </TouchableOpacity>
+        {cardList.map((value, index) =>
+          value === cardType ? (
+            <TouchableOpacity
+              key={index}
+              style={styles.hightlightCardTypeContainer}
+              onPress={() => SetCardType(value)}
+            >
+              <Text style={styles.hightlightCardTypeName}>{value}</Text>
+            </TouchableOpacity>
+          ) : (
+            <TouchableOpacity
+              key={index}
+              style={styles.cardTypeContainer}
+              onPress={() => SetCardType(value)}
+            >
+              <Text style={styles.cardTypeName}>{value}</Text>
+            </TouchableOpacity>
+          ),
+        )}
+      </ScrollView>
+      <View style={styles.cardImageContainer}>
+        <FlipCard
+          friction={6}
+          flipHorizontal={true}
+          flipVertical={false}
+          flip={false}
+          clickable={true}
+        >
+          {/* Face Side */}
+          <View style={styles.faceSideContainer}>
+            {/* VISA TEXT */}
+            <Text style={styles.faceSideBrandText}>{cardType}</Text>
+            {/* RECTANGLE */}
+            <View style={styles.faceSideRectangleShape} />
+            {/*BIG VISA TEXT */}
+            <Text style={styles.faceSideBackgroundText}>{cardType}</Text>
+            {/*CARD HOLDER DETAILS */}
+            <View style={styles.faceSideDetailContainer}>
+              <View style={styles.faceSideDetailContentWrapper}>
+                {cardNumber.map((value, index) => (
+                  <Text key={index} style={styles.faceSideCardNumberText}>
+                    {value}
+                  </Text>
+                ))}
+              </View>
+              <View style={styles.faceSideDetailContentWrapper}>
+                <View>
+                  <Text style={styles.faceSideTitleText}>CARD HOLDER</Text>
+                  <Text style={styles.faceSideContentText}>{cardHolder}</Text>
+                </View>
+                <View>
+                  <Text style={styles.faceSideTitleText}>CARD EXPRESS</Text>
+                  <Text style={styles.faceSideContentText}>{cardExpires}</Text>
+                </View>
+              </View>
+            </View>
+          </View>
+          {/* Back Side */}
+          <View style={styles.backSideContainer}>
+            <View style={styles.backSideWhiteSpace}></View>
+            <Text style={styles.backSideCVCText}>{cardCVC}</Text>
+            <Text style={styles.backSideTopContent}>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. In vitae sagittis sem
+            </Text>
+            <Text style={styles.backSideBottomContent1}>
+              {"  "}Lorem ipsum dolor sit amet, consectetur adipiscing elit. In vitae sagittis sem.
+              Aenean nec sapien nec diam consequat porttitor et ac leo. Donec malesuada ante a
+              feugiat ornare. Sed id tincidunt quam, consequat hendrerit est. Donec faucibus
+              lobortis velit eget aliquam. Sed mollis nibh ut ultricies commodo. Vestibulum quis
+              fringilla eros.
+            </Text>
 
+            <Text style={styles.backSideBottomContent2}>
+              {"  "}Lorem ipsum dolor sit amet, consectetur adipiscing elit. In vitae sagittis sem.
+              Aenean nec sapien nec diam consequat porttitor et ac leo. Donec malesuada ante a
+              feugiat ornare. Sed id tincidunt quam, consequat hendrerit est. Donec faucibus
+              lobortis velit eget aliquam. Sed mollis nibh ut ultricies commodo. Vestibulum quis
+              fringilla eros.
+            </Text>
+          </View>
+        </FlipCard>
+      </View>
+      {/* Card Details */}
+      <View style={styles.cardDetailsMainContainer}>
+        <View style={styles.cardDetailContainer}>
+          <Text style={styles.cardDetailTitle}>Card Number</Text>
+          <Text style={styles.cardDetailContent}>
+            {cardNumber[0]} {cardNumber[1]} {cardNumber[2]} {cardNumber[3]}
+          </Text>
+        </View>
+        <View style={styles.cardDetailContainer}>
+          <Text style={styles.cardDetailTitle}>Card Holder</Text>
+          <Text style={styles.cardDetailContent}> {cardHolder}</Text>
+        </View>
+        <View style={styles.cardDetailContainerNoBorder}>
+          <View style={styles.cardDetailContainer2}>
+            <Text style={styles.cardDetailTitle}>Expires</Text>
+            <Text style={styles.cardDetailContent}> {cardExpires}</Text>
+          </View>
+          <View style={styles.cardDetailContainer2}>
+            <Text style={styles.cardDetailTitle}>CVC</Text>
+            <Text style={styles.cardDetailContent}>847</Text>
+          </View>
+        </View>
+      </View>
+      {/* Save credit infomation */}
+      <View style={styles.saveInfoContainer}>
+        <RadioInput
+          title="Lưu thông tin thanh toán"
+          selected={saveInfo}
+          onClick={() => (saveInfo ? SetSaveInfo(false) : SetSaveInfo(true))}
+        />
+      </View>
+
+      {/* Finish Button */}
+      <Button
+        text="Hoàn tất"
+        onPress={() => navigation.navigate(screens.SuccessScreen)}
+        style={styles.button}
+        textStyle={styles.buttonContent}
+      />
     </Screen>
   )
 })
