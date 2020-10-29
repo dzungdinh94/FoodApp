@@ -35,7 +35,7 @@ import screens from "./screens"
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs"
 import { Icon } from "react-native-elements"
 import { color } from "../theme"
-
+import {Browse01Stack} from "./browser01"
 
 /**
  * This type allows TypeScript to know what routes are defined in this navigator
@@ -59,7 +59,7 @@ const Stack = createNativeStackNavigator()
 export function HomeBottomTab() {
   return (
     <Tab.Navigator
-      initialRouteName={screens.Browse02Screen}
+      initialRouteName={screens.Browse01Screen}
       screenOptions={({ route }) => ({
         tabBarIcon: ({ focused }) => {
           let iconName
@@ -80,7 +80,7 @@ export function HomeBottomTab() {
       barStyle={{ backgroundColor: color.main }}
       activeColor={color.text}
     >
-      <Tab.Screen name={screens.Browse02Screen} component={Browse02Screen} />
+      <Tab.Screen name={screens.Browse01Screen} component={Browse01Stack} />
       <Tab.Screen name={screens.OrdersScreen} component={OrdersScreen} />
       <Tab.Screen name={screens.FavoritesScreen} component={FavoritesScreen} />
       <Tab.Screen name={screens.NotificationsScreen} component={NotificationsScreen} />

@@ -7,6 +7,7 @@ import { Screen, Button } from "../../components"
 // import { useStores } from "../../models"
 import { color } from "../../theme"
 import { check } from "prettier"
+import screens from "../../navigation/screens"
 const ROOT: ViewStyle = {
   backgroundColor: color.palette.white,
   flex: 1,
@@ -286,7 +287,7 @@ export const SetLanguageScreen = observer(function SetLanguageScreen({ navigatio
           style={styles.button}
           textStyle={{ fontFamily: "SegoeUI-Semibold", fontSize: 17 }}
           onPress={() => {
-            navigation.navigate("Browse01Screen")
+            navigation.navigate(screens.HomeBottomTab)
           }}
         ></Button>
       </View>
