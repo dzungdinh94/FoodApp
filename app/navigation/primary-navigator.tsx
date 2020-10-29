@@ -87,7 +87,7 @@ export function HomeBottomTab() {
       barStyle={{ backgroundColor: color.palette.white }}
       activeColor={color.palette.main}
     >
-      <Tab.Screen name={screens.Browse02Screen} component={Browse02Screen} />
+      <Tab.Screen name={screens.Browse01Screen} component={Browse01Screen} />
       <Tab.Screen name={screens.OrdersScreen} component={OrdersScreen} />
       <Tab.Screen name={screens.FavoritesScreen} component={FavoritesScreen} />
       <Tab.Screen name={screens.NotificationsScreen} component={NotificationsScreen} />
@@ -105,6 +105,7 @@ export function AppNavigator() {
         headerShown: false,
         gestureEnabled: true,
       }}
+      initialRouteName={screens.SetLanguageScreen}
     >
       <Stack.Screen name={screens.HomeBottomTab} component={HomeBottomTab} />
       <Stack.Screen name={screens.Browse01Screen} component={Browse01Screen} />

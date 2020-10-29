@@ -24,14 +24,25 @@
     "adb": "adb reverse tcp:9090 tcp:9090 && adb reverse tcp:3000 tcp:3000 && adb reverse tcp:9001 tcp:9001 && adb reverse tcp:8081 tcp:8081"
   },
   "dependencies": {
+<<<<<<< HEAD
     "@ptomasroos/react-native-multi-slider": "^2.2.2",
+=======
+    "@fortawesome/fontawesome-svg-core": "^1.2.32",
+    "@fortawesome/free-solid-svg-icons": "^5.15.1",
+    "@fortawesome/react-native-fontawesome": "^0.2.6",
+>>>>>>> c4e7cf2c0466c96858475eb39570485e2014f36c
     "@react-native-community/async-storage": "^1.11.0",
+    "@react-native-community/checkbox": "^0.5.5",
     "@react-native-community/masked-view": "0.1.10",
     "@react-native-community/picker": "^1.8.1",
     "@react-navigation/bottom-tabs": "^5.8.0",
     "@react-navigation/material-bottom-tabs": "^5.2.16",
+<<<<<<< HEAD
     "@react-navigation/material-top-tabs": "^5.2.19",
     "@react-navigation/native": "^5.1.5",
+=======
+    "@react-navigation/native": "^5.7.6",
+>>>>>>> c4e7cf2c0466c96858475eb39570485e2014f36c
     "apisauce": "1.1.2",
     "i18n-js": "^3.0.11",
     "lodash.throttle": "4.1.1",

@@ -14,6 +14,8 @@ import com.horcrux.svg.SvgPackage;
 import com.BV.LinearGradient.LinearGradientPackage;
 >>>>>>> b05ad09cdc366bc80e2e3e71c672f51df7ffb050
 import com.oblador.vectoricons.VectorIconsPackage;
+import com.reactnativecommunity.checkbox.ReactCheckBoxPackage;
+import com.oblador.vectoricons.VectorIconsPackage;
 import com.facebook.react.ReactInstanceManager;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;

@@ -12,11 +12,72 @@ import styles from "./styles"
 import languageData from "../../data/languageData"
 
 const ROOT: ViewStyle = {
-  backgroundColor: color.palette.black,
+  backgroundColor: color.palette.white,
   flex: 1,
+  marginHorizontal: 32,
 }
 
-export const SetLanguageScreen = observer(function SetLanguageScreen() {
+const styles = StyleSheet.create({
+  checkboxWrapper: {
+    display: "flex",
+    flexDirection: "row",
+    marginBottom: 18,
+    marginHorizontal: 0,
+    width: "100%",
+  },
+  avatar: {
+    width: 60,
+    height: 60,
+    borderRadius: 50,
+    backgroundColor: "black",
+  },
+  avatarWrapper: {
+    paddingTop: 32,
+  },
+  firstText: {
+    fontFamily: "SegoeUI-Bold",
+    fontSize: 28,
+  },
+  firstTextWrapper: {
+    marginTop: 16,
+    marginBottom: 32,
+  },
+  checkboxTextNormal: {
+    fontSize: 17,
+    fontFamily: "SegoeUI-Regular",
+    color: "rgb(102,102,102)",
+    fontWeight: "normal",
+    marginLeft: 8,
+    marginRight: 20,
+  },
+  checkboxTextPress: {
+    fontSize: 17,
+    fontFamily: "SegoeUI-Regular",
+    color: "rgb(102,102,102)",
+    fontWeight: "bold",
+    marginLeft: 8,
+    marginRight: 20,
+  },
+  button: {
+    width: "100%",
+    height: 50,
+    borderRadius: 8,
+    backgroundColor: "rgb(147,194,47)",
+  },
+  buttonWrapper: {
+    marginTop: 32,
+  },
+  secondTextWrapper: {
+    marginBottom: 32,
+  },
+  secondTextContent: {
+    fontFamily: "SegoeUI-Regular",
+    fontSize: 17,
+    color: "rgb(102,102,102)",
+  },
+})
+
+export const SetLanguageScreen = observer(function SetLanguageScreen({ navigation }) {
   // Pull in one of our MST stores
   // const { someStore, anotherStore } = useStores()
   // OR
