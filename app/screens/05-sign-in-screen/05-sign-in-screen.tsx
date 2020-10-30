@@ -1,4 +1,4 @@
-import React from "react"
+import React, {useState} from "react"
 import { observer } from "mobx-react-lite"
 import { ViewStyle } from "react-native"
 import { Button, Screen, Text,AuthInput} from "../../components"
@@ -12,6 +12,7 @@ import { View } from "react-native"
 import { TextInput } from "react-native-gesture-handler"
 import { TouchableOpacity } from "react-native"
 import AvatarInput from "../../components/AvatarInput"
+import auth from '@react-native-firebase/auth';
 
 const ROOT: ViewStyle = {
   backgroundColor: color.palette.white,
@@ -73,6 +74,27 @@ export const SignInScreen = observer(function SignInScreen() {
       role: "resp.user.type_user",
     })
   }
+  
+    // If null, no SMS has been sent
+    const [confirm, setConfirm] = useState(null);
+
+    const [code, setCode] = useState('');
+  
+    // Handle the button press
+    async function signInWithPhoneNumber(phoneNumber) {
+      const confirmation = await auth().signInWithPhoneNumber(phoneNumber);
+      setConfirm(confirmation);
+    }
+  
+    async function confirmCode() {
+      try {
+        await confirm.confirm(code);
+        gotoApp();
+      } catch (error) {
+        console.log('Invalid code.');
+      }
+    }
+  if (!confirm) {
   return (
     <Screen style={ROOT} preset="scroll">
       <View>
@@ -91,7 +113,7 @@ export const SignInScreen = observer(function SignInScreen() {
         {/* Button đăng ký */}
         <Button
           text="Đăng nhập"
-          onPress={gotoApp}
+          onPress={() => signInWithPhoneNumber('+84 836 659 980')}
           style={styles.button}
           textStyle={styles.buttonContent}
         />
@@ -108,5 +130,12 @@ export const SignInScreen = observer(function SignInScreen() {
         </TouchableOpacity>
       </View>
     </Screen>
-  )
+  );
+  }
+  return (
+    <>
+      <TextInput value={code} onChangeText={text => setCode(text)} />
+      <Button text="Confirm Code" onPress={() => confirmCode()} />
+    </>
+  );
 })
