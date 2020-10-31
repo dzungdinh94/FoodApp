@@ -12,6 +12,7 @@ import { View } from "react-native"
 import { TextInput } from "react-native-gesture-handler"
 import { TouchableOpacity } from "react-native"
 import AvatarInput from "../../components/AvatarInput"
+import auth, { FirebaseAuthTypes } from "@react-native-firebase/auth"
 
 const ROOT: ViewStyle = {
   backgroundColor: color.palette.white,
@@ -19,12 +20,39 @@ const ROOT: ViewStyle = {
 }
 
 export const SignInScreen = observer(function SignInScreen() {
-  // Pull in one of our MST stores
-  // const { someStore, anotherStore } = useStores()
-  // OR
-  // const rootStore = useStores()
+  // If null, no SMS has been sent
+  const [confirm, setConfirm] = React.useState(null)
+  const [code, setCode] = React.useState("")
+  // Handle the button press
+  async function signInWithPhoneNumber(phoneNumber) {
+    const confirmation = await auth().signInWithPhoneNumber(phoneNumber)
+    setConfirm(confirmation)
+  }
 
-  // Pull in navigation via hook
+  async function confirmCode() {
+    try {
+      await confirm.confirm(code)
+    } catch (error) {
+      console.log("Invalid code.")
+    }
+  }
+
+  async function createAccount() {
+    try {
+      await auth().createUserWithEmailAndPassword("jane.doe@example.com", "SuperSecretPassword!")
+      console.log("User account created & signed in!")
+    } catch (error) {
+      if (error.code === "auth/email-already-in-use") {
+        console.log("That email address is already in use!")
+      }
+
+      if (error.code === "auth/invalid-email") {
+        console.log("That email address is invalid!")
+      }
+      console.error(error)
+    }
+  }
+
   const navigation = useNavigation()
   const { signIn } = React.useContext(AuthContext)
 
@@ -56,6 +84,19 @@ export const SignInScreen = observer(function SignInScreen() {
           style={styles.button}
           textStyle={styles.buttonContent}
         />
+        {/* TEST FIRE BASE */}
+        {!auth().currentUser ? (
+          <Button
+            text="Tạo tài khoản mới"
+            onPress={() => createAccount()}
+            style={styles.button}
+            textStyle={styles.buttonContent}
+          />
+        ) : (
+          <>
+            <Text>{auth().currentUser.email}</Text>
+          </>
+        )}
       </View>
       {/* Section 2- Register Help */}
       <View style={styles.registerLinkStyle}>
