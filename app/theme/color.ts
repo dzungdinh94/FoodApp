@@ -40,7 +40,7 @@ export const color = {
   /**
    * The default color of text in many components.
    */
-  text: palette.black,
+  text: palette.white,
   /**
    * Secondary information.
    */

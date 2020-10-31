@@ -1,7 +1,7 @@
-import React, {useState} from "react"
+import React, { useState } from "react"
 import { observer } from "mobx-react-lite"
-import { ViewStyle, TextInput } from "react-native"
-import { Button, Screen, Text,AuthInput} from "../../components"
+import { ViewStyle, TextInput, Alert } from "react-native"
+import { Button, Screen, Text, AuthInput } from "../../components"
 import { useNavigation } from "@react-navigation/native"
 // import { useStores } from "../../models"
 import { color } from "../../theme"
@@ -13,6 +13,7 @@ import { View } from "react-native"
 import { TouchableOpacity } from "react-native"
 import AvatarInput from "../../components/AvatarInput"
 import auth from '@react-native-firebase/auth';
+import firestore from '@react-native-firebase/firestore';
 const ROOT: ViewStyle = {
   backgroundColor: color.palette.white,
   paddingHorizontal: 32,
@@ -26,24 +27,20 @@ export const SignInScreen = observer(function SignInScreen() {
   // const rootStore = useStores()
 
   // Pull in navigation via hook
-// const [phone,setPhone]= useState('')
-// const [confirm, setConfirm] = useState(null)
-// const [code, setCode] = useState('')
-// const getInputPhone = () => {
-   
-// }
-// async function signInWithPhoneNumber(phoneNumber){
-//       const confirmation = await auth().signInWithPhoneNumber(phoneNumber);
-//       setConfirm(confirmation)
-// }
-// async function confirmCode(){
-//   try{
-//      await confirm.confirm(code);
-//   }catch(error){
-//     console.log('Invalid Code')
-//   }
-// }
+  const [isLoaded, isLoading] = useState(false)
+  const [confirm, setConfirm] = useState(null);
+  const [phoneNumber, setPhoneNumber] = useState('')
   const navigation = useNavigation()
+  const getInputPhoneNumber = (text) => {
+    setPhoneNumber(text)
+  }
+  const [password, setPwd] = useState('')
+  const getInputPwd = (text) => {
+    setPwd(text)
+  }
+  
+
+
   const { signIn } = React.useContext(AuthContext)
 
   const gotoApp = () => {
@@ -52,6 +49,10 @@ export const SignInScreen = observer(function SignInScreen() {
       role: "resp.user.type_user",
     })
   }
+
+  // If null, no SMS has been sent
+
+
   return (
     <Screen style={ROOT} preset="scroll">
       <View>
@@ -60,21 +61,21 @@ export const SignInScreen = observer(function SignInScreen() {
         {/* Guide Text */}
         <Text style={styles.guideText} text="Đăng nhập để tiếp tục" />
         {/* Input Username */}
-        <AuthInput title="Số điện thoại" isPassword={false} />
+        <AuthInput title="Số điện thoại" isPassword={false} value={phoneNumber} handleClick={getInputPhoneNumber} />
         {/* Input Password */}
-        <AuthInput title="Mật khẩu" isPassword={true} />
+        <AuthInput title="Mật khẩu" isPassword={true} value={password} handleClick={getInputPwd}/>
         {/* Forgot Password */}
         <TouchableOpacity onPress={() => navigation.navigate(screens.ForgotPasswordScreen)}>
           <Text style={styles.forgotPassStyle}>Quên mật khẩu?</Text>
         </TouchableOpacity>
         {/* Button đăng ký */}
-        <Button
+      <Button
           text="Đăng nhập"
-          // onPress={gotoApp}
-          onPress={gotoApp}
+          onPress={()=>getData}
           style={styles.button}
           textStyle={styles.buttonContent}
         />
+
       </View>
       {/* Section 2- Register Help */}
       <View style={styles.registerLinkStyle}>
@@ -87,9 +88,7 @@ export const SignInScreen = observer(function SignInScreen() {
           <Text style={styles.bold}> Hãy đăng ký</Text>
         </TouchableOpacity>
       </View>
-    </Screen>  
-    
-    
-
+    </Screen>
   )
+       
 })

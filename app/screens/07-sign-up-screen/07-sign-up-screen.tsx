@@ -11,7 +11,7 @@ import screens from "../../navigation/screens"
 import styles from "./styles"
 import AvatarInput from "../../components/AvatarInput"
 import auth from '@react-native-firebase/auth';
-
+import firestore from '@react-native-firebase/firestore';
 const ROOT: ViewStyle = {
   backgroundColor: color.palette.white,
   paddingHorizontal: spacing[6],
@@ -33,6 +33,10 @@ export const SignUpScreen = observer(function SignUpScreen() {
     const getInputEmail = (text) => {
          setEmail(text)
     }
+    const [phoneNumber,setPhoneNumber] = useState('')
+    const getInputPhoneNumber = (text) => {
+      setPhoneNumber(text)
+    }
     const [password,setPwd] = useState('')
     const getInputPwd = (text) => {
           setPwd(text)
@@ -50,10 +54,18 @@ export const SignUpScreen = observer(function SignUpScreen() {
              displayName: userName
            })
            Alert.alert('User registered successfully !')
-           navigation.navigate('SignInScreen')
+          const uid = await auth().currentUser.uid;
+         const save = await firestore().collection('userInformations').doc(uid).set({
+          name: userName,
+          email: email,
+          phoneNumber: phoneNumber,
+         });  
+         navigation.navigate('SignInScreen')
          }catch(error){
             console.log(error)
          }
+
+       
       }
     }
     if(!isLoaded){
@@ -72,6 +84,8 @@ export const SignUpScreen = observer(function SignUpScreen() {
           <AuthInput title="Nhập Tên" isPassword={false} value={userName} handleClick={getInputUserName}/>
           {/* Input Email */}
           <AuthInput title="Nhập Email" isPassword={false} value={email} handleClick={getInputEmail}/>
+          {/* Input PhoneNumber */}
+          <AuthInput title="Nhập Số điện thoại" isPassword={false} value={phoneNumber} handleClick={getInputPhoneNumber}/>
           {/* Input Password */}
           <AuthInput title="Nhập Mật khẩu" isPassword={true} value={password} handleClick={getInputPwd}/>
 

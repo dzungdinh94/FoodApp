@@ -1,34 +1,57 @@
 {
   "project_info": {
+<<<<<<< HEAD
     "project_number": "399825507139",
     "firebase_url": "https://smartlife-249bb.firebaseio.com",
     "project_id": "smartlife-249bb",
     "storage_bucket": "smartlife-249bb.appspot.com"
+=======
+    "project_number": "135647063226",
+    "firebase_url": "https://foodapp-2b7d2.firebaseio.com",
+    "project_id": "foodapp-2b7d2",
+    "storage_bucket": "foodapp-2b7d2.appspot.com"
+>>>>>>> d2746e9c552f39137bcb986f46940391cfa2d57c
   },
   "client": [
     {
       "client_info": {
+<<<<<<< HEAD
         "mobilesdk_app_id": "1:399825507139:android:0b9b3d90d3be5dc0a115f6",
+=======
+        "mobilesdk_app_id": "1:135647063226:android:199e62b7d1c1be572ca683",
+>>>>>>> d2746e9c552f39137bcb986f46940391cfa2d57c
         "android_client_info": {
           "package_name": "com.foodapp"
         }
       },
       "oauth_client": [
         {
+<<<<<<< HEAD
           "client_id": "399825507139-jsq2mr3nsvpgb785nc30r5g1gn4tctjq.apps.googleusercontent.com",
+=======
+          "client_id": "135647063226-jsgdu3e1qjupkoaqmer5mn19hf0f56hb.apps.googleusercontent.com",
+>>>>>>> d2746e9c552f39137bcb986f46940391cfa2d57c
           "client_type": 3
         }
       ],
       "api_key": [
         {
+<<<<<<< HEAD
           "current_key": "AIzaSyAfeW7REIM1SWgzHFll5kF2AAlN55Hyw1A"
+=======
+          "current_key": "AIzaSyBLC6RrUEiCxS_oN4_hGKwJUjlRNAyXl7w"
+>>>>>>> d2746e9c552f39137bcb986f46940391cfa2d57c
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
+<<<<<<< HEAD
               "client_id": "399825507139-jsq2mr3nsvpgb785nc30r5g1gn4tctjq.apps.googleusercontent.com",
+=======
+              "client_id": "135647063226-jsgdu3e1qjupkoaqmer5mn19hf0f56hb.apps.googleusercontent.com",
+>>>>>>> d2746e9c552f39137bcb986f46940391cfa2d57c
               "client_type": 3
             }
           ]
