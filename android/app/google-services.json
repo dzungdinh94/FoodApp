@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "399825507139",
+    "firebase_url": "https://smartlife-249bb.firebaseio.com",
+    "project_id": "smartlife-249bb",
+    "storage_bucket": "smartlife-249bb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:399825507139:android:0b9b3d90d3be5dc0a115f6",
+        "android_client_info": {
+          "package_name": "com.foodapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "399825507139-jsq2mr3nsvpgb785nc30r5g1gn4tctjq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAfeW7REIM1SWgzHFll5kF2AAlN55Hyw1A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "399825507139-jsq2mr3nsvpgb785nc30r5g1gn4tctjq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

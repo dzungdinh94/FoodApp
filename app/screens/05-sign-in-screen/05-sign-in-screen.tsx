@@ -1,61 +1,23 @@
-import React from "react"
+import React, {useState} from "react"
 import { observer } from "mobx-react-lite"
-import { ViewStyle } from "react-native"
+import { ViewStyle, TextInput } from "react-native"
 import { Button, Screen, Text,AuthInput} from "../../components"
 import { useNavigation } from "@react-navigation/native"
-import { useStores } from "../../models"
+// import { useStores } from "../../models"
 import { color } from "../../theme"
 import screens from "../../navigation/screens"
 import { AuthContext } from "../../navigation"
 import styles from "./styles"
 import { View } from "react-native"
-import { TextInput } from "react-native-gesture-handler"
+// import { TextInput } from "react-native-gesture-handler"
 import { TouchableOpacity } from "react-native"
 import AvatarInput from "../../components/AvatarInput"
-
+import auth from '@react-native-firebase/auth';
 const ROOT: ViewStyle = {
   backgroundColor: color.palette.white,
   paddingHorizontal: 32,
 }
 
-// const styles = StyleSheet.create({
-//   ChaoMungTroLai: {
-//     fontSize: 40,
-//     color: "#000000",
-//     marginTop: 56,
-//   },
-//   DangNhapDeTiepTuc: {
-//     fontSize: 17,
-//     color: "#666666",
-//     marginTop: 64,
-//     marginBottom: 16
-//   },
-//   GoReg: {
-//     marginTop: 150,
-//     color: "#000000",
-//     fontSize: 17,
-//     textAlign: "center"
-//   },
-//   ButtonSign: {
-//     backgroundColor : "#93C22F",
-//     height: 50,
-//     marginTop: 24,
-//     borderRadius:8
-//   },
-//   Form: {
-//     borderBottomColor: "#93C22F",
-//     borderBottomWidth: 1,
-//     marginTop:24
-//   },
-//   QuenMatKhau: {
-//     fontSize: 17,
-//     color: "#000000",
-//     marginTop:24
-//   },
-//   inputStyle:{
-//     color: "#000000"
-//   }
-// })
 
 export const SignInScreen = observer(function SignInScreen() {
   // Pull in one of our MST stores
@@ -64,6 +26,23 @@ export const SignInScreen = observer(function SignInScreen() {
   // const rootStore = useStores()
 
   // Pull in navigation via hook
+// const [phone,setPhone]= useState('')
+// const [confirm, setConfirm] = useState(null)
+// const [code, setCode] = useState('')
+// const getInputPhone = () => {
+   
+// }
+// async function signInWithPhoneNumber(phoneNumber){
+//       const confirmation = await auth().signInWithPhoneNumber(phoneNumber);
+//       setConfirm(confirmation)
+// }
+// async function confirmCode(){
+//   try{
+//      await confirm.confirm(code);
+//   }catch(error){
+//     console.log('Invalid Code')
+//   }
+// }
   const navigation = useNavigation()
   const { signIn } = React.useContext(AuthContext)
 
@@ -81,7 +60,7 @@ export const SignInScreen = observer(function SignInScreen() {
         {/* Guide Text */}
         <Text style={styles.guideText} text="Đăng nhập để tiếp tục" />
         {/* Input Username */}
-        <AuthInput title="Tên đăng nhập" isPassword={false} />
+        <AuthInput title="Số điện thoại" isPassword={false} />
         {/* Input Password */}
         <AuthInput title="Mật khẩu" isPassword={true} />
         {/* Forgot Password */}
@@ -91,6 +70,7 @@ export const SignInScreen = observer(function SignInScreen() {
         {/* Button đăng ký */}
         <Button
           text="Đăng nhập"
+          // onPress={gotoApp}
           onPress={gotoApp}
           style={styles.button}
           textStyle={styles.buttonContent}
@@ -107,6 +87,9 @@ export const SignInScreen = observer(function SignInScreen() {
           <Text style={styles.bold}> Hãy đăng ký</Text>
         </TouchableOpacity>
       </View>
-    </Screen>
+    </Screen>  
+    
+    
+
   )
 })
