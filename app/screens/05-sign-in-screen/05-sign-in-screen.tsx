@@ -27,20 +27,22 @@ export const SignInScreen = observer(function SignInScreen() {
   // const rootStore = useStores()
 
   // Pull in navigation via hook
-  const [isLoaded, isLoading] = useState(false)
-  const [confirm, setConfirm] = useState(null);
-  const [phoneNumber, setPhoneNumber] = useState('')
+  // const [isLoaded, isLoading] = useState(false)
+  // const [confirm, setConfirm] = useState(null);
+
+
   const navigation = useNavigation()
-  const getInputPhoneNumber = (text) => {
-    setPhoneNumber(text)
+  const [isLoaded,isLoading] = useState(false)
+  const [email,setEmail] = useState('')
+  const getInputEmail = (text) => {
+    setEmail(text)
   }
   const [password, setPwd] = useState('')
   const getInputPwd = (text) => {
     setPwd(text)
   }
+    const [code, setCode] = useState('');
   
-
-
   const { signIn } = React.useContext(AuthContext)
 
   const gotoApp = () => {
@@ -49,11 +51,26 @@ export const SignInScreen = observer(function SignInScreen() {
       role: "resp.user.type_user",
     })
   }
-
-  // If null, no SMS has been sent
-
-
-  return (
+  const userLogin = async () => {
+    if(email =='' && password == '')
+    {
+      Alert.alert('Bạn chưa nhập Email/Mật khẩu')
+    }else{
+    isLoading(true)
+    try{
+      await auth().signInWithEmailAndPassword(email,password)
+      await auth().onAuthStateChanged((user)=>{
+        console.log(user)
+        if(user != null){
+          gotoApp()
+        }
+      })
+    }catch(error){
+      console.log(error)
+    }
+  }
+  }
+ return (
     <Screen style={ROOT} preset="scroll">
       <View>
         {/* Welcome Title */}
@@ -61,7 +78,7 @@ export const SignInScreen = observer(function SignInScreen() {
         {/* Guide Text */}
         <Text style={styles.guideText} text="Đăng nhập để tiếp tục" />
         {/* Input Username */}
-        <AuthInput title="Số điện thoại" isPassword={false} value={phoneNumber} handleClick={getInputPhoneNumber} />
+        <AuthInput title="Email" isPassword={false} value={email} handleClick={getInputEmail} />
         {/* Input Password */}
         <AuthInput title="Mật khẩu" isPassword={true} value={password} handleClick={getInputPwd}/>
         {/* Forgot Password */}
@@ -71,9 +88,10 @@ export const SignInScreen = observer(function SignInScreen() {
         {/* Button đăng ký */}
       <Button
           text="Đăng nhập"
-          onPress={()=>getData}
+          // onPress={()=>getData}
           style={styles.button}
           textStyle={styles.buttonContent}
+          onPress={userLogin}
         />
 
       </View>
@@ -89,6 +107,6 @@ export const SignInScreen = observer(function SignInScreen() {
         </TouchableOpacity>
       </View>
     </Screen>
-  )
-       
+  ) 
+
 })

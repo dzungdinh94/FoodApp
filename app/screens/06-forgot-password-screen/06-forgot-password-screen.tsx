@@ -1,6 +1,6 @@
-import React from "react"
+import React, {useState} from "react"
 import { observer } from "mobx-react-lite"
-import { ViewStyle } from "react-native"
+import { Alert, ViewStyle } from "react-native"
 import { Button, Screen, Text, AuthInput } from "../../components"
 import { useNavigation } from "@react-navigation/native"
 // import { useStores } from "../../models"
@@ -10,7 +10,7 @@ import { ScrollView, TextInput, TouchableOpacity } from "react-native-gesture-ha
 import styles from "./styles"
 import { Icon } from "react-native-elements"
 import screens from "../../navigation/screens"
-
+import auth from '@react-native-firebase/auth';
 const ROOT: ViewStyle = {
   backgroundColor: color.palette.white,
   flex: 1,
@@ -18,41 +18,6 @@ const ROOT: ViewStyle = {
   // paddingRight: 32,
   minHeight: 734,
 }
-// const styles = StyleSheet.create({
-//   Warning:{
-//     color: "#000000",
-//     fontSize: 17,
-//     marginTop: 40,
-//     marginRight: 16,
-//     marginLeft: 16,
-//     textAlign: "center",
-//     lineHeight: 22,
-//     letterSpacing: 0,
-//   },
-//   View: {
-//     flex: 1,
-//     paddingLeft: 32,
-//     paddingRight: 32,
-//   },
-//   Form: {
-//     borderBottomColor: "#EFEFF4",
-//     borderBottomWidth: 1.5,
-//     marginTop:18,
-//   },
-//   ButtonConfirm: {
-//     backgroundColor : "#93C22F",
-//     marginTop: 38,
-//     height: 50,
-//     borderRadius: 8,
-//   },
-//   textStyle: {
-//     color: "#000000",
-//     fontSize: 17
-//   },
-//   inputStyle:{
-//     color: "#000000"
-//   }
-// })
 export const ForgotPasswordScreen = observer(function ForgotPasswordScreen() {
   // Pull in one of our MST stores
   // const { someStore, anotherStore } = useStores()
@@ -61,6 +26,26 @@ export const ForgotPasswordScreen = observer(function ForgotPasswordScreen() {
 
   // Pull in navigation via hook
   const navigation = useNavigation()
+  const [isLoaded,isLoading] = useState(false)
+  const [email,setEmail] = useState('')
+  const getInputEmail = (text) => {
+      setEmail(text)
+  }
+  const forgotPassword = async () => {
+    if(email==''){
+      Alert.alert("Bạn chưa nhập email")
+    }else{
+      isLoading(true)
+      await auth().sendPasswordResetEmail(email).then(()=>{
+        Alert.alert('Kiểm tra mail của bạn')
+        navigation.navigate('SignInScreen')
+      }).catch((error)=>{
+        console.log(error)
+      })
+      
+      
+    }
+  }
   return (
     <Screen style={ROOT} preset="scroll">
       {/* Navigation Bar */}
@@ -83,12 +68,12 @@ export const ForgotPasswordScreen = observer(function ForgotPasswordScreen() {
         />
         {/* Input */}
         <View style={styles.inputContainer}>
-          <AuthInput title="Email" isPassword={false} />
+          <AuthInput title="Email" isPassword={false} value={email} handleClick={getInputEmail}/>
         </View>
         {/* Button */}
         <Button
           text="Đăng kí"
-          onPress={() => navigation.navigate(screens.VerificationCodeScreen)}
+          onPress={forgotPassword}
           style={styles.button}
           textStyle={styles.buttonContent}
         />

@@ -33,10 +33,10 @@ export const SignUpScreen = observer(function SignUpScreen() {
     const getInputEmail = (text) => {
          setEmail(text)
     }
-    const [phoneNumber,setPhoneNumber] = useState('')
-    const getInputPhoneNumber = (text) => {
-      setPhoneNumber(text)
-    }
+    // const [phoneNumber,setPhoneNumber] = useState('')
+    // const getInputPhoneNumber = (text) => {
+    //   setPhoneNumber(text)
+    // }
     const [password,setPwd] = useState('')
     const getInputPwd = (text) => {
           setPwd(text)
@@ -44,7 +44,7 @@ export const SignUpScreen = observer(function SignUpScreen() {
     const [isLoaded, isLoading] = useState(false)
     const registerUser = async () => {
       if(password === '' && email === ''){
-        Alert.alert('Enter details to signup!')
+        Alert.alert('Bạn chưa nhập Email hoặc mật khẩu')
       }
       else{
          isLoading(true)
@@ -53,13 +53,14 @@ export const SignUpScreen = observer(function SignUpScreen() {
            await auth().currentUser.updateProfile({
              displayName: userName
            })
-           Alert.alert('User registered successfully !')
+          //  Alert.alert('User registered successfully !')
           const uid = await auth().currentUser.uid;
-         const save = await firestore().collection('userInformations').doc(uid).set({
+          const save = await firestore().collection('userInformations').doc(uid).set({
           name: userName,
           email: email,
-          phoneNumber: phoneNumber,
+          // phoneNumber: phoneNumber,
          });  
+         Alert.alert('Đăng kí thành công')
          navigation.navigate('SignInScreen')
          }catch(error){
             console.log(error)
@@ -85,7 +86,7 @@ export const SignUpScreen = observer(function SignUpScreen() {
           {/* Input Email */}
           <AuthInput title="Nhập Email" isPassword={false} value={email} handleClick={getInputEmail}/>
           {/* Input PhoneNumber */}
-          <AuthInput title="Nhập Số điện thoại" isPassword={false} value={phoneNumber} handleClick={getInputPhoneNumber}/>
+          {/* <AuthInput title="Nhập Số điện thoại" isPassword={false} value={phoneNumber} handleClick={getInputPhoneNumber}/> */}
           {/* Input Password */}
           <AuthInput title="Nhập Mật khẩu" isPassword={true} value={password} handleClick={getInputPwd}/>
 
