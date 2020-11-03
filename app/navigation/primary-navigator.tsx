@@ -63,13 +63,13 @@ export function HomeBottomTab() {
         tabBarIcon: ({ focused }) => {
           let iconName
           if (route.name === screens.Browse02Screen) {
-            iconName = focused ? "home" : "home-outline"
+            iconName = focused ? "search" : "search-outline"
           } else if (route.name === screens.OrdersScreen) {
-            iconName = focused ? "notifications" : "notifications-outline"
+            iconName = focused ? "list" : "list-outline"
           } else if (route.name === screens.FavoritesScreen) {
-            iconName = focused ? "ios-people-circle" : "ios-people-circle-outline"
+            iconName = focused ? "heart" : "heart-outline"
           } else if (route.name === screens.NotificationsScreen) {
-            iconName = focused ? "ios-people-circle" : "ios-people-circle-outline"
+            iconName = focused ? "notifications" : "notifications-outline"
           } else {
             iconName = focused ? "person" : "person-outline"
           }

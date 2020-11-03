@@ -4,7 +4,14 @@ import { ViewStyle, View, Dimensions, StyleSheet, TouchableOpacity } from "react
 import { Screen, Text } from "../../components"
 // import { useNavigation } from "@react-navigation/native"
 // import { useStores } from "../../models"
-import { color } from "../../theme"
+import { color, spacing, distance } from "../../theme"
+import { Icon } from "react-native-elements"
+import SimpleImage from "../../components/simpleImage/simple-image"
+import { ScrollView, TextInput} from "react-native-gesture-handler"
+import screens from "../../navigation/screens"
+import ItemCounter from "../../components/ItemCounter/ItemCounter"
+import FlipCard from "react-native-flip-card"
+import RadioInput from "../../components/RadioInput"
 
 import AnimatedSuccess from './AnimatedSuccess'
 import styles from './styles'
@@ -21,7 +28,7 @@ export const SuccessScreen = observer(function SuccessScreen() {
   // const rootStore = useStores()
 
   // Pull in navigation via hook
-  // const navigation = useNavigation()
+  const navigation = useNavigation()
   return (
     <Screen style={ROOT} preset="scroll">
       <View style={styles.container}>

@@ -2,8 +2,8 @@ import React from "react"
 import { observer } from "mobx-react-lite"
 import { ViewStyle } from "react-native"
 import { Screen, Text } from "../../components"
-import {View} from 'react-native'
-
+import {View,Button} from 'react-native'
+import firestore from '@react-native-firebase/firestore'
 // import { useNavigation } from "@react-navigation/native"
 // import { useStores } from "../../models"
 import Address from './address'
@@ -22,7 +22,17 @@ export const AccountScreen = observer(function AccountScreen() {
   // const { someStore, anotherStore } = useStores()
   // OR
   // const rootStore = useStores()
-
+  const test = () =>{
+    firestore()
+    .collection('user')
+    .add({
+      name: 'Ada Lovelace',
+      email: 'test@gmail.com'
+    })
+    .then(() => {
+      console.log('User added!');
+    });
+  }
   // Pull in navigation via hook
   // const navigation = useNavigation()
   return (
@@ -48,9 +58,8 @@ export const AccountScreen = observer(function AccountScreen() {
     <View style={[{marginTop: 8},styles.flexRow,styles.justifySpaceBetween,styles.padRight]}>
 
     <Text style={styles.add}>Thêm phương thức</Text>
-    <Icon name='pluscircle' type='antdesign' color={color.palette.textGreen}/>
+    <Icon  name='pluscircle' type='antdesign' color={color.palette.textGreen}/>
     </View>
-
 </View>
     </Screen>
   )

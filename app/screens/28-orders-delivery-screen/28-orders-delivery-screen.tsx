@@ -2,15 +2,14 @@ import React from "react"
 import { observer } from "mobx-react-lite"
 import { ViewStyle,TouchableOpacity,View,  } from "react-native"
 import { Screen, Text } from "../../components"
-// import { useNavigation } from "@react-navigation/native"
+import { useNavigation } from "@react-navigation/native"
 // import { useStores } from "../../models"
 import { color } from "../../theme"
 import { Icon } from 'react-native-elements';
 import styles from './styles'
 
 const ROOT: ViewStyle = {
-  backgroundColor: color.palette.black,
-  flex: 1,
+  backgroundColor: color.palette.gray250,
 }
 
 export const OrdersDeliveryScreen = observer(function OrdersDeliveryScreen() {
@@ -20,7 +19,7 @@ export const OrdersDeliveryScreen = observer(function OrdersDeliveryScreen() {
   // const rootStore = useStores()
 
   // Pull in navigation via hook
-  // const navigation = useNavigation()
+  const navigation = useNavigation()
   return (
     <Screen style={ROOT} preset="scroll">
       <View style={styles.container}>

@@ -13,14 +13,53 @@ const ROOT: ViewStyle = {
   flex: 1,
 }
 
+const RadioInput = ({ title, selected, onClick }) => {
+  return (
+    <View style={styles.radioContainer}>
+      <TouchableOpacity
+        style={[
+          styles.radioCircle,
+          {
+            borderColor: selected ? color.palette.main : color.palette.black,
+            backgroundColor: selected ? color.palette.main : color.palette.white,
+          },
+        ]}
+        onPress={() => {
+          onClick(title)
+        }}
+      >
+        {selected ? (
+          <Icon name="check" type="font-awesome" color={color.palette.white} size={12} />
+        ) : null}
+      </TouchableOpacity>
+      <Text
+        style={{
+          fontSize: 17,
+          color: "rgb(100,100,100)",
+          fontWeight: "normal",
+        }}
+      >
+        {title}
+      </Text>
+    </View>
+  )
+}
+
+const cardList = ["Visa", "Mastercard", "Paypal", "ApplePay", "American Express"]
+
 export const PaymentScreen = observer(function PaymentScreen() {
   // Pull in one of our MST stores
   // const { someStore, anotherStore } = useStores()
   // OR
   // const rootStore = useStores()
-
+  const [cardType, SetCardType] = React.useState(cardList[0])
+  const [cardNumber, SetCardNumber] = React.useState(["8364", "9375", "0930", "7320"])
+  const [cardHolder, SetCardHolder] = React.useState("Fedricson Moors")
+  const [cardExpires, SetCardExpires] = React.useState("22/20")
+  const [cardCVC, SetCardCVC] = React.useState("847")
+  const [saveInfo, SetSaveInfo] = React.useState(true)
   // Pull in navigation via hook
-  // const navigation = useNavigation()
+  const navigation = useNavigation()
   return (
     <Screen style={ROOT} preset="scroll">
 

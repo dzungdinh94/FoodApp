@@ -21,7 +21,7 @@ export const OrdersPickupsScreen = observer(function OrdersPickupsScreen() {
   // const rootStore = useStores()
 
   // Pull in navigation via hook
-  // const navigation = useNavigation()
+  const navigation = useNavigation()
   return (
     <Screen style={ROOT} preset="scroll">
       <View style={styles.container}>

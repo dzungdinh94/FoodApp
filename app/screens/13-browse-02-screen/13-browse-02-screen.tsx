@@ -15,6 +15,158 @@ const ROOT: ViewStyle = {
   flex: 1
 }
 
+const GRADIENT_VALUE = [
+  "rgba(100,100,100,0.4)",
+  "rgba(100,100,100,0.4)",
+  "rgba(0,0,0,0.7)",
+  "rgba(0,0,0,1)",
+]
+//RenderItem
+const CategoriesRenderItem = () => {
+  return (
+    <LinearGradient
+      colors={[color.palette.gray200, color.palette.gray200, color.palette.black]}
+      style={{
+        width: 138,
+        height: 188,
+        borderRadius: 8,
+        marginRight: 15,
+      }}
+    >
+      <SimpleImage width={138} height={188} />
+      <View style={{ position: "absolute", bottom: 14, left: spacing[4] }}>
+        <Text style={{ color: "white", fontSize: 17, fontWeight: "bold" }}>Trái cây</Text>
+        <Text style={{ color: "white", fontSize: 11, marginTop: spacing[1] }}>Giá từ 5.000đ</Text>
+      </View>
+    </LinearGradient>
+  )
+}
+
+const SearchRenderItem = ({ navigateTo, counterClick }) => {
+  return (
+    <View
+      style={{
+        width: "100%",
+        flexDirection: "row",
+        alignItems: "center",
+        marginTop: 17,
+      }}
+    >
+      {/* Part1:Image*/}
+      <TouchableOpacity onPress={navigateTo} style={{ flexDirection: "row", alignItems: "center" }}>
+        {/* Image */}
+        <View
+          style={{
+            width: 80,
+            height: 80,
+            backgroundColor: "rgb(200,200,200)",
+            borderRadius: 8,
+            marginRight: 10,
+          }}
+        >
+          <SimpleImage width={80} height={80} />
+        </View>
+      </TouchableOpacity>
+      {/*Part2: Counter */}
+      <View
+        style={{
+          justifyContent: "space-between",
+          flexDirection: "row",
+          flexGrow: 1,
+          borderBottomWidth: 1,
+          borderColor: color.palette.gray240,
+          height: "100%",
+          alignItems: "center",
+          paddingVertical: spacing[4],
+        }}
+      >
+        {/* Details */}
+        <View>
+          <Text style={{ color: color.palette.lightGrey, fontSize: 13, lineHeight: 18 }}>Rau</Text>
+          <Text
+            style={{
+              color: "black",
+              fontSize: 15,
+              lineHeight: 20,
+              fontWeight: "bold",
+            }}
+          >
+            Mù tạt xanh
+          </Text>
+          <Text
+            style={{
+              color: color.palette.lightGrey,
+              fontSize: 13,
+              lineHeight: 18,
+              marginTop: spacing[1],
+            }}
+          >
+            5.000đ
+          </Text>
+        </View>
+        {/* Counter Indicator */}
+        <ItemCounter
+          onClickAdd={() => counterClick(1)}
+          onClickRemove={() => counterClick(-1)}
+          startValue={0}
+        />
+      </View>
+    </View>
+  )
+}
+
+const ListFood = ({ title, renderItem, marginHorizontal, navigateTo }) => {
+  return (
+    <View
+      style={{
+        marginTop: 24,
+      }}
+    >
+      {/* List Header */}
+      <TouchableOpacity
+        onPress={navigateTo}
+        style={{
+          flexDirection: "row",
+          alignItems: "center",
+          justifyContent: "space-between",
+          marginBottom: 13,
+          paddingHorizontal: marginHorizontal === null ? 0 : marginHorizontal,
+        }}
+      >
+        <Text
+          style={{
+            fontSize: 17,
+            fontWeight: "bold",
+            color: color.palette.black,
+          }}
+        >
+          {title}
+        </Text>
+        <View
+          style={{
+            alignItems: "center",
+            flexDirection: "row",
+          }}
+        >
+          <Text style={{ fontSize: 12, color: color.palette.gray100 }}>Tất cả</Text>
+          <Icon name="navigate-next" type="material" size={20} />
+        </View>
+      </TouchableOpacity>
+      {/* List Item */}
+      <ScrollView
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        style={{ paddingLeft: marginHorizontal === null ? 0 : marginHorizontal }}
+      >
+        <TouchableOpacity onPress={navigateTo}>{renderItem()}</TouchableOpacity>
+        <TouchableOpacity onPress={navigateTo}>{renderItem()}</TouchableOpacity>
+        <TouchableOpacity onPress={navigateTo}>{renderItem()}</TouchableOpacity>
+        <TouchableOpacity onPress={navigateTo}>{renderItem()}</TouchableOpacity>
+      </ScrollView>
+    </View>
+  )
+}
+
 export const Browse02Screen = observer(function Browse02Screen() {
   const navigation = useNavigation()
   

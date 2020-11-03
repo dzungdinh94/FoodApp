@@ -8,6 +8,7 @@ import { color } from "../../theme"
 import screens from "../../navigation/screens"
 import { AuthContext } from "../../navigation"
 import { Checkbox } from "react-native-paper"
+import firestore from '@react-native-firebase/firestore'
 
 const ROOT: ViewStyle = {
   backgroundColor: "#ffffff",
@@ -76,7 +77,7 @@ export const SignInScreen = observer(function SignInScreen() {
     <Screen style={ROOT} preset="scroll">
       <Text style={styles.ChaoMungTroLai} text="Chào mừng trở lại " />
       <Text style={styles.DangNhapDeTiepTuc} text="Đăng nhập để tiếp tục " />
-      <TextField inputStyle={styles.inputStyle} style={styles.Form} placeholder="Tên đăng nhập" label="Tên đăng nhập"/>
+      <TextField inputStyle={styles.inputStyle} style={styles.Form} placeholder="Số điện thoại" label="Tên đăng nhập"/>
       <TextField inputStyle={styles.inputStyle} style={styles.Form} placeholder="Mật khẩu" label="Mật khẩu"/>
       <Text style={styles.QuenMatKhau}
         onPress={() => navigation.navigate("ForgotPasswordScreen")}>
