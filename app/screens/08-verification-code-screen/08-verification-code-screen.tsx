@@ -1,9 +1,10 @@
-import React, {useState} from "react"
+import React, {useState,useEffect} from "react"
 import { observer } from "mobx-react-lite"
 import { View, ViewStyle, Alert } from "react-native"
 import { Button, Screen, Text, AuthInput } from "../../components"
 import { useNavigation } from "@react-navigation/native"
 // import { useStores } from "../../models"
+import { AuthContext } from "../../navigation"
 import { color } from "../../theme"
 import styles from "./styles"
 import screens from "../../navigation/screens"
@@ -26,42 +27,77 @@ export const VerificationCodeScreen = observer(function VerificationCodeScreen()
     
   const navigation = useNavigation()
   const [confirm, setConfirm] = useState(null);
-
+  const [initializing, setInitializing] = useState(true);
+  const [user, setUser] = useState();
   const [code, setCode] = useState('');
   const getCodeOTP = (text) => {
     setCode(text)
   }
+
   const [phoneNumber,setPhoneNumber] = useState('')
   const getInputPhoneNumber = (text) => {
      setPhoneNumber(text)
   }
   // Handle the button press
+  function onAuthStateChanged(user) {
+    setUser(user);
+    if (initializing) setInitializing(false);
+  }
+  useEffect(() => {
+    const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
+    return subscriber; // unsubscribe on unmount
+  }, []);
   async function signInWithPhoneNumber(phone) {
-    const confirmation = await auth().verifyPhoneNumber(phone)
+    const confirmation = await auth().verifyPhoneNumber(phone,120)
     .on('state_changed', (phoneAuthSnapshot) => {
       console.log('Snapshot state: ', phoneAuthSnapshot.state);
       
-    });setConfirm(confirmation)
-    const credential = auth.PhoneAuthProvider.credential(confirmation.verificationId, confirmation.code);
-
-// Update user with new verified phone number
-    await auth().currentUser.updatePhoneNumber(credential);
+      setConfirm(phoneAuthSnapshot.state)
+      
+    });
     
-    setConfirm(confirmation);
+  
+    
+// Update user with new verified phone number
+    
   }
+  const { signIn } = React.useContext(AuthContext)
 
-  async function confirmCode() {
-    try {
-      await confirm.confirm(code);
-      // await auth().currentUser.updatePhoneNumber({
-      //   phoneNumber: phoneNumber
-      // })
-      Alert.alert('Xác thực thành công')
-      navigation.navigate('SignInScreen')
-    } catch (error) {
-      console.log('Invalid code.');
-    }
+  const gotoApp = () => {
+    signIn({
+      token: "resp.token",
+      role: "resp.user.type_user",
+    })
   }
+  // async function confirmCode() {
+  //   try {
+  //     await confirm.confirm(code);
+  //     // await auth().currentUser.updatePhoneNumber({
+  //     //   phoneNumber: phoneNumber
+  //     // })
+  //     Alert.alert('Xác thực thành công')
+  //     gotoApp()
+  //   } catch (error) {
+  //     console.log('Invalid code.');
+  //   }
+  // }
+  // async function confirmCode() {
+  //   try {
+  //     const credential = auth.PhoneAuthProvider.credential(
+  //       confirm.verificationId,
+  //       code,
+  //     );
+  //     await auth().currentUser.updatePhoneNumber(credential);
+  //     let userData = await auth().currentUser.linkWithCredential(credential);
+     
+  //   } catch (error) {
+  //     if (error.code == 'auth/invalid-verification-code') {
+  //       console.log('Invalid code.');
+  //     } else {
+  //       console.log('Account linking error'); 
+  //     }
+  //   }
+  // }
   if(!confirm){
     return(
       <Screen style={ROOT} preset="scroll">
@@ -92,7 +128,8 @@ export const VerificationCodeScreen = observer(function VerificationCodeScreen()
   
     )
   }
-  return (
+
+    return (
     <Screen style={ROOT} preset="scroll">
       <View style={styles.container}>
         {/* Section 1- Welcome */}
@@ -125,4 +162,6 @@ export const VerificationCodeScreen = observer(function VerificationCodeScreen()
       </View>
     </Screen>
   )
+  
+  
 })

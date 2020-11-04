@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState } from "react"
 import { observer } from "mobx-react-lite"
 import { ViewStyle } from "react-native"
 import { Text } from "../../components"
@@ -18,7 +18,7 @@ import screens from "../../navigation/screens"
 import ItemCounter from "../../components/ItemCounter/ItemCounter"
 import SpecialRenderItem from "../../components/SpecialRenderItem/SpecialRenderItem"
 import SearchControlPanel from "../../components/SearchControlPanel/SearchControlPanel"
-
+import firestore from '@react-native-firebase/firestore'
 const ROOT: ViewStyle = {
   backgroundColor: color.palette.white,
   flex: 1,
@@ -31,7 +31,7 @@ const GRADIENT_VALUE = [
   "rgba(0,0,0,1)",
 ]
 //RenderItem
-const CategoriesRenderItem = () => {
+const CategoriesRenderItem = ({ title, price }) => {
   return (
     <LinearGradient
       colors={[color.palette.gray200, color.palette.gray200, color.palette.black]}
@@ -44,14 +44,14 @@ const CategoriesRenderItem = () => {
     >
       <SimpleImage width={138} height={188} />
       <View style={{ position: "absolute", bottom: 14, left: spacing[4] }}>
-        <Text style={{ color: "white", fontSize: 17, fontWeight: "bold" }}>Trái cây</Text>
-        <Text style={{ color: "white", fontSize: 11, marginTop: spacing[1] }}>Giá từ 5.000đ</Text>
+        <Text style={{ color: "white", fontSize: 17, fontWeight: "bold" }}>{title}</Text>
+        <Text style={{ color: "white", fontSize: 11, marginTop: spacing[1] }}>Giá từ {price} đ</Text>
       </View>
     </LinearGradient>
   )
 }
 
-const SearchRenderItem = ({ navigateTo, counterClick }) => {
+const SearchRenderItem = ({ navigateTo, counterClick, type, title, price }) => {
   return (
     <View
       style={{
@@ -91,7 +91,7 @@ const SearchRenderItem = ({ navigateTo, counterClick }) => {
       >
         {/* Details */}
         <View>
-          <Text style={{ color: color.palette.lightGrey, fontSize: 13, lineHeight: 18 }}>Rau</Text>
+          <Text style={{ color: color.palette.lightGrey, fontSize: 13, lineHeight: 18 }}>{type}</Text>
           <Text
             style={{
               color: "black",
@@ -100,7 +100,7 @@ const SearchRenderItem = ({ navigateTo, counterClick }) => {
               fontWeight: "bold",
             }}
           >
-            Mù tạt xanh
+            {title}
           </Text>
           <Text
             style={{
@@ -110,9 +110,10 @@ const SearchRenderItem = ({ navigateTo, counterClick }) => {
               marginTop: spacing[1],
             }}
           >
-            5.000đ
+            {price}
           </Text>
         </View>
+
         {/* Counter Indicator */}
         <ItemCounter
           onClickAdd={() => counterClick(1)}
@@ -163,14 +164,15 @@ const ListFood = ({ title, renderItem, marginHorizontal, navigateTo }) => {
       </TouchableOpacity>
       {/* List Item */}
       <ScrollView
-        horizontal
-        showsHorizontalScrollIndicator={false}
+        // horizontal
+        // showsHorizontalScrollIndicator={false}
+        horizontal={true}
         style={{ paddingLeft: marginHorizontal === null ? 0 : marginHorizontal }}
       >
+        <TouchableOpacity style={{ flexDirection: "row" }} onPress={navigateTo}>{renderItem()}</TouchableOpacity>
+        {/* <TouchableOpacity onPress={navigateTo}>{renderItem()}</TouchableOpacity>
         <TouchableOpacity onPress={navigateTo}>{renderItem()}</TouchableOpacity>
-        <TouchableOpacity onPress={navigateTo}>{renderItem()}</TouchableOpacity>
-        <TouchableOpacity onPress={navigateTo}>{renderItem()}</TouchableOpacity>
-        <TouchableOpacity onPress={navigateTo}>{renderItem()}</TouchableOpacity>
+        <TouchableOpacity onPress={navigateTo}>{renderItem()}</TouchableOpacity>  */}
       </ScrollView>
     </View>
   )
@@ -184,7 +186,30 @@ export const Browse02Screen = observer(function Browse02Screen() {
 
   // Pull in navigation via hook
   const navigation = useNavigation()
-
+  const [CategoryItem, setCate] = useState([])
+  const Category = async () => {
+    const result = []
+    const getData = await firestore().collection('category').get()
+    for (let data of getData.docs) {
+      result.push(data.data())
+      result.sort((a, b) => a.id - b.id)
+    }
+    //  console.log(result)
+    setCate(result)
+  }
+  const [speclist, setlist] = useState([])
+  const SpecialList = async () => {
+    const list = []
+    const get = await firestore().collection('Product').get()
+    for (let item of get.docs) {
+      list.push(item.data())
+      list.sort((a, b) => a.id - b.id)
+    }
+    console.log(list)
+    setlist(list)
+  }
+  React.useEffect(() => { Category() }, [])
+  React.useEffect(() => { SpecialList() }, [])
   const [numberItemsInCart, setNumberItemInCart] = React.useState(0)
   return (
     <ScrollView style={ROOT}>
@@ -236,14 +261,27 @@ export const Browse02Screen = observer(function Browse02Screen() {
       {/* Section List */}
       <ListFood
         title="Danh Mục"
-        renderItem={() => <CategoriesRenderItem />}
+        renderItem={() => CategoryItem.map((value) => {
+          const { id, name, price } = value
+          return <CategoriesRenderItem key={id} title={name} price={price} />
+        })}
         marginHorizontal={16}
         navigateTo={() => navigation.navigate(screens.Categories01Screen)}
       />
       {/* Section Special */}
       <ListFood
         title="Đặc Biệt"
-        renderItem={() => <SpecialRenderItem />}
+        renderItem={() => speclist.map((val) => {
+          const { id, name, price, categoryID } = val
+          for (let item of CategoryItem) {
+            if (item.id === categoryID) {
+              return <SpecialRenderItem key={id} type={item.name} title={name} price={price} />
+            }
+          }
+
+        })
+
+        }
         marginHorizontal={16}
         navigateTo={() => navigation.navigate(screens.ProductDetailScreen)}
       />
@@ -252,18 +290,26 @@ export const Browse02Screen = observer(function Browse02Screen() {
         <SearchControlPanel />
         {/* Search Item */}
         <View>
-          <SearchRenderItem
+          {speclist.map((vals) => {
+            const { id, name, price, categoryID } = vals
+            for (let x of CategoryItem) {
+              if (x.id === categoryID)
+                return <SearchRenderItem
+                  navigateTo={() => navigation.navigate(screens.ProductDetailScreen)}
+                  counterClick={(value: number) => setNumberItemInCart(numberItemsInCart + value)}
+                  key={id} type={x.name} title={name} price={price}
+                />
+            }
+          })}
+
+          {/* <SearchRenderItem
             navigateTo={() => navigation.navigate(screens.ProductDetailScreen)}
             counterClick={(value: number) => setNumberItemInCart(numberItemsInCart + value)}
           />
           <SearchRenderItem
             navigateTo={() => navigation.navigate(screens.ProductDetailScreen)}
             counterClick={(value: number) => setNumberItemInCart(numberItemsInCart + value)}
-          />
-          <SearchRenderItem
-            navigateTo={() => navigation.navigate(screens.ProductDetailScreen)}
-            counterClick={(value: number) => setNumberItemInCart(numberItemsInCart + value)}
-          />
+          /> */}
         </View>
       </View>
     </ScrollView>

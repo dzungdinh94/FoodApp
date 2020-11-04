@@ -31,8 +31,12 @@ export const ForgotPasswordScreen = observer(function ForgotPasswordScreen() {
   const getInputEmail = (text) => {
       setEmail(text)
   }
+  const validateEmail = (email) => {
+    const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(String(email).toLowerCase());
+  }
   const forgotPassword = async () => {
-    if(email==''){
+    if(email=='' && validateEmail(email)){
       Alert.alert("Bạn chưa nhập email")
     }else{
       isLoading(true)

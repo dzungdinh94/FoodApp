@@ -10,7 +10,8 @@ import { ScrollView, TouchableOpacity } from "react-native-gesture-handler"
 import screens from "../../navigation/screens"
 import styles from "./styles"
 import FavoriteRenderItem from "../../components/FavoriteRenderItem/FavoriteRenderItem"
-
+import firestore from '@react-native-firebase/firestore'
+import auth from '@react-native-firebase/auth';
 const ROOT: ViewStyle = {
   backgroundColor: color.palette.white,
   flex: 1,
@@ -19,27 +20,31 @@ const ROOT: ViewStyle = {
 
 let DATA = [{
   name: 'Bông cải xanh',
-  price: '20k'
+  price: '20k',
 },
 {
   name: 'Đu đủ',
-  price: '20k'
+  price: '20k',
+
 },
 {
   name: 'Chuối',
-  price: '20k'
+  price: '20k',
+
 },
 {
   name: 'Cà rốt organic',
-  price: '20k'
+  price: '20k',
+
 },
 {
   name: 'Bông cải xanh',
-  price: '20k'
+  price: '20k',
 },
 {
   name: 'Bông cải xanh',
-  price: '20k'
+  price: '20k',
+  id:2
 },
 {
   name: 'Bông cải xanh',
@@ -54,7 +59,11 @@ export const FavoritesScreen = observer(function FavoritesScreen() {
   // const rootStore = useStores()
 
   // Pull in navigation via hook
+  const category = () => {
+    
+  }
   const navigation = useNavigation()
+  
   return (
     <ScrollView style={ROOT}>
       {/* Navigation Bar*/}
