@@ -9,7 +9,12 @@ import { View } from "react-native"
 import { ScrollView, TextInput, TouchableOpacity } from "react-native-gesture-handler"
 import screens from "../../navigation/screens"
 import styles from "./styles"
+
 import AvatarInput from "../../components/AvatarInput"
+//Firebase function
+import auth from "@react-native-firebase/auth"
+import firestore from "@react-native-firebase/firestore"
+import { FB_SignUpWithEmail } from "../../firebase/auth"
 
 const ROOT: ViewStyle = {
   backgroundColor: color.palette.white,
@@ -18,12 +23,16 @@ const ROOT: ViewStyle = {
 }
 
 export const SignUpScreen = observer(function SignUpScreen() {
+  const [username, setUsername] = React.useState("")
+  const [email, setEmail] = React.useState("")
+  const [password, setPassword] = React.useState("")
+  const [onProcessSignUp, SetOnProcessSignUp] = React.useState(false)
   const navigation = useNavigation()
+
   // Pull in one of our MST stores
   // const { someStore, anotherStore } = useStores()
   // OR
   // const rootStore = useStores()
-
   // Pull in navigation via hook
   // const navigation = useNavigation()
   return (
@@ -38,17 +47,40 @@ export const SignUpScreen = observer(function SignUpScreen() {
         {/* Guide Text */}
         <Text style={styles.guideText} text="Đăng ký để tham gia" />
         {/* Input Username */}
-        <AuthInput title="Nhập Tên" isPassword={false} />
+        <AuthInput
+          title="Nhập Tên"
+          isPassword={false}
+          inputValue={username}
+          setInputValue={setUsername}
+        />
         {/* Input Email */}
-        <AuthInput title="Nhập Email" isPassword={false} />
+        <AuthInput
+          title="Nhập Email"
+          isPassword={false}
+          inputValue={email}
+          setInputValue={setEmail}
+        />
         {/* Input Password */}
-        <AuthInput title="Nhập Mật khẩu" isPassword={true} />
+        <AuthInput
+          title="Nhập Mật khẩu"
+          isPassword={true}
+          inputValue={password}
+          setInputValue={setPassword}
+        />
 
         {/* Sign Up Button */}
         <Button
-          text="Đăng kí"
-          onPress={() => navigation.navigate(screens.VerificationCodeScreen)}
-          style={styles.button}
+          text={onProcessSignUp ? "Đang xử lý đăng ký" : "Đăng kí"}
+          onPress={async () => {
+            SetOnProcessSignUp(true)
+            let isSignUpSuccess = await FB_SignUpWithEmail(email, password, username)
+            SetOnProcessSignUp(false)
+            if (isSignUpSuccess) {
+              navigation.navigate(screens.VerificationCodeScreen)
+            }
+          }}
+          disabled={onProcessSignUp}
+          style={!onProcessSignUp ? styles.button : styles.buttonDisable}
           textStyle={styles.buttonContent}
         />
       </View>

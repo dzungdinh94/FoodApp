@@ -1,32 +1,23 @@
-import React from "react"
+import React, { useEffect, useState } from "react"
 import { observer } from "mobx-react-lite"
 import { View, ViewStyle } from "react-native"
 import { Screen, Text } from "../../components"
 import { useNavigation } from "@react-navigation/native"
 // import { useStores } from "../../models"
 import { color, spacing } from "../../theme"
-import { Icon } from "react-native-elements"
-import SimpleImage from "../../components/simpleImage/simple-image"
+import { Icon, Image } from "react-native-elements"
 import { ScrollView, TouchableOpacity } from "react-native-gesture-handler"
 import screens from "../../navigation/screens"
 import styles from "./styles"
+import { getAllDataFromCollection } from "../../firebase/firestoreFunction"
+import { CATEGORIES_COLLECTION } from "../../firebase/firestore/allCollectionName"
 
 const ROOT: ViewStyle = {
   backgroundColor: color.palette.white,
   flex: 1,
 }
 
-const CatagoriesData = [
-  { title: "Trái cây", total: "746" },
-  { title: "Rau", total: "926" },
-  { title: "Bánh kẹo", total: "4385" },
-  { title: "Thịt", total: "268" },
-  { title: "Sữa", total: "926" },
-  { title: "Đồ uống", total: "9237" },
-  { title: "Chăm sóc cá nhân", total: "583" },
-  { title: "Hàng ngày", total: "583" },
-]
-const RenderItem3 = ({ title, total }) => {
+const CatagoryItemRender = ({ title, total, image, cartId }) => {
   return (
     <View
       style={{
@@ -45,9 +36,10 @@ const RenderItem3 = ({ title, total }) => {
             backgroundColor: color.palette.gray200,
             borderRadius: 8,
             marginRight: 10,
+            overflow: "hidden",
           }}
         >
-          <SimpleImage width={80} height={80} />
+          <Image source={image} style={{ width: 100, height: 100 }} />
         </View>
       </View>
       {/*Part2: Counter */}
@@ -92,13 +84,17 @@ const RenderItem3 = ({ title, total }) => {
 }
 
 export const Categories01Screen = observer(function Categories01Screen() {
-  // Pull in one of our MST stores
-  // const { someStore, anotherStore } = useStores()
-  // OR
-  // const rootStore = useStores()
-
-  // Pull in navigation via hook
+  const [catagoriesData, setCatagoriesData] = useState([])
   const navigation = useNavigation()
+
+  useEffect(() => {
+    let result
+    async function getData() {
+      result = await getAllDataFromCollection(CATEGORIES_COLLECTION)
+      setCatagoriesData(result)
+    }
+    getData()
+  }, [])
   return (
     <ScrollView style={ROOT}>
       {/* Navigation Bar */}
@@ -114,9 +110,17 @@ export const Categories01Screen = observer(function Categories01Screen() {
         <Text style={styles.headerText}>Danh mục</Text>
         {/* List Item */}
         <View style={{ flex: 1 }}>
-          {CatagoriesData.map((value) => {
-            const { title, total } = value
-            return <RenderItem3 key={title} title={title} total={total} />
+          {catagoriesData.map((value) => {
+            const { name, image, cartId, total } = value
+            return (
+              <CatagoryItemRender
+                key={cartId}
+                cartId={cartId}
+                title={name}
+                total={total}
+                image={image}
+              />
+            )
           })}
         </View>
       </View>

@@ -13,6 +13,14 @@ import { TextInput } from "react-native-gesture-handler"
 import { TouchableOpacity } from "react-native"
 import AvatarInput from "../../components/AvatarInput"
 import auth, { FirebaseAuthTypes } from "@react-native-firebase/auth"
+import { async } from "validate.js"
+import {
+  FB_SignInEmail,
+  FB_signOut,
+  FB_SignUpWithEmail,
+  TestAccount,
+  TestAccount2,
+} from "../../firebase/auth"
 
 const ROOT: ViewStyle = {
   backgroundColor: color.palette.white,
@@ -20,48 +28,33 @@ const ROOT: ViewStyle = {
 }
 
 export const SignInScreen = observer(function SignInScreen() {
-  // If null, no SMS has been sent
-  const [confirm, setConfirm] = React.useState(null)
-  const [code, setCode] = React.useState("")
-  // Handle the button press
-  async function signInWithPhoneNumber(phoneNumber) {
-    const confirmation = await auth().signInWithPhoneNumber(phoneNumber)
-    setConfirm(confirmation)
-  }
-
-  async function confirmCode() {
-    try {
-      await confirm.confirm(code)
-    } catch (error) {
-      console.log("Invalid code.")
-    }
-  }
-
-  async function createAccount() {
-    try {
-      await auth().createUserWithEmailAndPassword("jane.doe@example.com", "SuperSecretPassword!")
-      console.log("User account created & signed in!")
-    } catch (error) {
-      if (error.code === "auth/email-already-in-use") {
-        console.log("That email address is already in use!")
-      }
-
-      if (error.code === "auth/invalid-email") {
-        console.log("That email address is invalid!")
-      }
-      console.error(error)
-    }
-  }
-
   const navigation = useNavigation()
   const { signIn } = React.useContext(AuthContext)
+  // If null, no SMS has been sent
+  const [username, setUsername] = React.useState("")
+  const [password, setPassword] = React.useState("")
+  const [onProcessSignIn, SetOnProcessSignIn] = React.useState(false)
+  const [user, setUser] = React.useState()
 
-  const gotoApp = () => {
+  function onAuthStateChanged(user) {
+    setUser(user)
+    if (user) {
+      gotoApp()
+    }
+  }
+  React.useEffect(() => {
+    const subscriber = auth().onAuthStateChanged(onAuthStateChanged)
+    console.log(subscriber)
+    return subscriber // unsubscribe on unmount
+  }, [])
+  //Handle Sign In to Swith App
+  function gotoApp() {
     signIn({
       token: "resp.token",
       role: "resp.user.type_user",
     })
   }
+
   return (
     <Screen style={ROOT} preset="scroll">
       <View>
@@ -70,33 +63,35 @@ export const SignInScreen = observer(function SignInScreen() {
         {/* Guide Text */}
         <Text style={styles.guideText} text="Đăng nhập để tiếp tục" />
         {/* Input Username */}
-        <AuthInput title="Tên đăng nhập" isPassword={false} />
+        <AuthInput
+          title="Tên đăng nhập"
+          isPassword={false}
+          inputValue={username}
+          setInputValue={setUsername}
+        />
         {/* Input Password */}
-        <AuthInput title="Mật khẩu" isPassword={true} />
+        <AuthInput
+          title="Mật khẩu"
+          isPassword={true}
+          inputValue={password}
+          setInputValue={setPassword}
+        />
         {/* Forgot Password */}
         <TouchableOpacity onPress={() => navigation.navigate(screens.ForgotPasswordScreen)}>
           <Text style={styles.forgotPassStyle}>Quên mật khẩu?</Text>
         </TouchableOpacity>
-        {/* Button đăng ký */}
+        {/* Button đăng nhập */}
         <Button
-          text="Đăng nhập"
-          onPress={gotoApp}
-          style={styles.button}
+          text={!onProcessSignIn ? "Đăng nhập" : "Đang xử lý đăng nhập ..."}
+          onPress={async () => {
+            SetOnProcessSignIn(true)
+            await FB_SignInEmail(username, password)
+            SetOnProcessSignIn(false)
+          }}
+          disabled={onProcessSignIn}
+          style={!onProcessSignIn ? styles.button : styles.buttonDisable}
           textStyle={styles.buttonContent}
         />
-        {/* TEST FIRE BASE */}
-        {!auth().currentUser ? (
-          <Button
-            text="Tạo tài khoản mới"
-            onPress={() => createAccount()}
-            style={styles.button}
-            textStyle={styles.buttonContent}
-          />
-        ) : (
-          <>
-            <Text>{auth().currentUser.email}</Text>
-          </>
-        )}
       </View>
       {/* Section 2- Register Help */}
       <View style={styles.registerLinkStyle}>

@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useEffect } from "react"
 import { observer } from "mobx-react-lite"
 import { View, ViewStyle } from "react-native"
 import { Button, Screen, Text } from "../../components"
@@ -14,13 +14,35 @@ import { TouchableOpacity } from "react-native-gesture-handler"
 import screens from "../../navigation/screens"
 import { images } from "../../../assets/images"
 import { Image } from "react-native"
+import firestore from "@react-native-firebase/firestore"
+import { createNewUser, getUserDataById } from "../../firebase/firestore/Users"
+import {
+  countProductsInCartId,
+  createNewCategory,
+  createNewProducts,
+} from "../../firebase/firestore"
+import { foodDataToFirestore, CatagoriesData } from "../../data"
 
 export const OnboardingScreen = observer(function OnboardingScreen() {
   // Pull in one of our MST stores
   // const { someStore, anotherStore } = useStores()
   // OR
+  async function test() {
+    //Add Catagories
+    // CatagoriesData.map(async ({ title, image, cartId }) => {
+    //   await createNewCategory(title, image, cartId)
+    // })
+    // Add foodData
+    // foodDataToFirestore.data().map(async ({ unit, price, name, image, cartId, discountPrice }) => {
+    //   await createNewProducts(unit, price, name, image, cartId, discountPrice)
+    // })
+    //Test Count item in cart
+    // let count = await countProductsInCartId("6139766724")
+  }
+  useEffect(() => {
+    test()
+  }, [])
   // const rootStore = useStores()
-
   // Pull in navigation via hook
   const navigation = useNavigation()
   return (

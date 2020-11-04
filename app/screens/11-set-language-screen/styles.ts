@@ -39,6 +39,14 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     marginTop: spacing[5],
   },
+  buttonDisable: {
+    height: 50,
+    backgroundColor: color.palette.gray140,
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: 10,
+    marginTop: spacing[5],
+  },
   normalText: { fontSize: 17, color: "rgb(102,102,102)", lineHeight: 20 },
   bold: { fontSize: 17, fontWeight: "bold", lineHeight: 20, color: color.palette.black },
   avatarAddContainer: {
