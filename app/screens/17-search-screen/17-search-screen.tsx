@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useEffect, useState } from "react"
 import { observer } from "mobx-react-lite"
 import { View, ViewStyle } from "react-native"
 import { Screen, Text } from "../../components"
@@ -10,7 +10,7 @@ import { Icon } from "react-native-elements"
 import SimpleImage from "../../components/simpleImage"
 import { FlatList, TextInput, TouchableOpacity } from "react-native-gesture-handler"
 //Test Data
-import { CatagoriesData, foodData } from "../../data"
+import firestore from '@react-native-firebase/firestore'
 
 const ROOT: ViewStyle = {
   backgroundColor: color.palette.white,
@@ -18,7 +18,7 @@ const ROOT: ViewStyle = {
 }
 
 const SearchItem = ({ food }) => {
-  const { name, type, Price } = food
+  const { name, type, price } = food
   return (
     <View style={styles.searchItemBontainer}>
       {/*Part1: Details */}
@@ -27,7 +27,7 @@ const SearchItem = ({ food }) => {
         <View style={{ height: 64, justifyContent: "space-between" }}>
           <Text style={styles.searchItemTypeText}>{type}</Text>
           <Text style={styles.searchItemNameText}>{name}</Text>
-          <Text style={styles.searchItemPriceText}>{Price}K</Text>
+          <Text style={styles.searchItemPriceText}>{price} đ</Text>
         </View>
       </View>
       {/* Part2:Image*/}
@@ -41,15 +41,57 @@ const SearchItem = ({ food }) => {
   )
 }
 
-export const SearchScreen = observer(function SearchScreen() {
+   export const SearchScreen = observer(function SearchScreen() {
   const [searchText, setSearchText] = React.useState("")
-  const [selectedType, setSelectedType] = React.useState(CatagoriesData[0].title)
-  const [showFoodData, setShowFoodData] = React.useState(
-    foodData.data().filter(({ type }) => type === CatagoriesData[0].title),
-  )
-
+  const [FoodData,setFood] = useState([])
+  const [CategoriesData,setCategoriesData] = useState([])
+  const [selectedType, setSelectedType] = React.useState('')
+  // renderfood
+  const RenderFood = async () => {
+    const list = []
+    const getData = await firestore().collection("Product").get()
+    for(let item of getData.docs){
+       list.push(item.data())
+    }
+    setFood(list)
+  }
+  // renderCategory
+  const RenderCategory = async () => {
+    const newlist = []
+    const get = await firestore().collection("category").get()
+    for(let items of get.docs){
+      newlist.push(items.data())
+      newlist.sort((a,b)=> a.id - b.id)
+    }
+  
+    setCategoriesData(newlist)
+  }
+  const [showFoodData, setShowFoodData] = React.useState([])
+  React.useEffect(()=>{RenderCategory()},[])
+  React.useEffect(()=>{RenderFood()},[CategoriesData])
+  const dataSetUp = () => {
+    const newarr = FoodData.map((item)=>{
+       for(let x of CategoriesData){
+         if(x.id == item.categoryID){
+           item.type = x.name
+         }
+       }
+       return item
+     }
+     ) 
+     setShowFoodData(newarr)
+  }
+  
+  React.useEffect(()=>{dataSetUp()},[FoodData])
+  
   const handleData = (searchValue: string, filterTypeValue: string) => {
-    let newData = foodData.data().filter(({ type }) => type === filterTypeValue)
+    let newData = FoodData.filter(({ categoryID }) =>{
+      for(let x of CategoriesData){
+        if(x.id === categoryID){
+          return x.name === filterTypeValue
+        }
+      }
+    })
     let searchData = newData.filter(({ name }) => name.toLowerCase().indexOf(searchValue) !== -1)
     return searchData
   }
@@ -62,12 +104,7 @@ export const SearchScreen = observer(function SearchScreen() {
     setSearchText(changeValue)
     setShowFoodData(handleData(changeValue, selectedType))
   }
-  // Pull in one of our MST stores
-  // const { someStore, anotherStore } = useStores()
-  // OR
-  // const rootStore = useStores()
 
-  // Pull in navigation via hook
   const navigation = useNavigation()
   return (
     <Screen style={ROOT} preset="fixed">
@@ -97,32 +134,31 @@ export const SearchScreen = observer(function SearchScreen() {
         <FlatList
           horizontal
           showsHorizontalScrollIndicator={false}
-          data={CatagoriesData}
-          keyExtractor={(item) => item.title}
+          data={CategoriesData}
+          keyExtractor={(item) => item.name}
           renderItem={({ item }) => {
             return (
-              <TouchableOpacity onPress={() => handleClickType(item.title)}>
+              <TouchableOpacity onPress={() => handleClickType(item.name)}>
                 <Text
                   style={
-                    item.title === selectedType
+                    item.name === selectedType
                       ? styles.catagoriesItemActive
                       : styles.catagoriesItem
                   }
                 >
-                  {item.title}
+                  {item.name}
                 </Text>
               </TouchableOpacity>
             )
           }}
         />
       </View>
-
       {/* List Item */}
       <FlatList
         style={styles.listItem}
         data={showFoodData}
-        keyExtractor={(item) => item.name}
-        renderItem={({ item, index }) => <SearchItem food={item} key={item.name}></SearchItem>}
+        keyExtractor={(item) => item.id}
+        renderItem={({ item, index }) =>  <SearchItem food={item} key={item.id} ></SearchItem>}
       />
     </Screen>
   )

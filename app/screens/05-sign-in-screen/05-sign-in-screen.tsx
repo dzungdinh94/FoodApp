@@ -34,11 +34,11 @@ export const SignInScreen = observer(function SignInScreen() {
 
   const navigation = useNavigation()
   const [isLoaded, isLoading] = useState(false)
-  const [email, setEmail] = useState('')
+  const [email, setEmail] = useState('linhnguyenchi227@gmail.com')
   const getInputEmail = (text) => {
     setEmail(text)
   }
-  const [password, setPwd] = useState('')
+  const [password, setPwd] = useState('123456')
   const getInputPwd = (text) => {
     setPwd(text)
   }
@@ -67,7 +67,7 @@ export const SignInScreen = observer(function SignInScreen() {
 
       isLoading(true)
       try {
-        await auth().signInWithEmailAndPassword(email, password)
+        await auth().signInWithEmailAndPassword("linhnguyenchi227@gmail.com","123456")
 
         await auth().onAuthStateChanged((user) => {
           console.log(user)

@@ -19,6 +19,7 @@ import ItemCounter from "../../components/ItemCounter/ItemCounter"
 import SpecialRenderItem from "../../components/SpecialRenderItem/SpecialRenderItem"
 import SearchControlPanel from "../../components/SearchControlPanel/SearchControlPanel"
 import firestore from '@react-native-firebase/firestore'
+
 const ROOT: ViewStyle = {
   backgroundColor: color.palette.white,
   flex: 1,
@@ -102,16 +103,19 @@ const SearchRenderItem = ({ navigateTo, counterClick, type, title, price }) => {
           >
             {title}
           </Text>
-          <Text
-            style={{
+          {(price < 1000)? <Text style={{
               color: color.palette.lightGrey,
               fontSize: 13,
               lineHeight: 18,
               marginTop: spacing[1],
-            }}
-          >
-            {price}
-          </Text>
+            }}>{price} triệu</Text> : 
+        <Text style={{
+          color: color.palette.lightGrey,
+          fontSize: 13,
+          lineHeight: 18,
+          marginTop: spacing[1],
+        }}>{price} đ</Text>
+        }
         </View>
 
         {/* Counter Indicator */}
@@ -187,6 +191,7 @@ export const Browse02Screen = observer(function Browse02Screen() {
   // Pull in navigation via hook
   const navigation = useNavigation()
   const [CategoryItem, setCate] = useState([])
+  const [Value,setValue] = useState([])
   const Category = async () => {
     const result = []
     const getData = await firestore().collection('category').get()
@@ -203,9 +208,10 @@ export const Browse02Screen = observer(function Browse02Screen() {
     const get = await firestore().collection('Product').get()
     for (let item of get.docs) {
       list.push(item.data())
-      list.sort((a, b) => a.id - b.id)
+      // list.sort((a, b) => a.id - b.id)
     }
-    console.log(list)
+    // console.log(list)
+   
     setlist(list)
   }
   React.useEffect(() => { Category() }, [])
@@ -227,7 +233,7 @@ export const Browse02Screen = observer(function Browse02Screen() {
               name="search"
               type="ionicon"
               color="white"
-              onPress={() => navigation.navigate(screens.SearchScreen)}
+              onPress={() => navigation.navigate(screens.Browse03Screen)}
             />
             <View style={{ paddingLeft: spacing[4] }}>
               <Icon
@@ -283,11 +289,11 @@ export const Browse02Screen = observer(function Browse02Screen() {
 
         }
         marginHorizontal={16}
-        navigateTo={() => navigation.navigate(screens.ProductDetailScreen)}
+        // navigateTo={() => navigation.navigate(screens.ProductDetailScreen)}
       />
       {/* Section Search */}
       <View style={{ marginHorizontal: spacing[4], marginVertical: spacing[4] }}>
-        <SearchControlPanel />
+        <SearchControlPanel/>
         {/* Search Item */}
         <View>
           {speclist.map((vals) => {
@@ -302,14 +308,6 @@ export const Browse02Screen = observer(function Browse02Screen() {
             }
           })}
 
-          {/* <SearchRenderItem
-            navigateTo={() => navigation.navigate(screens.ProductDetailScreen)}
-            counterClick={(value: number) => setNumberItemInCart(numberItemsInCart + value)}
-          />
-          <SearchRenderItem
-            navigateTo={() => navigation.navigate(screens.ProductDetailScreen)}
-            counterClick={(value: number) => setNumberItemInCart(numberItemsInCart + value)}
-          /> */}
         </View>
       </View>
     </ScrollView>

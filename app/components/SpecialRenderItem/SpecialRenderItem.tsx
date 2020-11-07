@@ -27,7 +27,9 @@ const SpecialRenderItem = ({ type, title, price }) => {
       <View>
         <Text style={styles.text}>{type}</Text>
         <Text style={styles.highlightText}>{title}</Text>
+        {(price < 1000)? <Text style={styles.text}>{price} triệu</Text> : 
         <Text style={styles.text}>{price} đ</Text>
+        }
       </View>
     </View>
   )
