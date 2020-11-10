@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useEffect } from "react"
 import { observer } from "mobx-react-lite"
 import { View, ViewStyle } from "react-native"
 import { Button, Screen, Text } from "../../components"
@@ -20,12 +20,16 @@ const ROOT: ViewStyle = {
   flex: 1,
 }
 
-export const ProductDetailScreen = observer(function ProductDetailScreen() {
+import auth from "@react-native-firebase/auth"
+import firestore from "@react-native-firebase/firestore"
+import { FAVORITES_COLLECTION, getUserIdByEmail } from "../../firebase/firestore"
+
+export const ProductDetailScreen = observer(function ProductDetailScreen({ route }) {
+  const item = route.params
+  const { name, cartName, price, productId } = item.product
   const tags = ["Khuyến mại"]
-  const type = "Rau"
-  const name = "Bông cải xanh"
-  const oldPrice = 30
-  const nowPrice = 15
+  const oldPrice = price
+  const [isLike, setIsLike] = React.useState(false)
   const weightChoice = ["200gr", "500gr", "1000gr"]
   const qualityChoice = ["cao cấp", "bình dân"]
   // Pull in one of our MST stores
@@ -34,6 +38,27 @@ export const ProductDetailScreen = observer(function ProductDetailScreen() {
   // const rootStore = useStores()
 
   // Pull in navigation via hook
+  console.log(isLike)
+  async function checkIsProductInFavoriteList(productId) {
+    let userId = await getUserIdByEmail(auth().currentUser.email)
+    let result = await firestore()
+      .collection(FAVORITES_COLLECTION)
+      .where("productId", "==", productId)
+      .where("userId", "==", userId)
+      .get()
+    if (result.docs.length > 0) {
+      setIsLike(true)
+      console.log("true")
+      return true
+    }
+    setIsLike(false)
+    console.log("false")
+    return false
+  }
+  useEffect(() => {
+    checkIsProductInFavoriteList(productId)
+  }, [])
+
   const navigation = useNavigation()
   return (
     <ScrollView style={ROOT}>
@@ -49,7 +74,7 @@ export const ProductDetailScreen = observer(function ProductDetailScreen() {
       </View>
       <View style={styles.productDetailMainContanier}>
         {/* Carousel */}
-        <DetailsScreenCarousel />
+        <DetailsScreenCarousel product={item.product} isLike={isLike ? true : false} />
         {/* Tags */}
         <View style={styles.tagContainer}>
           {tags.map((tag, index) => (
@@ -59,11 +84,11 @@ export const ProductDetailScreen = observer(function ProductDetailScreen() {
           ))}
         </View>
         {/* Details */}
-        <Text style={styles.detailTypeText}>{type}</Text>
+        <Text style={styles.detailTypeText}>{cartName}</Text>
         <Text style={styles.detailNameText}>{name}</Text>
         <View style={styles.detailPriceContainer}>
           <Text style={styles.detailOldPriceText}>{oldPrice}K</Text>
-          <Text style={styles.detailnowPriceText}>{nowPrice}K</Text>
+          <Text style={styles.detailnowPriceText}>{price}K</Text>
         </View>
         {/* Choice Selected */}
         <View style={styles.groupOptionsContainer}>
@@ -95,7 +120,7 @@ export const ProductDetailScreen = observer(function ProductDetailScreen() {
           showsHorizontalScrollIndicator={false}
           style={{ paddingLeft: spacing[4], top: -spacing[4] }}
         >
-          <View style={{ marginRight: spacing[4] }}>
+          {/* <View style={{ marginRight: spacing[4] }}>
             <FavoriteRenderItem
               onPressItem={() => navigation.navigate(screens.ProductDetailScreen)}
             />
@@ -119,7 +144,7 @@ export const ProductDetailScreen = observer(function ProductDetailScreen() {
             <FavoriteRenderItem
               onPressItem={() => navigation.navigate(screens.ProductDetailScreen)}
             />
-          </View>
+          </View> */}
         </ScrollView>
       </View>
 

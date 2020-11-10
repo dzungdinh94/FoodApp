@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useEffect } from "react"
 import { observer } from "mobx-react-lite"
 import { View, ViewStyle } from "react-native"
 import { Screen, Text } from "../../components"
@@ -10,15 +10,16 @@ import { Icon } from "react-native-elements"
 import SimpleImage from "../../components/simpleImage"
 import { FlatList, TextInput, TouchableOpacity } from "react-native-gesture-handler"
 //Test Data
-import { CatagoriesData, foodData } from "../../data"
+import { CATEGORIES_COLLECTION, PRODUCTS_COLLECTION } from "../../firebase/firestore"
+import { getAllDataFromCollection } from "../../firebase/firestoreFunction"
 
 const ROOT: ViewStyle = {
   backgroundColor: color.palette.white,
   flex: 1,
 }
 
-const SearchItem = ({ food }) => {
-  const { name, type, Price } = food
+const SearchItem = ({ food, type }) => {
+  const { name, price } = food
   return (
     <View style={styles.searchItemBontainer}>
       {/*Part1: Details */}
@@ -27,7 +28,7 @@ const SearchItem = ({ food }) => {
         <View style={{ height: 64, justifyContent: "space-between" }}>
           <Text style={styles.searchItemTypeText}>{type}</Text>
           <Text style={styles.searchItemNameText}>{name}</Text>
-          <Text style={styles.searchItemPriceText}>{Price}K</Text>
+          <Text style={styles.searchItemPriceText}>{price}K</Text>
         </View>
       </View>
       {/* Part2:Image*/}
@@ -43,25 +44,49 @@ const SearchItem = ({ food }) => {
 
 export const SearchScreen = observer(function SearchScreen() {
   const [searchText, setSearchText] = React.useState("")
-  const [selectedType, setSelectedType] = React.useState(CatagoriesData[0].title)
-  const [showFoodData, setShowFoodData] = React.useState(
-    foodData.data().filter(({ type }) => type === CatagoriesData[0].title),
-  )
+  const [catagoriesData, setCatagoriesData] = React.useState([])
+  const [productsData, setProductsData] = React.useState([])
+  const [selectedType, setSelectedType] = React.useState("")
+  const [selectedCartId, setSelectedCartId] = React.useState("")
+  const [showFoodData, setShowFoodData] = React.useState([])
 
-  const handleData = (searchValue: string, filterTypeValue: string) => {
-    let newData = foodData.data().filter(({ type }) => type === filterTypeValue)
+  const handleShowDataByTextValue = (searchValue: string, choiceCartId) => {
+    let newData = productsData.filter(({ cartId }) => cartId === choiceCartId)
     let searchData = newData.filter(({ name }) => name.toLowerCase().indexOf(searchValue) !== -1)
     return searchData
   }
-  const handleClickType = (choiceType: string) => {
+  const handleClickType = (choiceType: string, choiceCartId) => {
     setSelectedType(choiceType)
-    setShowFoodData(handleData(searchText, choiceType))
+    setSelectedCartId(choiceCartId)
+    setShowFoodData(handleShowDataByTextValue(searchText, choiceCartId))
   }
 
   const onChangeSearchText = (changeValue: string) => {
     setSearchText(changeValue)
-    setShowFoodData(handleData(changeValue, selectedType))
+    setShowFoodData(handleShowDataByTextValue(changeValue, selectedCartId))
   }
+
+  useEffect(() => {
+    let catagoriesDataGetResult
+    let productsDataGetResult
+    async function getCatagoriesData() {
+      catagoriesDataGetResult = await getAllDataFromCollection(CATEGORIES_COLLECTION)
+      setCatagoriesData(catagoriesDataGetResult)
+      setSelectedCartId(catagoriesDataGetResult[0].cartId)
+      setSelectedType(catagoriesDataGetResult[0].name)
+    }
+    async function getProductsData() {
+      productsDataGetResult = await getAllDataFromCollection(PRODUCTS_COLLECTION)
+      setProductsData(productsDataGetResult)
+      setShowFoodData(
+        productsDataGetResult.filter(({ cartId }) => cartId === catagoriesDataGetResult[0].cartId),
+      )
+    }
+    //Get Catagories Data from FireBase
+    getCatagoriesData()
+    //Get Products Data from Firebase
+    getProductsData()
+  }, [])
   // Pull in one of our MST stores
   // const { someStore, anotherStore } = useStores()
   // OR
@@ -97,19 +122,17 @@ export const SearchScreen = observer(function SearchScreen() {
         <FlatList
           horizontal
           showsHorizontalScrollIndicator={false}
-          data={CatagoriesData}
-          keyExtractor={(item) => item.title}
+          data={catagoriesData}
+          keyExtractor={(item) => item.cartId}
           renderItem={({ item }) => {
             return (
-              <TouchableOpacity onPress={() => handleClickType(item.title)}>
+              <TouchableOpacity onPress={() => handleClickType(item.name, item.cartId)}>
                 <Text
                   style={
-                    item.title === selectedType
-                      ? styles.catagoriesItemActive
-                      : styles.catagoriesItem
+                    item.name === selectedType ? styles.catagoriesItemActive : styles.catagoriesItem
                   }
                 >
-                  {item.title}
+                  {item.name}
                 </Text>
               </TouchableOpacity>
             )
@@ -122,7 +145,10 @@ export const SearchScreen = observer(function SearchScreen() {
         style={styles.listItem}
         data={showFoodData}
         keyExtractor={(item) => item.name}
-        renderItem={({ item, index }) => <SearchItem food={item} key={item.name}></SearchItem>}
+        renderItem={({ item, index }) => {
+          const type = catagoriesData.filter(({ cartId }) => cartId === item.cartId)[0].name
+          return <SearchItem food={item} type={type} key={item.name}></SearchItem>
+        }}
       />
     </Screen>
   )

@@ -47,6 +47,69 @@ export const foodDataToFirestore = {
         },
       },
       {
+        name: "Sữa tươi tiệt trùng",
+        cartId: cartIds.dairyProducts,
+        price: "30",
+        discountPrice: "30",
+        unit: "lít",
+        image: {
+          uri: "https://www.bynew.live/wp-content/uploads/2019/10/3-215.jpg",
+        },
+      },
+      {
+        name: "Sữa chua",
+        cartId: cartIds.dairyProducts,
+        price: "24",
+        discountPrice: "24",
+        unit: "lít",
+        image: {
+          uri:
+            "https://vcdn-suckhoe.vnecdn.net/2019/05/22/yaourt-trai-cay-1558506277-7055-1558506582.png",
+        },
+      },
+      {
+        name: "Phô mai Mozzarella",
+        cartId: cartIds.dairyProducts,
+        price: "198",
+        discountPrice: "198",
+        unit: "kg",
+        image: {
+          uri:
+            "https://bizweb.dktcdn.net/100/021/951/products/pho-mai-mozzarella-cat-san-550x.jpg?v=1453368948880",
+        },
+      },
+      {
+        name: "Nước tăng lực Monster",
+        cartId: cartIds.drinking,
+        price: "150",
+        discountPrice: "150",
+        unit: "lốc 6 lon",
+        image: {
+          uri:
+            "https://cdn.tgdd.vn/Products/Images/3226/142227/bhx/loc-6-lon-cao-nuoc-tang-luc-monster-energy-355ml-201901301033149408.jpg",
+        },
+      },
+      {
+        name: "Nước có gas Coca-cola",
+        cartId: cartIds.drinking,
+        price: "8",
+        discountPrice: "8",
+        unit: "lon",
+        image: {
+          uri: "https://cf.shopee.vn/file/d8d4a36f436bc147eb74a7965f97bd36",
+        },
+      },
+      {
+        name: "Nước có gas Pepsi",
+        cartId: cartIds.drinking,
+        price: "8",
+        discountPrice: "8",
+        unit: "lon",
+        image: {
+          uri: "https://www.pepsi.com/en-us/uploads/images/social-share.jpg?mtime=20180110134930",
+        },
+      },
+      {
         name: "Bơ lạc",
         cartId: cartIds.sweety,
         price: "10",
@@ -170,7 +233,50 @@ export const foodDataToFirestore = {
         unit: "cân",
         image: {
           uri:
-            "https://lh3.googleusercontent.com/proxy/Y0tukY4j22Q4H5MorHF63_o-feMdKRDyR_w4Dq8PJ6MV-UM9TmGJX9oFt-WqbB0FFlXGTjLnWhz6lua9zGogyftZKJ-UizR2n2La3jl-rmHCSXgMdno",
+            "https://sohanews.sohacdn.com/thumb_w/660/2020/photo1589423513636-1589423513869-crop-15894236902972117002672.jpg",
+        },
+      },
+      {
+        name: "Dầu gội đầu Clear",
+        cartId: cartIds.personalCare,
+        price: "98",
+        discountPrice: "98",
+        unit: "chai 340ml",
+        image: {
+          uri:
+            "https://salt.tikicdn.com/cache/w1200/ts/product/72/2f/79/19d9e878170700f73d9ed333f0777800.jpg",
+        },
+      },
+      {
+        name: "Sữa tắm Dove",
+        cartId: cartIds.personalCare,
+        price: "90",
+        discountPrice: "90",
+        unit: "chai 500ml",
+        image: {
+          uri: "https://cf.shopee.vn/file/d3439bdf07b97fff2b8dff852bab7e1d",
+        },
+      },
+      {
+        name: "Tương ớt",
+        cartId: cartIds.dailyConsummer,
+        price: "13",
+        discountPrice: "13",
+        unit: "chai 250g",
+        image: {
+          uri:
+            "https://salt.tikicdn.com/cache/w1200/ts/product/81/7a/f5/4d59e665374f5992220109364e5512cf.jpg",
+        },
+      },
+      {
+        name: "Nước mắm",
+        cartId: cartIds.dailyConsummer,
+        price: "35",
+        discountPrice: "35",
+        unit: "chai 500ml",
+        image: {
+          uri:
+            "https://zenmart.vn/Resources/Zenmart/Product/2020/02/1266/8936136160689-nuoc-mam-nam-ngu-750ml-637162552349281142.jpg",
         },
       },
     ]

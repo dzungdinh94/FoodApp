@@ -44,7 +44,6 @@ export const SignInScreen = observer(function SignInScreen() {
   }
   React.useEffect(() => {
     const subscriber = auth().onAuthStateChanged(onAuthStateChanged)
-    console.log(subscriber)
     return subscriber // unsubscribe on unmount
   }, [])
   //Handle Sign In to Swith App

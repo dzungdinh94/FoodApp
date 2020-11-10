@@ -17,27 +17,51 @@ import { Image } from "react-native"
 import firestore from "@react-native-firebase/firestore"
 import { createNewUser, getUserDataById } from "../../firebase/firestore/Users"
 import {
+  CATEGORIES_COLLECTION,
   countProductsInCartId,
   createNewCategory,
   createNewProducts,
+  FAVORITES_COLLECTION,
+  PRODUCTS_COLLECTION,
 } from "../../firebase/firestore"
 import { foodDataToFirestore, CatagoriesData } from "../../data"
+import { Unduplicated } from "../../utils/storage"
 
 export const OnboardingScreen = observer(function OnboardingScreen() {
   // Pull in one of our MST stores
   // const { someStore, anotherStore } = useStores()
   // OR
   async function test() {
+    //==============
     //Add Catagories
     // CatagoriesData.map(async ({ title, image, cartId }) => {
     //   await createNewCategory(title, image, cartId)
     // })
+    //==============
     // Add foodData
     // foodDataToFirestore.data().map(async ({ unit, price, name, image, cartId, discountPrice }) => {
     //   await createNewProducts(unit, price, name, image, cartId, discountPrice)
     // })
+    //==============
     //Test Count item in cart
     // let count = await countProductsInCartId("6139766724")
+    //==============
+    // let first10Products = []
+    // let responseProductGet = await firestore().collection(PRODUCTS_COLLECTION).limit(10).get()
+    // for (let doc of responseProductGet.docs) {
+    //   first10Products.push(doc.data())
+    // }
+    // console.log(first10Products)
+    // let cartIdOfFirst10Products = []
+    // for (let product of first10Products) {
+    //   cartIdOfFirst10Products.push(product.cartId)
+    // }
+    // console.log(Unduplicated(cartIdOfFirst10Products))
+    // let result = await firestore()
+    //   .collection(CATEGORIES_COLLECTION)
+    //   .where("cartId", "in", Unduplicated(cartIdOfFirst10Products))
+    //   .get()
+    // console.log(result.docs)
   }
   useEffect(() => {
     test()

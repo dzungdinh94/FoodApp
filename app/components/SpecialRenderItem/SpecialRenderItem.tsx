@@ -10,23 +10,28 @@ import SimpleImage from "../../components/simpleImage"
 import FavoriteToogle from "../../components/FavoriteToogle/FavoriteToogle"
 
 import styles from "./styles"
+import { Image } from "react-native-elements"
+import { createNewFavorite, removeFavorite, getUserIdByEmail } from "../../firebase/firestore"
+import auth from "@react-native-firebase/auth"
 
-const SpecialRenderItem = () => {
+const SpecialRenderItem = ({ product }) => {
+  const { name, price, cartName, image, productId, isLike } = product
+
   return (
     <View>
       {/* Images */}
       <View style={styles.imageContainer}>
-        <SimpleImage width={122} height={122} />
+        <Image source={image} style={{ width: 122, height: 122, zIndex: 0 }} />
         {/* FavortiteToggle */}
         <View style={styles.favoriteToggleContainer}>
-          <FavoriteToogle />
+          <FavoriteToogle size={10} productId={productId} isLike={isLike} />
         </View>
       </View>
       {/* Details */}
       <View>
-        <Text style={styles.text}>Rau</Text>
-        <Text style={styles.highlightText}>Mù tạt xanh</Text>
-        <Text style={styles.text}>5.000đ</Text>
+        <Text style={styles.text}>{cartName}</Text>
+        <Text style={styles.highlightText}>{name}</Text>
+        <Text style={styles.text}>{price}.000đ</Text>
       </View>
     </View>
   )

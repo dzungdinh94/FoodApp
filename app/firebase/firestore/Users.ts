@@ -33,3 +33,14 @@ export async function getUserDataById(userId: string) {
     return null
   }
 }
+
+export async function getUserIdByEmail(email: string) {
+  try {
+    let response = await firestore().collection(USER_COLLECTION).where("email", "==", email).get()
+    let result = response.docs[0].data()
+    return result.userId
+  } catch (error) {
+    console.log(error)
+    return null
+  }
+}

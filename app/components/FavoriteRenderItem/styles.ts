@@ -9,6 +9,7 @@ const styles = StyleSheet.create({
     borderTopRightRadius: spacing[2],
     borderTopLeftRadius: spacing[2],
     backgroundColor: color.palette.lighterGrey,
+    overflow: "hidden",
   },
   favoriteToggleContainer: { left: 124 },
   DetailContainer: {

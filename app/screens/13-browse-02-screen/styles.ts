@@ -42,6 +42,25 @@ const styles = StyleSheet.create({
     marginTop: spacing[2],
   },
   carouselContentBuyNow: { color: color.palette.main, fontSize: 20, marginTop: spacing[4] },
+  //Section
+  sectionHeaderContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    marginBottom: 13,
+    paddingHorizontal: 16,
+    marginTop: spacing[4],
+  },
+  sectionHeaderTitleText: {
+    fontSize: 17,
+    fontWeight: "bold",
+    color: color.palette.black,
+  },
+  sectionHeaderNavigationContainer: {
+    alignItems: "center",
+    flexDirection: "row",
+  },
+  sectionHeaderNavigationText: { fontSize: 12, color: color.palette.gray100 },
   //Search Control Panel
   searchControlPanelContainer: {
     flexDirection: "row",

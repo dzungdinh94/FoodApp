@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useEffect } from "react"
 import { observer } from "mobx-react-lite"
 import { ViewStyle } from "react-native"
 import { Text } from "../../components"
@@ -6,18 +6,29 @@ import { useNavigation } from "@react-navigation/native"
 // import { useStores } from "../../models"
 import { color, spacing } from "../../theme"
 import { View } from "react-native"
-import { Icon } from "react-native-elements"
+import { Icon, Image } from "react-native-elements"
 import LinearGradient from "react-native-linear-gradient"
 import SimpleImage from "../../components/simpleImage"
 import Logo from "../../components/logo"
 import { ScrollView } from "react-native"
 
 import styles from "./styles"
-import { TouchableOpacity } from "react-native-gesture-handler"
+import { FlatList, TouchableOpacity } from "react-native-gesture-handler"
 import screens from "../../navigation/screens"
 import ItemCounter from "../../components/ItemCounter/ItemCounter"
 import SpecialRenderItem from "../../components/SpecialRenderItem/SpecialRenderItem"
 import SearchControlPanel from "../../components/SearchControlPanel/SearchControlPanel"
+
+import auth from "@react-native-firebase/auth"
+import firestore from "@react-native-firebase/firestore"
+import { getAllDataFromCollection } from "../../firebase/firestoreFunction"
+import {
+  CATEGORIES_COLLECTION,
+  FAVORITES_COLLECTION,
+  getUserIdByEmail,
+  PRODUCTS_COLLECTION,
+} from "../../firebase/firestore"
+import { Unduplicated } from "../../utils/storage"
 
 const ROOT: ViewStyle = {
   backgroundColor: color.palette.white,
@@ -31,27 +42,31 @@ const GRADIENT_VALUE = [
   "rgba(0,0,0,1)",
 ]
 //RenderItem
-const CategoriesRenderItem = () => {
+const CategoriesRenderItem = ({ name, image }) => {
   return (
-    <LinearGradient
-      colors={[color.palette.gray200, color.palette.gray200, color.palette.black]}
-      style={{
-        width: 138,
-        height: 188,
-        borderRadius: 8,
-        marginRight: 15,
-      }}
-    >
-      <SimpleImage width={138} height={188} />
-      <View style={{ position: "absolute", bottom: 14, left: spacing[4] }}>
-        <Text style={{ color: "white", fontSize: 17, fontWeight: "bold" }}>Trái cây</Text>
+    <View style={{ width: 138, height: 188, borderRadius: 8, marginRight: 15, overflow: "hidden" }}>
+      <LinearGradient
+        colors={GRADIENT_VALUE}
+        style={{
+          width: 138,
+          height: 188,
+          borderRadius: 8,
+          marginRight: 15,
+          position: "absolute",
+          zIndex: 1,
+        }}
+      ></LinearGradient>
+      <Image source={image} style={{ width: 138, height: 188, zIndex: 0 }} />
+      <View style={{ position: "absolute", bottom: 14, left: spacing[4], zIndex: 2 }}>
+        <Text style={{ color: "white", fontSize: 17, fontWeight: "bold" }}>{name}</Text>
         <Text style={{ color: "white", fontSize: 11, marginTop: spacing[1] }}>Giá từ 5.000đ</Text>
       </View>
-    </LinearGradient>
+    </View>
   )
 }
 
-const SearchRenderItem = ({ navigateTo, counterClick }) => {
+const SearchRenderItem = ({ product, navigateTo, counterClick }) => {
+  const { name, price, cartName, image } = product
   return (
     <View
       style={{
@@ -71,9 +86,10 @@ const SearchRenderItem = ({ navigateTo, counterClick }) => {
             backgroundColor: "rgb(200,200,200)",
             borderRadius: 8,
             marginRight: 10,
+            overflow: "hidden",
           }}
         >
-          <SimpleImage width={80} height={80} />
+          <Image source={image} style={{ width: 80, height: 80, zIndex: 0 }} />
         </View>
       </TouchableOpacity>
       {/*Part2: Counter */}
@@ -91,7 +107,9 @@ const SearchRenderItem = ({ navigateTo, counterClick }) => {
       >
         {/* Details */}
         <View>
-          <Text style={{ color: color.palette.lightGrey, fontSize: 13, lineHeight: 18 }}>Rau</Text>
+          <Text style={{ color: color.palette.lightGrey, fontSize: 13, lineHeight: 18 }}>
+            {cartName}
+          </Text>
           <Text
             style={{
               color: "black",
@@ -100,7 +118,7 @@ const SearchRenderItem = ({ navigateTo, counterClick }) => {
               fontWeight: "bold",
             }}
           >
-            Mù tạt xanh
+            {name}
           </Text>
           <Text
             style={{
@@ -110,7 +128,7 @@ const SearchRenderItem = ({ navigateTo, counterClick }) => {
               marginTop: spacing[1],
             }}
           >
-            5.000đ
+            {price}.000đ
           </Text>
         </View>
         {/* Counter Indicator */}
@@ -177,17 +195,141 @@ const ListFood = ({ title, renderItem, marginHorizontal, navigateTo }) => {
 }
 
 export const Browse02Screen = observer(function Browse02Screen() {
-  // Pull in one of our MST stores
-  // const { someStore, anotherStore } = useStores()
-  // OR
-  // const rootStore = useStores()
-
-  // Pull in navigation via hook
-  const navigation = useNavigation()
-
+  const [userId, setUserId] = React.useState("")
+  const [catagoriesData, setCatagoriesData] = React.useState([])
+  const [specialData, setSpecialData] = React.useState([])
+  const [searchItemData, setSearchItemData] = React.useState([])
   const [numberItemsInCart, setNumberItemInCart] = React.useState(0)
+  const [numberItemInSearch, setNumberItemInSearch] = React.useState(4)
+  //Navigation
+  const navigation = useNavigation()
+  //Get Api
+  async function getProductsData(limitNumber: number, userIdInput, catagoriesDataInput) {
+    let productsData = []
+    let result = await firestore().collection(PRODUCTS_COLLECTION).limit(limitNumber).get()
+    for (let doc of result.docs) {
+      productsData.push(doc.data())
+    }
+    let cartIdOfProductsData = []
+    let productIds = []
+    for (let productData of productsData) {
+      cartIdOfProductsData.push(productData.cartId)
+      productIds.push(productData.productId)
+    }
+    //Get Favorite Data by productId
+    let favoriteDataByProductId = []
+    let response = await firestore()
+      .collection(FAVORITES_COLLECTION)
+      .where("productId", "in", productIds)
+      .where("userId", "==", userIdInput)
+      .get()
+    for (let favoriteData of response.docs) {
+      favoriteDataByProductId.push(favoriteData.data())
+    }
+
+    //Merge Data
+    let resultData = []
+    for (let productData of productsData) {
+      //Add CartName
+      let pushData = {}
+      catagoriesDataInput.map((value) => {
+        if (value.cartId === productData.cartId) {
+          pushData = { ...productData, cartName: value.name }
+        }
+      })
+      //Adđ isLike
+      pushData = { ...pushData, isLike: false }
+      favoriteDataByProductId.map((value) => {
+        if (value.productId === productData.productId) {
+          pushData = { ...pushData, isLike: true }
+        }
+      })
+      resultData.push(pushData)
+    }
+    return resultData
+  }
+  async function getSpecialData(userIdInput, catagoriesDataInput) {
+    let specialDataGetResult = await getProductsData(10, userIdInput, catagoriesDataInput)
+    setSpecialData(specialDataGetResult)
+  }
+  async function getUserId() {
+    let userIdGetResult = await getUserIdByEmail(auth().currentUser.email)
+    setUserId(userIdGetResult)
+    return userIdGetResult
+  }
+  async function getCatagoriesData() {
+    let catagoriesDataGetResult = await getAllDataFromCollection(CATEGORIES_COLLECTION)
+    setCatagoriesData(catagoriesDataGetResult)
+    return catagoriesDataGetResult
+  }
+  async function getSearchItemData(limitNumber: number, catagoriesDataInput) {
+    let productsData = []
+    let result = await firestore().collection(PRODUCTS_COLLECTION).limit(limitNumber).get()
+    for (let doc of result.docs) {
+      productsData.push(doc.data())
+    }
+    let cartIdOfProductsData = []
+    let productIds = []
+    for (let productData of productsData) {
+      cartIdOfProductsData.push(productData.cartId)
+      productIds.push(productData.productId)
+    }
+    //Merge Data
+    let resultData = []
+    for (let productData of productsData) {
+      //Add CartName
+      let pushData = {}
+      catagoriesDataInput.map((value) => {
+        if (value.cartId === productData.cartId) {
+          pushData = { ...productData, cartName: value.name }
+        }
+      })
+      resultData.push(pushData)
+    }
+    setSearchItemData(resultData)
+    return resultData
+  }
+
+  async function LoadingData() {
+    let catagoriesDataGetResult = await getCatagoriesData()
+    let userIdGetResult = await getUserId()
+    getSpecialData(
+      userIdGetResult ? userIdGetResult : userId,
+      catagoriesDataGetResult ? catagoriesDataGetResult : catagoriesData,
+    )
+    getSearchItemData(numberItemInSearch, catagoriesDataGetResult)
+  }
+  //Start up
+  useEffect(() => {
+    LoadingData()
+    const subscriber = firestore()
+      .collection(FAVORITES_COLLECTION)
+      .onSnapshot(() => {
+        console.log("Render Special")
+      })
+    return subscriber()
+  }, [])
+  //handle Search Section EndReach Trigger
+  async function SearchEndReachTrigger() {
+    console.log("SearchEndReachTrigger")
+    if (searchItemData.length > 0) {
+      setNumberItemInSearch(numberItemInSearch + 4)
+      getSearchItemData(numberItemInSearch + 4, catagoriesData)
+    }
+  }
+
+  function isCloseToBottom({ layoutMeasurement, contentOffset, contentSize }) {
+    return layoutMeasurement.height + contentOffset.y >= contentSize.height - 20
+  }
   return (
-    <ScrollView style={ROOT}>
+    <ScrollView
+      style={ROOT}
+      onScroll={({ nativeEvent }) => {
+        if (isCloseToBottom(nativeEvent)) {
+          SearchEndReachTrigger()
+        }
+      }}
+    >
       {/* Section Header */}
       <LinearGradient colors={GRADIENT_VALUE} style={{ width: "100%" }}>
         {/* Header */}
@@ -234,37 +376,84 @@ export const Browse02Screen = observer(function Browse02Screen() {
         </View>
       </LinearGradient>
       {/* Section List */}
-      <ListFood
-        title="Danh Mục"
-        renderItem={() => <CategoriesRenderItem />}
-        marginHorizontal={16}
-        navigateTo={() => navigation.navigate(screens.Categories01Screen)}
+      {/* List Header */}
+      <TouchableOpacity
+        onPress={() => navigation.navigate(screens.Categories01Screen)}
+        style={styles.sectionHeaderContainer}
+      >
+        <Text style={styles.sectionHeaderTitleText}>Danh Mục</Text>
+        <View style={styles.sectionHeaderNavigationContainer}>
+          <Text style={styles.sectionHeaderNavigationText}>Tất cả</Text>
+          <Icon name="navigate-next" type="material" size={20} />
+        </View>
+      </TouchableOpacity>
+      {/* List Items */}
+      <FlatList
+        horizontal
+        style={{ paddingLeft: spacing[4] }}
+        keyExtractor={(catagory) => catagory.cartId}
+        data={catagoriesData}
+        renderItem={({ item }) => <CategoriesRenderItem name={item.name} image={item.image} />}
       />
       {/* Section Special */}
-      <ListFood
-        title="Đặc Biệt"
-        renderItem={() => <SpecialRenderItem />}
-        marginHorizontal={16}
-        navigateTo={() => navigation.navigate(screens.ProductDetailScreen)}
+      {/* Special Header */}
+      <TouchableOpacity
+        onPress={() => navigation.navigate(screens.Categories01Screen)}
+        style={styles.sectionHeaderContainer}
+      >
+        <Text style={styles.sectionHeaderTitleText}>Đặc Biệt</Text>
+        <View style={styles.sectionHeaderNavigationContainer}>
+          <Text style={styles.sectionHeaderNavigationText}>Tất cả</Text>
+          <Icon name="navigate-next" type="material" size={20} />
+        </View>
+      </TouchableOpacity>
+      {/* Special Items */}
+      <FlatList
+        horizontal
+        style={{ paddingLeft: spacing[4] }}
+        keyExtractor={(item) => item.productId}
+        data={specialData}
+        refreshing={false}
+        onRefresh={async () => {
+          console.log("Waiting for reload Specail List")
+          await getSpecialData(userId, catagoriesData)
+        }}
+        onEndReachedThreshold={1}
+        onEndReached={() => {
+          console.log("End Reached")
+        }}
+        renderItem={({ item }) => <SpecialRenderItem product={item} />}
       />
       {/* Section Search */}
       <View style={{ marginHorizontal: spacing[4], marginVertical: spacing[4] }}>
         <SearchControlPanel />
         {/* Search Item */}
-        <View>
-          <SearchRenderItem
-            navigateTo={() => navigation.navigate(screens.ProductDetailScreen)}
-            counterClick={(value: number) => setNumberItemInCart(numberItemsInCart + value)}
-          />
-          <SearchRenderItem
-            navigateTo={() => navigation.navigate(screens.ProductDetailScreen)}
-            counterClick={(value: number) => setNumberItemInCart(numberItemsInCart + value)}
-          />
-          <SearchRenderItem
-            navigateTo={() => navigation.navigate(screens.ProductDetailScreen)}
-            counterClick={(value: number) => setNumberItemInCart(numberItemsInCart + value)}
-          />
-        </View>
+        {/* <FlatList
+          horizontal={true}
+          keyExtractor={(item) => item.productId}
+          data={searchItemData}
+          renderItem={() => (
+            <SearchRenderItem
+              navigateTo={() => navigation.navigate(screens.ProductDetailScreen)}
+              counterClick={(value: number) => setNumberItemInCart(numberItemsInCart + value)}
+            />
+          )}
+          onEndReachedThreshold={1}
+          onEndReached={() => {
+            console.log("End Reached")
+            SearchEndReachTrigger()
+          }}
+        /> */}
+        {searchItemData.map((item) => {
+          return (
+            <SearchRenderItem
+              product={item}
+              key={item.productId}
+              navigateTo={() => navigation.navigate(screens.ProductDetailScreen, { product: item })}
+              counterClick={(value: number) => setNumberItemInCart(numberItemsInCart + value)}
+            />
+          )
+        })}
       </View>
     </ScrollView>
   )

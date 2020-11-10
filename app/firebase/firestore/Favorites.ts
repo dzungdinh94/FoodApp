@@ -1,6 +1,7 @@
 import firestore from "@react-native-firebase/firestore"
 import { CODE_RANGE, FAVORITES_COLLECTION } from "./allCollectionName"
 import { addDataToCollection, getDataFromDoc } from "../firestoreFunction"
+import { getUserIdByEmail } from "./Users"
 
 export async function createNewFavorite(productId: string, userId: string) {
   let favoriteId = ""
@@ -43,6 +44,24 @@ export async function getFavoriteDataById(favoriteId: string) {
       .where("favoriteId", "==", favoriteId)
       .get()
     let result = response.docs[0].data()
+    return result
+  } catch (error) {
+    console.log(error)
+    return null
+  }
+}
+
+export async function getFavoriteDataByEmail(email: string) {
+  try {
+    let userId = await getUserIdByEmail(email)
+    let response = await firestore()
+      .collection(FAVORITES_COLLECTION)
+      .where("userId", "==", userId)
+      .get()
+    let result = []
+    for (let doc of response.docs) {
+      result.push(doc.data())
+    }
     return result
   } catch (error) {
     console.log(error)
