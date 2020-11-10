@@ -28,7 +28,7 @@ export const RootNavigator = React.forwardRef<
         case "RESTORE_TOKEN":
           return {
             ...prevState,
-            userToken: "action.token",
+            userToken: action.token,
             role: action.role,
             isLoading: false,
           }

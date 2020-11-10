@@ -135,14 +135,15 @@ export const OrdersScreen = observer(function OrdersScreen() {
         </View>
         <View style={{ flex: 1, marginTop: 8 }}>
           <FlatList
+    
           keyExtractor={item=>item.maDon}
             refreshing={true}
             data={listData}
             renderItem={({ item, index }) => {
               let list = () => {
-                return item.image.map(element => {
+                return item.image.map((element,index) => {
                   return (
-                    <View style={styles.listAnh}>
+                    <View key={item.maDon+index} style={styles.listAnh}>
                       <Image
                         style={styles.image}
                         source={element}

@@ -10,6 +10,7 @@ import React from "react"
 import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs"
 import { createNativeStackNavigator } from "react-native-screens/native-stack"
 import {
+  SignInScreen,
   Browse01Screen,
   Browse02Screen,
   Browse03Screen,
@@ -105,10 +106,11 @@ export function AppNavigator() {
         headerShown: false,
         gestureEnabled: true,
       }}
-      initialRouteName={screens.SetLanguageScreen}
+      initialRouteName={screens.Categories01Screen}
     >
       <Stack.Screen name={screens.HomeBottomTab} component={HomeBottomTab} />
       <Stack.Screen name={screens.Browse01Screen} component={Browse01Screen} />
+      <Stack.Screen name={screens.Browse02Screen} component={Browse02Screen} />
       <Stack.Screen name={screens.Browse03Screen} component={Browse03Screen} />
       <Stack.Screen name={screens.CheckoutScreen} component={CheckoutScreen} />
       <Stack.Screen name={screens.PaymentScreen} component={PaymentScreen} />

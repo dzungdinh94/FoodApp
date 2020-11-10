@@ -1,6 +1,6 @@
-import React from "react"
+import React, {useState, useEffect}from "react"
 import { observer } from "mobx-react-lite"
-import { ViewStyle } from "react-native"
+import { ViewStyle,Alert } from "react-native"
 import { Button, Screen, Text,AuthInput} from "../../components"
 import { useNavigation } from "@react-navigation/native"
 import { useStores } from "../../models"
@@ -12,6 +12,8 @@ import { View } from "react-native"
 import { TextInput } from "react-native-gesture-handler"
 import { TouchableOpacity } from "react-native"
 import AvatarInput from "../../components/AvatarInput"
+import auth from '@react-native-firebase/auth';
+
 
 const ROOT: ViewStyle = {
   backgroundColor: color.palette.white,
@@ -66,13 +68,49 @@ export const SignInScreen = observer(function SignInScreen() {
   // Pull in navigation via hook
   const navigation = useNavigation()
   const { signIn } = React.useContext(AuthContext)
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
 
-  const gotoApp = () => {
-    signIn({
-      token: "resp.token",
-      role: "resp.user.type_user",
-    })
+  const [initializing, setInitializing] = useState(true);
+  const [user, setUser] = useState();
+
+
+  // Handle user state changes
+  function onAuthStateChanged(user) {
+    setUser(user);
+    console.log(user)
   }
+
+  useEffect(() => {
+    const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
+    return subscriber; // unsubscribe on unmount
+  }, []);
+
+
+  const gotoApp = async () => {
+
+    if(email == '' || password==''){
+      Alert.alert('Bạn chưa nhập thông tin')
+    } else if( !(/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(String(email).toLowerCase()))){
+      Alert.alert('Email không đúng định dạng')
+    } else{
+      try {
+        await auth().signInWithEmailAndPassword(
+          email,
+          password,
+        );
+        console.log('ok')
+        signIn({
+          token: "resp.token",
+          role: "resp.user.type_user",
+        })
+      } catch (error) {
+        Alert.alert(error.message)
+        console.error(error);
+      }
+    }
+  }
+
   return (
     <Screen style={ROOT} preset="scroll">
       <View>
@@ -81,9 +119,9 @@ export const SignInScreen = observer(function SignInScreen() {
         {/* Guide Text */}
         <Text style={styles.guideText} text="Đăng nhập để tiếp tục" />
         {/* Input Username */}
-        <AuthInput title="Tên đăng nhập" isPassword={false} />
+        <AuthInput title="Tên đăng nhập" isPassword={false} inputValue={email} setInputValue={setEmail}/>
         {/* Input Password */}
-        <AuthInput title="Mật khẩu" isPassword={true} />
+        <AuthInput title="Mật khẩu" isPassword={true} inputValue={password} setInputValue={setPassword}/>
         {/* Forgot Password */}
         <TouchableOpacity onPress={() => navigation.navigate(screens.ForgotPasswordScreen)}>
           <Text style={styles.forgotPassStyle}>Quên mật khẩu?</Text>

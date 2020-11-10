@@ -1,13 +1,14 @@
 import React from "react"
 import { observer } from "mobx-react-lite"
-import { ViewStyle, View, StyleSheet, FlatList, TouchableOpacity, Dimensions } from "react-native"
+import { ViewStyle, View,Image, StyleSheet, FlatList, TouchableOpacity, Dimensions } from "react-native"
 import { Text } from "../../components"
-// import { useNavigation } from "@react-navigation/native"
+import { useNavigation } from "@react-navigation/native"
 // import { useStores } from "../../models"
 import { color } from "../../theme"
 import { Icon } from "react-native-elements"
 import screens from "../../navigation/screens"
-
+import firestore from '@react-native-firebase/firestore'
+import auth from '@react-native-firebase/auth';
 const ROOT: ViewStyle = {
   backgroundColor: color.palette.white,
   flex: 1,
@@ -131,92 +132,145 @@ const foodCategories = [
     id: 1,
     name: "Trái cây",
     iconName: "carrot",
+    categoryId:0
   },
   {
     id: 2,
     name: "Rau",
     iconName: "lemon",
+    categoryId:1
   },
   {
     id: 3,
     name: "Bánh",
     iconName: "birthday-cake",
+    categoryId:2
   },
   {
     id: 4,
     name: "Thịt",
     iconName: "bacon",
+    categoryId:3
   },
   {
     id: 5,
     name: "Sữa",
     iconName: "cheese",
+    categoryId:4
   },
   {
     id: 6,
     name: "Trái cây 123",
     iconName: "carrot",
+    categoryId:5
   },
   {
     id: 7,
     name: "Rau 123",
     iconName: "lemon",
+    categoryId:6
   },
   {
     id: 8,
     name: "Bánh 123",
     iconName: "birthday-cake",
-  },
-  {
-    id: 9,
-    name: "Thịt 123",
-    iconName: "bacon",
-  },
-  {
-    id: 10,
-    name: "Sữa 123",
-    iconName: "cheese",
-  },
+    categoryId:7
+  }
 ]
 
-const listItemCategory = [
-  {
-    title: "son7",
-    price: 50000,
-    state: false
-  },
-  {
-    title: "son7",
-    price: 50000,
-    state: false
-  },
-  {
-    title: "son7",
-    price: 50000,
-    state: false
-  },
-  {
-    title: "son7",
-    price: 50000,
-    state: false
-  },
-  {
-    title: "son7",
-    price: 50000,
-    state: false
-  },
-]
+// const listItemCategory = [
+//   {
+//     title: "son7",
+//     price: 50000,
+//     state: false
+//   },
+//   {
+//     title: "son7",
+//     price: 50000,
+//     state: false
+//   },
+//   {
+//     title: "son7",
+//     price: 50000,
+//     state: false
+//   },
+//   {
+//     title: "son7",
+//     price: 50000,
+//     state: false
+//   },
+//   {
+//     title: "son7",
+//     price: 50000,
+//     state: false
+//   },
+// ]
 
-export const Browse01Screen = observer(function Browse01Screen({ navigation }) {
+
+export const Browse01Screen = observer(function Browse01Screen({route}) {
   // Pull in one of our MST stores
   // const { someStore, anotherStore } = useStores()
   // OR
   // const rootStore = useStores()
-
   // Pull in navigation via hook
-  // const navigation = useNavigation()
-  const [category, setCategory] = React.useState("Trái cây")
+  const { itemId, itemName } = route.params
+  const navigation = useNavigation()
+  const [category, setCategory] = React.useState(itemName)
   const [state,setState] = React.useState(false)
+  
+
+  const [CategoriesData, setCategoriesData] = React.useState([])
+  const Categories = () => {
+    firestore().collection('Categories').get().then((getData) => {
+      let result = []
+      for (let data of getData.docs) {
+        result.push(data.data())
+      }
+      console.log(result)
+      setCategoriesData(result.sort(function(a, b){return a.id - b.id}))
+    })
+  }
+
+  const [listItemCategory,setListItemCategory] = React.useState([])
+  const product=(categoryId)=>{
+    firestore()
+  .collection('product')
+  // Filter results
+  .where('categoryId', '==', categoryId)
+  .get()
+  .then(querySnapshot => {
+    console.log(querySnapshot.docs.length)
+    let result = []
+      for (let data of querySnapshot.docs) {
+        result.push(data.data())
+      }
+      console.log(result)
+      setListItemCategory(result)
+  });
+  }
+  
+  // const favorites =(productId)=>{
+  //   firestore()
+  // .collection('favorites')
+  // .add({
+  //   id: ,
+  //   productId: productId,
+  //   userId: auth().currentUser.uid,
+  // })
+  // .then(() => {
+  //   console.log('favorites added!');
+  // });
+  // }
+
+  React.useEffect(() => {
+    Categories()
+    product(itemId)
+  }, [])
+
+  // React.useEffect(() => {
+  //   product()
+  // }, [])
+
   const renderItemAds = ({ item }) => {
     return (
       <View style={styles.adsWrapper}>
@@ -238,6 +292,7 @@ export const Browse01Screen = observer(function Browse01Screen({ navigation }) {
             type="font-awesome-5"
             onPress={() => {
               setCategory(item.name)
+              product(item.id)
             }}
             color={category == item.name ? "rgb(255,255,255)" : "rgb(200,199,204)"}
           />
@@ -274,23 +329,25 @@ export const Browse01Screen = observer(function Browse01Screen({ navigation }) {
           style={{
             aspectRatio: 1,
             backgroundColor: 'rgb(200,199,204)',
-            
           }}
         >
+          <Image source={{uri: item.image}} style={{width: itemWidth,
+            height: 163,}} />
           <Icon
             name='heart'
             type='ionicon'
             containerStyle={item.state == false ? {width: 20, height: 20, backgroundColor:'white', borderRadius:50, padding:5, position:'absolute', top:0, right:0, margin: 8} : {width: 20, height: 20, backgroundColor:'red', borderRadius:50, padding:5,position:'absolute', top:0, right:0, margin: 8}}
             size={10}
             iconStyle={item.state == false ? {color:'rgb(200,199,204)'} : {color:'white'}}
-            onPress={() => {
-              item.state = !item.state
-              setState(!state)
-            }}
+            // onPress={() => {
+            //   favorites(item.id)
+            //   item.state = !item.state
+            //   setState(!state)
+            // }}
           />
         </View>
         <View style={{ marginLeft: 16 }}>
-          <Text style={{ fontSize: 15, color: "black", marginTop: 8 }}> {item.title} </Text>
+          <Text style={{ fontSize: 15, color: "black", marginTop: 8 }}> {item.name} </Text>
           <Text style={{ fontSize: 15, color: "rgb(102,102,102)", marginTop: 4, marginBottom: 8 }}>
             {item.price}d
           </Text>
@@ -328,7 +385,7 @@ export const Browse01Screen = observer(function Browse01Screen({ navigation }) {
         <View style={{ flex: 1, marginVertical: 16 }}>
           <FlatList
             contentContainerStyle={{paddingLeft:16}}
-            data={foodCategories}
+            data={CategoriesData}
             renderItem={renderItemFoodCategories}
             keyExtractor={(item) => item.id}
             horizontal={true}

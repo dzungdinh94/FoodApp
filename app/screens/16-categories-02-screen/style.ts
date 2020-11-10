@@ -17,9 +17,9 @@ export default StyleSheet.create({
        marginBottom:16
    },
    Image:{
-    marginRight:'auto',
-    marginLeft:'auto',
-    marginTop:32
+    width: 50,
+    height: 50,
+    // marginTop:32
 },
 container:{
     flex:1,

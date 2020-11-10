@@ -1,4 +1,4 @@
-import React from "react"
+import React, {useState, useEffect} from "react"
 import { observer } from "mobx-react-lite"
 import { View,ViewStyle,BackHandler } from "react-native"
 import { Screen, Text } from "../../components"
@@ -11,13 +11,17 @@ import {Icon} from 'react-native-elements'
 import Account from './account'
 import OtherSetting1 from './other-setting1'
 import OtherSetting2 from './other-setting2'
+import { AuthContext } from "../../navigation"
+import auth from '@react-native-firebase/auth';
 const ROOT: ViewStyle = {
   backgroundColor: color.palette.white,
   flex: 1,
+  marginHorizontal: 24
 }
 
 export const SettingScreen = observer(function SettingScreen() {
   const navigation = useNavigation()
+
   const goBack =()=>{
     navigation.navigate('AccountScreen')
     
@@ -29,8 +33,17 @@ export const SettingScreen = observer(function SettingScreen() {
 
   // Pull in navigation via hook
   // const navigation = useNavigation()
+  const { signOut } = React.useContext(AuthContext)
+const signingout = async () => {
+  await auth()
+  .signOut()
+  console.log('User signed out!')
+  signOut()
+}
+
   return (
-    <Screen style={ROOT} preset="scroll" style={styles.container}>
+
+    <Screen style={ROOT} preset="scroll">
       <View style={[styles.back,styles.justifySpaceBetween,styles.flexRow]}>
 
       <Icon name='chevron-back-outline' type='ionicon' iconStyle={{fontSize: 30 ,marginLeft:-10, fontWeight: 'bold'}} color='black' onPress={goBack}/>
@@ -41,7 +54,7 @@ export const SettingScreen = observer(function SettingScreen() {
         <Account accattr="Đổi mật khẩu" name='lock' type=''/>
         <Account accattr="Thông báo" name='bell' type='font-awesome' />
         <Account accattr="Điều khoản" name='hand-right' type='ionicon'/>
-        <Account accattr="Đăng xuất" name='log-out' type='entypo' />
+        <Account onPress={signingout} accattr="Đăng xuất" name='log-out' type='entypo' />
       </View>
 
       <View>

@@ -58,13 +58,20 @@ import { Image } from "react-native"
 //     marginRight: 32,
 //   },
 // })
+
+
+
+
+
 export const OnboardingScreen = observer(function OnboardingScreen() {
   // Pull in one of our MST stores
   // const { someStore, anotherStore } = useStores()
   // OR
   // const rootStore = useStores()
-
   // Pull in navigation via hook
+
+
+
   const navigation = useNavigation()
   return (
     <Screen style={styles.container} preset="scroll">

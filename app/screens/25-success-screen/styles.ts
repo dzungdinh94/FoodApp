@@ -1,81 +1,99 @@
-import { StyleSheet } from "react-native"
-import { color, spacing } from "../../theme"
+import {StyleSheet} from 'react-native';
+import { color } from '../../theme';
 
 const styles = StyleSheet.create({
-  //Navigation Bar
-  navigationContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-    width: "100%",
-    paddingHorizontal: spacing[4],
-    paddingTop: spacing[2],
-  },
-  contentContainer: {},
-  headerText: {
-    alignSelf: "center",
-    marginLeft: spacing[4],
-    fontWeight: "bold",
-    lineHeight: 41,
-    fontSize: 40,
-    marginTop: 85,
-    color: color.palette.black,
-  },
-  //Animation Image
-  animationImageContainer: {
-    marginTop: 56,
-    width: 128,
-    height: 128,
-    borderRadius: 128,
-    backgroundColor: color.palette.main,
-  },
-  //Button
-  GroupButtonContainer: {
-    alignSelf: "stretch",
-  },
-  button: {
-    alignSelf: "stretch",
-    height: 50,
-    backgroundColor: color.palette.main,
-    alignItems: "center",
-    justifyContent: "center",
-    borderRadius: spacing[2],
-    marginTop: 56,
-    marginHorizontal: spacing[4],
-  },
-  buttonContent: { fontSize: 17 },
+    container: {
+        flex: 1,
+        alignItems: 'center',
+    },
+    thanhcong: {
+        flex: 0.8,
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: 41,
+        width: 202,
+        marginTop:85
+    },
+    text: {
+        fontSize: 36,
+        lineHeight: 41,
+        letterSpacing: 0,
+        color: 'black',
+        textAlign: 'left',
+        fontFamily: "AbhayaLibre",
+        fontWeight: 'bold'
+    },
+    animated: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        width: 128,
+        height: 128,
+        marginTop: 56,
+    },
+    camon: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        width: 258,
+        height: 102,
+        marginTop: 56,
+    },
+    camon1: {
+        fontSize: 20,
+        lineHeight: 28,
+        textAlign: 'center',
+        fontFamily: 'SegoeUI-Bold',
+        fontWeight: 'bold',
+        color: 'black'
+    },
+    camon2: {
+        marginTop: 8,
+        lineHeight: 27,
+        fontSize: 17,
+        textAlign: 'center',
+        color: '#666666',
+        fontFamily: 'SegoeUI-Regular',
+    },
+    button: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginTop: 56,
+    },
+    touchable1: {
+        width: 343,
+        height: 50,
+        borderRadius: 8,
+        alignItems: "center",
+        justifyContent: 'center',
+        marginBottom: 16,
+        backgroundColor: "#93C22F",
+    },
+    touchable2: {
+        width: 343,
+        height: 50,
+        borderRadius: 8,
+        alignItems: "center",
+        justifyContent: 'center',
+        marginBottom: 16,
+        borderWidth:1,
+        borderColor: "#93C22F"
+    },
+    texttouch1:{
+        fontFamily: 'SegoeUI-Semibold',
+        lineHeight: 22,
+        fontSize: 17,
+        textAlign: 'center',
+        color: 'white',
+    },
+    texttouch2:{
+        fontFamily: 'SegoeUI-Semibold',
+        lineHeight: 22,
+        fontSize: 17,
+        textAlign: 'center',
+        color: 'black'
+    }
+});
 
-  button2: {
-    alignSelf: "stretch",
-    height: 50,
-    backgroundColor: color.palette.white,
-    alignItems: "center",
-    justifyContent: "center",
-    borderRadius: spacing[2],
-    borderWidth: 1,
-    borderColor: color.palette.main,
-    marginTop: spacing[4],
-    marginHorizontal: spacing[4],
-    marginBottom: 94,
-  },
-  button2Content: { fontSize: 17, color: color.palette.black },
-
-  //SUCCESS
-  thanksContentContainer: { marginTop: 56 },
-  thanksTitle: {
-    fontSize: 20,
-    fontWeight: "bold",
-    color: color.palette.black,
-    paddingHorizontal: 67,
-    textAlign: "center",
-  },
-  thanksContent: {
-    fontSize: 17,
-    color: color.palette.gray100,
-    paddingHorizontal: 59,
-    textAlign: "center",
-    marginTop: spacing[2],
-  },
-})
-
-export default styles
+export default styles;

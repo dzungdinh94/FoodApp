@@ -1,6 +1,7 @@
-import React from "react"
+import React, { useState, useEffect } from 'react';
+import auth from '@react-native-firebase/auth';
 import { observer } from "mobx-react-lite"
-import { ViewStyle } from "react-native"
+import { Alert, ViewStyle } from "react-native"
 import { Button, Screen, Text, AuthInput } from "../../components"
 import { useNavigation } from "@react-navigation/native"
 // import { useStores } from "../../models"
@@ -10,6 +11,8 @@ import { ScrollView, TextInput, TouchableOpacity } from "react-native-gesture-ha
 import screens from "../../navigation/screens"
 import styles from "./styles"
 import AvatarInput from "../../components/AvatarInput"
+import { AuthContext } from "../../navigation"
+import firestore from '@react-native-firebase/firestore';
 
 const ROOT: ViewStyle = {
   backgroundColor: color.palette.white,
@@ -59,6 +62,56 @@ export const SignUpScreen = observer(function SignUpScreen() {
 
   // Pull in navigation via hook
   const navigation = useNavigation()
+  const { signIn } = React.useContext(AuthContext)
+
+  const [name, setName] = useState('')
+  const [email, setEmail] = useState('')
+  const [phoneNumber, setPhoneNumber] = useState('')
+  const [password, setPassword] = useState('')
+  const [onAuthStateChanged, setOnAuthStateChanged]= useState(false)
+ 
+
+  const registerUser = async () => {
+    console.log((/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(String(email).toLowerCase())));
+    if(email == '' || password==''){
+      Alert.alert('Bạn chưa nhập thông tin')
+    } else if( !(/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(String(email).toLowerCase()))){
+      Alert.alert('Email không đúng định dạng')
+    } else{
+      try {
+        await auth().createUserWithEmailAndPassword(
+          email,
+          password,
+        );
+        console.log('User account created & signed in!');
+        await auth().currentUser.updateProfile({
+          displayName: name,
+        })
+        
+        await firestore().collection('user').add({
+          id: auth().currentUser.uid,
+          email,
+          name,
+          sdt: phoneNumber,
+        })
+        signIn({
+          token: "resp.token",
+          role: "resp.user.type_user",
+        })
+        // navigation.navigate(screens.SignInScreen)
+      } catch (error) {
+        if (error.code === 'auth/email-already-in-use') {
+          Alert.alert('That email address is already in use!')
+        }
+        if (error.code === 'auth/invalid-email') {
+          Alert.alert('That email address is invalid!')
+        }
+        console.error(error);
+      }
+    }
+    
+  }
+  
   return (
     <ScrollView contentContainerStyle={ROOT}>
       <View>
@@ -71,16 +124,21 @@ export const SignUpScreen = observer(function SignUpScreen() {
         {/* Guide Text */}
         <Text style={styles.guideText} text="Đăng ký để tham gia" />
         {/* Input Username */}
-        <AuthInput title="Nhập Tên" isPassword={false} />
+        <AuthInput title="Nhập Tên" isPassword={false} inputValue={name} setInputValue={setName} />
         {/* Input Email */}
-        <AuthInput title="Nhập Email" isPassword={false} />
+        <AuthInput title="Nhập Email" isPassword={false} inputValue={email} setInputValue={setEmail} />
+        {/* Input Phone Number */}
+        <AuthInput title="Nhập Phone Number" isPassword={false} inputValue={phoneNumber} setInputValue={setPhoneNumber} />
         {/* Input Password */}
-        <AuthInput title="Nhập Mật khẩu" isPassword={true} />
+        <AuthInput title="Nhập Mật khẩu" isPassword={true} inputValue={password} setInputValue={setPassword} />
 
         {/* Sign Up Button */}
         <Button
           text="Đăng kí"
-          onPress={() => navigation.navigate(screens.VerificationCodeScreen)}
+          onPress={
+            async () => await registerUser()
+            // navigation.navigate(screens.VerificationCodeScreen)
+          }
           style={styles.button}
           textStyle={styles.buttonContent}
         />

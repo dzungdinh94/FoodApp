@@ -115,15 +115,15 @@ export const Browse02Screen = observer(function Browse02Screen() {
           <View style={style.controlbar}>
             <TouchableOpacity style={{ display: 'flex', flexDirection: 'row' }}>
               <Text style={style.controlitem}>Bán chạy</Text>
-              <Icon name='down' type='antdesign' color='gray' size={10} marginLeft={20} marginTop={15} />
+              <Icon name='down' type='antdesign' color='gray' size={10} style={{marginLeft:20,marginTop:15}} />
             </TouchableOpacity>
             <TouchableOpacity style={{ display: 'flex', flexDirection: 'row' }}>
-              <Icon name='sort' type='font-awesome' color='gray' size={12} marginRight={10} marginTop={15} />
+              <Icon name='sort' type='font-awesome' color='gray' size={12} style={{marginLeft:10,marginTop:15}} />
               <Text style={style.controlitem}>Sắp xếp</Text>
             </TouchableOpacity>
             <TouchableOpacity style={{ display: 'flex', flexDirection: 'row' }}>
               <Text style={style.controlitem}>Lọc</Text>
-              <Icon name='filter' type='fontisto' color='gray' size={10} marginLeft={20} marginTop={15} />
+              <Icon name='filter' type='fontisto' color='gray' size={10} style={{marginLeft:20,marginTop:15}} />
             </TouchableOpacity>
           </View>
           <View>

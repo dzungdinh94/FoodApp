@@ -1,102 +1,77 @@
-import { StyleSheet } from "react-native"
-import { color, spacing } from "../../theme"
-
+import { StyleSheet, Dimensions, PixelRatio } from 'react-native';
+import { color, spacing, typography } from '../../theme';
+const windowWidth = Dimensions.get('window').width;
 const styles = StyleSheet.create({
-  //GLOBAL STYLES
-  //Navigation Bar
-  navigationContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-    width: "100%",
-    paddingHorizontal: spacing[4],
-    marginTop: spacing[3],
-  },
-  previousButton: { left: -spacing[3] },
-  contentContainer: {},
-  navigationText: { fontSize: 17, color: color.palette.gray100 },
-  //Header
-  headerText: {
-    alignSelf: "flex-start",
-    marginLeft: spacing[4],
-    fontWeight: "bold",
-    fontSize: 34,
-    marginTop: spacing[3],
-    color: color.palette.black,
-    textAlignVertical: "center",
-  },
+    heard: {
+        alignItems: 'center',
+        marginTop: 11,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        paddingHorizontal: 16,
+    },
+    textHeard: {
+        fontFamily: 'SegoeUI-Regular',
+        fontSize: 17,
+        color: color.palette.lightGrey,
+        height: 23
+    },
+    tittle: {
+        color: "black",
+        fontFamily: 'AbhayaLibre-Bold',
+        fontSize:  34,
+        lineHeight:   41,
+        marginTop:  13,
+        marginLeft: 16,
+    },
+    sortFilter: {
+        flexDirection: 'row',
+        marginTop:  8,
+        height:  44,
+    },
+    sort: {
+        flex: 1,
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderWidth: 1,
+        borderColor: color.palette.offWhite
+    },
+    textSort: {
+        fontFamily: 'SegoeUI-Regular',
+        fontSize: 15,
+        lineHeight:  20,
+        color: color.palette.lightGrey
+    },
+    listLike: {
+        padding: 8,
+    },
+    background: {
+        marginVertical:  8,
+        marginHorizontal:  8,
+        flex:1,
+        height:223,
+        borderRadius: 8,
+        borderWidth: 1,
+        borderColor: color.palette.offWhite,
+        paddingBottom:8,
+    },
+    mask: {
+        flex:1,
+        backgroundColor: color.palette.lighterGrey,
+        borderTopStartRadius: 8,
+        borderTopEndRadius: 8,
+        borderTopWidth: 1,
+        borderColor: color.palette.offWhite,
+        alignItems: 'flex-end',
+        marginBottom:4,
+    },
+    textMask: {
+        marginTop:4,
+        fontSize:15,
+        fontFamily: 'SegoeUI-Regular',
+        lineHeight:  20,
+        marginLeft: 16,
+    }
+});
 
-  //Button
-  button: {
-    alignSelf: "stretch",
-    height: 50,
-    backgroundColor: "rgb(147,194,47)",
-    alignItems: "center",
-    justifyContent: "center",
-    borderRadius: spacing[2],
-    marginVertical: spacing[4],
-    marginHorizontal: spacing[4],
-  },
-  buttonContent: { fontSize: 17 },
-  //END GLOBAL STYLES
-
-  //CUSTOM
-  //Sort Control Panel
-  SortControlPanelContainer: {
-    flexDirection: "row",
-    backgroundColor: color.palette.white,
-    borderColor: color.palette.gray230,
-    borderWidth: 1,
-    borderTopWidth: 0,
-    zIndex: 10,
-    marginTop: spacing[2],
-  },
-  //Sort Button
-  sortButtonContainer: {
-    display: "flex",
-
-    borderColor: color.palette.gray230,
-    borderRightWidth: 1,
-    alignSelf: "stretch",
-    flex: 1,
-    paddingVertical: spacing[3],
-  },
-  sortButton: { flexDirection: "row", alignItems: "center", justifyContent: "center" },
-
-  sortButtonText: {
-    color: color.palette.lightGrey,
-    fontSize: 15,
-    lineHeight: 20,
-    marginLeft: spacing[2],
-  },
-  //Filter Button
-  filterButtonContainer: {
-    display: "flex",
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
-    flex: 1,
-    alignSelf: "stretch",
-    paddingVertical: spacing[3],
-  },
-  filterButton: { flexDirection: "row", alignItems: "center", justifyContent: "center" },
-  filterButtonText: {
-    color: color.palette.lightGrey,
-    fontSize: 15,
-    lineHeight: 20,
-    marginLeft: spacing[2],
-  },
-  //Favorite List
-  favoriteListContainer: {
-    backgroundColor: color.palette.gray250,
-    flexDirection: "row",
-    flexWrap: "wrap",
-    alignItems: "center",
-    justifyContent: "space-between",
-    paddingHorizontal: spacing[4],
-    paddingBottom: spacing[4],
-    flex: 1,
-  },
-})
-
-export default styles
+export default styles;

@@ -1,15 +1,12 @@
 import React from "react"
 import { observer } from "mobx-react-lite"
-import { View, ViewStyle } from "react-native"
-import { Text } from "../../components"
-import { useNavigation } from "@react-navigation/native"
+import { ViewStyle, View, FlatList, Dimensions } from "react-native"
+import { Screen, Text } from "../../components"
+// import { useNavigation } from "@react-navigation/native"
 // import { useStores } from "../../models"
-import { color } from "../../theme"
-import { Icon } from "react-native-elements"
-import { ScrollView, TouchableOpacity } from "react-native-gesture-handler"
-import screens from "../../navigation/screens"
-import styles from "./styles"
-import FavoriteRenderItem from "../../components/FavoriteRenderItem/FavoriteRenderItem"
+import { color, spacing } from "../../theme"
+import styles from './styles'
+import { Icon } from 'react-native-elements';
 
 const ROOT: ViewStyle = {
   backgroundColor: color.palette.white,
@@ -54,53 +51,76 @@ export const FavoritesScreen = observer(function FavoritesScreen() {
   // const rootStore = useStores()
 
   // Pull in navigation via hook
-  const navigation = useNavigation()
+  // const navigation = useNavigation()
+
+
+
+
+
   return (
-    <ScrollView style={ROOT}>
-      {/* Navigation Bar*/}
-      <View style={styles.navigationContainer}>
-        <TouchableOpacity>
-          <Text style={styles.navigationText}>Chỉnh sửa</Text>
-        </TouchableOpacity>
-        <TouchableOpacity>
-          <Icon name="search" type="ionicon" color={color.palette.black} size={19} />
-        </TouchableOpacity>
+    <Screen style={ROOT} preset="scroll">
+      <View style={styles.heard}>
+        <Text style={styles.textHeard}>Chỉnh sửa</Text>
+        <Icon
+          name="search1"
+          type="antdesign"
+          size={19}
+        />
       </View>
-      {/* Header */}
-      <Text style={styles.headerText}>Danh sách yêu thích</Text>
-      {/* Sort Control Panel */}
-      <View style={styles.SortControlPanelContainer}>
-        {/* Sort Button */}
-        <View style={styles.sortButtonContainer}>
-          <TouchableOpacity style={styles.sortButton}>
-            <Icon name="sort" type="font-awesome" size={20} color={color.palette.gray100} />
-            <Text style={styles.sortButtonText}>Sắp xếp</Text>
-          </TouchableOpacity>
+
+
+      <Text style={styles.tittle}>Danh sách yêu thích</Text>
+
+      <View style={styles.sortFilter}>
+        <View style={styles.sort}>
+          <Icon
+            name="sort"
+            type="font-awesome"
+            size={19}
+            color={color.palette.lightGrey}
+          />
+          <Text style={styles.textSort}>Sắp xếp</Text>
         </View>
-        {/* Filter Button */}
-        <View style={styles.sortButtonContainer}>
-          <TouchableOpacity
-            style={styles.filterButton}
-            onPress={() => navigation.navigate(screens.FilterScreen)}
-          >
-            <Icon name="filter" type="font-awesome-5" size={14} color={color.palette.gray100} />
-            <Text style={styles.filterButtonText}>Lọc</Text>
-          </TouchableOpacity>
+        <View style={styles.sort}>
+          <Icon
+            name="filter"
+            type="foundation"
+            size={19}
+            color={color.palette.lightGrey}
+          />
+          <Text style={styles.textSort}>Lọc</Text>
         </View>
       </View>
-      {/* Favorite List */}
-      <View style={styles.favoriteListContainer}>
-        <FavoriteRenderItem onPressItem={() => navigation.navigate(screens.ProductDetailScreen)} />
-        <FavoriteRenderItem onPressItem={() => navigation.navigate(screens.ProductDetailScreen)} />
-        <FavoriteRenderItem onPressItem={() => navigation.navigate(screens.ProductDetailScreen)} />
-        <FavoriteRenderItem onPressItem={() => navigation.navigate(screens.ProductDetailScreen)} />
-        <FavoriteRenderItem onPressItem={() => navigation.navigate(screens.ProductDetailScreen)} />
-        <FavoriteRenderItem onPressItem={() => navigation.navigate(screens.ProductDetailScreen)} />
-        <FavoriteRenderItem onPressItem={() => navigation.navigate(screens.ProductDetailScreen)} />
-        <FavoriteRenderItem onPressItem={() => navigation.navigate(screens.ProductDetailScreen)} />
-        <FavoriteRenderItem onPressItem={() => navigation.navigate(screens.ProductDetailScreen)} />
-      </View>
-    </ScrollView>
+
+      <Screen preset="scroll" style={styles.listLike}>
+        <FlatList
+        onEndReachedThreshold={1}
+          numColumns={2}
+          data={DATA}
+          renderItem={({ item, index }) => {
+            return (
+              <View key={index} style={styles.background}>
+                <View style={styles.mask}>
+                  <Icon style={{ margin: 4 }}
+                    name="heart-circle"
+                    type="ionicon"
+                    color={'rgb(252, 31, 74)'}
+                    size={21}
+                  />
+                </View>
+
+                  <Text style={styles.textMask}>{item.name}</Text>
+                  <Text style={[styles.textMask, { color: color.palette.lightGrey }]}>{item.price}</Text>
+                
+              </View>
+            )
+
+          }}
+
+        ></FlatList>
+      </Screen>
+
+
+    </Screen>
   )
 })
-//done
