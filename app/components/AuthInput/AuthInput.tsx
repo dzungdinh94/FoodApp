@@ -7,12 +7,14 @@ import { Screen, Text } from "../../components"
 import { color, spacing } from "../../theme"
 import { TextInput } from "react-native-gesture-handler"
 
+
+
 const ROOT: ViewStyle = {
   paddingBottom: spacing[5],
 }
 const TITLE: TextStyle = { fontSize: 17, color: "rgb(140,140,140)" }
 
-export const AuthInput = ({ title, isPassword }) => {
+export const AuthInput = ({ title, isPassword, value, handleClick}) => {
   const [inputValue, setInputValue] = React.useState("")
   const [IsFocusInput, SetIsFocusInPut] = React.useState(false)
   // Pull in one of our MST stores
@@ -26,9 +28,10 @@ export const AuthInput = ({ title, isPassword }) => {
     <View style={ROOT}>
       <Text style={TITLE}>{title}</Text>
       <TextInput
-        value={inputValue}
-        onChangeText={(change) => setInputValue(change)}
-        style={{
+        value={value}
+        //  onChangeText={(change) => setInputValue(change)}
+          onChangeText={handleClick}
+          style={{
           color: "black",
           fontSize: 17,
           borderBottomWidth: 1,

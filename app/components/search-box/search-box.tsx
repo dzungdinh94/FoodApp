@@ -2,7 +2,7 @@ import React from 'react'
 import { Input, Icon } from 'react-native-elements'
 import { color } from "../../theme"
 
-const searchBox = () => {
+const searchBox = ({onFocus}) => {
     return (
      
             <Input 
@@ -19,7 +19,9 @@ const searchBox = () => {
                 containerStyle={{
                    height:64
                 }}
-                leftIcon={<Icon name='search' size={22} color={color.palette.icon} />} />
+                leftIcon={<Icon name='search' size={22} color={color.palette.icon} />} 
+                onFocus={onFocus}
+                />
      
 
     )

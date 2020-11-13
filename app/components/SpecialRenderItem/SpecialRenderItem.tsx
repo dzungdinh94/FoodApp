@@ -11,7 +11,8 @@ import FavoriteToogle from "../../components/FavoriteToogle/FavoriteToogle"
 
 import styles from "./styles"
 
-const SpecialRenderItem = () => {
+
+const SpecialRenderItem = ({ type, title, price }) => {
   return (
     <View>
       {/* Images */}
@@ -24,9 +25,11 @@ const SpecialRenderItem = () => {
       </View>
       {/* Details */}
       <View>
-        <Text style={styles.text}>Rau</Text>
-        <Text style={styles.highlightText}>Mù tạt xanh</Text>
-        <Text style={styles.text}>5.000đ</Text>
+        <Text style={styles.text}>{type}</Text>
+        <Text style={styles.highlightText}>{title}</Text>
+        {(price < 1000)? <Text style={styles.text}>{price} triệu</Text> : 
+        <Text style={styles.text}>{price} đ</Text>
+        }
       </View>
     </View>
   )

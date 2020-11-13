@@ -19,10 +19,10 @@ import { TouchableOpacity } from "react-native-gesture-handler"
 // import SpecialRenderItem from "../../components/SpecialRenderItem/SpecialRenderItem"
 
 const CustomPicker = () => {
-  const data = ["Bán chạy", "Giá Cả", "Mới về"]
+  const data = ["Bán chạy", "Giá cả", "Mới về"]
   const [openList, setOpenList] = React.useState(false)
   const [valueSelect, SetValueSelect] = React.useState(data[0])
-
+  
   return (
     <View style={{ width: 150, height: 20 }}>
       {openList ? (
@@ -37,28 +37,52 @@ const CustomPicker = () => {
           </TouchableOpacity>
           {data.map((title) => {
             if (title !== valueSelect) {
-              return (
-                <TouchableOpacity
-                  key={title}
-                  style={{
-                    paddingLeft: spacing[4],
-                    paddingVertical: spacing[2],
-                    borderBottomWidth: 0.7,
-                    borderColor: color.palette.gray200,
-                  }}
-                  onPress={() => {
-                    SetValueSelect(title), setOpenList(false)
-                  }}
-                >
-                  <Text style={{ color: color.palette.black }}>{title}</Text>
-                </TouchableOpacity>
-              )
+              switch (title) {
+                case 'Giá cả':
+                  return (
+                    <TouchableOpacity
+                      key={title}
+                      style={{
+                        paddingLeft: spacing[4],
+                        paddingVertical: spacing[2],
+                        borderBottomWidth: 0.7,
+                        borderColor: color.palette.gray200,
+                      }}
+                      onPress={() => {
+                        SetValueSelect(title), setOpenList(false)
+                      }}
+                    >
+                      <Text style={{ color: color.palette.black }}>{title}</Text>
+                    </TouchableOpacity>
+                  )
+                case 'Mới về':
+                  return (
+                    <TouchableOpacity
+                      key={title}
+                      style={{
+                        paddingLeft: spacing[4],
+                        paddingVertical: spacing[2],
+                        borderBottomWidth: 0.7,
+                        borderColor: color.palette.gray200,
+                      }}
+                      onPress={() => {
+                        SetValueSelect(title), setOpenList(false)
+                      }}
+                    >
+                      <Text style={{ color: color.palette.black }}>{title}</Text>
+                    </TouchableOpacity>
+                  )
+                  break;
+                default:
+                  console.log("end")
+              }
+
             } else return null
           })}
         </View>
       ) : (
-        <Text style={styles.selectedValueText}>{valueSelect}</Text>
-      )}
+          <Text style={styles.selectedValueText}>{valueSelect}</Text>
+        )}
       {/* Expand Button Icon */}
       <View style={styles.expandButton}>
         <Icon

@@ -27,13 +27,6 @@ const StartCartData = [
     unit: "củ",
     price: 20,
   },
-  {
-    name: "Táo organic",
-    type: "Hoa quả",
-    quantity: 1,
-    unit: "quả",
-    price: 20,
-  },
 ]
 const ROOT: ViewStyle = {
   backgroundColor: color.palette.white,

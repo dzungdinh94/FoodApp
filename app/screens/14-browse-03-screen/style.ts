@@ -65,5 +65,6 @@ export default StyleSheet.create({
         flex:1,
         marginVertical:8,
         marginLeft:16
-    }
+    },
+    favoriteToggleContainer: { left: 143, zIndex: 1,position:'absolute' },
 })

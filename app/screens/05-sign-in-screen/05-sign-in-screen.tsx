@@ -1,76 +1,25 @@
-import React, {useState, useEffect } from "react"
+import React, { useEffect, useState } from "react"
 import { observer } from "mobx-react-lite"
-import { ViewStyle } from "react-native"
-import { Button, Screen, Text,AuthInput} from "../../components"
+import { ViewStyle, TextInput, Alert } from "react-native"
+import { Button, Screen, Text, AuthInput } from "../../components"
 import { useNavigation } from "@react-navigation/native"
-import { useStores } from "../../models"
+// import { useStores } from "../../models"
 import { color } from "../../theme"
 import screens from "../../navigation/screens"
 import { AuthContext } from "../../navigation"
 import styles from "./styles"
 import { View } from "react-native"
-import { TextInput } from "react-native-gesture-handler"
+// import { TextInput } from "react-native-gesture-handler"
 import { TouchableOpacity } from "react-native"
 import AvatarInput from "../../components/AvatarInput"
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
-
+import { load } from "../../utils/storage"
 const ROOT: ViewStyle = {
   backgroundColor: color.palette.white,
   paddingHorizontal: 32,
 }
 
-function User({ userId }) {
-  useEffect(() => {
-    const subscriber = firestore()
-      .collection('Users')
-      .doc(userId)
-      .onSnapshot(documentSnapshot => {
-        console.log('User data: ', documentSnapshot.data());
-      });
-
-    // Stop listening for updates when no longer required
-    return () => subscriber();
-  }, [userId]);
-}
-// const styles = StyleSheet.create({
-//   ChaoMungTroLai: {
-//     fontSize: 40,
-//     color: "#000000",
-//     marginTop: 56,
-//   },
-//   DangNhapDeTiepTuc: {
-//     fontSize: 17,
-//     color: "#666666",
-//     marginTop: 64,
-//     marginBottom: 16
-//   },
-//   GoReg: {
-//     marginTop: 150,
-//     color: "#000000",
-//     fontSize: 17,
-//     textAlign: "center"
-//   },
-//   ButtonSign: {
-//     backgroundColor : "#93C22F",
-//     height: 50,
-//     marginTop: 24,
-//     borderRadius:8
-//   },
-//   Form: {
-//     borderBottomColor: "#93C22F",
-//     borderBottomWidth: 1,
-//     marginTop:24
-//   },
-//   QuenMatKhau: {
-//     fontSize: 17,
-//     color: "#000000",
-//     marginTop:24
-//   },
-//   inputStyle:{
-//     color: "#000000"
-//   }
-// })
 
 export const SignInScreen = observer(function SignInScreen() {
   // Pull in one of our MST stores
@@ -79,7 +28,22 @@ export const SignInScreen = observer(function SignInScreen() {
   // const rootStore = useStores()
 
   // Pull in navigation via hook
+  // const [isLoaded, isLoading] = useState(false)
+  // const [confirm, setConfirm] = useState(null);
+
+
   const navigation = useNavigation()
+  const [isLoaded, isLoading] = useState(false)
+  const [email, setEmail] = useState('ngmanhquan2000@gmail.com')
+  const getInputEmail = (text) => {
+    setEmail(text)
+  }
+  const [password, setPwd] = useState('Loading123')
+  const getInputPwd = (text) => {
+    setPwd(text)
+  }
+  const [code, setCode] = useState('');
+
   const { signIn } = React.useContext(AuthContext)
 
   const gotoApp = () => {
@@ -88,27 +52,40 @@ export const SignInScreen = observer(function SignInScreen() {
       role: "resp.user.type_user",
     })
   }
-  
-    // If null, no SMS has been sent
-    const [confirm, setConfirm] = useState(null);
+  const validateEmail = (email) => {
+    const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(String(email).toLowerCase())
+  }
+  const validatePassword = (password) => {
+    const newPassword = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/;
+    return newPassword.test(password);
+  }
+  const userLogin = async () => {
+    if (password === '' && email === '') {
+      Alert.alert('Bạn chưa nhập mật khẩu/email')
+    } else {
 
-    const [code, setCode] = useState('');
-  
-    // Handle the button press
-    async function signInWithPhoneNumber(phoneNumber) {
-      const confirmation = await auth().signInWithPhoneNumber(phoneNumber);
-      setConfirm(confirmation);
-    }
-  
-    async function confirmCode() {
+      isLoading(true)
       try {
-        await confirm.confirm(code);
-        gotoApp();
+        await auth().signInWithEmailAndPassword("linhnguyenchi227@gmail.com","123456")
+
+        await auth().onAuthStateChanged((user) => {
+          console.log(user)
+          if (user != null) {
+            gotoApp()
+          }
+        })
+
+
+
       } catch (error) {
-        console.log('Invalid code.');
+        console.log(error)
       }
+
     }
-  if (!confirm) {
+
+  }
+
   return (
     <Screen style={ROOT} preset="scroll">
       <View>
@@ -117,9 +94,9 @@ export const SignInScreen = observer(function SignInScreen() {
         {/* Guide Text */}
         <Text style={styles.guideText} text="Đăng nhập để tiếp tục" />
         {/* Input Username */}
-        <AuthInput title="Tên đăng nhập" isPassword={false} />
+        <AuthInput title="Email" isPassword={false} value={email} handleClick={getInputEmail} />
         {/* Input Password */}
-        <AuthInput title="Mật khẩu" isPassword={true} />
+        <AuthInput title="Mật khẩu" isPassword={true} value={password} handleClick={getInputPwd} />
         {/* Forgot Password */}
         <TouchableOpacity onPress={() => navigation.navigate(screens.ForgotPasswordScreen)}>
           <Text style={styles.forgotPassStyle}>Quên mật khẩu?</Text>
@@ -127,10 +104,12 @@ export const SignInScreen = observer(function SignInScreen() {
         {/* Button đăng ký */}
         <Button
           text="Đăng nhập"
-          onPress={() => signInWithPhoneNumber('+84 836 659 980')}
+          // onPress={()=>getData}
           style={styles.button}
           textStyle={styles.buttonContent}
+          onPress={gotoApp}
         />
+
       </View>
       {/* Section 2- Register Help */}
       <View style={styles.registerLinkStyle}>
@@ -144,12 +123,6 @@ export const SignInScreen = observer(function SignInScreen() {
         </TouchableOpacity>
       </View>
     </Screen>
-  );
-  }
-  return (
-    <>
-      <TextInput value={code} onChangeText={text => setCode(text)} />
-      <Button text="Confirm Code" onPress={() => confirmCode()} />
-    </>
-  );
+  )
+
 })
