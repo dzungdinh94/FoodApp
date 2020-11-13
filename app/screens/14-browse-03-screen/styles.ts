@@ -1,69 +1,64 @@
-import { color, spacing } from "../../theme"
-import { StyleSheet, Dimensions} from 'react-native'
+import { color, fontSize, spacing } from "../../theme"
+import { StyleSheet, Dimensions } from "react-native"
 export default StyleSheet.create({
-    headerBackground: {
-        flexDirection: 'row'
-    },
-    image:{
-        width:100,
-        height:30,
-        marginLeft:16
-    },
-    iconstyle:{
-        flexDirection:'row',
-        flexGrow:1,
-        justifyContent:'flex-end',
-        marginHorizontal:16
-    },
-    Image: {
-        height: 163,
-        width:'100%',
-        position:'absolute',
-        borderRadius: 10,
-        flexGrow:1,
-        justifyContent:'center',
-        alignItems:'center'
-    },
-    cover: {
-        height:263,
-        backgroundColor: color.palette.white,
-        borderRadius: 10,
-        borderColor: 'rgb(239,239,244)',
-        borderWidth: 1,
-        flex:1,
-        justifyContent:'center',
-        alignItems:'center',
-    },
-    price: {
-        marginBottom:8,
-        marginTop:4,
-        color: color.palette.black,
-        fontWeight: 'bold',
-        textAlign: 'center'
-    },
-    name: {
-        color: color.palette.black,
-        fontWeight: 'bold',
-        textAlign: 'center'
-    },
-    buttonbuy: {
-        borderWidth:1,
-        width:92,
-        height:24,
-        textAlign: 'center',
-        borderRadius: 10,
-        borderColor: color.palette.buttonbuy,
-        color: color.palette.buttonbuy,
-        marginLeft: 'auto',
-        marginRight: 'auto',
-        fontSize:13
-    },
-    scene:{
-        flex:1
-    },
-    container:{
-        flex:1,
-        marginVertical:8,
-        marginLeft:16
-    }
+  //HEADER
+  headerContainer: {
+    marginHorizontal: spacing[4],
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+  },
+  leftSideHeaderContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  rightSideHeaderContainer: { flexDirection: "row", alignItems: "center" },
+  //bagetCart
+  badgetCartContainer: {
+    position: "absolute",
+    top: -8,
+    right: -8,
+    backgroundColor: color.palette.angry,
+    width: 18,
+    height: 18,
+    borderRadius: 20,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  badgetCartText: { color: color.palette.white, fontSize: 11 },
+  //SEARCH BAR
+  searchBarContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  searchBoxInputContainer: {
+    fontSize: fontSize[3],
+    color: color.palette.black,
+    backgroundColor: color.palette.gray240,
+    marginHorizontal: spacing[4],
+    lineHeight: 17,
+    flex: 1,
+    flexDirection: "row",
+    alignItems: "center",
+    borderRadius: spacing[2],
+    paddingHorizontal: spacing[1],
+  },
+  searchBoxInput: {
+    fontSize: fontSize[3],
+    color: color.palette.black,
+    backgroundColor: color.palette.gray240,
+    marginHorizontal: spacing[1],
+    lineHeight: 17,
+    paddingBottom: spacing[1],
+    paddingTop: spacing[2],
+    flex: 1,
+  },
+
+  //CATAGORY
+  catagoryTabContainer: {},
+  catagoryTabItemTitle: { marginRight: spacing[4], paddingVertical: spacing[3] },
+  titleSelected: { borderBottomColor: color.palette.main, borderBottomWidth: 2 },
+  titleTextSelected: { fontWeight: "bold" },
+  // PRODUCT
+  productList: {},
 })

@@ -7,5 +7,7 @@ export default function reducer(state = initStore, action) {
     case "INCREMENT":
       const count = state.count + action.payload
       return { ...state, count }
+    default:
+      return state
   }
 }

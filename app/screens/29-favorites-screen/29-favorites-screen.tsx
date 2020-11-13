@@ -116,7 +116,9 @@ export const FavoritesScreen = observer(function FavoritesScreen() {
             <FavoriteRenderItem
               favProduct={item}
               index={index}
-              onPressItem={() => console.log(item)}
+              onPressItem={() =>
+                navigation.navigate(screens.ProductDetailScreen, { product: item })
+              }
             />
           )}
         />

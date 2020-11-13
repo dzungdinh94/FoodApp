@@ -1,9 +1,6 @@
 import React from "react"
-
 import { Text } from ".."
-
 // import { useStores } from "../../models"
-
 import { View } from "react-native"
 
 import FavoriteToogle from "../FavoriteToogle/FavoriteToogle"
@@ -45,4 +42,5 @@ const FavoriteRenderItem = ({ onPressItem, favProduct, index }) => {
     </View>
   )
 }
+
 export default FavoriteRenderItem

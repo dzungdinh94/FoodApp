@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react"
 import { observer } from "mobx-react-lite"
 import { View, ViewStyle } from "react-native"
 import { Screen, Text } from "../../components"
-import { useNavigation } from "@react-navigation/native"
+import { NavigationContainer, useNavigation } from "@react-navigation/native"
 // import { useStores } from "../../models"
 import { color, spacing } from "../../theme"
 import { Icon, Image } from "react-native-elements"
@@ -18,6 +18,7 @@ const ROOT: ViewStyle = {
 }
 
 const CatagoryItemRender = ({ title, total, image, cartId }) => {
+  const navigation = useNavigation()
   return (
     <View
       style={{
@@ -75,6 +76,9 @@ const CatagoryItemRender = ({ title, total, image, cartId }) => {
           name="navigate-next"
           type="material"
           size={26}
+          onPress={() => {
+            navigation.navigate(screens.Browse03Screen, { cartId: cartId })
+          }}
           color={color.palette.gray200}
           style={{ paddingRight: spacing[2] }}
         />

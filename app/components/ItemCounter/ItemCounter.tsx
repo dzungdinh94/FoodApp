@@ -1,11 +1,28 @@
 import React, { useState } from "react"
 import { View, Text, TouchableOpacity } from "react-native"
 import { Icon } from "react-native-elements"
+import { useDispatch } from "react-redux"
 
 //Styles Import
 import { color, spacing } from "../../theme"
+import { remove } from "../../utils/storage"
+//
 //Main Function
-const ItemCounter = ({ onClickAdd, onClickRemove, startValue }) => {
+const ItemCounter = ({ product, onClickAdd, onClickRemove, startValue }) => {
+  //Redux
+  const dispatch = useDispatch()
+  const addItemToCart = (product) => {
+    dispatch({
+      type: "ADD_PRODUCT_TO_CART",
+      payload: product,
+    })
+  }
+  const removeItemFromCart = (product) => {
+    dispatch({
+      type: "REMOVE_PRODUCT_FROM_CART",
+      payload: product,
+    })
+  }
   let startValueTemp = startValue ? startValue : 0
   const [count, setCount] = useState(startValueTemp)
   //MAIN RENDER
@@ -28,6 +45,7 @@ const ItemCounter = ({ onClickAdd, onClickRemove, startValue }) => {
           onPress={() => {
             setCount(1)
             onClickAdd()
+            addItemToCart(product)
           }}
         >
           <Text style={{ color: color.palette.main, fontSize: 13 }}>Thêm vào giỏ</Text>
@@ -40,6 +58,7 @@ const ItemCounter = ({ onClickAdd, onClickRemove, startValue }) => {
             onPress={() => {
               setCount(count - 1 < 0 ? 0 : count - 1)
               onClickRemove()
+              removeItemFromCart(product)
             }}
           >
             <Icon
@@ -60,7 +79,7 @@ const ItemCounter = ({ onClickAdd, onClickRemove, startValue }) => {
           <Text>{count}</Text>
           <TouchableOpacity
             onPress={() => {
-              setCount(count + 1), onClickAdd()
+              setCount(count + 1), onClickAdd(), addItemToCart(product)
             }}
           >
             <Icon
@@ -77,5 +96,6 @@ const ItemCounter = ({ onClickAdd, onClickRemove, startValue }) => {
     </View>
   )
 }
-
+//props
+const mapStateToProps = () => {}
 export default ItemCounter

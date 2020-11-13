@@ -8,7 +8,6 @@ import { color, spacing } from "../../theme"
 import { View } from "react-native"
 import { Icon, Image } from "react-native-elements"
 import LinearGradient from "react-native-linear-gradient"
-import SimpleImage from "../../components/simpleImage"
 import Logo from "../../components/logo"
 import { ScrollView } from "react-native"
 
@@ -18,7 +17,7 @@ import screens from "../../navigation/screens"
 import ItemCounter from "../../components/ItemCounter/ItemCounter"
 import SpecialRenderItem from "../../components/SpecialRenderItem/SpecialRenderItem"
 import SearchControlPanel from "../../components/SearchControlPanel/SearchControlPanel"
-
+//firebase
 import auth from "@react-native-firebase/auth"
 import firestore from "@react-native-firebase/firestore"
 import { getAllDataFromCollection } from "../../firebase/firestoreFunction"
@@ -29,6 +28,9 @@ import {
   PRODUCTS_COLLECTION,
 } from "../../firebase/firestore"
 import { Unduplicated } from "../../utils/storage"
+
+//redux
+import { connect, useDispatch } from "react-redux"
 
 const ROOT: ViewStyle = {
   backgroundColor: color.palette.white,
@@ -133,6 +135,7 @@ const SearchRenderItem = ({ product, navigateTo, counterClick }) => {
         </View>
         {/* Counter Indicator */}
         <ItemCounter
+          product={product}
           onClickAdd={() => counterClick(1)}
           onClickRemove={() => counterClick(-1)}
           startValue={0}
@@ -194,7 +197,7 @@ const ListFood = ({ title, renderItem, marginHorizontal, navigateTo }) => {
   )
 }
 
-export const Browse02Screen = observer(function Browse02Screen() {
+const Browse02Screen = ({ cartData }) => {
   const [userId, setUserId] = React.useState("")
   const [catagoriesData, setCatagoriesData] = React.useState([])
   const [specialData, setSpecialData] = React.useState([])
@@ -321,6 +324,14 @@ export const Browse02Screen = observer(function Browse02Screen() {
   function isCloseToBottom({ layoutMeasurement, contentOffset, contentSize }) {
     return layoutMeasurement.height + contentOffset.y >= contentSize.height - 20
   }
+  //For test
+  const CountTotalItemInCartData = () => {
+    let total = 0
+    cartData.map((item) => (total += item.quantity))
+    return total
+  }
+  console.log("cartData =", CountTotalItemInCartData())
+  //MAIN RENDER
   return (
     <ScrollView
       style={ROOT}
@@ -356,7 +367,7 @@ export const Browse02Screen = observer(function Browse02Screen() {
               />
               {/* Badge shopping cart */}
               <View style={styles.badgetCartContainer}>
-                <Text style={styles.badgetCartText}>{numberItemsInCart}</Text>
+                <Text style={styles.badgetCartText}>{CountTotalItemInCartData()}</Text>
               </View>
             </View>
           </View>
@@ -428,22 +439,6 @@ export const Browse02Screen = observer(function Browse02Screen() {
       <View style={{ marginHorizontal: spacing[4], marginVertical: spacing[4] }}>
         <SearchControlPanel />
         {/* Search Item */}
-        {/* <FlatList
-          horizontal={true}
-          keyExtractor={(item) => item.productId}
-          data={searchItemData}
-          renderItem={() => (
-            <SearchRenderItem
-              navigateTo={() => navigation.navigate(screens.ProductDetailScreen)}
-              counterClick={(value: number) => setNumberItemInCart(numberItemsInCart + value)}
-            />
-          )}
-          onEndReachedThreshold={1}
-          onEndReached={() => {
-            console.log("End Reached")
-            SearchEndReachTrigger()
-          }}
-        /> */}
         {searchItemData.map((item) => {
           return (
             <SearchRenderItem
@@ -457,4 +452,11 @@ export const Browse02Screen = observer(function Browse02Screen() {
       </View>
     </ScrollView>
   )
+}
+
+//props
+const mapStateToProps = (state) => ({
+  cartData: state.cart,
 })
+
+export default connect(mapStateToProps, null)(Browse02Screen)

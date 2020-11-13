@@ -79,9 +79,9 @@ export const CheckoutScreen = ({ route, navigation }) => {
         {checkOutData.cartData.map((item, index) => (
           <View key={index} style={styles.infoRowDetailsContainer}>
             <Text style={styles.infoMoreDetails}>
-              {item.name} X {item.quantity}
+              {item.product.name} X {item.quantity}
             </Text>
-            <Text style={styles.infoMoreDetails}>{item.quantity * item.price} K</Text>
+            <Text style={styles.infoMoreDetails}>{item.quantity * item.product.price} K</Text>
           </View>
         ))}
         <View style={styles.infoRowDetailsContainer}>

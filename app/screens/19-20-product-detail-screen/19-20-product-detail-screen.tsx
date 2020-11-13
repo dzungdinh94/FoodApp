@@ -1,6 +1,6 @@
 import React, { useEffect } from "react"
 import { observer } from "mobx-react-lite"
-import { View, ViewStyle } from "react-native"
+import { Alert, View, ViewStyle } from "react-native"
 import { Button, Screen, Text } from "../../components"
 import { useNavigation } from "@react-navigation/native"
 // import { useStores } from "../../models"
@@ -15,6 +15,10 @@ import FlipCard from "react-native-flip-card"
 import RadioInput from "../../components/RadioInput"
 import FavoriteRenderItem from "../../components/FavoriteRenderItem/FavoriteRenderItem"
 import DetailsScreenCarousel from "../../components/DetailsScreenCarousel/DetailsScreenCarousel"
+
+//redux
+import { connect, useDispatch } from "react-redux"
+
 const ROOT: ViewStyle = {
   backgroundColor: color.palette.white,
   flex: 1,
@@ -60,6 +64,14 @@ export const ProductDetailScreen = observer(function ProductDetailScreen({ route
   }, [])
 
   const navigation = useNavigation()
+  //Redux
+  const dispatch = useDispatch()
+  const addItemToCart = (product) => {
+    dispatch({
+      type: "ADD_PRODUCT_TO_CART",
+      payload: product,
+    })
+  }
   return (
     <ScrollView style={ROOT}>
       {/* Navigation Bar*/}
@@ -151,7 +163,10 @@ export const ProductDetailScreen = observer(function ProductDetailScreen({ route
       {/* Add To Cart Button */}
       <Button
         text="Thêm vào giỏ"
-        onPress={() => navigation.navigate(screens.ShoppingCartScreen)}
+        onPress={() => {
+          addItemToCart(item.product)
+          Alert.alert("Thông báo", "Thêm vào giỏ thành công")
+        }}
         style={styles.button}
         textStyle={styles.buttonContent}
       />

@@ -61,6 +61,25 @@ const styles = StyleSheet.create({
     color: "rgb(100,100,100)",
     fontWeight: "normal",
   },
+
+  couponInputContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    backgroundColor: color.palette.gray250,
+    borderRadius: spacing[3],
+    paddingLeft: spacing[4],
+    marginRight: spacing[4],
+    marginTop: spacing[4],
+  },
+
+  deliveryContainer: {
+    paddingRight: spacing[4],
+    marginTop: spacing[4],
+    borderBottomWidth: 1,
+    borderColor: color.palette.gray230,
+    paddingBottom: spacing[2],
+  },
 })
 
 export default styles

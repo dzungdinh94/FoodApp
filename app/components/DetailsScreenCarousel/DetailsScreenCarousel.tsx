@@ -18,10 +18,7 @@ import { async } from "validate.js"
 
 const DetailsScreenCarousel = ({ product, isLike }) => {
   const fixHeightImage = 396
-  const [isLikeState, setIsLikeState] = React.useState(isLike)
   const { image, productId } = product
-
-  console.log(isLikeState, "Detail Screen Carousel")
   return (
     <View>
       <TouchableOpacity>
@@ -35,9 +32,8 @@ const DetailsScreenCarousel = ({ product, isLike }) => {
       </TouchableOpacity>
       {/* FavortiteToggle */}
       <View style={{ position: "absolute", right: spacing[2], top: spacing[2] }}>
-        {!isLikeState ? null : (
-          <FavoriteToogle size={15} productId={productId} isLike={isLikeState} />
-        )}
+        {!isLike ? null : <FavoriteToogle size={15} productId={productId} isLike={isLike} />}
+        {isLike ? null : <FavoriteToogle size={15} productId={productId} isLike={isLike} />}
       </View>
     </View>
   )
