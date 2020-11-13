@@ -1,4 +1,4 @@
-import React, {useState} from "react"
+import React, {useState, useEffect } from "react"
 import { observer } from "mobx-react-lite"
 import { ViewStyle } from "react-native"
 import { Button, Screen, Text,AuthInput} from "../../components"
@@ -13,12 +13,26 @@ import { TextInput } from "react-native-gesture-handler"
 import { TouchableOpacity } from "react-native"
 import AvatarInput from "../../components/AvatarInput"
 import auth from '@react-native-firebase/auth';
+import firestore from '@react-native-firebase/firestore';
 
 const ROOT: ViewStyle = {
   backgroundColor: color.palette.white,
   paddingHorizontal: 32,
 }
 
+function User({ userId }) {
+  useEffect(() => {
+    const subscriber = firestore()
+      .collection('Users')
+      .doc(userId)
+      .onSnapshot(documentSnapshot => {
+        console.log('User data: ', documentSnapshot.data());
+      });
+
+    // Stop listening for updates when no longer required
+    return () => subscriber();
+  }, [userId]);
+}
 // const styles = StyleSheet.create({
 //   ChaoMungTroLai: {
 //     fontSize: 40,

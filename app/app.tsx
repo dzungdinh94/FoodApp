@@ -31,7 +31,7 @@ import { enableScreens } from "react-native-screens"
 import { RootContainer } from "./root-container"
 import AsyncStorage from "@react-native-community/async-storage"
 enableScreens()
-
+import {Provider} from 'react-redux'
 export const NAVIGATION_PERSISTENCE_KEY = "NAVIGATION_STATE"
 const appName = "FOODAPP" //My addition code [dinhhoan]
 const version = "1.0" //My addition code [dinhhoan]

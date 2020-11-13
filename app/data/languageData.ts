@@ -5,7 +5,7 @@ const languageData = [
   {id: 4, title: 'Tiếng Ấn Độ', selected: false},
   {id: 5, title: 'Tiếng Nga', selected: false},
   {id: 6, title: 'Tiếng Ả Rập', selected: false},
-  {id: 7, title: 'Tiếng Tây an Nha', selected: false},
+  {id: 7, title: 'Tiếng Tây Ban Nha', selected: false},
 ];
 
 export default languageData;
