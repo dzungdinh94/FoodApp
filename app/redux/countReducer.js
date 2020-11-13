@@ -10,12 +10,6 @@ export default function reducer(state = initStore,action){
                 ...state,
                 count_incre,
             };
-            // case "DECREMENT":
-            //     const count_decre = state.count - action.payload
-            //     return {
-            //         ...state,
-            //         count_decre
-            //     };
            
             default: return state;
 
