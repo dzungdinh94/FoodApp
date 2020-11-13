@@ -1,18 +1,28 @@
-import React from "react"
+import React, { useState } from "react"
 import { observer } from "mobx-react-lite"
-import { ViewStyle, View, TouchableOpacity, ScrollView, Image, FlatList } from "react-native"
-import { Icon } from 'react-native-elements'
-import { Screen, Text } from "../../components"
-import { color } from "../../theme"
-import style from "./style"
-import LikeHeart from '../../components/likeheart'
-import ImageBullet from '../../components/image-bullet'
-import Cover from '../../components/cover'
+import { ViewStyle } from "react-native"
+import { Text } from "../../components"
 import { useNavigation } from "@react-navigation/native"
-import { ListItem, SpecialList } from "../data/data"
+// import { useStores } from "../../models"
+import { color, spacing } from "../../theme"
+import { View } from "react-native"
+import { Icon } from "react-native-elements"
+import LinearGradient from "react-native-linear-gradient"
+import SimpleImage from "../../components/simpleImage"
+import Logo from "../../components/logo"
+import { ScrollView } from "react-native"
+
+import styles from "./style"
+import { TouchableOpacity } from "react-native-gesture-handler"
+import screens from "../../navigation/screens"
+import ItemCounter from "../../components/ItemCounter/ItemCounter"
+import SpecialRenderItem from "../../components/SpecialRenderItem/SpecialRenderItem"
+import SearchControlPanel from "../../components/SearchControlPanel/SearchControlPanel"
+import firestore from '@react-native-firebase/firestore'
+
 const ROOT: ViewStyle = {
-  backgroundColor: color.palette.background,
-  flex: 1
+  backgroundColor: color.palette.white,
+  flex: 1,
 }
 
 const GRADIENT_VALUE = [
@@ -22,7 +32,7 @@ const GRADIENT_VALUE = [
   "rgba(0,0,0,1)",
 ]
 //RenderItem
-const CategoriesRenderItem = () => {
+const CategoriesRenderItem = ({ title, price }) => {
   return (
     <LinearGradient
       colors={[color.palette.gray200, color.palette.gray200, color.palette.black]}
@@ -35,14 +45,14 @@ const CategoriesRenderItem = () => {
     >
       <SimpleImage width={138} height={188} />
       <View style={{ position: "absolute", bottom: 14, left: spacing[4] }}>
-        <Text style={{ color: "white", fontSize: 17, fontWeight: "bold" }}>Trái cây</Text>
-        <Text style={{ color: "white", fontSize: 11, marginTop: spacing[1] }}>Giá từ 5.000đ</Text>
+        <Text style={{ color: "white", fontSize: 17, fontWeight: "bold" }}>{title}</Text>
+        <Text style={{ color: "white", fontSize: 11, marginTop: spacing[1] }}>Giá từ {price} đ</Text>
       </View>
     </LinearGradient>
   )
 }
 
-const SearchRenderItem = ({ navigateTo, counterClick }) => {
+const SearchRenderItem = ({ navigateTo, counterClick, type, title, price }) => {
   return (
     <View
       style={{
@@ -82,7 +92,7 @@ const SearchRenderItem = ({ navigateTo, counterClick }) => {
       >
         {/* Details */}
         <View>
-          <Text style={{ color: color.palette.lightGrey, fontSize: 13, lineHeight: 18 }}>Rau</Text>
+          <Text style={{ color: color.palette.lightGrey, fontSize: 13, lineHeight: 18 }}>{type}</Text>
           <Text
             style={{
               color: "black",
@@ -91,19 +101,23 @@ const SearchRenderItem = ({ navigateTo, counterClick }) => {
               fontWeight: "bold",
             }}
           >
-            Mù tạt xanh
+            {title}
           </Text>
-          <Text
-            style={{
+          {(price < 1000)? <Text style={{
               color: color.palette.lightGrey,
               fontSize: 13,
               lineHeight: 18,
               marginTop: spacing[1],
-            }}
-          >
-            5.000đ
-          </Text>
+            }}>{price} triệu</Text> : 
+        <Text style={{
+          color: color.palette.lightGrey,
+          fontSize: 13,
+          lineHeight: 18,
+          marginTop: spacing[1],
+        }}>{price} đ</Text>
+        }
         </View>
+
         {/* Counter Indicator */}
         <ItemCounter
           onClickAdd={() => counterClick(1)}
@@ -154,139 +168,148 @@ const ListFood = ({ title, renderItem, marginHorizontal, navigateTo }) => {
       </TouchableOpacity>
       {/* List Item */}
       <ScrollView
-        horizontal
-        showsHorizontalScrollIndicator={false}
+        // horizontal
+        // showsHorizontalScrollIndicator={false}
+        horizontal={true}
         style={{ paddingLeft: marginHorizontal === null ? 0 : marginHorizontal }}
       >
+        <TouchableOpacity style={{ flexDirection: "row" }} onPress={navigateTo}>{renderItem()}</TouchableOpacity>
+        {/* <TouchableOpacity onPress={navigateTo}>{renderItem()}</TouchableOpacity>
         <TouchableOpacity onPress={navigateTo}>{renderItem()}</TouchableOpacity>
-        <TouchableOpacity onPress={navigateTo}>{renderItem()}</TouchableOpacity>
-        <TouchableOpacity onPress={navigateTo}>{renderItem()}</TouchableOpacity>
-        <TouchableOpacity onPress={navigateTo}>{renderItem()}</TouchableOpacity>
+        <TouchableOpacity onPress={navigateTo}>{renderItem()}</TouchableOpacity>  */}
       </ScrollView>
     </View>
   )
 }
 
 export const Browse02Screen = observer(function Browse02Screen() {
+  // Pull in one of our MST stores
+  // const { someStore, anotherStore } = useStores()
+  // OR
+  // const rootStore = useStores()
+
+  // Pull in navigation via hook
   const navigation = useNavigation()
-  
-  const renderSpecialList = ({ item, index }) => {
-    return (
-      <View>
-          
-          <Image source={require('../../image/header.png')} style={style.Image} />
-          <LikeHeart/>
-       
-        <View style={style.title}>
-          <Text style={style.textgray} text={item.title} />
-          <Text style={style.textblack} text={item.item} />
-          <Text style={style.textgray} text={item.price} />
-        </View>
-      </View>
-    )
+  const [CategoryItem, setCate] = useState([])
+  const [Value,setValue] = useState([])
+  const Category = async () => {
+    const result = []
+    const getData = await firestore().collection('category').get()
+    for (let data of getData.docs) {
+      result.push(data.data())
+      result.sort((a, b) => a.id - b.id)
+    }
+    //  console.log(result)
+    setCate(result)
   }
-  const renderListItem = ({ item, index }) => {
-    return (
-      <View style={style.listitem}>
-        <View style={style.buy}>
-          <Image source={require('../../image/header.png')} style={style.buyitem} />
-          <View style={{flex:1, flexDirection:'row'}}>
-          <View style={style.titlebuy}>
-            <Text style={style.textgray} text={item.title} />
-            <Text style={style.textblack} text={item.item} />
-            <Text style={style.textgray} text={item.price} />
-          </View>
-          <TouchableOpacity style={{flex:1,justifyContent:'flex-end',alignItems:'flex-end'}}>
-            <Text style={style.buttonbuy} text="Thêm vào giỏ" />
-          </TouchableOpacity>            
-          </View>
-
-        </View>
-      </View>
-
-    )
+  const [speclist, setlist] = useState([])
+  const SpecialList = async () => {
+    const list = []
+    const get = await firestore().collection('product').get()
+    for (let item of get.docs) {
+      list.push(item.data())
+      // list.sort((a, b) => a.id - b.id)
+    }
+    // console.log(list)
+   
+    setlist(list)
   }
+  React.useEffect(() => { Category() }, [])
+  React.useEffect(() => { SpecialList() }, [])
+  const [numberItemsInCart, setNumberItemInCart] = React.useState(0)
   return (
-    <Screen style={ROOT} preset="scroll">
-      <ScrollView>
-        <Cover />
-
-        <View>
-          <View style={style.textHead}>
-            <Text style={style.item}>Danh mục</Text>
-            <TouchableOpacity style={style.titleHead}>
-              <Text style={style.textRight} onPress={() => { navigation.navigate('Categories02Screen') }}>Tất cả</Text>
-
-              <Icon name='navigate-next' type='MaterialIcons' color='gray' />
-            </TouchableOpacity>
-
+    <ScrollView style={ROOT}>
+      {/* Section Header */}
+      <LinearGradient colors={GRADIENT_VALUE} style={{ width: "100%" }}>
+        {/* Header */}
+        <View style={styles.headerContainer}>
+          {/* Logo */}
+          <View style={{ zIndex: -1 }}>
+            <Logo width={131} height={71} />
           </View>
-          <ScrollView horizontal={true}>
-            <View>
-              <ImageBullet />
-              <View style={style.bullettext}>
-                <Text style={style.textbullet} text="Trái cây" />
-                <Text style={style.textwhite} text="Giá từ 5.000đ" />
+          {/* Group Icon */}
+          <View style={styles.groupIconContainer}>
+            <Icon
+              name="search"
+              type="ionicon"
+              color="white"
+              onPress={() => navigation.navigate(screens.Browse03Screen)}
+            />
+            <View style={{ paddingLeft: spacing[4] }}>
+              <Icon
+                name="shopping-cart"
+                type="feather"
+                size={22}
+                color="white"
+                onPress={() => navigation.navigate(screens.ShoppingCartScreen)}
+              />
+              {/* Badge shopping cart */}
+              <View style={styles.badgetCartContainer}>
+                <Text style={styles.badgetCartText}>{numberItemsInCart}</Text>
               </View>
             </View>
-            <View>
-              <ImageBullet />
-              <View style={style.bullettext}>
-                <Text style={style.textbullet} text="Rau" />
-                <Text style={style.textwhite} text="Giá từ 3.000đ" />
-              </View>
+          </View>
+        </View>
+        {/* Header Image */}
+        <View style={{ height: 328 }}>
+          <View style={styles.carouselContentContainer}>
+            <View style={styles.carouselBadgeContainer}>
+              <Text style={styles.carouselBadgeContent}>1/5</Text>
             </View>
-            <View>
-              <ImageBullet />
-              <View style={style.bullettext}>
-                <Text style={style.textbullet} text="Bánh" />
-                <Text style={style.textwhite} text="Giá từ 5.000đ" />
-              </View>
-            </View>
-          </ScrollView>
+            <Text style={styles.carouselContentTypeOfFood}>Trái cây & Rau</Text>
+            <Text style={styles.carouselContentTitle}>
+              Được sản xuất từ các trang trại theo quy trình an toàn
+            </Text>
+            <Text style={styles.carouselContentBuyNow}>Mua ngay</Text>
+          </View>
         </View>
+      </LinearGradient>
+      {/* Section List */}
+      <ListFood
+        title="Danh Mục"
+        renderItem={() => CategoryItem.map((value) => {
+          const { id, name, price } = value
+          return <CategoriesRenderItem key={id} title={name} price={price} />
+        })}
+        marginHorizontal={16}
+        navigateTo={() => navigation.navigate(screens.Categories01Screen)}
+      />
+      {/* Section Special */}
+      <ListFood
+        title="Đặc Biệt"
+        renderItem={() => speclist.map((val) => {
+          const { id, name, price, categoryID } = val
+          for (let item of CategoryItem) {
+            if (item.id === categoryID) {
+              return <SpecialRenderItem key={id} type={item.name} title={name} price={price} />
+            }
+          }
+
+        })
+
+        }
+        marginHorizontal={16}
+        // navigateTo={() => navigation.navigate(screens.ProductDetailScreen)}
+      />
+      {/* Section Search */}
+      <View style={{ marginHorizontal: spacing[4], marginVertical: spacing[4] }}>
+        <SearchControlPanel/>
+        {/* Search Item */}
         <View>
-          <View style={style.textHead}>
-            <Text style={style.item}>Đặc biệt</Text>
-            <TouchableOpacity style={style.titleHead}>
-              <Text style={{ color: 'gray' }}>Tất cả</Text>
-              <Icon name='navigate-next' type='MaterialIcons' color='gray' />
-            </TouchableOpacity>
+          {speclist.map((vals) => {
+            const { id, name, price, categoryID } = vals
+            for (let x of CategoryItem) {
+              if (x.id === categoryID)
+                return <SearchRenderItem
+                  navigateTo={() => navigation.navigate(screens.ProductDetailScreen)}
+                  counterClick={(value: number) => setNumberItemInCart(numberItemsInCart + value)}
+                  key={id} type={x.name} title={name} price={price}
+                />
+            }
+          })}
 
-          </View>
-          <FlatList
-            horizontal={true}
-            data={SpecialList}
-            renderItem={renderSpecialList}
-          />
         </View>
-        {/* last item 2 */}
-
-        <View>
-          <View style={style.controlbar}>
-            <TouchableOpacity style={{ display: 'flex', flexDirection: 'row' }}>
-              <Text style={style.controlitem}>Bán chạy</Text>
-              <Icon name='down' type='antdesign' color='gray' size={10} marginLeft={20} marginTop={15} />
-            </TouchableOpacity>
-            <TouchableOpacity style={{ display: 'flex', flexDirection: 'row' }}>
-              <Icon name='sort' type='font-awesome' color='gray' size={12} marginRight={10} marginTop={15} />
-              <Text style={style.controlitem}>Sắp xếp</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={{ display: 'flex', flexDirection: 'row' }}>
-              <Text style={style.controlitem}>Lọc</Text>
-              <Icon name='filter' type='fontisto' color='gray' size={10} marginLeft={20} marginTop={15} />
-            </TouchableOpacity>
-          </View>
-          <View>
-          </View>
-          <FlatList
-            data={ListItem}
-            renderItem={renderListItem}
-          />
-        </View>
-        {/* last item 2.2 */}
-
-      </ScrollView>
-    </Screen>
+      </View>
+    </ScrollView>
   )
 })

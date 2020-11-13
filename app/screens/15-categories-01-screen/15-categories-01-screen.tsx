@@ -8,24 +8,15 @@ import { color, spacing } from "../../theme"
 import { Icon } from "react-native-elements"
 import SimpleImage from "../../components/simpleImage/simple-image"
 import { ScrollView, TouchableOpacity } from "react-native-gesture-handler"
-import screens from "../../navigation/screens"
 import styles from "./styles"
+import firestore from '@react-native-firebase/firestore'
 
 const ROOT: ViewStyle = {
   backgroundColor: color.palette.white,
   flex: 1,
 }
 
-const CatagoriesData = [
-  { title: "Trái cây", total: "746" },
-  { title: "Rau", total: "926" },
-  { title: "Bánh kẹo", total: "4385" },
-  { title: "Thịt", total: "268" },
-  { title: "Sữa", total: "926" },
-  { title: "Đồ uống", total: "9237" },
-  { title: "Chăm sóc cá nhân", total: "583" },
-  { title: "Hàng ngày", total: "583" },
-]
+
 const RenderItem3 = ({ title, total }) => {
   return (
     <View
@@ -91,13 +82,26 @@ const RenderItem3 = ({ title, total }) => {
   )
 }
 
+
 export const Categories01Screen = observer(function Categories01Screen() {
+  const [catagoriesData, SetCatagoriesData] = React.useState([])
   // Pull in one of our MST stores
   // const { someStore, anotherStore } = useStores()
   // OR
   // const rootStore = useStores()
 
   // Pull in navigation via hook
+  const getDataCategory = async () => {
+    let result = []
+    let getData = await firestore().collection('category').get()
+    for (let data of getData.docs) {
+      result.push(data.data())
+      result.sort((a,b)=>a.id-b.id)
+    }
+    console.log(result)
+    SetCatagoriesData(result)
+  }
+  React.useEffect(() => { getDataCategory() }, [])
   const navigation = useNavigation()
   return (
     <ScrollView style={ROOT}>
@@ -114,9 +118,9 @@ export const Categories01Screen = observer(function Categories01Screen() {
         <Text style={styles.headerText}>Danh mục</Text>
         {/* List Item */}
         <View style={{ flex: 1 }}>
-          {CatagoriesData.map((value) => {
-            const { title, total } = value
-            return <RenderItem3 key={title} title={title} total={total} />
+          {catagoriesData.map((value) => {
+            const { name, total,id } = value
+            return <RenderItem3 key={id} title={name} total={total} />
           })}
         </View>
       </View>

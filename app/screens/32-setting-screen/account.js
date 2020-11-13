@@ -11,7 +11,7 @@ const account = (props) => {
             </View>
             <Text style={[styles.text,styles.borderBottom,{marginRight:'auto'}]}>{props.accattr}</Text>
             <Icon name='arrow-forward-ios' type='material' iconStyle={styles.arrowIcon} />
-
+            
         </View>
     )
 }

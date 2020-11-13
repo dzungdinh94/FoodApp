@@ -42,9 +42,21 @@ export const SignUpScreen = observer(function SignUpScreen() {
           setPwd(text)
     }
     const [isLoaded, isLoading] = useState(false)
+    const validateEmail = (email) => {
+      const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+      return re.test(String(email).toLowerCase());
+    }
+    const validatePassword = (password) => {
+      const newPassword = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/;
+      return newPassword.test(password);
+    }
+    const validateUserName = (username) => {
+      const nameRegex = /^[a-zA-Z\-]+$/
+      return nameRegex.test(username)
+    }
     const registerUser = async () => {
-      if(password === '' && email === ''){
-        Alert.alert('Bạn chưa nhập Email hoặc mật khẩu')
+      if(userName ==='' && password === '' && email === ''){
+        Alert.alert('Bạn chưa nhập email/tên hoặc mật khẩu')
       }
       else{
          isLoading(true)
@@ -55,11 +67,12 @@ export const SignUpScreen = observer(function SignUpScreen() {
            })
           //  Alert.alert('User registered successfully !')
           const uid = await auth().currentUser.uid;
-          const save = await firestore().collection('user').doc(uid).set({
+          const save = await firestore().collection('user').doc(id).set({
           name: userName,
           email: email,
           // phoneNumber: phoneNumber,
-         });  
+         });
+        //  await auth().currentUser.sendEmailVerification();
          Alert.alert('Đăng kí thành công')
          navigation.navigate('SignInScreen')
          }catch(error){

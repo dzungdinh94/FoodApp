@@ -15,6 +15,8 @@ import React, { useState, useEffect, useRef } from "react"
 import { NavigationContainerRef } from "@react-navigation/native"
 import { SafeAreaProvider, initialWindowSafeAreaInsets } from "react-native-safe-area-context"
 import * as storage from "./utils/storage"
+import {Provider} from 'react-redux'
+import store from './redux/createStore.js'
 import {
   useBackButtonHandler,
   RootNavigator,
@@ -107,12 +109,12 @@ function App() {
 
   // otherwise, we're ready to render the app
   return (
-    <RootStoreProvider value={rootStore}>
+    <Provider store={store}>
       <SafeAreaProvider initialSafeAreaInsets={initialWindowSafeAreaInsets}>
         <RootContainer />
       </SafeAreaProvider>
-    </RootStoreProvider>
+    </Provider>
   )
 }
-
+  
 export default App

@@ -22,6 +22,9 @@ export const SettingScreen = observer(function SettingScreen() {
     navigation.navigate('AccountScreen')
     
   }
+  const onBtnClick =() =>{
+    console.log('hey')
+  }
   // Pull in one of our MST stores
   // const { someStore, anotherStore } = useStores()
   // OR
@@ -41,7 +44,7 @@ export const SettingScreen = observer(function SettingScreen() {
         <Account accattr="Đổi mật khẩu" name='lock' type=''/>
         <Account accattr="Thông báo" name='bell' type='font-awesome' />
         <Account accattr="Điều khoản" name='hand-right' type='ionicon'/>
-        <Account accattr="Đăng xuất" name='log-out' type='entypo' />
+        <Account accattr="Đăng xuất" name='log-out' type='entypo' onPress={ onBtnClick }/>
       </View>
 
       <View>
