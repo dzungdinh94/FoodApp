@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useEffect } from "react"
 import { observer } from "mobx-react-lite"
 import { ViewStyle } from "react-native"
 import { Text } from "../../components"
@@ -6,19 +6,31 @@ import { useNavigation } from "@react-navigation/native"
 // import { useStores } from "../../models"
 import { color, spacing } from "../../theme"
 import { View } from "react-native"
-import { Icon } from "react-native-elements"
+import { Icon, Image } from "react-native-elements"
 import LinearGradient from "react-native-linear-gradient"
-import SimpleImage from "../../components/simpleImage"
 import Logo from "../../components/logo"
 import { ScrollView } from "react-native"
 
 import styles from "./style"
-import { TouchableOpacity } from "react-native-gesture-handler"
+import { FlatList, TouchableOpacity } from "react-native-gesture-handler"
 import screens from "../../navigation/screens"
 import ItemCounter from "../../components/ItemCounter/ItemCounter"
 import SpecialRenderItem from "../../components/SpecialRenderItem/SpecialRenderItem"
 import SearchControlPanel from "../../components/SearchControlPanel/SearchControlPanel"
-import firestore from '@react-native-firebase/firestore'
+//firebase
+import auth from "@react-native-firebase/auth"
+import firestore from "@react-native-firebase/firestore"
+import { getAllDataFromCollection } from "../../firebase/firestoreFunction"
+import {
+  CATEGORIES_COLLECTION,
+  FAVORITES_COLLECTION,
+  getUserIdByEmail,
+  PRODUCTS_COLLECTION,
+} from "../../firebase/firestore"
+import { Unduplicated } from "../../utils/storage"
+
+//redux
+import { connect, useDispatch } from "react-redux"
 
 const ROOT: ViewStyle = {
   backgroundColor: color.palette.white,
@@ -32,27 +44,31 @@ const GRADIENT_VALUE = [
   "rgba(0,0,0,1)",
 ]
 //RenderItem
-const CategoriesRenderItem = ({ title, price }) => {
+const CategoriesRenderItem = ({ name, image }) => {
   return (
-    <LinearGradient
-      colors={[color.palette.gray200, color.palette.gray200, color.palette.black]}
-      style={{
-        width: 138,
-        height: 188,
-        borderRadius: 8,
-        marginRight: 15,
-      }}
-    >
-      <SimpleImage width={138} height={188} />
-      <View style={{ position: "absolute", bottom: 14, left: spacing[4] }}>
-        <Text style={{ color: "white", fontSize: 17, fontWeight: "bold" }}>{title}</Text>
-        <Text style={{ color: "white", fontSize: 11, marginTop: spacing[1] }}>Giá từ {price} đ</Text>
+    <View style={{ width: 138, height: 188, borderRadius: 8, marginRight: 15, overflow: "hidden" }}>
+      <LinearGradient
+        colors={GRADIENT_VALUE}
+        style={{
+          width: 138,
+          height: 188,
+          borderRadius: 8,
+          marginRight: 15,
+          position: "absolute",
+          zIndex: 1,
+        }}
+      ></LinearGradient>
+      <Image source={image} style={{ width: 138, height: 188, zIndex: 0 }} />
+      <View style={{ position: "absolute", bottom: 14, left: spacing[4], zIndex: 2 }}>
+        <Text style={{ color: "white", fontSize: 17, fontWeight: "bold" }}>{name}</Text>
+        <Text style={{ color: "white", fontSize: 11, marginTop: spacing[1] }}>Giá từ 5.000đ</Text>
       </View>
-    </LinearGradient>
+    </View>
   )
 }
 
-const SearchRenderItem = ({ navigateTo, counterClick, type, title, price }) => {
+const SearchRenderItem = ({ product, navigateTo, counterClick }) => {
+  const { name, price, cartName, image } = product
   return (
     <View
       style={{
@@ -72,9 +88,10 @@ const SearchRenderItem = ({ navigateTo, counterClick, type, title, price }) => {
             backgroundColor: "rgb(200,200,200)",
             borderRadius: 8,
             marginRight: 10,
+            overflow: "hidden",
           }}
         >
-          <SimpleImage width={80} height={80} />
+          <Image source={image} style={{ width: 80, height: 80, zIndex: 0 }} />
         </View>
       </TouchableOpacity>
       {/*Part2: Counter */}
@@ -92,7 +109,9 @@ const SearchRenderItem = ({ navigateTo, counterClick, type, title, price }) => {
       >
         {/* Details */}
         <View>
-          <Text style={{ color: color.palette.lightGrey, fontSize: 13, lineHeight: 18 }}>{type}</Text>
+          <Text style={{ color: color.palette.lightGrey, fontSize: 13, lineHeight: 18 }}>
+            {cartName}
+          </Text>
           <Text
             style={{
               color: "black",
@@ -101,25 +120,22 @@ const SearchRenderItem = ({ navigateTo, counterClick, type, title, price }) => {
               fontWeight: "bold",
             }}
           >
-            {title}
+            {name}
           </Text>
           {(price < 1000)? <Text style={{
               color: color.palette.lightGrey,
               fontSize: 13,
               lineHeight: 18,
               marginTop: spacing[1],
-            }}>{price} triệu</Text> : 
-        <Text style={{
-          color: color.palette.lightGrey,
-          fontSize: 13,
-          lineHeight: 18,
-          marginTop: spacing[1],
-        }}>{price} đ</Text>
-        }
+            }}
+          >
+            {price}.000đ
+          </Text>:null}
         </View>
 
         {/* Counter Indicator */}
         <ItemCounter
+          product={product}
           onClickAdd={() => counterClick(1)}
           onClickRemove={() => counterClick(-1)}
           startValue={0}
@@ -182,43 +198,150 @@ const ListFood = ({ title, renderItem, marginHorizontal, navigateTo }) => {
   )
 }
 
-export const Browse02Screen = observer(function Browse02Screen() {
-  // Pull in one of our MST stores
-  // const { someStore, anotherStore } = useStores()
-  // OR
-  // const rootStore = useStores()
-
-  // Pull in navigation via hook
-  const navigation = useNavigation()
-  const [CategoryItem, setCate] = useState([])
-  const [Value,setValue] = useState([])
-  const Category = async () => {
-    const result = []
-    const getData = await firestore().collection('category').get()
-    for (let data of getData.docs) {
-      result.push(data.data())
-      result.sort((a, b) => a.id - b.id)
-    }
-    //  console.log(result)
-    setCate(result)
-  }
-  const [speclist, setlist] = useState([])
-  const SpecialList = async () => {
-    const list = []
-    const get = await firestore().collection('Product').get()
-    for (let item of get.docs) {
-      list.push(item.data())
-      // list.sort((a, b) => a.id - b.id)
-    }
-    // console.log(list)
-   
-    setlist(list)
-  }
-  React.useEffect(() => { Category() }, [])
-  React.useEffect(() => { SpecialList() }, [])
+const Browse02Screen = ({ cartData }) => {
+  const [userId, setUserId] = React.useState("")
+  const [catagoriesData, setCatagoriesData] = React.useState([])
+  const [specialData, setSpecialData] = React.useState([])
+  const [searchItemData, setSearchItemData] = React.useState([])
   const [numberItemsInCart, setNumberItemInCart] = React.useState(0)
+  const [numberItemInSearch, setNumberItemInSearch] = React.useState(4)
+  //Navigation
+  const navigation = useNavigation()
+  //Get Api
+  async function getProductsData(limitNumber: number, userIdInput, catagoriesDataInput) {
+    let productsData = []
+    let result = await firestore().collection(PRODUCTS_COLLECTION).limit(limitNumber).get()
+    for (let doc of result.docs) {
+      productsData.push(doc.data())
+    }
+    let cartIdOfProductsData = []
+    let productIds = []
+    for (let productData of productsData) {
+      cartIdOfProductsData.push(productData.cartId)
+      productIds.push(productData.productId)
+    }
+    //Get Favorite Data by productId
+    let favoriteDataByProductId = []
+    let response = await firestore()
+      .collection(FAVORITES_COLLECTION)
+      .where("productId", "in", productIds)
+      .where("userId", "==", userIdInput)
+      .get()
+    for (let favoriteData of response.docs) {
+      favoriteDataByProductId.push(favoriteData.data())
+    }
+
+    //Merge Data
+    let resultData = []
+    for (let productData of productsData) {
+      //Add CartName
+      let pushData = {}
+      catagoriesDataInput.map((value) => {
+        if (value.cartId === productData.cartId) {
+          pushData = { ...productData, cartName: value.name }
+        }
+      })
+      //Adđ isLike
+      pushData = { ...pushData, isLike: false }
+      favoriteDataByProductId.map((value) => {
+        if (value.productId === productData.productId) {
+          pushData = { ...pushData, isLike: true }
+        }
+      })
+      resultData.push(pushData)
+    }
+    return resultData
+  }
+  async function getSpecialData(userIdInput, catagoriesDataInput) {
+    let specialDataGetResult = await getProductsData(10, userIdInput, catagoriesDataInput)
+    setSpecialData(specialDataGetResult)
+  }
+  async function getUserId() {
+    let userIdGetResult = await getUserIdByEmail(auth().currentUser.email)
+    setUserId(userIdGetResult)
+    return userIdGetResult
+  }
+  async function getCatagoriesData() {
+    let catagoriesDataGetResult = await getAllDataFromCollection(CATEGORIES_COLLECTION)
+    setCatagoriesData(catagoriesDataGetResult)
+    return catagoriesDataGetResult
+  }
+  async function getSearchItemData(limitNumber: number, catagoriesDataInput) {
+    let productsData = []
+    let result = await firestore().collection(PRODUCTS_COLLECTION).limit(limitNumber).get()
+    for (let doc of result.docs) {
+      productsData.push(doc.data())
+    }
+    let cartIdOfProductsData = []
+    let productIds = []
+    for (let productData of productsData) {
+      cartIdOfProductsData.push(productData.cartId)
+      productIds.push(productData.productId)
+    }
+    //Merge Data
+    let resultData = []
+    for (let productData of productsData) {
+      //Add CartName
+      let pushData = {}
+      catagoriesDataInput.map((value) => {
+        if (value.cartId === productData.cartId) {
+          pushData = { ...productData, cartName: value.name }
+        }
+      })
+      resultData.push(pushData)
+    }
+    setSearchItemData(resultData)
+    return resultData
+  }
+
+  async function LoadingData() {
+    let catagoriesDataGetResult = await getCatagoriesData()
+    let userIdGetResult = await getUserId()
+    getSpecialData(
+      userIdGetResult ? userIdGetResult : userId,
+      catagoriesDataGetResult ? catagoriesDataGetResult : catagoriesData,
+    )
+    getSearchItemData(numberItemInSearch, catagoriesDataGetResult)
+  }
+  //Start up
+  useEffect(() => {
+    LoadingData()
+    const subscriber = firestore()
+      .collection(FAVORITES_COLLECTION)
+      .onSnapshot(() => {
+        console.log("Render Special")
+      })
+    return subscriber()
+  }, [])
+  //handle Search Section EndReach Trigger
+  async function SearchEndReachTrigger() {
+    console.log("SearchEndReachTrigger")
+    if (searchItemData.length > 0) {
+      setNumberItemInSearch(numberItemInSearch + 4)
+      getSearchItemData(numberItemInSearch + 4, catagoriesData)
+    }
+  }
+
+  function isCloseToBottom({ layoutMeasurement, contentOffset, contentSize }) {
+    return layoutMeasurement.height + contentOffset.y >= contentSize.height - 20
+  }
+  //For test
+  const CountTotalItemInCartData = () => {
+    let total = 0
+    cartData.map((item) => (total += item.quantity))
+    return total
+  }
+  console.log("cartData =", CountTotalItemInCartData())
+  //MAIN RENDER
   return (
-    <ScrollView style={ROOT}>
+    <ScrollView
+      style={ROOT}
+      onScroll={({ nativeEvent }) => {
+        if (isCloseToBottom(nativeEvent)) {
+          SearchEndReachTrigger()
+        }
+      }}
+    >
       {/* Section Header */}
       <LinearGradient colors={GRADIENT_VALUE} style={{ width: "100%" }}>
         {/* Header */}
@@ -245,7 +368,7 @@ export const Browse02Screen = observer(function Browse02Screen() {
               />
               {/* Badge shopping cart */}
               <View style={styles.badgetCartContainer}>
-                <Text style={styles.badgetCartText}>{numberItemsInCart}</Text>
+                <Text style={styles.badgetCartText}>{CountTotalItemInCartData()}</Text>
               </View>
             </View>
           </View>
@@ -265,51 +388,76 @@ export const Browse02Screen = observer(function Browse02Screen() {
         </View>
       </LinearGradient>
       {/* Section List */}
-      <ListFood
-        title="Danh Mục"
-        renderItem={() => CategoryItem.map((value) => {
-          const { id, name, price } = value
-          return <CategoriesRenderItem key={id} title={name} price={price} />
-        })}
-        marginHorizontal={16}
-        navigateTo={() => navigation.navigate(screens.Categories01Screen)}
+      {/* List Header */}
+      <TouchableOpacity
+        onPress={() => navigation.navigate(screens.Categories01Screen)}
+        style={styles.sectionHeaderContainer}
+      >
+        <Text style={styles.sectionHeaderTitleText}>Danh Mục</Text>
+        <View style={styles.sectionHeaderNavigationContainer}>
+          <Text style={styles.sectionHeaderNavigationText}>Tất cả</Text>
+          <Icon name="navigate-next" type="material" size={20} />
+        </View>
+      </TouchableOpacity>
+      {/* List Items */}
+      <FlatList
+        horizontal
+        style={{ paddingLeft: spacing[4] }}
+        keyExtractor={(catagory) => catagory.cartId}
+        data={catagoriesData}
+        renderItem={({ item }) => <CategoriesRenderItem name={item.name} image={item.image} />}
       />
       {/* Section Special */}
-      <ListFood
-        title="Đặc Biệt"
-        renderItem={() => speclist.map((val) => {
-          const { id, name, price, categoryID } = val
-          for (let item of CategoryItem) {
-            if (item.id === categoryID) {
-              return <SpecialRenderItem key={id} type={item.name} title={name} price={price} />
-            }
-          }
-
-        })
-
-        }
-        marginHorizontal={16}
-        // navigateTo={() => navigation.navigate(screens.ProductDetailScreen)}
+      {/* Special Header */}
+      <TouchableOpacity
+        onPress={() => navigation.navigate(screens.Categories01Screen)}
+        style={styles.sectionHeaderContainer}
+      >
+        <Text style={styles.sectionHeaderTitleText}>Đặc Biệt</Text>
+        <View style={styles.sectionHeaderNavigationContainer}>
+          <Text style={styles.sectionHeaderNavigationText}>Tất cả</Text>
+          <Icon name="navigate-next" type="material" size={20} />
+        </View>
+      </TouchableOpacity>
+      {/* Special Items */}
+      <FlatList
+        horizontal
+        style={{ paddingLeft: spacing[4] }}
+        keyExtractor={(item) => item.productId}
+        data={specialData}
+        refreshing={false}
+        onRefresh={async () => {
+          console.log("Waiting for reload Specail List")
+          await getSpecialData(userId, catagoriesData)
+        }}
+        onEndReachedThreshold={1}
+        onEndReached={() => {
+          console.log("End Reached")
+        }}
+        renderItem={({ item }) => <SpecialRenderItem product={item} />}
       />
       {/* Section Search */}
       <View style={{ marginHorizontal: spacing[4], marginVertical: spacing[4] }}>
         <SearchControlPanel/>
         {/* Search Item */}
-        <View>
-          {speclist.map((vals) => {
-            const { id, name, price, categoryID } = vals
-            for (let x of CategoryItem) {
-              if (x.id === categoryID)
-                return <SearchRenderItem
-                  navigateTo={() => navigation.navigate(screens.ProductDetailScreen)}
-                  counterClick={(value: number) => setNumberItemInCart(numberItemsInCart + value)}
-                  key={id} type={x.name} title={name} price={price}
-                />
-            }
-          })}
-
-        </View>
+        {searchItemData.map((item) => {
+          return (
+            <SearchRenderItem
+              product={item}
+              key={item.productId}
+              navigateTo={() => navigation.navigate(screens.ProductDetailScreen, { product: item })}
+              counterClick={(value: number) => setNumberItemInCart(numberItemsInCart + value)}
+            />
+          )
+        })}
       </View>
     </ScrollView>
   )
+}
+
+//props
+const mapStateToProps = (state) => ({
+  cartData: state.cart,
 })
+
+export default connect(mapStateToProps, null)(Browse02Screen)

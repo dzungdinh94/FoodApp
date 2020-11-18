@@ -14,9 +14,6 @@ import ItemCounter from "../../components/ItemCounter/ItemCounter"
 import FlipCard from "react-native-flip-card"
 import RadioInput from "../../components/RadioInput"
 
-import AnimatedSuccess from './AnimatedSuccess'
-
-
 const ROOT: ViewStyle = {
   backgroundColor: color.palette.white,
   alignItems: "center",

@@ -12,9 +12,16 @@ import { View } from "react-native"
 // import { TextInput } from "react-native-gesture-handler"
 import { TouchableOpacity } from "react-native"
 import AvatarInput from "../../components/AvatarInput"
-import auth from '@react-native-firebase/auth';
-import firestore from '@react-native-firebase/firestore';
-import { load } from "../../utils/storage"
+import auth, { FirebaseAuthTypes } from "@react-native-firebase/auth"
+import { async } from "validate.js"
+import {
+  FB_SignInEmail,
+  FB_signOut,
+  FB_SignUpWithEmail,
+  TestAccount,
+  TestAccount2,
+} from "../../firebase/auth"
+
 const ROOT: ViewStyle = {
   backgroundColor: color.palette.white,
   paddingHorizontal: 32,
@@ -22,16 +29,6 @@ const ROOT: ViewStyle = {
 
 
 export const SignInScreen = observer(function SignInScreen() {
-  // Pull in one of our MST stores
-  // const { someStore, anotherStore } = useStores()
-  // OR
-  // const rootStore = useStores()
-
-  // Pull in navigation via hook
-  // const [isLoaded, isLoading] = useState(false)
-  // const [confirm, setConfirm] = useState(null);
-
-
   const navigation = useNavigation()
   const [isLoaded, isLoading] = useState(false)
   const [email, setEmail] = useState('ngmanhquan2000@gmail.com')
@@ -45,45 +42,27 @@ export const SignInScreen = observer(function SignInScreen() {
   const [code, setCode] = useState('');
 
   const { signIn } = React.useContext(AuthContext)
+  // If null, no SMS has been sent
+  const [username, setUsername] = React.useState("")
+  const [onProcessSignIn, SetOnProcessSignIn] = React.useState(false)
+  const [user, setUser] = React.useState()
 
-  const gotoApp = () => {
+  function onAuthStateChanged(user) {
+    setUser(user)
+    if (user) {
+      gotoApp()
+    }
+  }
+  React.useEffect(() => {
+    const subscriber = auth().onAuthStateChanged(onAuthStateChanged)
+    return subscriber // unsubscribe on unmount
+  }, [])
+  //Handle Sign In to Swith App
+  function gotoApp() {
     signIn({
       token: "resp.token",
       role: "resp.user.type_user",
     })
-  }
-  const validateEmail = (email) => {
-    const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    return re.test(String(email).toLowerCase())
-  }
-  const validatePassword = (password) => {
-    const newPassword = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/;
-    return newPassword.test(password);
-  }
-  const userLogin = async () => {
-    if (password === '' && email === '') {
-      Alert.alert('Bạn chưa nhập mật khẩu/email')
-    } else {
-
-      isLoading(true)
-      try {
-        await auth().signInWithEmailAndPassword("linhnguyenchi227@gmail.com","123456")
-
-        await auth().onAuthStateChanged((user) => {
-          console.log(user)
-          if (user != null) {
-            gotoApp()
-          }
-        })
-
-
-
-      } catch (error) {
-        console.log(error)
-      }
-
-    }
-
   }
 
   return (
@@ -94,18 +73,33 @@ export const SignInScreen = observer(function SignInScreen() {
         {/* Guide Text */}
         <Text style={styles.guideText} text="Đăng nhập để tiếp tục" />
         {/* Input Username */}
-        <AuthInput title="Email" isPassword={false} value={email} handleClick={getInputEmail} />
+        <AuthInput
+          title="Tên đăng nhập"
+          isPassword={false}
+          inputValue={username}
+          setInputValue={setUsername}
+        />
         {/* Input Password */}
-        <AuthInput title="Mật khẩu" isPassword={true} value={password} handleClick={getInputPwd} />
+        <AuthInput
+          title="Mật khẩu"
+          isPassword={true}
+          inputValue={password}
+          setInputValue={setPassword}
+        />
         {/* Forgot Password */}
         <TouchableOpacity onPress={() => navigation.navigate(screens.ForgotPasswordScreen)}>
           <Text style={styles.forgotPassStyle}>Quên mật khẩu?</Text>
         </TouchableOpacity>
-        {/* Button đăng ký */}
+        {/* Button đăng nhập */}
         <Button
-          text="Đăng nhập"
-          // onPress={()=>getData}
-          style={styles.button}
+          text={!onProcessSignIn ? "Đăng nhập" : "Đang xử lý đăng nhập ..."}
+          onPress={async () => {
+            SetOnProcessSignIn(true)
+            await FB_SignInEmail(username, password)
+            SetOnProcessSignIn(false)
+          }}
+          disabled={onProcessSignIn}
+          style={!onProcessSignIn ? styles.button : styles.buttonDisable}
           textStyle={styles.buttonContent}
           onPress={gotoApp}
         />

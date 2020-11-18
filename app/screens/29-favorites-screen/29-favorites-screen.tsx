@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useEffect, useState } from "react"
 import { observer } from "mobx-react-lite"
 import { View, ViewStyle } from "react-native"
 import { Text } from "../../components"
@@ -6,16 +6,23 @@ import { useNavigation } from "@react-navigation/native"
 // import { useStores } from "../../models"
 import { color } from "../../theme"
 import { Icon } from "react-native-elements"
-import { ScrollView, TouchableOpacity } from "react-native-gesture-handler"
+import { FlatList, ScrollView, TouchableOpacity } from "react-native-gesture-handler"
 import screens from "../../navigation/screens"
 import styles from "./styles"
 import FavoriteRenderItem from "../../components/FavoriteRenderItem/FavoriteRenderItem"
-import firestore from '@react-native-firebase/firestore'
-import auth from '@react-native-firebase/auth';
+
+import auth from "@react-native-firebase/auth"
+import firestore from "@react-native-firebase/firestore"
+import {
+  FAVORITES_COLLECTION,
+  getFavoriteDataByEmail,
+  PRODUCTS_COLLECTION,
+} from "../../firebase/firestore"
+import { product } from "ramda"
+
 const ROOT: ViewStyle = {
   backgroundColor: color.palette.white,
   flex: 1,
-
 }
 
 let DATA = [{
@@ -53,19 +60,51 @@ let DATA = [{
 
 
 export const FavoritesScreen = observer(function FavoritesScreen() {
-  // Pull in one of our MST stores
-  // const { someStore, anotherStore } = useStores()
-  // OR
-  // const rootStore = useStores()
-
-  // Pull in navigation via hook
-  const category = () => {
-    
-  }
+  const [favoriteData, setFavoriteData] = useState([])
   const navigation = useNavigation()
-  
+  async function loadingFavoriteData() {
+    let data = await getFavoriteDataByEmail(auth().currentUser.email)
+    //Get favorite product data
+    let productIds = []
+    for (let favorite of data) {
+      productIds.push(favorite.productId)
+    }
+    console.log(productIds)
+    let productDatas = []
+    let productGetDatas = await firestore()
+      .collection(PRODUCTS_COLLECTION)
+      .where("productId", "in", productIds)
+      .get()
+    for (let productData of productGetDatas.docs) {
+      productDatas.push(productData.data())
+    }
+    //Merge data
+    let mergeData = []
+    for (let favData of data) {
+      let newData = {}
+      for (let product of productDatas) {
+        if (favData.productId === product.productId) {
+          newData = { ...favData, ...product }
+        }
+      }
+      mergeData.push(newData)
+    }
+    console.log(mergeData)
+    setFavoriteData(mergeData)
+  }
+  useEffect(() => {
+    const subscriber = firestore()
+      .collection(FAVORITES_COLLECTION)
+      .onSnapshot(() => {
+        loadingFavoriteData()
+      })
+
+    // Unsubscribe from events when no longer in use
+
+    return () => subscriber()
+  }, [])
   return (
-    <ScrollView style={ROOT}>
+    <View style={ROOT}>
       {/* Navigation Bar*/}
       <View style={styles.navigationContainer}>
         <TouchableOpacity>
@@ -99,17 +138,26 @@ export const FavoritesScreen = observer(function FavoritesScreen() {
       </View>
       {/* Favorite List */}
       <View style={styles.favoriteListContainer}>
-        <FavoriteRenderItem onPressItem={() => navigation.navigate(screens.ProductDetailScreen)} />
-        <FavoriteRenderItem onPressItem={() => navigation.navigate(screens.ProductDetailScreen)} />
-        <FavoriteRenderItem onPressItem={() => navigation.navigate(screens.ProductDetailScreen)} />
-        <FavoriteRenderItem onPressItem={() => navigation.navigate(screens.ProductDetailScreen)} />
-        <FavoriteRenderItem onPressItem={() => navigation.navigate(screens.ProductDetailScreen)} />
-        <FavoriteRenderItem onPressItem={() => navigation.navigate(screens.ProductDetailScreen)} />
-        <FavoriteRenderItem onPressItem={() => navigation.navigate(screens.ProductDetailScreen)} />
-        <FavoriteRenderItem onPressItem={() => navigation.navigate(screens.ProductDetailScreen)} />
-        <FavoriteRenderItem onPressItem={() => navigation.navigate(screens.ProductDetailScreen)} />
+        <FlatList
+          keyExtractor={(item) => item.favoriteId}
+          numColumns={2}
+          data={favoriteData}
+          refreshing={true}
+          onRefresh={() => {
+            console.log("refresing")
+          }}
+          renderItem={({ index, item }) => (
+            <FavoriteRenderItem
+              favProduct={item}
+              index={index}
+              onPressItem={() =>
+                navigation.navigate(screens.ProductDetailScreen, { product: item })
+              }
+            />
+          )}
+        />
       </View>
-    </ScrollView>
+    </View>
   )
 })
 //done

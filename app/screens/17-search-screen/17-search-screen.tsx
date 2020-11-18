@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"
+import React, { useEffect } from "react"
 import { observer } from "mobx-react-lite"
 import { View, ViewStyle } from "react-native"
 import { Screen, Text } from "../../components"
@@ -10,15 +10,16 @@ import { Icon } from "react-native-elements"
 import SimpleImage from "../../components/simpleImage"
 import { FlatList, TextInput, TouchableOpacity } from "react-native-gesture-handler"
 //Test Data
-import firestore from '@react-native-firebase/firestore'
+import { CATEGORIES_COLLECTION, PRODUCTS_COLLECTION } from "../../firebase/firestore"
+import { getAllDataFromCollection } from "../../firebase/firestoreFunction"
 
 const ROOT: ViewStyle = {
   backgroundColor: color.palette.white,
   flex: 1,
 }
 
-const SearchItem = ({ food }) => {
-  const { name, type, price } = food
+const SearchItem = ({ food, type }) => {
+  const { name, price } = food
   return (
     <View style={styles.searchItemBontainer}>
       {/*Part1: Details */}
@@ -27,7 +28,7 @@ const SearchItem = ({ food }) => {
         <View style={{ height: 64, justifyContent: "space-between" }}>
           <Text style={styles.searchItemTypeText}>{type}</Text>
           <Text style={styles.searchItemNameText}>{name}</Text>
-          <Text style={styles.searchItemPriceText}>{price} đ</Text>
+          <Text style={styles.searchItemPriceText}>{price}K</Text>
         </View>
       </View>
       {/* Part2:Image*/}
@@ -43,67 +44,53 @@ const SearchItem = ({ food }) => {
 
    export const SearchScreen = observer(function SearchScreen() {
   const [searchText, setSearchText] = React.useState("")
-  const [FoodData,setFood] = useState([])
-  const [CategoriesData,setCategoriesData] = useState([])
-  const [selectedType, setSelectedType] = React.useState('')
-  // renderfood
-  const RenderFood = async () => {
-    const list = []
-    const getData = await firestore().collection("Product").get()
-    for(let item of getData.docs){
-       list.push(item.data())
-    }
-    setFood(list)
-  }
-  // renderCategory
-  const RenderCategory = async () => {
-    const newlist = []
-    const get = await firestore().collection("category").get()
-    for(let items of get.docs){
-      newlist.push(items.data())
-      newlist.sort((a,b)=> a.id - b.id)
-    }
-  
-    setCategoriesData(newlist)
-  }
+  const [catagoriesData, setCatagoriesData] = React.useState([])
+  const [productsData, setProductsData] = React.useState([])
+  const [selectedType, setSelectedType] = React.useState("")
+  const [selectedCartId, setSelectedCartId] = React.useState("")
   const [showFoodData, setShowFoodData] = React.useState([])
-  React.useEffect(()=>{RenderCategory()},[])
-  React.useEffect(()=>{RenderFood()},[CategoriesData])
-  const dataSetUp = () => {
-    const newarr = FoodData.map((item)=>{
-       for(let x of CategoriesData){
-         if(x.id == item.categoryID){
-           item.type = x.name
-         }
-       }
-       return item
-     }
-     ) 
-     setShowFoodData(newarr)
-  }
-  
-  React.useEffect(()=>{dataSetUp()},[FoodData])
-  
-  const handleData = (searchValue: string, filterTypeValue: string) => {
-    let newData = FoodData.filter(({ categoryID }) =>{
-      for(let x of CategoriesData){
-        if(x.id === categoryID){
-          return x.name === filterTypeValue
-        }
-      }
-    })
+
+  const handleShowDataByTextValue = (searchValue: string, choiceCartId) => {
+    let newData = productsData.filter(({ cartId }) => cartId === choiceCartId)
     let searchData = newData.filter(({ name }) => name.toLowerCase().indexOf(searchValue) !== -1)
     return searchData
   }
-  const handleClickType = (choiceType: string) => {
+  const handleClickType = (choiceType: string, choiceCartId) => {
     setSelectedType(choiceType)
-    setShowFoodData(handleData(searchText, choiceType))
+    setSelectedCartId(choiceCartId)
+    setShowFoodData(handleShowDataByTextValue(searchText, choiceCartId))
   }
 
   const onChangeSearchText = (changeValue: string) => {
     setSearchText(changeValue)
-    setShowFoodData(handleData(changeValue, selectedType))
+    setShowFoodData(handleShowDataByTextValue(changeValue, selectedCartId))
   }
+
+  useEffect(() => {
+    let catagoriesDataGetResult
+    let productsDataGetResult
+    async function getCatagoriesData() {
+      catagoriesDataGetResult = await getAllDataFromCollection(CATEGORIES_COLLECTION)
+      setCatagoriesData(catagoriesDataGetResult)
+      setSelectedCartId(catagoriesDataGetResult[0].cartId)
+      setSelectedType(catagoriesDataGetResult[0].name)
+    }
+    async function getProductsData() {
+      productsDataGetResult = await getAllDataFromCollection(PRODUCTS_COLLECTION)
+      setProductsData(productsDataGetResult)
+      setShowFoodData(
+        productsDataGetResult.filter(({ cartId }) => cartId === catagoriesDataGetResult[0].cartId),
+      )
+    }
+    //Get Catagories Data from FireBase
+    getCatagoriesData()
+    //Get Products Data from Firebase
+    getProductsData()
+  }, [])
+  // Pull in one of our MST stores
+  // const { someStore, anotherStore } = useStores()
+  // OR
+  // const rootStore = useStores()
 
   const navigation = useNavigation()
   return (
@@ -134,16 +121,14 @@ const SearchItem = ({ food }) => {
         <FlatList
           horizontal
           showsHorizontalScrollIndicator={false}
-          data={CategoriesData}
-          keyExtractor={(item) => item.name}
+          data={catagoriesData}
+          keyExtractor={(item) => item.cartId}
           renderItem={({ item }) => {
             return (
-              <TouchableOpacity onPress={() => handleClickType(item.name)}>
+              <TouchableOpacity onPress={() => handleClickType(item.name, item.cartId)}>
                 <Text
                   style={
-                    item.name === selectedType
-                      ? styles.catagoriesItemActive
-                      : styles.catagoriesItem
+                    item.name === selectedType ? styles.catagoriesItemActive : styles.catagoriesItem
                   }
                 >
                   {item.name}
@@ -157,8 +142,11 @@ const SearchItem = ({ food }) => {
       <FlatList
         style={styles.listItem}
         data={showFoodData}
-        keyExtractor={(item) => item.id}
-        renderItem={({ item, index }) =>  <SearchItem food={item} key={item.id} ></SearchItem>}
+        keyExtractor={(item) => item.name}
+        renderItem={({ item, index }) => {
+          const type = catagoriesData.filter(({ cartId }) => cartId === item.cartId)[0].name
+          return <SearchItem food={item} type={type} key={item.name}></SearchItem>
+        }}
       />
     </Screen>
   )

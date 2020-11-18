@@ -1,227 +1,149 @@
 import React, { useState } from "react"
 import { observer } from "mobx-react-lite"
-import { ViewStyle, View, Image, Dimensions, TouchableOpacity, FlatList } from "react-native"
+import { TextInput, TouchableOpacity, View, ViewStyle } from "react-native"
 import { Screen, Text } from "../../components"
+// import { useNavigation } from "@react-navigation/native"
+// import { useStores } from "../../models"
 import { color, spacing } from "../../theme"
-import { Icon, Input } from 'react-native-elements'
-import styles from './style'
-import SearchBox from '../../components/search-box'
-import LikeHeart from '../../components/likeheart'
-import { Header } from '../../components'
+import styles from "./styles"
+import { Icon } from "react-native-elements"
 import { useNavigation } from "@react-navigation/native"
-import { TabView, SceneMap, TabBar } from 'react-native-tab-view'; "react-native-underline-tabbar"
-import { Traicay, Rau } from '../data/data'
 import screens from "../../navigation/screens"
-import ItemCounter from "../../components/ItemCounter/ItemCounter"
-import FavoriteToogle from "../../components/FavoriteToogle/FavoriteToogle"
-import firestore from '@react-native-firebase/firestore'
+import { connect } from "react-redux"
+import Logo from "../../components/logo"
+//Firebase
+import firestore from "@react-native-firebase/firestore"
+//Data
+import { CatagoriesData } from "../../data/CatagoriesData"
+import { FlatList } from "react-native-gesture-handler"
+import { PRODUCTS_COLLECTION } from "../../firebase/firestore"
 const ROOT: ViewStyle = {
-  backgroundColor: color.palette.background,
+  backgroundColor: color.palette.white,
   flex: 1,
 }
 
-export const Browse03Screen = observer(function Browse03Screen() {
-  const [speclist, setList] = useState([])
+const CatagoryTabItemRender = ({ item, isSelected, onClick }) => {
+  return (
+    <TouchableOpacity
+      style={[styles.catagoryTabItemTitle, isSelected ? styles.titleSelected : null]}
+      onPress={onClick}
+    >
+      <Text style={isSelected ? styles.titleTextSelected : null}>{item.title}</Text>
+    </TouchableOpacity>
+  )
+}
 
-  const [newData, setNew] = useState([])
-  const [rau, setraucu] = useState([])
-  const RenderTraiCay = () => {
-    const newArr = []
-    const newList = []
-    for (let x of speclist) {
-      if (x.categoryID === 1) {
-        const obj = {
-          name: x.name,
-          price: x.price
-        }
-        newArr.push(obj)
-      }
-      else if (x.categoryID === 2) {
-        const newobj = {
-          name: x.name,
-          price: x.price
-        }
-        newList.push(newobj)
-      }
+const Browse03Screen = ({ cartData, route }) => {
+  const cartId = route.params.cartId
+  console.log(cartId)
+  const [searchText, setSearchText] = React.useState("")
+  const [selectedCatagory, setSelectedCatagory] = React.useState(cartId)
+  const [productsData, setProductsData] = React.useState([])
+  const navigation = useNavigation()
+  const CountTotalItemInCartData = () => {
+    let total = 0
+    cartData.map((item) => (total += item.quantity))
+    return total
+  }
+  const getProductsData = async (catagoryId) => {
+    let result = []
+    let response = await firestore()
+      .collection(PRODUCTS_COLLECTION)
+      .where("cartId", "==", catagoryId)
+      .limit(4)
+      .get()
+    for (let doc of response.docs) {
+      result.push(doc.data())
     }
-
-    console.log(newArr)
-    setNew(newArr)
-    setraucu(newList)
+    setProductsData(result)
   }
   React.useEffect(() => {
-    const specialList = async () => {
-      const list = []
-      const get = await firestore().collection('Product').get()
-      for (let item of get.docs) {
-        list.push(item.data())
-        // list.sort((a, b) => a.id - b.id)
-
-      }
-      // console.log(list)
-
-      setList(list)
-    };
-    specialList()
+    getProductsData(selectedCatagory)
   }, [])
-  React.useEffect(() => { RenderTraiCay() }, [speclist])
-
-
-
-  const FirstRoute = () => (
-    <FlatList
-      data={newData}
-      renderItem={renderMyItem}
-      numColumns={2}
-    />
-  );
-
-  const renderMyItem = ({ item, index }) => {
-
-    return (
-      <View style={[styles.container, index % 2 == 1 && { marginRight: spacing[4] }]}>
-        <View style={styles.cover}>
-          <View style={{ marginTop: 153 }}>
-            <Text style={styles.name}>{item.name}</Text>
-            {(item.price < 1000) ? <Text style={styles.price}>{item.price} triệu</Text> :
-              <Text style={styles.price}>{item.price} đ</Text>
-            }
-            <TouchableOpacity>
-              <ItemCounter
-                onClickAdd={() => counterClick(1)}
-                onClickRemove={() => counterClick(-1)}
-                startValue={0} />
-            </TouchableOpacity>
-          </View>
-        </View>
-
-
-        <View style={styles.favoriteToggleContainer}>
-
-          <FavoriteToogle />
-        </View>
-
-        <Image source={require('../../image/header.png')} style={styles.Image} />
-      </View>
-    )
-  }
-  const SecondRoute = () => (
-    <FlatList
-      data={rau}
-      renderItem={renderRaucu}
-      numColumns={2}
-
-    />
-  );
-  const renderRaucu = ({ item, index }) => {
-    return (
-      <View style={[styles.container, index % 2 == 1 && { marginRight: spacing[4] }]}>
-        <View style={styles.cover}>
-          <View style={{ marginTop: 153 }}>
-            <Text style={styles.name}>{item.name}</Text>
-            {(item.price < 1000) ? <Text style={styles.price}>{item.price} triệu</Text> :
-              <Text style={styles.price}>{item.price} đ</Text>
-            }
-            <TouchableOpacity>
-              <ItemCounter
-                onClickAdd={() => counterClick(1)}
-                onClickRemove={() => counterClick(-1)}
-                startValue={0} />
-            </TouchableOpacity>
-          </View>
-
-        </View>
-
-        <View style={styles.favoriteToggleContainer}>
-
-          <FavoriteToogle />
-        </View>
-
-        <Image source={require('../../image/header.png')} style={styles.Image} />
-      </View>
-    )
-  }
-  const ThirdRoute = () => (
-    <View style={[styles.scene, { backgroundColor: color.palette.background }]} />
-  );
-  const FourRoute = () => (
-    <View style={[styles.scene, { backgroundColor: color.palette.background }]} />
-  );
-  const FiveRoute = () => (
-    <View style={[styles.scene, { backgroundColor: color.palette.background }]} />
-  );
-  const navigation = useNavigation()
-  const [numberItemsInCart, setNumberItemInCart] = React.useState(0)
-  const [index, setIndex] = React.useState(0);
-  const [routes] = React.useState([
-    { key: 'first', title: 'Trái cây' },
-    { key: 'second', title: 'Rau' },
-    { key: 'third', title: 'Bánh' },
-    { key: 'four', title: 'Sữa' },
-    { key: 'five', title: 'Protein' },
-  ]);
-
-  const renderScene = SceneMap({
-    first: FirstRoute,
-    second: SecondRoute,
-    third: ThirdRoute,
-    four: FourRoute,
-    five: FiveRoute
-  });
-  const initialLayout = { width: Dimensions.get('window').width };
-  const renderTabBar = props => (
-    <TabBar
-      {...props}
-
-      style={{
-        backgroundColor: color.palette.background,
-        color: color.palette.black,
-        marginTop: 8,
-        marginBottom: 12,
-        shadowOffset: { height: 0, width: 0 },
-        shadowColor: 'transparent',
-        shadowOpacity: 0,
-        elevation: 0,
-        borderBottomWidth: 0.2,
-        borderBottomColor: color.palette.search
-      }}
-
-      labelStyle={{
-        color: color.palette.black,
-        fontSize: 13,
-        textTransform: 'capitalize',
-      }}
-
-      indicatorStyle={{ backgroundColor: color.palette.buttonbuy }}
-    />
-  );
-  const changeScreen = () => {
-    navigation.navigate(screens.SearchScreen)
-  }
   return (
-    <Screen style={ROOT} preset="scroll">
-      <Header leftIcon='back' headerText='Back' onLeftPress={() => { navigation.navigate(screens.Browse02Screen) }} />
-
-      <View style={styles.headerBackground}>
-        <Image source={require('../../image/logo.png')} style={styles.image} />
-        <View style={styles.iconstyle}>
-          <Icon name='search' type='feather' />
-          <Icon name='shopping-cart' type='feather' marginLeft={16} onPress={() => { navigation.navigate(screens.ShoppingCartScreen) }} />
+    <Screen style={ROOT}>
+      {/* Header */}
+      <View style={styles.headerContainer}>
+        {/* Header - leftSide */}
+        <View style={styles.leftSideHeaderContainer}>
+          <Icon name="filter" type="font-awesome-5" size={18} color={color.palette.black} />
+          {/* Logo */}
+          <View style={{ zIndex: -1 }}>
+            <Logo width={131} height={71} />
+          </View>
         </View>
-
+        {/* Header - rightSide */}
+        <View style={styles.rightSideHeaderContainer}>
+          <Icon
+            name="search"
+            type="ionicon"
+            color={color.palette.black}
+            onPress={() => navigation.navigate(screens.SearchScreen)}
+          />
+          <View style={{ paddingLeft: spacing[4] }}>
+            <Icon
+              name="shopping-cart"
+              type="feather"
+              size={22}
+              color={color.palette.black}
+              onPress={() => navigation.navigate(screens.ShoppingCartScreen)}
+            />
+            {/* Badge shopping cart */}
+            <View style={styles.badgetCartContainer}>
+              <Text style={styles.badgetCartText}>{CountTotalItemInCartData()}</Text>
+            </View>
+          </View>
+        </View>
       </View>
-      <TouchableOpacity >
-        <SearchBox onFocus={changeScreen} />
-      </TouchableOpacity>
-      <TabView
-        navigationState={{ index, routes }}
-        renderScene={renderScene}
-        onIndexChange={setIndex}
-        initialLayout={initialLayout}
-        renderTabBar={renderTabBar}
-      />
+      {/* Search Bar */}
+      <View style={styles.searchBarContainer}>
+        <View style={styles.searchBoxInputContainer}>
+          <Icon name="search" type="ionicon" color={color.palette.gray200} size={17} />
+          <TextInput
+            style={styles.searchBoxInput}
+            value={searchText}
+            onChangeText={(value) => {
+              setSearchText(value)
+            }}
+            placeholder="Tìm kiếm"
+            placeholderTextColor={color.palette.gray140}
+          />
+        </View>
+      </View>
+      {/* Catagories Tab */}
+      <View style={styles.catagoryTabContainer}>
+        <FlatList
+          horizontal
+          style={{ paddingLeft: spacing[4] }}
+          keyExtractor={(item) => item.title}
+          data={CatagoriesData}
+          showsHorizontalScrollIndicator={false}
+          renderItem={({ item, index }) => (
+            <CatagoryTabItemRender
+              item={item}
+              isSelected={item.cartId == selectedCatagory}
+              onClick={() => {
+                setSelectedCatagory(item.cartId), getProductsData(item.cartId)
+              }}
+            />
+          )}
+        />
+      </View>
+      {/* Products by Catagories */}
+      <View style={styles.productList}>
+        <FlatList
+          keyExtractor={(item) => item.productId}
+          data={productsData}
+          renderItem={({ item }) => <Text>{item.name}</Text>}
+        />
+      </View>
     </Screen>
   )
 }
-)
 
+//props
+const mapStateToProps = (state) => ({
+  cartData: state.cart,
+})
+
+export default connect(mapStateToProps, null)(Browse03Screen)

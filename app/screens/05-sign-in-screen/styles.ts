@@ -1,5 +1,5 @@
 import { StyleSheet } from "react-native"
-import { spacing } from "../../theme"
+import { color, spacing } from "../../theme"
 
 const styles = StyleSheet.create({
   container: {
@@ -21,6 +21,13 @@ const styles = StyleSheet.create({
   button: {
     height: 50,
     backgroundColor: "rgb(147,194,47)",
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: 10,
+  },
+  buttonDisable: {
+    height: 50,
+    backgroundColor: color.palette.gray140,
     alignItems: "center",
     justifyContent: "center",
     borderRadius: 10,

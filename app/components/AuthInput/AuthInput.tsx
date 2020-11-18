@@ -14,8 +14,7 @@ const ROOT: ViewStyle = {
 }
 const TITLE: TextStyle = { fontSize: 17, color: "rgb(140,140,140)" }
 
-export const AuthInput = ({ title, isPassword, value, handleClick}) => {
-  const [inputValue, setInputValue] = React.useState("")
+export const AuthInput = ({ title, isPassword,inputValue,setInputValue }) => {
   const [IsFocusInput, SetIsFocusInPut] = React.useState(false)
   // Pull in one of our MST stores
   // const { someStore, anotherStore } = useStores()

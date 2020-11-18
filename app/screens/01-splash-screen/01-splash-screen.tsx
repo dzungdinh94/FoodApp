@@ -21,7 +21,6 @@ export const SplashScreen = observer(function SplashScreen() {
 
   // Pull in navigation via hook
   // const navigation = useNavigation()
-  console.log(images.smartLifeLogo2)
   return (
     <Screen style={ROOT} preset="scroll">
       <View style={styles.container}>
