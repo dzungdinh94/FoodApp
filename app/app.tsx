@@ -15,6 +15,8 @@ import React, { useState, useEffect, useRef } from "react"
 import { NavigationContainerRef } from "@react-navigation/native"
 import { SafeAreaProvider, initialWindowSafeAreaInsets } from "react-native-safe-area-context"
 import * as storage from "./utils/storage"
+import { Provider } from 'react-redux';
+import store from './redux/createStore'
 import {
   useBackButtonHandler,
   RootNavigator,
@@ -91,7 +93,7 @@ function App() {
 
   // Kick off initial async loading actions, like loading fonts and RootStore
   useEffect(() => {
-    ;(async () => {
+    ; (async () => {
       setupRootStore().then(setRootStore)
     })()
     PushAllDataToLocal(appName, version, setIsLoadAllData) //My addition code [dinhhoan]
@@ -105,11 +107,14 @@ function App() {
 
   // otherwise, we're ready to render the app
   return (
-    <RootStoreProvider value={rootStore}>
+    // <RootStoreProvider value={rootStore}>
+    <Provider store={store}>
       <SafeAreaProvider initialSafeAreaInsets={initialWindowSafeAreaInsets}>
         <RootContainer />
       </SafeAreaProvider>
-    </RootStoreProvider>
+    </Provider>
+
+    // </RootStoreProvider>
   )
 }
 

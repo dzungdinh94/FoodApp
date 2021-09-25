@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState } from "react"
 import { observer } from "mobx-react-lite"
 import { View, ViewStyle } from "react-native"
 import { Button, Screen, Text } from "../../components"
@@ -13,12 +13,13 @@ import styles from "./styles"
 import ItemCounter from "../../components/ItemCounter/ItemCounter"
 import FlipCard from "react-native-flip-card"
 import RadioInput from "../../components/RadioInput"
-
+import firestore, { firebase } from '@react-native-firebase/firestore'
+import {connect} from "react-redux"
 const ROOT: ViewStyle = {
   backgroundColor: color.palette.white,
 }
 
-export const CheckoutScreen = ({ route, navigation }) => {
+const CheckoutScreen = ({ route, navigation,Product }) => {
   // Pull in one of our MST stores
   // const { someStore, anotherStore } = useStores()
   // OR
@@ -30,8 +31,14 @@ export const CheckoutScreen = ({ route, navigation }) => {
     coupon,
     totalMoney,
   })
-  // Pull in navigation via hook
-  // const navigation = useNavigation()
+  
+  
+  // const storeOrderFireBase = async () => {
+     
+  //    const saveData = firestore().collection("orderItem").doc().set({
+
+  //    })
+  // }
   return (
     <Screen style={ROOT} preset="scroll">
       {/* Navigation */}
@@ -76,12 +83,12 @@ export const CheckoutScreen = ({ route, navigation }) => {
       <View style={styles.cartListContainer}>
         <Text style={styles.infoTitle}>Giỏ hàng</Text>
         <Text style={styles.infoHighlightDetails}>Hôm nay</Text>
-        {checkOutData.cartData.map((item, index) => (
-          <View key={index} style={styles.infoRowDetailsContainer}>
+        {Product.map((item) => (
+          <View key={item.itemProduct.id} style={styles.infoRowDetailsContainer}>
             <Text style={styles.infoMoreDetails}>
-              {item.name} X {item.quantity}
+              {item.itemProduct.name} X {item.quantity}
             </Text>
-            <Text style={styles.infoMoreDetails}>{item.quantity * item.price} K</Text>
+            <Text style={styles.infoMoreDetails}>{item.quantity * item.itemProduct.price} K</Text>
           </View>
         ))}
         <View style={styles.infoRowDetailsContainer}>
@@ -90,7 +97,7 @@ export const CheckoutScreen = ({ route, navigation }) => {
         </View>
         <View style={styles.infoTotalRowContainer}>
           <Text style={styles.infoMoreDetails}>Tổng</Text>
-          <Text style={styles.infoTotalMoney}>{checkOutData.totalMoney} K</Text>
+          <Text style={styles.infoTotalMoney}>{checkOutData.totalMoney} đ</Text>
         </View>
       </View>
       {/* Coupon */}
@@ -112,3 +119,7 @@ export const CheckoutScreen = ({ route, navigation }) => {
     </Screen>
   )
 }
+const mapStatetoProps = (state)=>({
+  Product: state.data.Product
+})
+export default connect(mapStatetoProps)(CheckoutScreen)

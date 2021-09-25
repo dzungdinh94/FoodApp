@@ -1,4 +1,4 @@
-import React from "react"
+import React, { QuoteHTMLAttributes, useState } from "react"
 import { observer } from "mobx-react-lite"
 import { View, ViewStyle } from "react-native"
 import { Button, Screen, Text } from "../../components"
@@ -11,38 +11,43 @@ import { ScrollView, TextInput, TouchableOpacity } from "react-native-gesture-ha
 import screens from "../../navigation/screens"
 import styles from "./styles"
 import ItemCounter from "../../components/ItemCounter/ItemCounter"
-
-const StartCartData = [
-  {
-    name: "Mù tạt xanh",
-    type: "Rau",
-    quantity: 1,
-    unit: "cây",
-    price: 15,
-  },
-  {
-    name: "Cà rốt organic",
-    type: "Rau",
-    quantity: 2,
-    unit: "củ",
-    price: 20,
-  },
-  {
-    name: "Táo organic",
-    type: "Hoa quả",
-    quantity: 1,
-    unit: "quả",
-    price: 20,
-  },
-]
+import firestore, { firebase } from '@react-native-firebase/firestore'
+import { connect } from 'react-redux'
+// const StartCartData = [
+//   {
+//     name: "Mù tạt xanh",
+//     type: "Rau",
+//     quantity: 1,
+//     unit: "cây",
+//     price: 15,
+//   },
+//   {
+//     name: "Cà rốt organic",
+//     type: "Rau",
+//     quantity: 2,
+//     unit: "củ",
+//     price: 20,
+//   },
+//   {
+//     name: "Táo organic",
+//     type: "Hoa quả",
+//     quantity: 1,
+//     unit: "quả",
+//     price: 20,
+//   },
+// ]
 const ROOT: ViewStyle = {
   backgroundColor: color.palette.white,
   flex: 1,
   paddingLeft: spacing[4],
 }
 
-const CartItem = ({ itemData, handleClickButton }) => {
+const CartItem = ({ itemData, handleClickButton, category, product }) => {
   let temp = itemData.quantity
+  const newList = product.map((vals)=>{
+       return vals
+  })
+
   const [quantity, setQuantity] = React.useState(temp)
   return (
     <View
@@ -82,10 +87,17 @@ const CartItem = ({ itemData, handleClickButton }) => {
         }}
       >
         {/* Details */}
+
         <View style={{ height: 64, justifyContent: "space-between" }}>
-          <Text style={{ color: color.palette.main, fontSize: 13, lineHeight: 18 }}>
-            {itemData.type}
-          </Text>
+          {category.map((item) => {
+            if (item.id === itemData.itemProduct.categoryID) {
+              return <Text style={{ color: color.palette.main, fontSize: 13, lineHeight: 18 }}>
+                {item.name}
+              </Text>
+            }
+          })}
+
+
           <Text
             style={{
               color: "black",
@@ -93,26 +105,35 @@ const CartItem = ({ itemData, handleClickButton }) => {
               lineHeight: 20,
             }}
           >
-            {itemData.name}
+            {itemData.itemProduct.name}
+
           </Text>
+
+
           <Text style={{ color: color.palette.lightGrey, fontSize: 13, lineHeight: 18 }}>
-            SL : {quantity} {itemData.unit}
+            SL : {quantity} {itemData.itemProduct.unit}
           </Text>
         </View>
         {/* Counter Indicator */}
+
         <View style={{ height: 64, alignItems: "flex-end", justifyContent: "space-between" }}>
+
           <Text style={{ color: color.palette.black, fontWeight: "bold" }}>
-            {quantity * itemData.price} K
+            {quantity * itemData.itemProduct.price} đ
           </Text>
-          <ItemCounter
-            onClickAdd={() => {
-              handleClickButton(quantity + 1), setQuantity(quantity + 1)
-            }}
-            onClickRemove={() => {
-              handleClickButton(quantity - 1), setQuantity(quantity - 1)
-            }}
-            startValue={itemData.quantity}
-          />
+
+          <ItemCounter 
+              item = {itemData.itemProduct}
+              onClickAdd={() => {
+                handleClickButton(quantity + 1), setQuantity(quantity + 1)
+              }}
+              onClickRemove={() => {
+                handleClickButton(quantity - 1), setQuantity(quantity - 1)
+              }}
+              startValue={itemData.quantity}
+
+            />
+        
         </View>
       </View>
     </View>
@@ -148,31 +169,61 @@ const RadioInputCart = ({ title, selected, onClick }) => {
 }
 
 //MAIN EXPORT FUNCTION
-export const ShoppingCartScreen = observer(function ShoppingCartScreen() {
+const ShoppingCartScreen = ({ Product }) => {
   // Pull in one of our MST stores
   // const { someStore, anotherStore } = useStores()
   // OR
   // const rootStore = useStores()
-  const [cartData, setCartData] = React.useState(StartCartData)
+
+  const [productFirebase, setProductFirebase] = React.useState([])
+  
+  const getProductFromFirebase = async () => {
+    const result = [];
+    const getData = await firestore().collection("Product").get()
+    for (let item of getData.docs) {
+      result.push(item.data())
+    }
+    setProductFirebase(result)
+  }
+  const [categoryFirebase, setCategoryFirebase] = React.useState([])
+  const getCategoryFromFirebase = async () => {
+    const resultTwo = [];
+    const getDataTwo = await firestore().collection("category").get()
+    for (let item of getDataTwo.docs) {
+      resultTwo.push(item.data())
+    }
+    setCategoryFirebase(resultTwo)
+  }
+  React.useEffect(() => { getProductFromFirebase() }, [])
+  React.useEffect(() => { getCategoryFromFirebase() }, [])
+ 
   const [totalMoney, setTotalMoney] = React.useState(0)
   const [isRentDelivery, setIsRentDelivery] = React.useState(true)
   const [coupon, setCoupon] = React.useState("")
-  const ReCountTotalMoney = (data: { quantity: number; price: number }[], deliveryCost: number) => {
-    let sum = 0
-    data.map((value: { quantity: number; price: number }) => (sum += value.quantity * value.price))
-    sum += deliveryCost
+  const countTotalMoney = (dataa, delivery: number) => {
+    let sum = 0;
+    dataa.map((item) => {
+      return sum += item.quantity * Number(item.itemProduct.price)
+    })
+    sum += delivery
     setTotalMoney(sum)
   }
+  // const ReCountTotalMoney = (data: { quantity: number; price: number }[], deliveryCost: number) => {
+  //   let sum = 0
+  //   data.map((value: { quantity: number; price: number }) => (sum += value.quantity * value.price))
+  //   sum += deliveryCost
+  //   setTotalMoney(sum)
+  // }
   const ClickRentDelivery = () => {
     setIsRentDelivery(true)
-    ReCountTotalMoney(cartData, 10)
+    countTotalMoney(Product, 10000)
   }
 
   const ClickSelfDelivery = () => {
     setIsRentDelivery(false)
-    ReCountTotalMoney(cartData, 0)
+    countTotalMoney(Product, 0)
   }
-
+  const [cartData,setCartData] = useState([])
   const handleCartData = (stateData, { action, props: { id, changeValue } }) => {
     let cloneData = []
     switch (action) {
@@ -187,11 +238,11 @@ export const ShoppingCartScreen = observer(function ShoppingCartScreen() {
         break
     }
     setCartData(cloneData)
-    ReCountTotalMoney(cloneData, isRentDelivery ? 10 : 0)
+    countTotalMoney(cloneData, isRentDelivery ? 10000 : 0)
   }
 
   const handleClickCounter = (name, changevalue) => {
-    handleCartData(cartData, {
+    handleCartData(Product, {
       action: "updateQuantity",
       props: { id: name, changeValue: changevalue },
     })
@@ -201,8 +252,18 @@ export const ShoppingCartScreen = observer(function ShoppingCartScreen() {
   const navigation = useNavigation()
   //First time run
   React.useEffect(() => {
-    ReCountTotalMoney(cartData, isRentDelivery ? 10 : 0)
-  }, [])
+    countTotalMoney(Product, isRentDelivery ? 10000 : 0)
+  }, [cartData])
+  const CountTotalItemInCart = () => {
+    
+    let total = 0
+    Product.map((item) => (total += item.quantity)
+    )
+    
+    return total
+  }
+
+
   return (
     <ScrollView style={ROOT}>
       {/* Navigation Bar */}
@@ -219,11 +280,13 @@ export const ShoppingCartScreen = observer(function ShoppingCartScreen() {
         {/* Header */}
         <Text style={styles.headerText}>Giỏ hàng</Text>
         {/* List Item */}
-        {cartData.map((value) => (
+        {Product.map((value) => (
           <CartItem
-            key={value.name}
+            category={categoryFirebase}
+            product={productFirebase}
+            key={value.itemProduct.id}
             itemData={value}
-            handleClickButton={(quantity) => handleClickCounter(value.name, quantity)}
+            handleClickButton={(quantity) => handleClickCounter(value.itemProduct.id, quantity)}
           />
         ))}
       </View>
@@ -278,8 +341,8 @@ export const ShoppingCartScreen = observer(function ShoppingCartScreen() {
             marginTop: 52,
           }}
         >
-          <Text>Phí ship</Text>
-          <Text>{isRentDelivery ? "10K" : "0K"}</Text>
+          <Text style={{ color: 'black' }}>Phí ship</Text>
+          <Text style={{ color: 'black' }}>{isRentDelivery ? "10K" : "0K"}</Text>
         </View>
       </View>
       {/* Total Money */}
@@ -298,17 +361,18 @@ export const ShoppingCartScreen = observer(function ShoppingCartScreen() {
             alignItems: "flex-start",
           }}
         >
-          <Text style={{ fontSize: 17, marginVertical: spacing[1] }}>Tổng tiền</Text>
-          <Text style={{ fontSize: 13, color: color.palette.gray140 }}>3 mặt hàng</Text>
+          <Text style={{ fontSize: 17, marginVertical: spacing[1], color: 'black' }}>Tổng tiền</Text>
+        <Text style={{ fontSize: 13, color: color.palette.gray140 }}>{CountTotalItemInCart()}</Text>
         </View>
         <View
           style={{
             justifyContent: "space-between",
             alignItems: "flex-end",
           }}
+
         >
-          <Text style={{ fontSize: 17, fontWeight: "bold", marginVertical: spacing[1] }}>
-            {totalMoney}K
+          <Text style={{ fontSize: 17, fontWeight: "bold", marginVertical: spacing[1], color: 'black' }}>
+            {totalMoney} đ
           </Text>
           <Text style={{ fontSize: 13, color: color.palette.gray140 }}>Đã gồm thuế</Text>
         </View>
@@ -319,7 +383,6 @@ export const ShoppingCartScreen = observer(function ShoppingCartScreen() {
         text="Chấp nhận mua hàng"
         onPress={() =>
           navigation.navigate(screens.CheckoutScreen, {
-            cartData,
             isRentDelivery,
             coupon,
             totalMoney,
@@ -330,4 +393,8 @@ export const ShoppingCartScreen = observer(function ShoppingCartScreen() {
       />
     </ScrollView>
   )
+}
+const mapStateToProps = (state) => ({
+  Product: state.data.Product
 })
+export default connect(mapStateToProps, null)(ShoppingCartScreen)

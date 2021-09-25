@@ -11,9 +11,6 @@ import { createMaterialBottomTabNavigator } from "@react-navigation/material-bot
 import { createNativeStackNavigator } from "react-native-screens/native-stack"
 import {
   Browse01Screen,
-  Browse02Screen,
-  Browse03Screen,
-  CheckoutScreen,
   SearchScreen,
   SettingScreen,
   Categories01Screen,
@@ -22,7 +19,7 @@ import {
   FilterScreen,
   PaymentScreen,
   ProductDetailScreen,
-  ShoppingCartScreen,
+  
   SuccessScreen,
   OrdersDeliveryScreen,
   OrdersPickupsScreen,
@@ -31,6 +28,10 @@ import {
   AccountScreen,
 } from "../screens"
 import screens from "./screens"
+import Browse02Screen from "../screens/13-browse-02-screen/13-browse-02-screen"
+import Browse03Screen from "../screens/14-browse-03-screen/14-browse-03-screen"
+import ShoppingCartScreen from '../screens/22-shopping-cart-screen/22-shopping-cart-screen'
+import CheckoutScreen from '../screens/23-checkout-screen/23-checkout-screen'
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs"
 import { Icon } from "react-native-elements"
 import { color, spacing } from "../theme"

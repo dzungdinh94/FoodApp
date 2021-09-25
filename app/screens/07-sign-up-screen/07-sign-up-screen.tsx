@@ -70,7 +70,7 @@ export const SignUpScreen = observer(function SignUpScreen() {
           const save = await firestore().collection('userInformations').doc(uid).set({
           name: userName,
           email: email,
-          // phoneNumber: phoneNumber,
+          id: uid
          });
         //  await auth().currentUser.sendEmailVerification();
          Alert.alert('Đăng kí thành công')

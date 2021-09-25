@@ -1,11 +1,25 @@
+
 import React, { useState } from "react"
 import { View, Text, TouchableOpacity } from "react-native"
 import { Icon } from "react-native-elements"
-
+import {connect,useDispatch} from 'react-redux'
 //Styles Import
 import { color, spacing } from "../../theme"
 //Main Function
-const ItemCounter = ({ onClickAdd, onClickRemove, startValue }) => {
+const ItemCounter = ({item,onClickAdd, onClickRemove, startValue}) => {
+  const dispatch = useDispatch()
+  const addProduct = () => {
+    dispatch({
+      type: "ADD_PRODUCT",
+      payload:item
+    })
+  }
+  const removeProduct = () => {
+    dispatch({
+      type:"REMOVE_PRODUCT",
+      payload:item
+    })
+  }
   let startValueTemp = startValue ? startValue : 0
   const [count, setCount] = useState(startValueTemp)
   //MAIN RENDER
@@ -25,10 +39,13 @@ const ItemCounter = ({ onClickAdd, onClickRemove, startValue }) => {
             paddingVertical: 2,
             borderRadius: 20,
           }}
-          onPress={() => {
+          onPress = {()=>{
             setCount(1)
-            onClickAdd()
-          }}
+            onClickAdd()  
+            addProduct()
+          }
+         
+          }
         >
           <Text style={{ color: color.palette.main, fontSize: 13 }}>Thêm vào giỏ</Text>
         </TouchableOpacity>
@@ -40,6 +57,7 @@ const ItemCounter = ({ onClickAdd, onClickRemove, startValue }) => {
             onPress={() => {
               setCount(count - 1 < 0 ? 0 : count - 1)
               onClickRemove()
+              removeProduct()
             }}
           >
             <Icon
@@ -59,9 +77,11 @@ const ItemCounter = ({ onClickAdd, onClickRemove, startValue }) => {
           </TouchableOpacity>
           <Text>{count}</Text>
           <TouchableOpacity
-            onPress={() => {
-              setCount(count + 1), onClickAdd()
-            }}
+           onPress = {()=>{
+             setCount(count + 1),
+             onClickAdd(),
+             addProduct()
+           }}
           >
             <Icon
               reverse={true}
@@ -77,5 +97,7 @@ const ItemCounter = ({ onClickAdd, onClickRemove, startValue }) => {
     </View>
   )
 }
-
-export default ItemCounter
+const mapStatetoProps = (state) => ({
+  Product: state.data.Product
+})
+export default connect(mapStatetoProps,null)(ItemCounter)

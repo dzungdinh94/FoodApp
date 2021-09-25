@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useEffect, useState } from "react"
 import { observer } from "mobx-react-lite"
 import { ViewStyle } from "react-native"
 import { Screen, Text } from "../../components"
@@ -13,23 +13,37 @@ import { color } from "../../theme"
 import {Icon} from 'react-native-elements'
 import styles from './styles'
 import { TouchableOpacity } from "react-native-gesture-handler"
+import firestore, { firebase } from '@react-native-firebase/firestore'
+import auth from '@react-native-firebase/auth'
 const ROOT: ViewStyle = {
   backgroundColor: color.palette.white,
   flex: 1,
 }
 
 export const AccountScreen = observer(function AccountScreen() {
-  // Pull in one of our MST stores
-  // const { someStore, anotherStore } = useStores()
-  // OR
-  // const rootStore = useStores()
 
-  // Pull in navigation via hook
   const navigation = useNavigation()
+  const [listInfor,setInfor] = useState([])
+  const userInfo = async () => {
+  
+      const listInfo = []
+      const getInfo = await firestore().collection("userInformations").get()
+      for(let item of getInfo.docs ){
+        listInfo.push(item.data())
+      }
+      setInfor(listInfo)
+  }
+  useEffect(()=>{userInfo()},[])
   return (
     <Screen style={ROOT} preset="scroll"  style={styles.screen} >
       <View style={styles.nameBg}>
-      <Name name='Mai Phương Thúy' email='thuy6888@gmail.com' point='53' reppoint='37' creditpoint='500K' />
+      {listInfor.map((val)=>{
+        const {email,name,id} = val
+        if(id === auth().currentUser.uid){
+          return <Name name={name} email={email} point='53' reppoint='37' creditpoint='500K' />
+        }
+      })}
+      
       </View>
 
 <View style={styles.magLeft}>

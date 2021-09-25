@@ -10,9 +10,21 @@ import SimpleImage from "../../components/simpleImage"
 import FavoriteToogle from "../../components/FavoriteToogle/FavoriteToogle"
 
 import styles from "./styles"
-
-
-const SpecialRenderItem = ({ type, title, price }) => {
+import firestore, { firebase } from '@react-native-firebase/firestore'
+import auth from '@react-native-firebase/auth'
+const SpecialRenderItem = ({ type, title, price,id}) => {
+  const saveData = async () => {
+     const uid = await auth().currentUser.uid
+     const save = await firestore().collection("Favorite").doc().set({
+       productID:id,
+       userID: uid
+     })
+  }
+  const deleteData = async () => {
+    await firestore().collection("Favorite").doc(id).update({
+       
+    })
+  }
   return (
     <View>
       {/* Images */}
@@ -20,7 +32,7 @@ const SpecialRenderItem = ({ type, title, price }) => {
         <SimpleImage width={122} height={122} />
         {/* FavortiteToggle */}
         <View style={styles.favoriteToggleContainer}>
-          <FavoriteToogle />
+          <FavoriteToogle handleClick={saveData} deleteClick={deleteData} />
         </View>
       </View>
       {/* Details */}

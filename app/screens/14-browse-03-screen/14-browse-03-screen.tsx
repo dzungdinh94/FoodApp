@@ -6,31 +6,39 @@ import { color, spacing } from "../../theme"
 import { Icon, Input } from 'react-native-elements'
 import styles from './style'
 import SearchBox from '../../components/search-box'
-import LikeHeart from '../../components/likeheart'
+
 import { Header } from '../../components'
 import { useNavigation } from "@react-navigation/native"
 import { TabView, SceneMap, TabBar } from 'react-native-tab-view'; "react-native-underline-tabbar"
-import { Traicay, Rau } from '../data/data'
+
 import screens from "../../navigation/screens"
 import ItemCounter from "../../components/ItemCounter/ItemCounter"
 import FavoriteToogle from "../../components/FavoriteToogle/FavoriteToogle"
 import firestore from '@react-native-firebase/firestore'
+import { connect } from "react-redux"
+
 const ROOT: ViewStyle = {
   backgroundColor: color.palette.background,
   flex: 1,
 }
-
-export const Browse03Screen = observer(function Browse03Screen() {
+const Browse03Screen = ({ Product }) => {
   const [speclist, setList] = useState([])
 
   const [newData, setNew] = useState([])
   const [rau, setraucu] = useState([])
+  const CountTotalItemInCart = () => {
+    let total = 0
+    Product.map((item) => (total += item.quantity))
+    return total
+  }
+  console.log("total=",CountTotalItemInCart())
   const RenderTraiCay = () => {
     const newArr = []
     const newList = []
     for (let x of speclist) {
       if (x.categoryID === 1) {
         const obj = {
+          id:x.id,
           name: x.name,
           price: x.price
         }
@@ -38,6 +46,7 @@ export const Browse03Screen = observer(function Browse03Screen() {
       }
       else if (x.categoryID === 2) {
         const newobj = {
+          id:x.id,
           name: x.name,
           price: x.price
         }
@@ -77,7 +86,9 @@ export const Browse03Screen = observer(function Browse03Screen() {
   );
 
   const renderMyItem = ({ item, index }) => {
-
+    const counterClick = (a) => {
+      return a;
+    }
     return (
       <View style={[styles.container, index % 2 == 1 && { marginRight: spacing[4] }]}>
         <View style={styles.cover}>
@@ -88,6 +99,7 @@ export const Browse03Screen = observer(function Browse03Screen() {
             }
             <TouchableOpacity>
               <ItemCounter
+                item={item}
                 onClickAdd={() => counterClick(1)}
                 onClickRemove={() => counterClick(-1)}
                 startValue={0} />
@@ -114,6 +126,9 @@ export const Browse03Screen = observer(function Browse03Screen() {
     />
   );
   const renderRaucu = ({ item, index }) => {
+    const counterClick = (a) => {
+      return a;
+    }
     return (
       <View style={[styles.container, index % 2 == 1 && { marginRight: spacing[4] }]}>
         <View style={styles.cover}>
@@ -124,6 +139,7 @@ export const Browse03Screen = observer(function Browse03Screen() {
             }
             <TouchableOpacity>
               <ItemCounter
+                item={item}
                 onClickAdd={() => counterClick(1)}
                 onClickRemove={() => counterClick(-1)}
                 startValue={0} />
@@ -205,8 +221,27 @@ export const Browse03Screen = observer(function Browse03Screen() {
       <View style={styles.headerBackground}>
         <Image source={require('../../image/logo.png')} style={styles.image} />
         <View style={styles.iconstyle}>
-          <Icon name='search' type='feather' />
-          <Icon name='shopping-cart' type='feather' marginLeft={16} onPress={() => { navigation.navigate(screens.ShoppingCartScreen) }} />
+          {/* <Icon name='search' type='feather' />
+          <Icon name='shopping-cart' type='feather' marginLeft={16} onPress={() => { navigation.navigate(screens.ShoppingCartScreen) }} /> */}
+          <Icon
+            name="search"
+            type="ionicon"
+            color={color.palette.black}
+            onPress={() => navigation.navigate(screens.SearchScreen)}
+          />
+          <View style={{ paddingLeft: spacing[4] }}>
+            <Icon
+              name="shopping-cart"
+              type="feather"
+              size={22}
+              color={color.palette.black}
+              onPress={() => navigation.navigate(screens.ShoppingCartScreen)}
+            />
+            {/* Badge shopping cart */}
+            <View style={styles.badgetCartContainer}>
+              <Text style={styles.badgetCartText}>{CountTotalItemInCart()}</Text>
+            </View>
+          </View>
         </View>
 
       </View>
@@ -223,5 +258,7 @@ export const Browse03Screen = observer(function Browse03Screen() {
     </Screen>
   )
 }
-)
-
+const mapStatetoProps = (state) => ({
+  Product: state.data.Product
+})
+export default connect(mapStatetoProps, null)(Browse03Screen)

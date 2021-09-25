@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useEffect, useState } from "react"
 import { observer } from "mobx-react-lite"
 import { View, ViewStyle } from "react-native"
 import { Text } from "../../components"
@@ -18,52 +18,32 @@ const ROOT: ViewStyle = {
 
 }
 
-let DATA = [{
-  name: 'Bông cải xanh',
-  price: '20k',
-},
-{
-  name: 'Đu đủ',
-  price: '20k',
-
-},
-{
-  name: 'Chuối',
-  price: '20k',
-
-},
-{
-  name: 'Cà rốt organic',
-  price: '20k',
-
-},
-{
-  name: 'Bông cải xanh',
-  price: '20k',
-},
-{
-  name: 'Bông cải xanh',
-  price: '20k',
-  id:2
-},
-{
-  name: 'Bông cải xanh',
-  price: '20k'
-},]
 
 
 export const FavoritesScreen = observer(function FavoritesScreen() {
-  // Pull in one of our MST stores
-  // const { someStore, anotherStore } = useStores()
-  // OR
-  // const rootStore = useStores()
-
-  // Pull in navigation via hook
-  const category = () => {
-    
+  const [product,setProduct] = React.useState([])
+  const [favorite,setFavorite] = React.useState([])
+  const getProduct = async () => {
+    const list = []
+    const get = await firestore().collection("Product").get()
+    for(let item of get.docs){
+      list.push(item.data())
+    }
+    setProduct(list)
   }
-  const navigation = useNavigation()
   
+  const getFavorite = async () => {
+    const newList = []
+    const getData = await firestore().collection("Favorite").get()
+    for(let newitem of getData.docs){
+      newList.push(newitem.data())
+    }
+    setFavorite(newList)
+
+  }
+  useEffect(()=>{getFavorite()},[product])
+   useEffect(()=>{getProduct()},[favorite])
+  const navigation = useNavigation()
   return (
     <ScrollView style={ROOT}>
       {/* Navigation Bar*/}
@@ -99,15 +79,15 @@ export const FavoritesScreen = observer(function FavoritesScreen() {
       </View>
       {/* Favorite List */}
       <View style={styles.favoriteListContainer}>
-        <FavoriteRenderItem onPressItem={() => navigation.navigate(screens.ProductDetailScreen)} />
-        <FavoriteRenderItem onPressItem={() => navigation.navigate(screens.ProductDetailScreen)} />
-        <FavoriteRenderItem onPressItem={() => navigation.navigate(screens.ProductDetailScreen)} />
-        <FavoriteRenderItem onPressItem={() => navigation.navigate(screens.ProductDetailScreen)} />
-        <FavoriteRenderItem onPressItem={() => navigation.navigate(screens.ProductDetailScreen)} />
-        <FavoriteRenderItem onPressItem={() => navigation.navigate(screens.ProductDetailScreen)} />
-        <FavoriteRenderItem onPressItem={() => navigation.navigate(screens.ProductDetailScreen)} />
-        <FavoriteRenderItem onPressItem={() => navigation.navigate(screens.ProductDetailScreen)} />
-        <FavoriteRenderItem onPressItem={() => navigation.navigate(screens.ProductDetailScreen)} />
+          {product.map((val)=>{
+             const {id,name,price}=val
+             for(let x of favorite){
+               if(x.productID === id && x.userID === auth().currentUser.uid ){
+                  return <FavoriteRenderItem key={x.id} name={name} price={price} onPressItem={() => navigation.navigate(screens.ProductDetailScreen)}  />
+               }
+             }
+          })}
+        
       </View>
     </ScrollView>
   )

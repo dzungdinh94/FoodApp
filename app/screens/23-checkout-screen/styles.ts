@@ -147,8 +147,8 @@ const styles = StyleSheet.create({
     marginBottom: spacing[2],
     color: color.palette.gray100,
   },
-  infoHighlightDetails: { fontSize: 17, fontWeight: "bold" },
-  infoMoreDetails: { fontSize: 13, marginBottom: spacing[1] },
+  infoHighlightDetails: { fontSize: 17, fontWeight: "bold",color:color.palette.black},
+  infoMoreDetails: { fontSize: 13, marginBottom: spacing[1], color:color.palette.black },
 
   cartListContainer: { paddingHorizontal: spacing[4], marginTop: spacing[4] },
   infoRowDetailsContainer: {
@@ -162,7 +162,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     marginTop: spacing[2],
   },
-  infoTotalMoney: { fontSize: 13, fontWeight: "bold" },
+  infoTotalMoney: { fontSize: 13, fontWeight: "bold",color:color.palette.black  },
   //Coupon
   CouponContainer: {
     backgroundColor: color.palette.gray240,

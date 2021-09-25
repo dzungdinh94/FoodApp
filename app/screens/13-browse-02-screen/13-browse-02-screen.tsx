@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import { observer } from "mobx-react-lite"
 import { ViewStyle } from "react-native"
 import { Text } from "../../components"
@@ -18,7 +18,8 @@ import screens from "../../navigation/screens"
 import ItemCounter from "../../components/ItemCounter/ItemCounter"
 import SpecialRenderItem from "../../components/SpecialRenderItem/SpecialRenderItem"
 import SearchControlPanel from "../../components/SearchControlPanel/SearchControlPanel"
-import firestore from '@react-native-firebase/firestore'
+import firestore, { firebase } from '@react-native-firebase/firestore'
+import { connect, useDispatch } from 'react-redux'
 
 const ROOT: ViewStyle = {
   backgroundColor: color.palette.white,
@@ -52,7 +53,7 @@ const CategoriesRenderItem = ({ title, price }) => {
   )
 }
 
-const SearchRenderItem = ({ navigateTo, counterClick, type, title, price }) => {
+const SearchRenderItem = ({ navigateTo, counterClick, type, title, price, product }) => {
   return (
     <View
       style={{
@@ -103,26 +104,27 @@ const SearchRenderItem = ({ navigateTo, counterClick, type, title, price }) => {
           >
             {title}
           </Text>
-          {(price < 1000)? <Text style={{
+          {(price < 1000) ? <Text style={{
+            color: color.palette.lightGrey,
+            fontSize: 13,
+            lineHeight: 18,
+            marginTop: spacing[1],
+          }}>{price} triệu</Text> :
+            <Text style={{
               color: color.palette.lightGrey,
               fontSize: 13,
               lineHeight: 18,
               marginTop: spacing[1],
-            }}>{price} triệu</Text> : 
-        <Text style={{
-          color: color.palette.lightGrey,
-          fontSize: 13,
-          lineHeight: 18,
-          marginTop: spacing[1],
-        }}>{price} đ</Text>
-        }
+            }}>{price} đ</Text>
+          }
         </View>
 
         {/* Counter Indicator */}
         <ItemCounter
-          onClickAdd={() => counterClick(1)}
-          onClickRemove={() => counterClick(-1)}
-          startValue={0}
+          item={product}
+          onClickAdd = {() => counterClick(1)}
+          onClickRemove = {()=>counterClick(-1)}
+          startValue = {0}
         />
       </View>
     </View>
@@ -182,7 +184,7 @@ const ListFood = ({ title, renderItem, marginHorizontal, navigateTo }) => {
   )
 }
 
-export const Browse02Screen = observer(function Browse02Screen() {
+const Browse02Screen = ({ Product }) => {
   // Pull in one of our MST stores
   // const { someStore, anotherStore } = useStores()
   // OR
@@ -191,7 +193,17 @@ export const Browse02Screen = observer(function Browse02Screen() {
   // Pull in navigation via hook
   const navigation = useNavigation()
   const [CategoryItem, setCate] = useState([])
-  const [Value,setValue] = useState([])
+  const [listFavorite, setListFavorite] = useState([])
+  const [speclist, setlist] = useState([])
+  const Favorite = async () => {
+    const newList = []
+    const getListFavorite = await firestore().collection("Favorite").get()
+    for (let x of getListFavorite.docs) {
+      newList.push(x.data())
+    }
+    setListFavorite(newList)
+  }
+  useEffect(() => { Favorite() }, [speclist])
   const Category = async () => {
     const result = []
     const getData = await firestore().collection('category').get()
@@ -202,7 +214,6 @@ export const Browse02Screen = observer(function Browse02Screen() {
     //  console.log(result)
     setCate(result)
   }
-  const [speclist, setlist] = useState([])
   const SpecialList = async () => {
     const list = []
     const get = await firestore().collection('Product').get()
@@ -211,12 +222,24 @@ export const Browse02Screen = observer(function Browse02Screen() {
       // list.sort((a, b) => a.id - b.id)
     }
     // console.log(list)
-   
+
     setlist(list)
   }
   React.useEffect(() => { Category() }, [])
   React.useEffect(() => { SpecialList() }, [])
+
   const [numberItemsInCart, setNumberItemInCart] = React.useState(0)
+  //Dispatch
+  const CountTotalItemInCart = () => {
+    
+    let total = 0
+    Product.map((item) => (total += item.quantity)
+    )
+    
+    return total
+  }
+  console.log(Product)
+  console.log("total=", CountTotalItemInCart())
   return (
     <ScrollView style={ROOT}>
       {/* Section Header */}
@@ -245,7 +268,7 @@ export const Browse02Screen = observer(function Browse02Screen() {
               />
               {/* Badge shopping cart */}
               <View style={styles.badgetCartContainer}>
-                <Text style={styles.badgetCartText}>{numberItemsInCart}</Text>
+                <Text style={styles.badgetCartText}>{CountTotalItemInCart()}</Text>
               </View>
             </View>
           </View>
@@ -279,9 +302,10 @@ export const Browse02Screen = observer(function Browse02Screen() {
         title="Đặc Biệt"
         renderItem={() => speclist.map((val) => {
           const { id, name, price, categoryID } = val
+
           for (let item of CategoryItem) {
             if (item.id === categoryID) {
-              return <SpecialRenderItem key={id} type={item.name} title={name} price={price} />
+              return <SpecialRenderItem key={id} type={item.name} title={name} price={price} id={id} />
             }
           }
 
@@ -289,18 +313,19 @@ export const Browse02Screen = observer(function Browse02Screen() {
 
         }
         marginHorizontal={16}
-        // navigateTo={() => navigation.navigate(screens.ProductDetailScreen)}
+      // navigateTo={() => navigation.navigate(screens.ProductDetailScreen)}
       />
       {/* Section Search */}
       <View style={{ marginHorizontal: spacing[4], marginVertical: spacing[4] }}>
-        <SearchControlPanel/>
+        <SearchControlPanel />
         {/* Search Item */}
         <View>
           {speclist.map((vals) => {
-            const { id, name, price, categoryID } = vals
+            const { id,name, price, categoryID } = vals
+            
             for (let x of CategoryItem) {
               if (x.id === categoryID)
-                return <SearchRenderItem
+                return <SearchRenderItem product={vals}
                   navigateTo={() => navigation.navigate(screens.ProductDetailScreen)}
                   counterClick={(value: number) => setNumberItemInCart(numberItemsInCart + value)}
                   key={id} type={x.name} title={name} price={price}
@@ -312,4 +337,9 @@ export const Browse02Screen = observer(function Browse02Screen() {
       </View>
     </ScrollView>
   )
+}
+
+const mapStatetoProps = (state) => ({
+  Product: state.data.Product
 })
+export default connect(mapStatetoProps, null)(Browse02Screen)

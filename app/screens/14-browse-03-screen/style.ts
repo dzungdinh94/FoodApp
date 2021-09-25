@@ -67,4 +67,16 @@ export default StyleSheet.create({
         marginLeft:16
     },
     favoriteToggleContainer: { left: 143, zIndex: 1,position:'absolute' },
+    badgetCartContainer: {
+        position: "absolute",
+        top: -8,
+        right: -8,
+        backgroundColor: color.palette.angry,
+        width: 18,
+        height: 18,
+        borderRadius: 20,
+        alignItems: "center",
+        justifyContent: "center",
+      },
+      badgetCartText: { color: color.palette.white, fontSize: 11 },
 })

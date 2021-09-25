@@ -67,7 +67,7 @@ export const SignInScreen = observer(function SignInScreen() {
 
       isLoading(true)
       try {
-        await auth().signInWithEmailAndPassword("linhnguyenchi227@gmail.com","123456")
+        await auth().signInWithEmailAndPassword(email,password)
 
         await auth().onAuthStateChanged((user) => {
           console.log(user)
